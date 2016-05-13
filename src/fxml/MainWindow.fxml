@@ -4,13 +4,13 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
-   <top>
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.MainWindowController">
+    <top>
       <ToolBar prefHeight="40.0" prefWidth="200.0" BorderPane.alignment="CENTER">
         <items>
-          <Button mnemonicParsing="false" text="Compare" />
-            <Button mnemonicParsing="false" text="CopyToRight" />
-            <Button mnemonicParsing="false" text="CopyToLeft" />
+          <Button mnemonicParsing="false" text="Compare" onAction="#handelCompareButtonAction"/>
+            <Button mnemonicParsing="false" text="CopyToRight" onAction="#handleCopyToRightButtonAction"/>
+            <Button mnemonicParsing="false" text="CopyToLeft" onAction="#handelCopyToLeftButtonAction"/>
         </items>
       </ToolBar>
    </top>
@@ -26,7 +26,7 @@
                         <Button mnemonicParsing="false" text="Save" />
                     </items>
                   </ToolBar>
-                  <TextArea prefHeight="318.0" prefWidth="302.0" />
+                  <TextArea prefHeight="160.0" prefWidth="200.0" />
                </children>
             </VBox>
             <VBox prefHeight="200.0" prefWidth="100.0">
@@ -38,7 +38,7 @@
                         <Button mnemonicParsing="false" text="Save" />
                      </items>
                   </ToolBar>
-                  <TextArea prefHeight="318.0" prefWidth="290.0" />
+                  <TextArea prefHeight="160.0" prefWidth="200.0" />
                </children>
             </VBox>
         </items>
