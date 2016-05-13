@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <top>
+      <ToolBar prefHeight="40.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+        <items>
+          <Button mnemonicParsing="false" text="Compare" />
+            <Button mnemonicParsing="false" text="CopyToRight" />
+            <Button mnemonicParsing="false" text="CopyToLeft" />
+        </items>
+      </ToolBar>
+   </top>
+   <center>
+      <SplitPane dividerPositions="0.5" prefHeight="160.0" prefWidth="200.0" BorderPane.alignment="CENTER" >
+        <items>
+            <VBox prefHeight="200.0" prefWidth="100.0">
+               <children>
+                  <ToolBar prefHeight="40.0" prefWidth="200.0">
+                    <items>
+                      <Button mnemonicParsing="false" text="Load" />
+                        <Button mnemonicParsing="false" text="Edit" />
+                        <Button mnemonicParsing="false" text="Save" />
+                    </items>
+                  </ToolBar>
+                  <TextArea prefHeight="318.0" prefWidth="302.0" />
+               </children>
+            </VBox>
+            <VBox prefHeight="200.0" prefWidth="100.0">
+               <children>
+                  <ToolBar prefHeight="40.0" prefWidth="200.0">
+                     <items>
+                        <Button mnemonicParsing="false" text="Load" />
+                        <Button mnemonicParsing="false" text="Edit" />
+                        <Button mnemonicParsing="false" text="Save" />
+                     </items>
+                  </ToolBar>
+                  <TextArea prefHeight="318.0" prefWidth="290.0" />
+               </children>
+            </VBox>
+        </items>
+      </SplitPane>
+   </center>
+</BorderPane>
