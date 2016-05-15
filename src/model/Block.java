@@ -14,9 +14,15 @@ public class Block implements StateUsable{
 	private int state;
 	
 	public Block() {
+		setState(SPACE);
 		setStartNumber(-1);
 		setNumberOfLine(0);
-		setState(SPACE);
+	}
+	
+	public Block(int startNumber, int numberOfLine, int state) {
+		setState(state);
+		setStartNumber(startNumber);
+		setNumberOfLine(numberOfLine);
 	}
 	
 	public void setStartNumber(int startNumber) {
