@@ -20,10 +20,11 @@ public class LCS implements LCSInterface {
 	}
 	
 	private String makeLCS(String firstString, String secondString) {
+		//다음의 두 이차원 배열에서 각 길이에 +1 씩 있는 이유는 0 ~ StringLength 까지 사용하기 때문이다.(StringLenth -1 이 아니다)
 		//table[i][j]는 a[i]와 b[j] 사이의 LCS의 길이를 의미한다.
-		int[][] table = new int[firstString.length()][secondString.length()];
+		int[][] table = new int[firstString.length() + 1][secondString.length() + 1];
 		//restore[i][j]는 backtracking을 위한 것으로, 어느 방향에서 이어져 왔는지를 의미한다.
-		int[][] restore = new int[firstString.length()][secondString.length()];
+		int[][] restore = new int[firstString.length() + 1][secondString.length() + 1];
 		
 		//initialization.
 		initialize(table, restore, firstString.length(), secondString.length());
