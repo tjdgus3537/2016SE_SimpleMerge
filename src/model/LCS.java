@@ -15,6 +15,10 @@ public class LCS implements LCSInterface {
 	private final int UP_AND_LEFT = 3;
 	
 	public String getLCS(String firstString, String secondString) {
+		//만약 둘 중 하나라도 null이면 null을 return
+		if(firstString == null || secondString == null)
+			return null;
+		
 		return makeLCS(firstString, secondString);
 	}
 	
