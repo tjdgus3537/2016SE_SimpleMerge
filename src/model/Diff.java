@@ -68,13 +68,15 @@ public class Diff implements DiffInterface, StateUsable{
 		lineStateArrayListOfLeft = transformCharStateToLineState(left, charStateArrayOfLeft);
 		lineStateArrayListOfRight = transformCharStateToLineState(right, charStateArrayOfRight);
 		
+		//위에서 얻은 line 단위의 변화 여부를 이용하여 block으로 묶는다.
 		blockArrayListOfLetf = getBlockArrayList(lineStateArrayListOfLeft);
 		blockArrayListOfRight = getBlockArrayList(lineStateArrayListOfRight);
 		
-		return makePairBlockArrayList(blockArrayListOfLetf, blockArrayListOfRight);
+		//block들 사이에 SPACE block을 채워 넣어서 line을 일치하게 만든다.
+		return putSpaceBlocks(blockArrayListOfLetf, blockArrayListOfRight);
 	}
 	
-	private PairBlockArrayList makePairBlockArrayList(ArrayList<Block> left, ArrayList<Block> right) {
+	private PairBlockArrayList putSpaceBlocks(ArrayList<Block> left, ArrayList<Block> right) {
 		PairBlockArrayList pairBlockArrayList = new PairBlockArrayList();
 		Block block;
 		int leftIndex = 0, rightIndex = 0;
