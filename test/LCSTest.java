@@ -97,4 +97,20 @@ public class LCSTest {
 		
 		assertEquals("abcdfgjz", lcs_output);
 	}
+	
+	//정상적인 형태의 임의의 case
+	@Test
+	public void testGetLCS11() {
+		String lcs_output = lcs.getLCS("1234", "1224533324");
+		
+		assertEquals("1234", lcs_output);
+	}
+	
+	//정상적인 형태의 임의의 case
+	@Test
+	public void testGetLCS12() {
+		String lcs_output = lcs.getLCS("thisisatest", "testing123testing");
+		
+		assertEquals("tsitest", lcs_output);
+	}
 }
