@@ -8,7 +8,7 @@ package model;
  * 즉, SPACE 상태일 때는 항상 startNumber가 -1 이다.
  */
 
-public class Block implements StateUsable{
+public class Block implements BlockStateUsable{
 	private int startNumber;
 	private int numberOfLine;
 	private int state;
