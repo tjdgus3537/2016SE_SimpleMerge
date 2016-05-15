@@ -65,6 +65,8 @@ public class Diff implements DiffInterface, StateUsable{
 		lineStateArrayListOfLeft = transformCharStateToLineState(left, charStateArrayOfLeft);
 		lineStateArrayListOfRight = transformCharStateToLineState(right, charStateArrayOfRight);
 		
+		blockArrayListOfLetf = getBlockArrayList(lineStateArrayListOfLeft);
+		blockArrayListOfRight = getBlockArrayList(lineStateArrayListOfRight);
 		
 		return null;
 	}
