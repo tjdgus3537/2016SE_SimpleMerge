@@ -71,7 +71,7 @@ public class LCSTest {
 	public void testGetLCS7() {
 		String lcs_output = lcs.getLCS("abcbdab", "bdcaba");
 		
-		assertEquals("bcba", lcs_output);
+		assertEquals("bdab", lcs_output);
 	}
 	
 	//정상적인 형태의 임의의 case
