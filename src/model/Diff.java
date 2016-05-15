@@ -2,14 +2,10 @@ package model;
 
 import java.util.ArrayList;
 
-import org.easymock.tests.GenericTest.B;
-
 public class Diff implements DiffInterface, StateUsable{
 
-	@Override
 	public PairBlockArrayList compare(String left, String right) {
-		// TODO Auto-generated method stub
-		return null;
+		return makePairBlockArrayList(left, right);
 	}
 
 	@Override
