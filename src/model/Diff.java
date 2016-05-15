@@ -2,6 +2,11 @@ package model;
 
 import java.util.ArrayList;
 
+/**
+ * Created by Seonghyeon on 5/15/2016.
+ * Diff Interface를 implement
+ */
+
 public class Diff implements DiffInterface, StateUsable{
 
 	public PairBlockArrayList compare(String left, String right) {
