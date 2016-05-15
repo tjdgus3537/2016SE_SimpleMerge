@@ -81,18 +81,24 @@ public class Diff implements DiffInterface, StateUsable{
 		Block block;
 		int leftIndex = 0, rightIndex = 0;
 		
+		//양 쪽 모두 index < size 여야지 BOF error가 나지 않는다.
 		while (leftIndex < left.size() && rightIndex < right.size()) {
+			//양 쪽 모두 UNCHANGED이면 양쪽에 모두 넣어준다.
 			if (left.get(leftIndex).getState() == UNCHANGED && right.get(rightIndex).getState() == UNCHANGED) {
 				pairBlockArrayList.addLeft(left.get(leftIndex++));
 				pairBlockArrayList.addRight(right.get(rightIndex++));
 			}
+			//왼쪽이 UNCHANGED가 나올 때까지(즉 지금 CHANGED인 동안), 여기에 대응하는 오른쪽에 SPACE block을 채워 넣어주고,
+			//현재의 왼쪽 block을 왼쪽에 넣는다.
 			while (leftIndex < left.size() && left.get(leftIndex).getState() == CHANGED) {
-				block = new Block(-1, leftIndex, SPACE);
+				block = new Block(-1, left.get(leftIndex).getNumberOfLine(), SPACE);
 				pairBlockArrayList.addLeft(left.get(leftIndex++));
 				pairBlockArrayList.addRight(block);
 			}
+			//오른쪽이 UNCHANGED가 나올 때까지(즉 지금 CHANGED인 동안), 여기에 대응하는 왼쪽에 SPACE block을 채워 넣어주고,
+			//현재의 오른쪽 block을 오른쪽에 넣는다.
 			while (rightIndex < right.size() && right.get(rightIndex).getState() == CHANGED) {
-				block = new Block(-1, rightIndex, SPACE);
+				block = new Block(-1, right.get(rightIndex).getNumberOfLine(), SPACE);
 				pairBlockArrayList.addLeft(block);
 				pairBlockArrayList.addRight(right.get(rightIndex++));
 			}
