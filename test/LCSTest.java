@@ -1,8 +1,7 @@
-package model;
-
 import static org.junit.Assert.*;
 import model.LCS;
 
+import org.junit.Before;
 import org.junit.Test;
 
 /**
@@ -11,13 +10,18 @@ import org.junit.Test;
  */
 
 public class LCSTest {
+	private LCS lcs;
+
+	@Before
+	public void setUp() throws Exception {
+		LCS lcs = new LCS();
+	}
 
 	@Test
 	public void testGetLCS1() {
-		LCS lcs;
 		String lcs_output = lcs.getLCS("abcdefg", "cdeabfg");
 		
-		assertEquals(true, lcs_output.equals("cdef"));
+		assertEquals("cdefg", lcs_output);
 	}
 
 }
