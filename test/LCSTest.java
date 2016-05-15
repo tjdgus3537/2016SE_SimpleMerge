@@ -14,7 +14,7 @@ public class LCSTest {
 
 	@Before
 	public void setUp() throws Exception {
-		LCS lcs = new LCS();
+		lcs = new LCS();
 	}
 
 	@Test
