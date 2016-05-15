@@ -89,4 +89,12 @@ public class LCSTest {
 		
 		assertEquals("a\nb\n", lcs_output);
 	}
+	
+	//정상적인 형태의 임의의 case
+	@Test
+	public void testGetLCS10() {
+		String lcs_output = lcs.getLCS("abcdfghjqz", "abcdefgijkrxyz");
+		
+		assertEquals("abcdfgjz", lcs_output);
+	}
 }
