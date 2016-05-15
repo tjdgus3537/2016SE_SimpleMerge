@@ -38,11 +38,11 @@ public class PairBlockArrayList {
 		return right;
 	}
 	
-	public void leftAdd(Block b) {
+	public void addLeft(Block b) {
 		left.add(b);
 	}
 	
-	public void rightAdd(Block b) {
+	public void addRight(Block b) {
 		right.add(b);
 	}
 }
