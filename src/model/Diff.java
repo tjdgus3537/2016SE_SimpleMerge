@@ -50,8 +50,15 @@ public class Diff implements DiffInterface, StateUsable{
 	
 	private PairBlockArrayList makePairBlockArrayList(String left, String right) {
 		String lcs = getLCS(left, right);
-		int[] stateArrayOfLeft;
-		int[] stateArrayOfRight;
+		int[] charStateArrayOfLeft;
+		int[] charStateArrayOfRight;
+		ArrayList<Integer> lineStateArrayListOfLeft;
+		ArrayList<Integer> lineStateArrayListOfRight;
+		
+		charStateArrayOfLeft = getStateArray(left, lcs);
+		charStateArrayOfRight = getStateArray(right, lcs);
+		
+		
 		
 		return null;
 	}
@@ -75,5 +82,37 @@ public class Diff implements DiffInterface, StateUsable{
 		}
 
 		return stateArray;
+	}
+	
+	private ArrayList<Integer> transformCharStateToLineState(String s, int[] charStateArray) {
+		ArrayList<Integer> lineStateArrayList = new ArrayList<Integer>();
+		int stateChecker;
+		int lineCheckIndex = 0;
+		
+		for (int i = 0; i < s.length(); i++) {
+			if (s.charAt(i) == '\n') {
+				stateChecker = UNCHANGED;
+				
+				for (; lineCheckIndex <= i; lineCheckIndex++) {
+					if (charStateArray[lineCheckIndex] == CHANGED)
+						stateChecker = CHANGED;
+				}
+				
+				lineStateArrayList.add(stateChecker);
+			}
+		}
+		
+		if (lineCheckIndex != s.length()) {
+			stateChecker = UNCHANGED;
+
+			for (; lineCheckIndex <= s.length(); lineCheckIndex++) {
+				if (charStateArray[lineCheckIndex] == CHANGED)
+					stateChecker = CHANGED;
+			}
+			
+			lineStateArrayList.add(stateChecker);
+		}
+		
+		return lineStateArrayList;
 	}
 }
