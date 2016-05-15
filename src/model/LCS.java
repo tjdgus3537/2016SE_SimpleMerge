@@ -72,6 +72,12 @@ public class LCS implements LCSInterface {
 						table[i][j] = table[i][j - 1];
 						restore[i][j] = LEFT;
 					}
+					else {
+						//LCS가 복수개일 때라도 그냥 하나만 구하기 때문에 짧은 string에서는 문제 발생 가능
+						//만약 같은 길이라면 위는 무시하고 왼쪽을 따라감
+						table[i][j] = table[i][j - 1];
+						restore[i][j] = LEFT;
+					}
 				}
 			}
 		}
