@@ -5,7 +5,7 @@ package model;
  * 상태를 정의해 둔 interface
  */
 
-public interface BlockStateUsable {
+public interface StateUsable {
 	int UNCHANGED = 0;
 	int CHANGED = 1;
 	int SPACE = 2;
