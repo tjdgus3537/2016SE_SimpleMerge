@@ -4,11 +4,11 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane prefHeight="327.0" prefWidth="263.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane fx:id="rootPane" prefHeight="327.0" prefWidth="263.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.EditorPaneFXController">
    <children>
       <ToolBar maxHeight="40.0" minHeight="-Infinity" prefHeight="40.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <items>
-            <Button mnemonicParsing="false" text="Load" />
+            <Button mnemonicParsing="false" text="Load" onAction="#handleLoadAction"/>
             <Button mnemonicParsing="false" text="Edit" />
             <Button mnemonicParsing="false" text="Save" />
          </items>

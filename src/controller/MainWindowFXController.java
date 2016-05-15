@@ -16,7 +16,7 @@ import java.util.ResourceBundle;
  * Created by Donghwan on 5/14/2016.
  * 메인 윈도우의 액션을 관리하는 컨트롤러
  */
-public class MainWindowController implements Initializable{
+public class MainWindowFXController implements Initializable{
     @FXML
     private SplitPane editorSplitPane;
 

@@ -2,6 +2,7 @@
  * Created by Donghwan on 5/14/2016.
  */
 
+import controller.MainWindowFXController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -16,7 +17,8 @@ public class AppMain extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        Parent root = FXMLLoader.load(getClass().getResource("/fxml/MainWindow.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/MainWindow.fxml"));
+        Parent root = fxmlLoader.load();
         Scene scene = new Scene(root);
         primaryStage.setTitle("SimpleMerge");
         primaryStage.setScene(scene);
