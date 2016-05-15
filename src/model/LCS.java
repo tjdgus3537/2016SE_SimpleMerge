@@ -14,10 +14,8 @@ public class LCS implements LCSInterface {
 	private final int LEFT = 2;
 	private final int UP_AND_LEFT = 3;
 	
-	@Override
 	public String getLCS(String firstString, String secondString) {
-		// TODO Auto-generated method stub
-		return null;
+		return makeLCS(firstString, secondString);
 	}
 	
 	private String makeLCS(String firstString, String secondString) {
