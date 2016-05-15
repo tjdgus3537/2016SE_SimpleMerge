@@ -1,5 +1,6 @@
 import static org.junit.Assert.*;
 import model.LCS;
+import model.LCSInterface;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -10,7 +11,7 @@ import org.junit.Test;
  */
 
 public class LCSTest {
-	private LCS lcs;
+	private LCSInterface lcs;
 
 	@Before
 	public void setUp() throws Exception {
