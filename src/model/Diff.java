@@ -42,5 +42,38 @@ public class Diff implements DiffInterface, StateUsable{
 		return null;
 	}
 	
+	private String getLCS(String left, String right) {
+		LCSInterface lcs = new LCS();
+		
+		return lcs.getLCS(left, right);
+	}
 	
+	private PairBlockArrayList makePairBlockArrayList(String left, String right) {
+		String lcs = getLCS(left, right);
+		int[] stateArrayOfLeft;
+		int[] stateArrayOfRight;
+		
+		return null;
+	}
+	
+	private int[] getStateArray(String s, String lcs) {
+		int[] stateArray = new int[s.length()];
+		int lcs_index = 0;
+		
+		for (int i = 0; i < s.length(); i++) {
+			if (lcs_index == lcs.length()) {
+				stateArray[i] = CHANGED;
+				continue;
+			}
+			if (s.charAt(i) == lcs.charAt(lcs_index)) {
+				stateArray[i] = UNCHANGED;
+				lcs_index++;
+			}
+			else {
+				stateArray[i] = CHANGED;
+			}
+		}
+
+		return stateArray;
+	}
 }
