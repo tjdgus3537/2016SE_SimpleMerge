@@ -5,6 +5,7 @@ package model;
  * LCS interface에 대한 구현
  * Longest Common Subsequence(LCS) algorithm을 java로 구현
  * LCS algorithm을 이해하고 싶으면 https://en.wikipedia.org/wiki/Longest_common_subsequence_problem 을 참고 
+ * time complexity와 space complexity 모두 O(mn) (단, m은 첫 번째 string의 길이, n은 두 번째 string의 길이)
  */
 
 public class LCS implements LCSInterface {
@@ -30,9 +31,9 @@ public class LCS implements LCSInterface {
 		initialize(table, restore, firstString.length(), secondString.length());
 		
 		//implementation.
-
+		mainLoop(table, restore, firstString, secondString);
 		
-		return null;
+		return backtrack(table, restore, firstString, secondString);
 	}
 	
 	private void initialize(int[][] table, int[][] restore, int firstStringLength, int secondStringLength) {
@@ -73,4 +74,37 @@ public class LCS implements LCSInterface {
 			}
 		}
 	}
+	
+	private String backtrack(int[][] table, int[][] restore, String firstString, String secondString) {
+		//restore과 table를 이용해서 backtracking 하여 LCS를 얻어낸다.
+		int i = firstString.length(), j = secondString.length();
+		int size = table[firstString.length()][secondString.length()];
+		int index = size - 1;
+		char[] lcs_array = new char[size];
+
+		while (restore[i][j] != NONE) {
+			//firstString.charAt(i) == secondString.charAt(j)
+			if (restore[i][j] == UP_AND_LEFT) {
+				//string is starting from 0, so need to use i - 1, j - 1
+				lcs_array[index] = firstString.charAt(i - 1);
+				index--;
+				i--;
+				j--;
+			}
+			else {
+				if (restore[i][j] == UP) {
+					i--;
+				}
+				else if (restore[i][j] == LEFT) {
+					j--;
+				}
+			}
+		}
+
+		return new String(lcs_array);
+	}
+	
+	
+	
+	
 }
