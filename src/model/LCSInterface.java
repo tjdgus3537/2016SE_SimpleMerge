@@ -9,5 +9,5 @@ package model;
  */
 
 public interface LCSInterface {
-	public String getLCS(String firstString, String secondString);
+	public String getLCS(String left, String right);
 }

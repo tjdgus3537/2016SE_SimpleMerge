@@ -14,52 +14,52 @@ public class LCS implements LCSInterface {
 	private final int LEFT = 2;
 	private final int UP_AND_LEFT = 3;
 	
-	public String getLCS(String firstString, String secondString) {
+	public String getLCS(String left, String right) {
 		//만약 둘 중 하나라도 null이면 null을 return
-		if(firstString == null || secondString == null)
+		if(left == null || right == null)
 			return null;
 		
-		return makeLCS(firstString, secondString);
+		return makeLCS(left, right);
 	}
 	
-	private String makeLCS(String firstString, String secondString) {
+	private String makeLCS(String left, String right) {
 		//다음의 두 이차원 배열에서 각 길이에 +1 씩 있는 이유는 0 ~ StringLength 까지 사용하기 때문이다.(StringLenth -1 이 아니다)
 		//table[i][j]는 a[i]와 b[j] 사이의 LCS의 길이를 의미한다.
-		int[][] table = new int[firstString.length() + 1][secondString.length() + 1];
+		int[][] table = new int[left.length() + 1][right.length() + 1];
 		//restore[i][j]는 backtracking을 위한 것으로, 어느 방향에서 이어져 왔는지를 의미한다.
-		int[][] restore = new int[firstString.length() + 1][secondString.length() + 1];
+		int[][] restore = new int[left.length() + 1][right.length() + 1];
 		
 		//initialization.
-		initialize(table, restore, firstString.length(), secondString.length());
+		initialize(table, restore, left.length(), right.length());
 		
 		//implementation.
-		mainLoop(table, restore, firstString, secondString);
+		mainLoop(table, restore, left, right);
 		
-		return backtrack(table, restore, firstString, secondString);
+		return backtrack(table, restore, left, right);
 	}
 	
-	private void initialize(int[][] table, int[][] restore, int firstStringLength, int secondStringLength) {
+	private void initialize(int[][] table, int[][] restore, int leftLength, int rightLength) {
 		//initialize table[x, 0] and table[0, y]
 		//(0 <= x <= length of first string, 0 <= y <= length of second string).
 		//"<"가 아니라 "<="를 사용하는 것이 중요하다.
-		for (int i = 0; i <= firstStringLength; i++) {
+		for (int i = 0; i <= leftLength; i++) {
 			table[i][0] = 0;
 			restore[i][0] = NONE;
 		}
 
-		for (int i = 0; i <= secondStringLength; i++) {
+		for (int i = 0; i <= rightLength; i++) {
 			table[0][i] = 0;
 			restore[0][i] = NONE;
 		}
 	}
 
-	private void mainLoop(int[][] table, int[][] restore, String firstString, String secondString) {
+	private void mainLoop(int[][] table, int[][] restore, String left, String right) {
 		//main loop for implementing LCS algorithm.
 		//"<"가 아니라 "<="를 사용하는 것이 중요하다.
-		for (int i = 1; i <= firstString.length(); i++) {
-			for (int j = 1; j <= secondString.length(); j++) {
+		for (int i = 1; i <= left.length(); i++) {
+			for (int j = 1; j <= right.length(); j++) {
 				//string is starting from 0, so need to use i - 1, j - 1
-				if (firstString.charAt(i - 1) == secondString.charAt(j - 1)) {
+				if (left.charAt(i - 1) == right.charAt(j - 1)) {
 					table[i][j] = table[i - 1][j - 1] + 1;
 					restore[i][j] = UP_AND_LEFT;
 				}
@@ -83,18 +83,18 @@ public class LCS implements LCSInterface {
 		}
 	}
 	
-	private String backtrack(int[][] table, int[][] restore, String firstString, String secondString) {
+	private String backtrack(int[][] table, int[][] restore, String left, String right) {
 		//restore과 table를 이용해서 backtracking 하여 LCS를 얻어낸다.
-		int i = firstString.length(), j = secondString.length();
-		int size = table[firstString.length()][secondString.length()];
+		int i = left.length(), j = right.length();
+		int size = table[left.length()][right.length()];
 		int index = size - 1;
 		char[] lcs_array = new char[size];
 
 		while (restore[i][j] != NONE) {
-			//firstString.charAt(i) == secondString.charAt(j)
+			//left.charAt(i) == right.charAt(j)
 			if (restore[i][j] == UP_AND_LEFT) {
 				//string is starting from 0, so need to use i - 1, j - 1
-				lcs_array[index] = firstString.charAt(i - 1);
+				lcs_array[index] = left.charAt(i - 1);
 				index--;
 				i--;
 				j--;
