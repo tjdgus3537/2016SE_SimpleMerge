@@ -57,4 +57,36 @@ public class LCSTest {
 		
 		assertEquals(null, lcs_output);
 	}
+	
+	//둘 다 null인 경우
+	@Test
+	public void testGetLCS6() {
+		String lcs_output = lcs.getLCS(null, null);
+		
+		assertEquals(null, lcs_output);
+	}
+	
+	//정상적인 형태의 임의의 case
+	@Test
+	public void testGetLCS7() {
+		String lcs_output = lcs.getLCS("abcbdab", "bdcaba");
+		
+		assertEquals("bcba", lcs_output);
+	}
+	
+	//정상적인 형태의 임의의 case
+	@Test
+	public void testGetLCS8() {
+		String lcs_output = lcs.getLCS("ACAYKP", "CAPCAK");
+		
+		assertEquals("ACAK", lcs_output);
+	}
+	
+	//정상적인 형태의 임의의 case
+	@Test
+	public void testGetLCS9() {
+		String lcs_output = lcs.getLCS("a\nb\nc\n", "\n\na\nb\n");
+		
+		assertEquals("a\nb\n", lcs_output);
+	}
 }
