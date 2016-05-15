@@ -2,6 +2,8 @@ package model;
 
 import java.util.ArrayList;
 
+import org.easymock.tests.GenericTest.B;
+
 public class Diff implements DiffInterface, StateUsable{
 
 	@Override
@@ -68,7 +70,32 @@ public class Diff implements DiffInterface, StateUsable{
 		blockArrayListOfLetf = getBlockArrayList(lineStateArrayListOfLeft);
 		blockArrayListOfRight = getBlockArrayList(lineStateArrayListOfRight);
 		
-		return null;
+		return makePairBlockArrayList(blockArrayListOfLetf, blockArrayListOfRight);
+	}
+	
+	private PairBlockArrayList makePairBlockArrayList(ArrayList<Block> left, ArrayList<Block> right) {
+		PairBlockArrayList pairBlockArrayList = new PairBlockArrayList();
+		Block block;
+		int leftIndex = 0, rightIndex = 0;
+		
+		while (leftIndex < left.size() && rightIndex < right.size()) {
+			if (left.get(leftIndex).getState() == UNCHANGED && right.get(rightIndex).getState() == UNCHANGED) {
+				pairBlockArrayList.addLeft(left.get(leftIndex++));
+				pairBlockArrayList.addRight(right.get(rightIndex++));
+			}
+			while (leftIndex < left.size() && left.get(leftIndex).getState() == CHANGED) {
+				block = new Block(-1, leftIndex, SPACE);
+				pairBlockArrayList.addLeft(left.get(leftIndex++));
+				pairBlockArrayList.addRight(block);
+			}
+			while (rightIndex < right.size() && right.get(rightIndex).getState() == CHANGED) {
+				block = new Block(-1, rightIndex, SPACE);
+				pairBlockArrayList.addLeft(block);
+				pairBlockArrayList.addRight(right.get(rightIndex++));
+			}
+		}
+		
+		return pairBlockArrayList;
 	}
 	
 	private int[] getStateArray(String s, String lcs) {
