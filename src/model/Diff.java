@@ -54,6 +54,8 @@ public class Diff implements DiffInterface, StateUsable{
 		int[] charStateArrayOfRight;
 		ArrayList<Integer> lineStateArrayListOfLeft;
 		ArrayList<Integer> lineStateArrayListOfRight;
+		ArrayList<Block> blockArrayListOfLetf;
+		ArrayList<Block> blockArrayListOfRight;
 		
 		//string과 lcs를 비교해서 원래의 string에서 각 char가 변화 여부에 대해 알아본다.
 		charStateArrayOfLeft = getStateArray(left, lcs);
@@ -126,5 +128,32 @@ public class Diff implements DiffInterface, StateUsable{
 		}
 		
 		return lineStateArrayList;
+	}
+	
+	private ArrayList<Block> getBlockArrayList(ArrayList<Integer> lineStateArrayList) {
+		ArrayList<Block> blockArrayList = new ArrayList<Block>();
+		Block block;
+		int lineCheckIndex = 0;
+		
+		for (int i = 0; i < lineStateArrayList.size() - 1; i++) {
+			if (lineStateArrayList.get(i) != lineStateArrayList.get(i + 1)) {
+				//길이는 끝나는 지점 - 시작 지점 + 1
+				block = new Block(lineCheckIndex, i - lineCheckIndex + 1, lineStateArrayList.get(i));
+				blockArrayList.add(block);
+				lineCheckIndex = i + 1;
+			}
+		}
+
+		//위에서 line을 block화 하는 작업에서 마지막 줄이 수행되지 않았다면, 그 줄은 1줄로 이루어진 block일 것이다.
+		if (lineCheckIndex < lineStateArrayList.size()) {
+			//길이는 끝나는 지점 - 시작 지점 + 1
+			//3번째 parameter에서 size - 1의 원소를 사용하는 이유는 ArrayList가 0에서 시작하기 때문이다.
+			block = new Block(lineCheckIndex, (lineStateArrayList.size() - 1) - lineCheckIndex + 1, 
+					lineStateArrayList.get(lineStateArrayList.size() - 1));
+			lineCheckIndex = (lineStateArrayList.size() - 1) + 1;
+			blockArrayList.add(block);
+		}
+		
+		return blockArrayList;
 	}
 }
