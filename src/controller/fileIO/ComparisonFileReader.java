@@ -1,14 +1,33 @@
 package controller.fileIO;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 
 /**
  * Created by Donghwan on 5/12/2016.
- * 지정된 텍스트 파일 경로를 받아서 파일 내용을 문자열 형태로 반환하는 클래스
+
  */
 public class ComparisonFileReader {
-
-    public StringBuffer readFile(File source){
-        return null;
+	
+	StringBuffer content = new StringBuffer();
+	
+    public StringBuffer readFile(File source) throws IOException{
+    	try {
+			FileReader fileReader = new FileReader(source);
+			BufferedReader reader = new BufferedReader(fileReader);
+			
+			String a= null;
+			
+			while((a=reader.readLine())!=null){
+				content.append(a);
+				content.append("\n");
+			}
+			content.deleteCharAt(content.length()-1);
+		} catch (FileNotFoundException e) {
+		}
+        return content;
     }
 }

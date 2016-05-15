@@ -4,11 +4,11 @@ import static org.junit.Assert.assertEquals;
 
 /**
  * Created by Donghwan on 5/12/2016.
- * 파일 읽기 기능과 관련된 테스트
+ *
  */
 public class FileReadTest{
     String testFileResult;
-    ComparisonFileReader fileReader;
+    ComparisonFileReader fileReader=new ComparisonFileReader();
 
     @org.junit.Before
     public void setUp() throws Exception {
@@ -16,12 +16,12 @@ public class FileReadTest{
                 "world\n" +
                 "and\n" +
                 "java";
-        // TODO FileReader를 추가
+        // TODO FileReader
     }
 
     @org.junit.Test
     public void testReadFile() throws Exception {
         // TODO
-        assertEquals(testFileResult, fileReader.readFile(new File("readTestFile.txt")).toString());
+        assertEquals(testFileResult, fileReader.readFile(new File("test"+"/readTestFile.txt")).toString());
     }
 }
