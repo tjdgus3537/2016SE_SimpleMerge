@@ -6,16 +6,16 @@
 <?import javafx.scene.layout.*?>
 <?import java.net.URL?>
 
-<AnchorPane styleClass="background" prefHeight="500.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.MainWindowFXController">
+<AnchorPane id="root-pane" styleClass="background" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.MainWindowFXController">
    <children>
-      <ToolBar styleClass="background" maxHeight="40.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="40.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+      <ToolBar id="compare-tool-bar" nodeOrientation="LEFT_TO_RIGHT" styleClass="background" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
          <items>
-            <Button id="compare_button" mnemonicParsing="false" onAction="#handleCompareButtonAction" />
-            <Button id="copy_to_right_button" mnemonicParsing="false" onAction="#handleCopyToRightButtonAction" />
-            <Button id="copy_to_left_button" mnemonicParsing="false" onAction="#handelCopyToLeftButtonAction" />
+            <Button id="compare-button" mnemonicParsing="false" onAction="#handleCompareButtonAction" />
+            <Button id="copy-to-right-button" mnemonicParsing="false" onAction="#handleCopyToRightButtonAction" />
+            <Button id="copy-to-left-button" mnemonicParsing="false" onAction="#handelCopyToLeftButtonAction" />
          </items>
       </ToolBar>
-      <SplitPane styleClass="background" fx:id="editorSplitPane" nodeOrientation="LEFT_TO_RIGHT" prefHeight="260.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="40.0" />
+      <SplitPane fx:id="editorSplitPane" nodeOrientation="LEFT_TO_RIGHT" styleClass="background" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="40.0" />
    </children>
     <stylesheets>
         <URL value="@css/MainWindow.css" />

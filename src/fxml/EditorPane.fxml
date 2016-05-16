@@ -1,20 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.*?>
+<?import java.net.*?>
 <?import javafx.scene.control.*?>
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
-
 <?import java.net.URL?>
+
 <AnchorPane fx:id="rootPane" styleClass="background" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.EditorPaneFXController">
    <children>
-      <ToolBar styleClass="background" maxHeight="40.0" minHeight="-Infinity" prefHeight="40.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <ToolBar id="file-tool-bar" styleClass="background" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <items>
-            <Button id="load_button" mnemonicParsing="false" onAction="#handleLoadAction"/>
-            <Button id="edit_button" mnemonicParsing="false" />
-            <Button id="save_button" mnemonicParsing="false" />
+            <Button id="load-button" mnemonicParsing="false" onAction="#handleLoadAction" />
+            <Button id="edit-button" mnemonicParsing="false" />
+            <Button id="save-button" mnemonicParsing="false" />
          </items>
       </ToolBar>
-      <TextArea styleClass="background" layoutX="3.0" layoutY="40.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="40.0" />
+      <TextArea layoutX="3.0" layoutY="40.0" styleClass="background" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="40.0" />
    </children>
     <stylesheets>
         <URL value="@css/EditorPane.css" />
