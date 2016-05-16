@@ -1,13 +1,25 @@
 package controller.fileIO;
 
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.IOException;
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.StandardOpenOption;
 
 /**
  * Created by Donghwan on 5/16/2016.
  * 프로그램에서 비교할 파일을 저장하는 파일
  */
 public class ComparisonFileWriter {
-    public void writeFile(File target, String content){
 
+    private static final Charset CHARSET = StandardCharsets.UTF_8;
+
+    public void writeFile(File target, String content) throws IOException{
+        try(BufferedWriter writer = Files.newBufferedWriter(target.toPath(),
+                CHARSET, StandardOpenOption.WRITE, StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING)){
+            writer.write(content);
+        }
     }
 }

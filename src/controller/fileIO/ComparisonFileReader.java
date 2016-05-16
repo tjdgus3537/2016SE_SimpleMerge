@@ -2,10 +2,9 @@ package controller.fileIO;
 
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.IOException;
 import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 
 /**
@@ -14,7 +13,7 @@ import java.nio.file.Files;
  */
 public class ComparisonFileReader {
 
-	private static final Charset CHARSET = Charset.forName("UTF-8");
+	private static final Charset CHARSET = StandardCharsets.UTF_8;
 
     public StringBuffer readFile(File source) throws IOException {
 		StringBuffer content = null;

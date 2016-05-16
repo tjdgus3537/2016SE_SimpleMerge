@@ -19,7 +19,8 @@ public class FileIOTest {
                 "world\n" +
                 "and\n" +
                 "java";
-        fileReader=new ComparisonFileReader();
+        fileReader = new ComparisonFileReader();
+        fileWriter = new ComparisonFileWriter();
     }
 
     @org.junit.Test
@@ -30,7 +31,7 @@ public class FileIOTest {
     @org.junit.Test
     public void testWriteFile() throws Exception {
         fileWriter.writeFile(new File("test/writeTestFile.txt"), testFileResult);
-        assertEquals(testFileResult, fileReader.readFile(new File("test/writeTestFile.txt")));
+        assertEquals(testFileResult, fileReader.readFile(new File("test/writeTestFile.txt")).toString());
     }
 
     @org.junit.After
