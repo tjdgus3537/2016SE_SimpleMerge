@@ -1,0 +1,48 @@
+@import url(https://fonts.googleapis.com/css?family=Roboto:400,700);
+
+.background {
+    -fx-background-color: #28282B;
+    -fx-border-color: #28282B;
+}
+
+.label {
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+}
+
+.text-area .content {
+    -fx-background-color: #252526;
+}
+
+.button {
+    -fx-text-fill: white;
+    -fx-font-family: 'Roboto', sans-serif;
+    -fx-font-weight: bold;
+    -fx-background-color: #3DB57D;
+}
+
+#load_button{
+    -fx-background-image: url("icon/open.png");
+    -fx-background-positon: center;
+    -fx-background-repeat: no-repeat;
+    -fx-background-size: contain;
+}
+
+#edit_button{
+    -fx-background-image: url("icon/edit.png");
+    -fx-background-positon: center;
+    -fx-background-repeat: no-repeat;
+    -fx-background-size: contain;
+}
+
+#save_button{
+    -fx-background-image: url("icon/save.png");
+    -fx-background-positon: center;
+    -fx-background-repeat: no-repeat;
+    -fx-background-size: contain;
+}
+
+.button:pressed {
+    -fx-background-color: #00bfa5;
+}

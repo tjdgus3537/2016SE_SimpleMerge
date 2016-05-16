@@ -4,15 +4,19 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane fx:id="rootPane" prefHeight="327.0" prefWidth="263.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.EditorPaneFXController">
+<?import java.net.URL?>
+<AnchorPane fx:id="rootPane" styleClass="background" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.EditorPaneFXController">
    <children>
-      <ToolBar maxHeight="40.0" minHeight="-Infinity" prefHeight="40.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <ToolBar styleClass="background" maxHeight="40.0" minHeight="-Infinity" prefHeight="40.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <items>
-            <Button mnemonicParsing="false" text="Load" onAction="#handleLoadAction"/>
-            <Button mnemonicParsing="false" text="Edit" />
-            <Button mnemonicParsing="false" text="Save" />
+            <Button id="load_button" mnemonicParsing="false" onAction="#handleLoadAction"/>
+            <Button id="edit_button" mnemonicParsing="false" />
+            <Button id="save_button" mnemonicParsing="false" />
          </items>
       </ToolBar>
-      <TextArea layoutX="3.0" layoutY="40.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="40.0" />
+      <TextArea styleClass="background" layoutX="3.0" layoutY="40.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="40.0" />
    </children>
+    <stylesheets>
+        <URL value="@css/EditorPane.css" />
+    </stylesheets>
 </AnchorPane>

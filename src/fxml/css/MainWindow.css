@@ -1,0 +1,49 @@
+@import url(https://fonts.googleapis.com/css?family=Roboto:400,700);
+
+.background {
+    -fx-background-color: #2D2D30;
+    -fx-border-color: #2D2D30;
+}
+
+.split-pane *.split-pane-divider {
+    -fx-background-color: transparent;
+    -fx-padding: 0 2 0 2;
+}
+
+.label {
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+}
+
+.button {
+    -fx-text-fill: white;
+    -fx-font-family: 'Roboto', sans-serif;
+    -fx-font-weight: bold;
+    -fx-background-color: #3DB57D;
+}
+
+#compare_button{
+    -fx-background-image: url("icon/compare.png");
+    -fx-background-positon: center;
+    -fx-background-repeat: no-repeat;
+    -fx-background-size: contain;
+}
+
+#copy_to_right_button{
+    -fx-background-image: url("icon/copytoright.png");
+    -fx-background-positon: center;
+    -fx-background-repeat: no-repeat;
+    -fx-background-size: contain;
+}
+
+#copy_to_left_button{
+    -fx-background-image: url("icon/copytoleft.png");
+    -fx-background-positon: center;
+    -fx-background-repeat: no-repeat;
+    -fx-background-size: contain;
+}
+
+.button:pressed {
+    -fx-background-color: #00bfa5;
+}

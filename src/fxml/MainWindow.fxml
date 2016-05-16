@@ -1,18 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.net.*?>
 <?import javafx.scene.control.*?>
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
+<?import java.net.URL?>
 
-<AnchorPane prefHeight="500.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.MainWindowFXController">
+<AnchorPane styleClass="background" prefHeight="500.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.MainWindowFXController">
    <children>
-      <ToolBar maxHeight="40.0" prefHeight="40.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+      <ToolBar styleClass="background" maxHeight="40.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="40.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
          <items>
-            <Button mnemonicParsing="false" onAction="#handleCompareButtonAction" text="Compare" />
-            <Button mnemonicParsing="false" onAction="#handleCopyToRightButtonAction" text="CopyToRight" />
-            <Button mnemonicParsing="false" onAction="#handelCopyToLeftButtonAction" text="CopyToLeft" />
+            <Button id="compare_button" mnemonicParsing="false" onAction="#handleCompareButtonAction" />
+            <Button id="copy_to_right_button" mnemonicParsing="false" onAction="#handleCopyToRightButtonAction" />
+            <Button id="copy_to_left_button" mnemonicParsing="false" onAction="#handelCopyToLeftButtonAction" />
          </items>
       </ToolBar>
-      <SplitPane fx:id="editorSplitPane" nodeOrientation="LEFT_TO_RIGHT" prefHeight="260.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="40.0" />
+      <SplitPane styleClass="background" fx:id="editorSplitPane" nodeOrientation="LEFT_TO_RIGHT" prefHeight="260.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="40.0" />
    </children>
+    <stylesheets>
+        <URL value="@css/MainWindow.css" />
+    </stylesheets>
 </AnchorPane>
