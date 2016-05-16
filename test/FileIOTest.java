@@ -6,9 +6,9 @@ import static org.junit.Assert.assertEquals;
 
 /**
  * Created by Donghwan on 5/12/2016.
- *
+ * 파일IO에 대한 테스트
  */
-public class FileReadTest{
+public class FileIOTest {
     String testFileResult;
     ComparisonFileReader fileReader;
     ComparisonFileWriter fileWriter;
