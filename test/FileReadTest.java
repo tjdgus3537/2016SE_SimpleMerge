@@ -1,4 +1,6 @@
 import controller.fileIO.ComparisonFileReader;
+import controller.fileIO.ComparisonFileWriter;
+
 import java.io.File;
 import static org.junit.Assert.assertEquals;
 
@@ -8,7 +10,8 @@ import static org.junit.Assert.assertEquals;
  */
 public class FileReadTest{
     String testFileResult;
-    ComparisonFileReader fileReader=new ComparisonFileReader();
+    ComparisonFileReader fileReader;
+    ComparisonFileWriter fileWriter;
 
     @org.junit.Before
     public void setUp() throws Exception {
@@ -16,12 +19,22 @@ public class FileReadTest{
                 "world\n" +
                 "and\n" +
                 "java";
-        // TODO FileReader
+        fileReader=new ComparisonFileReader();
     }
 
     @org.junit.Test
     public void testReadFile() throws Exception {
-        // TODO
-        assertEquals(testFileResult, fileReader.readFile(new File("test"+"/readTestFile.txt")).toString());
+        assertEquals(testFileResult, fileReader.readFile(new File("test/readTestFile.txt")).toString());
+    }
+
+    @org.junit.Test
+    public void testWriteFile() throws Exception {
+        fileWriter.writeFile(new File("test/writeTestFile.txt"), testFileResult);
+        assertEquals(testFileResult, fileReader.readFile(new File("test/writeTestFile.txt")));
+    }
+
+    @org.junit.After
+    public void tearDown() throws Exception{
+
     }
 }
