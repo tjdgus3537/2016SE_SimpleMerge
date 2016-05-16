@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.effect.*?>
 <?import javafx.geometry.*?>
 <?import java.net.*?>
 <?import javafx.scene.control.*?>
@@ -11,9 +12,21 @@
    <children>
       <ToolBar id="file-tool-bar" styleClass="background" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <items>
-            <Button id="load-button" mnemonicParsing="false" onAction="#handleLoadAction" />
-            <Button id="edit-button" mnemonicParsing="false" />
-            <Button id="save-button" mnemonicParsing="false" />
+            <Button id="load-button" mnemonicParsing="false" onAction="#handleLoadAction">
+                <tooltip>
+                    <Tooltip text="Load"/>
+                </tooltip>
+            </Button>
+            <Button id="edit-button" mnemonicParsing="false">
+                <tooltip>
+                    <Tooltip text="Edit"/>
+                </tooltip>
+            </Button>
+            <Button id="save-button" mnemonicParsing="false">
+                <tooltip>
+                    <Tooltip text="Save"/>
+                </tooltip>
+            </Button>
          </items>
       </ToolBar>
       <TextArea layoutX="3.0" layoutY="40.0" styleClass="background" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="40.0" />
