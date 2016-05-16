@@ -28,18 +28,6 @@ public class Diff implements DiffInterface, StateUsable{
 	}
 
 	@Override
-	public String allCopyToLeft(String left, String right) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public String allCopyToRight(String left, String right) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
 	public String ApplySpaceBlockToEnter(String s, ArrayList<Block> blocks) {
 		// TODO Auto-generated method stub
 		return null;

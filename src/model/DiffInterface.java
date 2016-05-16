@@ -15,15 +15,9 @@ import java.util.ArrayList;
  * blockCopyToRight - blockNumber에 해당하는 block을 left --> right 방향으로 
  * copy한 결과를 string으로 return.
  * 
- * allCopyToLeft - right의 모든 string을 right --> left 방향으로 copy한 결과를
- * string으로 return.
- * 
- * allCopyToRight - left의 모든 string을 left --> right 방향으로 copy한 결과를
- * string으로 return
- * 
  * ApplySpaceBlockToEnter - string과 block의 ArrayList인 blocks가 주어지면, blocks에
  * 있는 space block 부분들을 enter(개행)으로 변환하여 원래 string의 적합한 위치에 적용하여 그 string을
- * return.
+ * return --> 일단 이 기능은 다시 의논해 봐야 할 듯.
  */
 
 public interface DiffInterface {
@@ -34,10 +28,6 @@ public interface DiffInterface {
 	
 	public String blockCopyToRight(String left, String right, int blockNumber, 
 			PairBlockArrayList pairBlockArrayList);
-	
-	public String allCopyToLeft(String left, String right);
-	
-	public String allCopyToRight(String left, String right);
-	
+
 	public String ApplySpaceBlockToEnter(String s, ArrayList<Block> blocks);
 }
