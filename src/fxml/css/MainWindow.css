@@ -1,0 +1,57 @@
+@import url(https://fonts.googleapis.com/css?family=Roboto:400,700);
+
+.background{
+    -fx-background-color: #2D2D30;
+    -fx-border-color: transparent;
+}
+
+.split-pane *.split-pane-divider {
+    -fx-background-color: #2D2D30;
+    -fx-border-color: transparent;
+    -fx-padding: 0 2 0 2;
+}
+
+.label {
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+}
+
+.button {
+    -fx-pref-height: 25.0;
+    -fx-pref-width: 25.0;
+    -fx-text-fill: white;
+    -fx-font-family: 'Roboto', sans-serif;
+    -fx-font-weight: bold;
+    -fx-background-color: #3DB57D;
+    -fx-background-size: contain;
+    -fx-background-positon: center;
+    -fx-background-repeat: no-repeat;
+}
+
+#root-pane{
+    -fx-pref-height: 500.0;
+    -fx-pref-width: 800.0;
+}
+
+#compare-tool-bar{
+    -fx-pref-height: 40.0;
+    -fx-max-height: 40.0;
+}
+
+#compare-button{
+    -fx-background-image: url("icon/compare.png");
+}
+
+#copy-to-right-button{
+    -fx-background-image: url("icon/copytoright.png");
+}
+
+#copy-to-left-button{
+    -fx-background-image: url("icon/copytoleft.png");
+}
+
+.button:pressed {
+    -fx-background-color: #00bfa5;
+    -fx-border-color: #00bfa5;
+}
