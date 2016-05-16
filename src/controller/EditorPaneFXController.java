@@ -17,7 +17,16 @@ public class EditorPaneFXController {
     private Pane rootPane;
 
     @FXML
-    public void handleLoadAction(ActionEvent event){
+    protected void handleEditAction(ActionEvent event){
+    }
+
+    @FXML
+    protected void handleSaveAction(ActionEvent event){
+
+    }
+
+    @FXML
+    protected void handleLoadAction(ActionEvent event){
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Open Resource File");
         fileChooser.getExtensionFilters().addAll(

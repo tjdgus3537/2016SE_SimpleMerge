@@ -22,17 +22,17 @@ public class MainWindowFXController implements Initializable{
 
     @FXML
     protected void handleCompareButtonAction(ActionEvent event){
-        System.out.println("comp");
+
     }
 
     @FXML
     protected void handleCopyToRightButtonAction(ActionEvent event){
-        System.out.println("copytoright");
+
     }
 
     @FXML
     protected void handelCopyToLeftButtonAction(ActionEvent event){
-        System.out.println("copytoleft");
+
     }
 
     @Override

@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.effect.*?>
-<?import javafx.geometry.*?>
 <?import java.net.*?>
 <?import javafx.scene.control.*?>
 <?import java.lang.*?>
@@ -17,12 +15,12 @@
                     <Tooltip text="Load"/>
                 </tooltip>
             </Button>
-            <Button id="edit-button" mnemonicParsing="false">
+            <Button id="edit-button" mnemonicParsing="false" onAction="#handleEditAction">
                 <tooltip>
                     <Tooltip text="Edit"/>
                 </tooltip>
             </Button>
-            <Button id="save-button" mnemonicParsing="false">
+            <Button id="save-button" mnemonicParsing="false" onAction="#handleSaveAction">
                 <tooltip>
                     <Tooltip text="Save"/>
                 </tooltip>
