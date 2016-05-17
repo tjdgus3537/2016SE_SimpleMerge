@@ -34,7 +34,7 @@ public class Diff implements DiffInterface, StateUsable{
 	}
 	
 	private String getLCS(String left, String right) {
-		LCSInterface lcs = new LCS();
+		LCS lcs = new LCS();
 		
 		return lcs.getLCS(left, right);
 	}

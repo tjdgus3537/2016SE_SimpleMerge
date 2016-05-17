@@ -8,7 +8,7 @@ package model;
  * time complexity와 space complexity 모두 O(mn) (단, m은 첫 번째 string의 길이, n은 두 번째 string의 길이)
  */
 
-public class LCS implements LCSInterface {
+public class LCS {
 	private final int NONE = 0;
 	private final int UP = 1;
 	private final int LEFT = 2;
