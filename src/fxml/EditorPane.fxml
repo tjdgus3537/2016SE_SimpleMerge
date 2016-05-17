@@ -12,22 +12,22 @@
          <items>
             <Button id="load-button" mnemonicParsing="false" onAction="#handleLoadAction">
                 <tooltip>
-                    <Tooltip text="Load"/>
+                    <Tooltip text="Load" />
                 </tooltip>
             </Button>
             <Button id="edit-button" mnemonicParsing="false" onAction="#handleEditAction">
                 <tooltip>
-                    <Tooltip text="Edit"/>
+                    <Tooltip text="Edit" />
                 </tooltip>
             </Button>
             <Button id="save-button" mnemonicParsing="false" onAction="#handleSaveAction">
                 <tooltip>
-                    <Tooltip text="Save"/>
+                    <Tooltip text="Save" />
                 </tooltip>
             </Button>
          </items>
       </ToolBar>
-      <TextArea layoutX="3.0" layoutY="40.0" styleClass="background" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="40.0" />
+      <TextArea fx:id="contentTextArea" styleClass="background" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="40.0" />
    </children>
     <stylesheets>
         <URL value="@css/EditorPane.css" />
