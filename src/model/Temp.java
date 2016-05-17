@@ -15,14 +15,16 @@ import javafx.scene.text.Text;
 
 //@TODO::추후 구현하기
 public class Temp {
-	//Text로 변환하는 Interface ~~interface;
+	//Diff diff;
+	//TextDecorator textDecorator;
 	
 	/**
 	 * 생성자.
-	 * @param 관련 interface
+	 * @param textDecorator에게 줄 관련된 interface
      */	
 //	public Temp(//Interface inter~) {
-//		//~~interface = inter;
+//		//diff = new Diff();
+//		//textDecorator = new TextDecorator(inter~);
 //	}
 	
 	/**
