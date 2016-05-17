@@ -39,7 +39,7 @@ public class Temp {
 	}
 	
 	/**
-	 * 특정 줄에 해당하는 우측의 Block을 좌측으로 copy한 결과를 이용해서 Text로 만들어줌.
+	 * 특정 줄에 해당하는 우측의 Block을 좌측으로 copy
 	 * @param lineNum copy할 부분의 줄 번호
      * @return copy를 적용하고 난 후의 좌측의 ArrayList<Text>
      */	
@@ -49,7 +49,7 @@ public class Temp {
 	}
 	
 	/**
-	 * 특정 줄에 해당하는 좌측의 Block을 우측으로 copy한 결과를 이용해서 Text로 만들어줌.
+	 * 특정 줄에 해당하는 좌측의 Block을 우측으로 copy
 	 * @param lineNum copy할 부분의 줄 번호
      * @return copy를 적용하고 난 후의 우측의 ArrayList<Text>
      */	
