@@ -68,4 +68,33 @@ public class DiffTest {
 		assertEquals("-142\n\n\n\n 041\n\na\nb\n", s);
 	}
 
+	//String 중 오른쪽이 비어있을 때
+	@Test
+	public void testCompare3() {
+		PairBlockArrayList pairBlockArrayList;
+		pairBlockArrayList = diff.compare("\n\na\nb\n", "");
+		String s = pairBlockArrayListToString(pairBlockArrayList);
+
+		assertEquals("041\n\na\nb\n -142\n\n\n\n", s);
+	}
+	
+	//String 두 개가 모두 공스트링인 경우
+	@Test
+	public void testCompare4() {
+		PairBlockArrayList pairBlockArrayList;
+		pairBlockArrayList = diff.compare("", "");
+		String s = pairBlockArrayListToString(pairBlockArrayList);
+
+		assertEquals(" ", s);
+	}
+	
+	//String 중 한 개가 null인 경우
+	@Test
+	public void testCompare5() {
+		PairBlockArrayList pairBlockArrayList;
+		pairBlockArrayList = diff.compare(null, "");
+		String s = pairBlockArrayListToString(pairBlockArrayList);
+
+		assertEquals(null, s);
+	}
 }
