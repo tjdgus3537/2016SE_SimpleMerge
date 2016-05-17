@@ -93,8 +93,16 @@ public class DiffTest {
 	public void testCompare5() {
 		PairBlockArrayList pairBlockArrayList;
 		pairBlockArrayList = diff.compare(null, "");
-		String s = pairBlockArrayListToString(pairBlockArrayList);
 
-		assertEquals(null, s);
+		assertEquals(null, pairBlockArrayList);
+	}
+	
+	//String 두 개 모두 null인 경우
+	@Test
+	public void testCompare6() {
+		PairBlockArrayList pairBlockArrayList;
+		pairBlockArrayList = diff.compare(null, null);
+
+		assertEquals(null, pairBlockArrayList);
 	}
 }
