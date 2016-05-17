@@ -59,6 +59,8 @@ public class Diff implements StateUsable{
 		int[] charStateArrayOfRight;
 		ArrayList<Integer> lineStateArrayListOfLeft;
 		ArrayList<Integer> lineStateArrayListOfRight;
+		ArrayList<String> lineStringArrayListOfLeft;
+		ArrayList<String> lineStringArrayListOfRight;
 		ArrayList<Block> blockArrayListOfLetf;
 		ArrayList<Block> blockArrayListOfRight;
 		
@@ -66,10 +68,14 @@ public class Diff implements StateUsable{
 		charStateArrayOfLeft = getStateArray(left, lcs);
 		charStateArrayOfRight = getStateArray(right, lcs);
 		
-		//TODO::여기서 부터 진행하면 됨
 		//위에서 얻은 각 char의 변화 여부를 이용하여, line 단위의 변화 여부에 대해 알아본다.
 		lineStateArrayListOfLeft = transformCharStateToLineState(left, charStateArrayOfLeft);
 		lineStateArrayListOfRight = transformCharStateToLineState(right, charStateArrayOfRight);
+		
+		//각 line이 어떤 String으로 구성되어 있는지 알아본다.
+		lineStringArrayListOfLeft = parseString(left);
+		lineStringArrayListOfRight = parseString(right);
+		
 		
 		//위에서 얻은 line 단위의 변화 여부를 이용하여 block으로 묶는다.
 		blockArrayListOfLetf = getBlockArrayList(lineStateArrayListOfLeft);
@@ -202,17 +208,19 @@ public class Diff implements StateUsable{
 		return lineStringArrayList;
 	}
 	
-	private ArrayList<Block> getBlockArrayList(ArrayList<Integer> lineStateArrayList) {
+	private ArrayList<Block> getBlockArrayList(
+			ArrayList<Integer> lineStateArrayList, ArrayList<String> lineStringArrayList) {
 		ArrayList<Block> blockArrayList = new ArrayList<Block>();
 		Block block;
+		String s;
 		int lineCheckIndex = 0;
 		
 		for (int i = 0; i < lineStateArrayList.size() - 1; i++) {
 			if (lineStateArrayList.get(i) != lineStateArrayList.get(i + 1)) {
 				//길이는 끝나는 지점 - 시작 지점 + 1
 				//TODO:: block 정의가 바뀌어서 새로 짜야함. 안 고치면 버그 발생.
-//				block = new Block(lineCheckIndex, i - lineCheckIndex + 1, lineStateArrayList.get(i));
-				block = null;
+				s = concatString(lineStringArrayList, lineCheckIndex, i);
+				block = new Block(lineCheckIndex, i - lineCheckIndex + 1, lineStateArrayList.get(i), s);
 				blockArrayList.add(block);
 				lineCheckIndex = i + 1;
 			}
@@ -223,13 +231,22 @@ public class Diff implements StateUsable{
 			//길이는 끝나는 지점 - 시작 지점 + 1
 			//3번째 parameter에서 size - 1의 원소를 사용하는 이유는 ArrayList가 0에서 시작하기 때문이다.
 			//TODO:: block 정의가 바뀌어서 새로 짜야함. 안 고치면 버그 발생.
-//			block = new Block(lineCheckIndex, (lineStateArrayList.size() - 1) - lineCheckIndex + 1, 
-//					lineStateArrayList.get(lineStateArrayList.size() - 1));
+			s = concatString(lineStringArrayList, lineCheckIndex, (lineStateArrayList.size() - 1));
+			block = new Block(lineCheckIndex, (lineStateArrayList.size() - 1) - lineCheckIndex + 1, 
+					lineStateArrayList.get(lineStateArrayList.size() - 1), s);
 			lineCheckIndex = (lineStateArrayList.size() - 1) + 1;
-			block = null;
 			blockArrayList.add(block);
 		}
 		
 		return blockArrayList;
+	}
+	
+	private String concatString(ArrayList<String> lineStringArrayList, int start, int end) {
+		String s = "";
+		
+		for(int i = start; i <= end; i++)
+			s += lineStringArrayList.get(i);
+		
+		return s;
 	}
 }
