@@ -12,17 +12,20 @@ public class Block implements StateUsable{
 	private int startNumber;
 	private int numberOfLine;
 	private int state;
+	private String content;
 	
 	public Block() {
 		setState(SPACE);
 		setStartNumber(-1);
 		setNumberOfLine(0);
+		setContent(null);
 	}
 	
-	public Block(int startNumber, int numberOfLine, int state) {
+	public Block(int startNumber, int numberOfLine, int state, String content) {
 		setState(state);
 		setStartNumber(startNumber);
 		setNumberOfLine(numberOfLine);
+		setContent(content);
 	}
 	
 	public void setStartNumber(int startNumber) {
@@ -41,6 +44,10 @@ public class Block implements StateUsable{
 			setStartNumber(-1);
 	}
 	
+	public void setContent(String content) {
+		this.content = content;
+	}
+	
 	public int getStartNumber() {
 		return startNumber;
 	}
@@ -51,5 +58,9 @@ public class Block implements StateUsable{
 	
 	public int getState() {
 		return state;
+	}
+	
+	public String getContent() {
+		return content;
 	}
 }
