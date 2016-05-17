@@ -4,6 +4,7 @@ import java.io.File;
 
 /**
  * Created by Donghwan on 5/12/2016.
+ * @deprecated EditorPaneFXController에서 더 이상 ComparisonFile을 사용하지 않습니다.
  * 비교하는 파일에 대해서 저장하는 클래스
  */
 public class ComparisonFile {
