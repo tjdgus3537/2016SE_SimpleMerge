@@ -78,21 +78,19 @@ public class Diff implements StateUsable{
 		
 		
 		//위에서 얻은 line 단위의 변화 여부를 이용하여 block으로 묶는다.
-		blockArrayListOfLetf = getBlockArrayList(lineStateArrayListOfLeft);
-		blockArrayListOfRight = getBlockArrayList(lineStateArrayListOfRight);
+		blockArrayListOfLetf = getBlockArrayList(lineStateArrayListOfLeft, lineStringArrayListOfLeft);
+		blockArrayListOfRight = getBlockArrayList(lineStateArrayListOfRight, lineStringArrayListOfRight);
 		
 		//block들 사이에 SPACE block을 채워 넣어서 line을 일치하게 만든다.
-//		return putSpaceBlocks(blockArrayListOfLetf, blockArrayListOfRight);
-		
-		return null;
+		return putSpaceBlocks(blockArrayListOfLetf, blockArrayListOfRight);
 	}
 
 	//TODO::다시 구현하기
-	/*
 	private PairBlockArrayList putSpaceBlocks(ArrayList<Block> left, ArrayList<Block> right) {
 		PairBlockArrayList pairBlockArrayList = new PairBlockArrayList();
 		Block block;
 		int leftIndex = 0, rightIndex = 0;
+		String s;
 		
 		//양 쪽 모두 index < size 여야지 BOF error가 나지 않는다.
 		while (leftIndex < left.size() && rightIndex < right.size()) {
@@ -104,14 +102,16 @@ public class Diff implements StateUsable{
 			//왼쪽이 UNCHANGED가 나올 때까지(즉 지금 CHANGED인 동안), 여기에 대응하는 오른쪽에 SPACE block을 채워 넣어주고,
 			//현재의 왼쪽 block을 왼쪽에 넣는다.
 			while (leftIndex < left.size() && left.get(leftIndex).getState() == CHANGED) {
-				block = new Block(-1, left.get(leftIndex).getNumberOfLine(), SPACE);
+				s = makeNLineFeed(left.get(leftIndex).getNumberOfLine());
+				block = new Block(-1, left.get(leftIndex).getNumberOfLine(), SPACE, s);
 				pairBlockArrayList.addLeft(left.get(leftIndex++));
 				pairBlockArrayList.addRight(block);
 			}
 			//오른쪽이 UNCHANGED가 나올 때까지(즉 지금 CHANGED인 동안), 여기에 대응하는 왼쪽에 SPACE block을 채워 넣어주고,
 			//현재의 오른쪽 block을 오른쪽에 넣는다.
 			while (rightIndex < right.size() && right.get(rightIndex).getState() == CHANGED) {
-				block = new Block(-1, right.get(rightIndex).getNumberOfLine(), SPACE);
+				s = makeNLineFeed(right.get(rightIndex).getNumberOfLine());
+				block = new Block(-1, right.get(rightIndex).getNumberOfLine(), SPACE, s);
 				pairBlockArrayList.addLeft(block);
 				pairBlockArrayList.addRight(right.get(rightIndex++));
 			}
@@ -119,7 +119,6 @@ public class Diff implements StateUsable{
 		
 		return pairBlockArrayList;
 	}
-	*/
 	
 	private int[] getStateArray(String s, String lcs) {
 		//앞에서 부터 비교해나가면서 s가 가리키는 부분과 lcs가 가리키는 부분을 비교하여 판단한다.
@@ -246,6 +245,15 @@ public class Diff implements StateUsable{
 		
 		for(int i = start; i <= end; i++)
 			s += lineStringArrayList.get(i);
+		
+		return s;
+	}
+
+	private String makeNLineFeed(int count) {
+		String s ="";
+		
+		for(int i = 0 ; i < count; i++)
+			s += "\n";
 		
 		return s;
 	}
