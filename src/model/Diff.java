@@ -21,12 +21,14 @@ public class Diff implements StateUsable{
 	
 	/**
 	 * 두 개의 string을 input으로 받아서 비교 결과를 PairBlockArrayList 형태로 return.
+	 * compare 함수를 실행하면 내부적으로 member variable값이 변경된다.
 	 * @param left 비교할 문자열
 	 * @param right 비교할 문자열
      * @return 비교 결과
      */
 	public PairBlockArrayList compare(String left, String right) {
-		return makePairBlockArrayList(left, right);
+		pairBlockArrayList = makePairBlockArrayList(left, right);
+		return pairBlockArrayList;
 	}
 	
 	/**
