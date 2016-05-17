@@ -7,35 +7,49 @@ import java.util.ArrayList;
  * Diff Interface를 implement
  */
 
-public class Diff implements DiffInterface, StateUsable{
-
+public class Diff implements StateUsable{
+	private PairBlockArrayList pairBlockArrayList;
+	private LCS lcs;
+	
+	/**
+	 * 생성자
+     */
+	public Diff() {
+		pairBlockArrayList = null;
+		lcs = new LCS();
+	}
+	
+	/**
+	 * 두 개의 string을 input으로 받아서 비교 결과를 PairBlockArrayList 형태로 return.
+	 * @param left 비교할 문자열
+	 * @param right 비교할 문자열
+     * @return 비교 결과
+     */
 	public PairBlockArrayList compare(String left, String right) {
 		return makePairBlockArrayList(left, right);
 	}
-
-	@Override
-	public String blockCopyToLeft(String left, String right, int blockNumber,
-			PairBlockArrayList pairBlockArrayList) {
-		// TODO Auto-generated method stub
+	
+	/**
+	 * 특정 줄에 해당하는 우측의 Block을 좌측으로 copy한 결과를 Block들로 return
+	 * @param lineNum copy할 부분의 줄 번호
+     * @return copy를 적용하고 난 후의 좌측의 ArrayList<Block>
+     */	
+	//@TODO::내부 구현하기
+	public ArrayList<Block> copyToLeft(int lineNum) {
 		return null;
 	}
-
-	@Override
-	public String blockCopyToRight(String left, String right, int blockNumber,
-			PairBlockArrayList pairBlockArrayList) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public String ApplySpaceBlockToEnter(String s, ArrayList<Block> blocks) {
-		// TODO Auto-generated method stub
+	
+	/**
+	 * 특정 줄에 해당하는 우측의 Block을 좌측으로 copy한 결과를 Block들로 return
+	 * @param lineNum copy할 부분의 줄 번호
+     * @return copy를 적용하고 난 후의 좌측의 ArrayList<Block>
+     */	
+	//@TODO::내부 구현하기
+	public ArrayList<Block> copyToRight(int lineNum) {
 		return null;
 	}
 	
 	private String getLCS(String left, String right) {
-		LCS lcs = new LCS();
-		
 		return lcs.getLCS(left, right);
 	}
 	
@@ -52,6 +66,7 @@ public class Diff implements DiffInterface, StateUsable{
 		charStateArrayOfLeft = getStateArray(left, lcs);
 		charStateArrayOfRight = getStateArray(right, lcs);
 		
+		//TODO::여기서 부터 진행하면 됨
 		//위에서 얻은 각 char의 변화 여부를 이용하여, line 단위의 변화 여부에 대해 알아본다.
 		lineStateArrayListOfLeft = transformCharStateToLineState(left, charStateArrayOfLeft);
 		lineStateArrayListOfRight = transformCharStateToLineState(right, charStateArrayOfRight);
@@ -61,9 +76,13 @@ public class Diff implements DiffInterface, StateUsable{
 		blockArrayListOfRight = getBlockArrayList(lineStateArrayListOfRight);
 		
 		//block들 사이에 SPACE block을 채워 넣어서 line을 일치하게 만든다.
-		return putSpaceBlocks(blockArrayListOfLetf, blockArrayListOfRight);
+//		return putSpaceBlocks(blockArrayListOfLetf, blockArrayListOfRight);
+		
+		return null;
 	}
-	
+
+	//TODO::다시 구현하기
+	/*
 	private PairBlockArrayList putSpaceBlocks(ArrayList<Block> left, ArrayList<Block> right) {
 		PairBlockArrayList pairBlockArrayList = new PairBlockArrayList();
 		Block block;
@@ -94,6 +113,7 @@ public class Diff implements DiffInterface, StateUsable{
 		
 		return pairBlockArrayList;
 	}
+	*/
 	
 	private int[] getStateArray(String s, String lcs) {
 		//앞에서 부터 비교해나가면서 s가 가리키는 부분과 lcs가 가리키는 부분을 비교하여 판단한다.
@@ -164,7 +184,9 @@ public class Diff implements DiffInterface, StateUsable{
 		for (int i = 0; i < lineStateArrayList.size() - 1; i++) {
 			if (lineStateArrayList.get(i) != lineStateArrayList.get(i + 1)) {
 				//길이는 끝나는 지점 - 시작 지점 + 1
-				block = new Block(lineCheckIndex, i - lineCheckIndex + 1, lineStateArrayList.get(i));
+				//TODO:: block 정의가 바뀌어서 새로 짜야함. 안 고치면 버그 발생.
+//				block = new Block(lineCheckIndex, i - lineCheckIndex + 1, lineStateArrayList.get(i));
+				block = null;
 				blockArrayList.add(block);
 				lineCheckIndex = i + 1;
 			}
@@ -174,9 +196,11 @@ public class Diff implements DiffInterface, StateUsable{
 		if (lineCheckIndex < lineStateArrayList.size()) {
 			//길이는 끝나는 지점 - 시작 지점 + 1
 			//3번째 parameter에서 size - 1의 원소를 사용하는 이유는 ArrayList가 0에서 시작하기 때문이다.
-			block = new Block(lineCheckIndex, (lineStateArrayList.size() - 1) - lineCheckIndex + 1, 
-					lineStateArrayList.get(lineStateArrayList.size() - 1));
+			//TODO:: block 정의가 바뀌어서 새로 짜야함. 안 고치면 버그 발생.
+//			block = new Block(lineCheckIndex, (lineStateArrayList.size() - 1) - lineCheckIndex + 1, 
+//					lineStateArrayList.get(lineStateArrayList.size() - 1));
 			lineCheckIndex = (lineStateArrayList.size() - 1) + 1;
+			block = null;
 			blockArrayList.add(block);
 		}
 		
