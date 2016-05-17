@@ -94,6 +94,25 @@ public class Diff implements StateUsable{
 		int leftIndex = 0, rightIndex = 0;
 		String s;
 		
+		//""일 때를 처리. 한 쪽이 ""이면 다른 한 쪽이 ""이 아닌 이상, 전체가 changed인 1 block이 됨
+		if(left.size() == 0 && right.size() == 1) {
+			s = makeNLineFeed(right.get(0).getNumberOfLine());
+			block = new Block(-1, right.get(0).getNumberOfLine(), SPACE, s);
+			pairBlockArrayList.addLeft(block);
+			pairBlockArrayList.addRight(right.get(0));
+			
+			return pairBlockArrayList;
+		}
+		
+		if(left.size() == 1 && right.size() == 0) {
+			s = makeNLineFeed(left.get(0).getNumberOfLine());
+			block = new Block(-1, left.get(0).getNumberOfLine(), SPACE, s);
+			pairBlockArrayList.addLeft(left.get(0));
+			pairBlockArrayList.addRight(block);
+			
+			return pairBlockArrayList;
+		}
+		
 		//양 쪽 모두 index < size 여야지 BOF error가 나지 않는다.
 		while (leftIndex < left.size() && rightIndex < right.size()) {
 			//양 쪽 모두 UNCHANGED이면 양쪽에 모두 넣어준다.
