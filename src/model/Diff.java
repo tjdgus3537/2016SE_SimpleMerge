@@ -27,6 +27,9 @@ public class Diff implements StateUsable{
      * @return 비교 결과
      */
 	public PairBlockArrayList compare(String left, String right) {
+		if(left == null || right == null)
+			return null;
+		
 		pairBlockArrayList = makePairBlockArrayList(left, right);
 		return pairBlockArrayList;
 	}
