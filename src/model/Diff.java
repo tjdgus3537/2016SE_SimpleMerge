@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 /**
  * Created by Seonghyeon on 5/15/2016.
- * Diff Interface를 implement
+ * compare 기능과 copyToLeft, copyToRight 기능을 제공하는 Class.
  */
 
 public class Diff implements StateUsable{
