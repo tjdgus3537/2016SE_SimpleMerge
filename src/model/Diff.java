@@ -176,6 +176,32 @@ public class Diff implements StateUsable{
 		return lineStateArrayList;
 	}
 	
+	private ArrayList<String> parseString(String s) {
+		//한 줄씩 찾아서 String 단위로 묶어준다.
+		ArrayList<String> lineStringArrayList = new ArrayList<String>();
+		int lineCheckIndex = 0;
+		
+		for (int i = 0; i < s.length(); i++) {
+			//한 줄이 어디까지인지 확인한다.
+			if (s.charAt(i) == '\n') {
+				//만약 줄이 시작 되면 이전 줄의 바로 다음 부분(lineCheckIndex가 나타내는 부분)부터 현재까지를 하나의 String으로 만든다.
+				//lineCheckIndex ~ 현재가 바로 1줄
+				//substring method는 startIndex ~ endIndex - 1 까지임. 따라서 i + 1 사용.
+				lineStringArrayList.add(s.substring(lineCheckIndex, i + 1));
+				//현재 줄의 바로 다음, 즉 다음 줄의 시작을 나타내도록 index를 조정한다.
+				lineCheckIndex = i + 1;
+			}
+		}
+		
+		//마지막이 개행으로 끝나지 않을 수도 있으므로, 마지막 줄을 별도로 처리해준다.
+		if (lineCheckIndex != s.length()) {
+			lineStringArrayList.add(s.substring(lineCheckIndex));
+			lineCheckIndex = s.length();
+		}
+		
+		return lineStringArrayList;
+	}
+	
 	private ArrayList<Block> getBlockArrayList(ArrayList<Integer> lineStateArrayList) {
 		ArrayList<Block> blockArrayList = new ArrayList<Block>();
 		Block block;
