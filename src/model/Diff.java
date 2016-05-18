@@ -38,7 +38,7 @@ public class Diff implements StateUsable{
 	 * @param lineNum copy할 부분의 줄 번호
      * @return copy를 적용하고 난 후의 좌측의 ArrayList<Block>
      */	
-	//@TODO::내부 구현하기
+
 	public ArrayList<Block> copyToLeft(String left, String right, int lineNum) {
 		PairBlockArrayList pairBlockArrayList = compare(left, right);
 		int blockNum = findBlockNum(pairBlockArrayList.getRight(), lineNum);
