@@ -41,6 +41,10 @@ public class Diff implements StateUsable{
 
 	public ArrayList<Block> copyToLeft(String left, String right, int lineNum) {
 		PairBlockArrayList pairBlockArrayList = compare(left, right);
+		//compare의 결과가 null일 때
+		if(pairBlockArrayList == null)
+			return null;
+		
 		int blockNum = findBlockNum(pairBlockArrayList.getRight(), lineNum);
 		
 		//잘못된 blockNum이 입력되었을 때
@@ -49,6 +53,7 @@ public class Diff implements StateUsable{
 		
 		pairBlockArrayList = copyToLeft(pairBlockArrayList, blockNum);
 		
+		//copyToLeft를 수행할 수 없을 때 null을 return
 		if(pairBlockArrayList == null)
 			return null;
 		
@@ -65,6 +70,10 @@ public class Diff implements StateUsable{
 	//@TODO::내부 구현하기
 	public ArrayList<Block> copyToRight(String left, String right, int lineNum) {
 		PairBlockArrayList pairBlockArrayList = compare(left, right);
+		//compare의 결과가 null일 때
+		if(pairBlockArrayList == null)
+			return null;
+		
 		int blockNum = findBlockNum(pairBlockArrayList.getLeft(), lineNum);
 		
 		//잘못된 blockNum이 입력되었을 때
@@ -73,6 +82,7 @@ public class Diff implements StateUsable{
 		
 		pairBlockArrayList = copyToRight(pairBlockArrayList, blockNum);
 		
+		//copyToRight를 수행할 수 없을 때 null을 return
 		if(pairBlockArrayList == null)
 			return null;
 		
