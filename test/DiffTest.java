@@ -52,7 +52,7 @@ public class DiffTest {
 		pairBlockArrayList = diff.compare("a\nb\nc\n", "\n\na\nb\n");
 		String s = pairBlockArrayListToString(pairBlockArrayList);
 		
-		assertEquals("-122\n\n020a\nb\n211c\n 021\n\n220a\nb\n-112\n", s);
+		assertEquals("\n\na\nb\nc\n \n\na\nb\n\n", s);
 	}
 	
 	//String 중 왼쪽이 비어있을 때
@@ -62,7 +62,7 @@ public class DiffTest {
 		pairBlockArrayList = diff.compare("", "\n\na\nb\n");
 		String s = pairBlockArrayListToString(pairBlockArrayList);
 
-		assertEquals("-142\n\n\n\n 041\n\na\nb\n", s);
+		assertEquals("\n\n\n\n \n\na\nb\n", s);
 	}
 
 	//String 중 오른쪽이 비어있을 때
@@ -72,7 +72,7 @@ public class DiffTest {
 		pairBlockArrayList = diff.compare("\n\na\nb\n", "");
 		String s = pairBlockArrayListToString(pairBlockArrayList);
 
-		assertEquals("041\n\na\nb\n -142\n\n\n\n", s);
+		assertEquals("\n\na\nb\n \n\n\n\n", s);
 	}
 	
 	//String 두 개가 모두 공스트링인 경우
