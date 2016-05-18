@@ -8,14 +8,12 @@ import java.util.ArrayList;
  */
 
 public class Diff implements StateUsable{
-	private PairBlockArrayList pairBlockArrayList;
 	private LCS lcs;
 	
 	/**
 	 * 생성자
      */
 	public Diff() {
-		pairBlockArrayList = null;
 		lcs = new LCS();
 	}
 	
@@ -30,8 +28,7 @@ public class Diff implements StateUsable{
 		if(left == null || right == null)
 			return null;
 		
-		pairBlockArrayList = makePairBlockArrayList(left, right);
-		return pairBlockArrayList;
+		return makePairBlockArrayList(left, right);
 	}
 	
 	/**
