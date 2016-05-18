@@ -102,4 +102,14 @@ public class DiffTest {
 
 		assertEquals(null, pairBlockArrayList);
 	}
+	
+	//정상적인 형태의 임의의 case
+	@Test
+	public void testCompare7() {
+		PairBlockArrayList pairBlockArrayList;
+		pairBlockArrayList = diff.compare("d\naabc\n", "aabc\nx\ny\n");
+		String s = pairBlockArrayListToString(pairBlockArrayList);
+		
+		assertEquals("d\naabc\n\n\n \naabc\nx\ny\n", s);
+	}
 }
