@@ -1,6 +1,8 @@
 
 import static org.junit.Assert.*;
 
+import java.util.ArrayList;
+
 import model.Block;
 import model.Diff;
 import model.PairBlockArrayList;
@@ -36,6 +38,16 @@ public class DiffTest {
 		
 		for(int i = 0 ; i < pairBlockArrayList.getRight().size(); i++)
 			s += blockToString(pairBlockArrayList.getRight().get(i));
+		
+		return s;
+	}
+	
+	//helper method
+	private String blockArrayListToString(ArrayList<Block> blockArrayList) {
+		String s = "";
+		
+		for(int i = 0 ; i < blockArrayList.size(); i++)
+			s += blockToString(blockArrayList.get(i));
 		
 		return s;
 	}
@@ -111,5 +123,17 @@ public class DiffTest {
 		String s = pairBlockArrayListToString(pairBlockArrayList);
 		
 		assertEquals("d\naabc\n\n\n \naabc\nx\ny\n", s);
+	}
+	
+	
+	
+	//정상적인 형태의 임의의 case
+	@Test
+	public void testCopyToLeft1() {
+		ArrayList<Block> blockArrayList;
+		blockArrayList = diff.copyToLeft("d\naabc\n", "aabc\nx\ny\n", 0);
+		String s = blockArrayListToString(blockArrayList);
+		
+		assertEquals("\naabc\n", s);
 	}
 }
