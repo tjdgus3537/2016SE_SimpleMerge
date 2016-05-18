@@ -125,8 +125,6 @@ public class DiffTest {
 		assertEquals("d\naabc\n\n\n \naabc\nx\ny\n", s);
 	}
 	
-	
-	
 	//정상적인 형태의 임의의 case
 	@Test
 	public void testCopyToLeft1() {
@@ -134,6 +132,80 @@ public class DiffTest {
 		blockArrayList = diff.copyToLeft("d\naabc\n", "aabc\nx\ny\n", 0);
 		String s = blockArrayListToString(blockArrayList);
 		
-		assertEquals("\naabc\n", s);
+		assertEquals("\naabc\n\n\n", s);
+	}
+	
+	//unchanged Block을 copy 시도
+	@Test
+	public void testCopyToLeft2() {
+		ArrayList<Block> blockArrayList;
+		blockArrayList = diff.copyToLeft("d\naabc\n", "aabc\nx\ny\n", 1);
+		
+		assertEquals(null, blockArrayList);
+	}
+	
+	//정상적인 형태의 임의의 case
+	@Test
+	public void testCopyToLeft3() {
+		ArrayList<Block> blockArrayList;
+		blockArrayList = diff.copyToLeft("d\naabc\n", "aabc\nx\ny\n", 2);
+		String s = blockArrayListToString(blockArrayList);
+		
+		assertEquals("d\naabc\nx\ny\n", s);
+	}
+	
+	//원래 string 보다 큰 lineNum을 입력으로 받았을 때
+	@Test
+	public void testCopyToLeft4() {
+		ArrayList<Block> blockArrayList;
+		blockArrayList = diff.copyToLeft("d\naabc\n", "aabc\nx\ny\n", 10);
+		
+		assertEquals(null, blockArrayList);
+	}
+	
+	//lineNum으로 음수를 입력 받았을 때
+	@Test
+	public void testCopyToLeft5() {
+		ArrayList<Block> blockArrayList;
+		blockArrayList = diff.copyToLeft("d\naabc\n", "aabc\nx\ny\n", -1);
+		
+		assertEquals(null, blockArrayList);
+	}
+	
+	//정상적인 형태의 임의의 case
+	@Test
+	public void testCopyToLeft6() {
+		ArrayList<Block> blockArrayList;
+		blockArrayList = diff.copyToLeft("", "aabc\nx\ny\n", 2);
+		String s = blockArrayListToString(blockArrayList);
+		
+		assertEquals("aabc\nx\ny\n", s);
+	}
+	
+	//두 String이 모두 공스트링("")일 때
+	@Test
+	public void testCopyToLeft7() {
+		ArrayList<Block> blockArrayList;
+		blockArrayList = diff.copyToLeft("", "", 0);
+		
+		assertEquals(null, blockArrayList);
+	}
+	
+	//한 String이 null일 때
+	@Test
+	public void testCopyToLeft8() {
+		ArrayList<Block> blockArrayList;
+		blockArrayList = diff.copyToLeft(null, "asdsad", 0);
+		
+		assertEquals(null, blockArrayList);
+	}
+	
+	//두 String 모두 null일 때
+	@Test
+	public void testCopyToLeft9() {
+		ArrayList<Block> blockArrayList;
+		blockArrayList = diff.copyToLeft(null, null, 0);
+		
+		assertEquals(null, blockArrayList);
 	}
 }
