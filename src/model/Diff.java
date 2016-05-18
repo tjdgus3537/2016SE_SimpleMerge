@@ -264,6 +264,7 @@ public class Diff implements StateUsable{
 	}
 	
 	private String concatString(ArrayList<String> lineStringArrayList, int start, int end) {
+		//start ~ end 까지의 String들을 concatenate 해서 return
 		String s = "";
 		
 		for(int i = start; i <= end; i++)
@@ -273,6 +274,7 @@ public class Diff implements StateUsable{
 	}
 
 	private String makeNLineFeed(int count) {
+		//count의 개수만큼의 개행을 String으로 return
 		String s ="";
 		
 		for(int i = 0 ; i < count; i++)
