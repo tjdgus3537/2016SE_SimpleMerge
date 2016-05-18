@@ -109,7 +109,9 @@ public class Diff implements StateUsable{
 		//block들 사이에 SPACE block을 채워 넣어서 line을 일치하게 만든다.
 		pairBlockArrayList = putSpaceBlocks(blockArrayListOfLetf, blockArrayListOfRight);
 		
-		return null;
+		pairBlockArrayList = adjustLineNum(pairBlockArrayList);
+		
+		return pairBlockArrayList;
 	}
 
 	private PairBlockArrayList putSpaceBlocks(ArrayList<Block> left, ArrayList<Block> right) {
@@ -305,6 +307,7 @@ public class Diff implements StateUsable{
 	}
 	
 	private int findBlockNum(ArrayList<Block> blockArrayList, int lineNum) {
+		//lineNum에 속하는 blockNum을 return
 		int blockNum;
 		
 		//lineNum이 block의 시작 줄 ~ (시작 줄 + 줄의 개수 - 1)에 있으면 그 line은 해당 block에 속하는 것
@@ -325,6 +328,7 @@ public class Diff implements StateUsable{
 	
 	//@TODO::사실 return해 줄 필요 없음 - 리팩토링 때 개선
 	private PairBlockArrayList copyToLeft(PairBlockArrayList pairBlockArrayList, int blockNum) {
+		//우측의 blockNum번 block을 좌측에 추가하고, 좌측의 blockNum + 1번째 block을 삭제.
 		pairBlockArrayList.getLeft().add(blockNum, pairBlockArrayList.getRight().get(blockNum));
 		pairBlockArrayList.getLeft().remove(blockNum + 1);
 		
@@ -333,6 +337,7 @@ public class Diff implements StateUsable{
 	
 	//@TODO::사실 return해 줄 필요 없음 - 리팩토링 때 개선
 	private PairBlockArrayList copyToRight(PairBlockArrayList pairBlockArrayList, int blockNum) {
+		//우측의 blockNum번 block을 우측에 추가하고, 우측의 blockNum + 1번째 block을 삭제.
 		pairBlockArrayList.getRight().add(blockNum, pairBlockArrayList.getLeft().get(blockNum));
 		pairBlockArrayList.getRight().remove(blockNum + 1);
 		
@@ -341,6 +346,7 @@ public class Diff implements StateUsable{
 	
 	//@TODO::사실 return해 줄 필요 없음 - 리팩토링 때 개선
 	private PairBlockArrayList adjustLineNum(PairBlockArrayList pairBlockArrayList) {
+		//block들의 startNum을 SPACE를 반영해서 다시 조정함.
 		int line = 0;
 		
 		//left와 right의 block 수는 동일한 것이 input으로 들어옴.
