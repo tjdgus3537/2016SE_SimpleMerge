@@ -1,4 +1,3 @@
-
 import static org.junit.Assert.*;
 
 import java.util.ArrayList;
@@ -182,7 +181,7 @@ public class DiffTest {
 		assertEquals("aabc\nx\ny\n", s);
 	}
 	
-	//두 String이 모두 공스트링("")일 때
+	//두 String이 모두 공스트링("")일 때 --> lineNum이 그 어떤 String에도 소속할 수 없음
 	@Test
 	public void testCopyToLeft7() {
 		ArrayList<Block> blockArrayList;
@@ -205,6 +204,90 @@ public class DiffTest {
 	public void testCopyToLeft9() {
 		ArrayList<Block> blockArrayList;
 		blockArrayList = diff.copyToLeft(null, null, 0);
+		
+		assertEquals(null, blockArrayList);
+	}
+	
+	//정상적인 형태의 임의의 case
+	@Test
+	public void testCopyToRight1() {
+		ArrayList<Block> blockArrayList;
+		blockArrayList = diff.copyToRight("d\naabc\n", "aabc\nx\ny\n", 0);
+		String s = blockArrayListToString(blockArrayList);
+		
+		assertEquals("d\naabc\nx\ny\n", s);
+	}
+	
+	//unchanged Block을 copy 시도
+	@Test
+	public void testCopyToRight2() {
+		ArrayList<Block> blockArrayList;
+		blockArrayList = diff.copyToRight("d\naabc\n", "aabc\nx\ny\n", 1);
+		
+		assertEquals(null, blockArrayList);
+	}
+	
+	//정상적인 형태의 임의의 case
+	@Test
+	public void testCopyToRight3() {
+		ArrayList<Block> blockArrayList;
+		blockArrayList = diff.copyToRight("d\naabc\n", "aabc\nx\ny\n", 2);
+		String s = blockArrayListToString(blockArrayList);
+		
+		assertEquals("\naabc\n\n\n", s);
+	}
+	
+	//원래 string 보다 큰 lineNum을 입력으로 받았을 때
+	@Test
+	public void testCopyToRight4() {
+		ArrayList<Block> blockArrayList;
+		blockArrayList = diff.copyToRight("d\naabc\n", "aabc\nx\ny\n", 10);
+		
+		assertEquals(null, blockArrayList);
+	}
+	
+	//lineNum으로 음수를 입력 받았을 때
+	@Test
+	public void testCopyToRight5() {
+		ArrayList<Block> blockArrayList;
+		blockArrayList = diff.copyToRight("d\naabc\n", "aabc\nx\ny\n", -1);
+		
+		assertEquals(null, blockArrayList);
+	}
+	
+	//정상적인 형태의 임의의 case
+	@Test
+	public void testCopyToRight6() {
+		ArrayList<Block> blockArrayList;
+		blockArrayList = diff.copyToRight("", "aabc\nx\ny\n", 2);
+		String s = blockArrayListToString(blockArrayList);
+		
+		assertEquals("\n\n\n", s);
+	}
+	
+	//두 String이 모두 공스트링("")일 때 --> lineNum이 그 어떤 String에도 소속할 수 없음
+	@Test
+	public void testCopyToRight7() {
+		ArrayList<Block> blockArrayList;
+		blockArrayList = diff.copyToRight("", "", 0);
+		
+		assertEquals(null, blockArrayList);
+	}
+	
+	//한 String이 null일 때
+	@Test
+	public void testCopyToRight8() {
+		ArrayList<Block> blockArrayList;
+		blockArrayList = diff.copyToRight(null, "asdsad", 0);
+		
+		assertEquals(null, blockArrayList);
+	}
+	
+	//두 String 모두 null일 때
+	@Test
+	public void testCopyToRight9() {
+		ArrayList<Block> blockArrayList;
+		blockArrayList = diff.copyToRight(null, null, 0);
 		
 		assertEquals(null, blockArrayList);
 	}
