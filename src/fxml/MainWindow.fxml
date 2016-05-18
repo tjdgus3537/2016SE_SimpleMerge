@@ -10,17 +10,17 @@
    <children>
       <ToolBar id="compare-tool-bar" nodeOrientation="LEFT_TO_RIGHT" styleClass="background" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
          <items>
-            <Button id="compare-button" mnemonicParsing="false" onAction="#handleCompareButtonAction">
+            <Button fx:id="compareButton" id="compare-button" mnemonicParsing="false" onAction="#handleCompareButtonAction">
                 <tooltip>
                     <Tooltip text="Compare"/>
                 </tooltip>
             </Button>
-            <Button id="copy-to-right-button" mnemonicParsing="false" onAction="#handleCopyToRightButtonAction">
+            <Button fx:id="copyToRightButton" id="copy-to-right-button" mnemonicParsing="false" onAction="#handleCopyToRightButtonAction">
                 <tooltip>
                     <Tooltip text="Copy To Right"/>
                 </tooltip>
             </Button>
-            <Button id="copy-to-left-button" mnemonicParsing="false" onAction="#handelCopyToLeftButtonAction">
+            <Button fx:id="copyToLeftButton" id="copy-to-left-button" mnemonicParsing="false" onAction="#handelCopyToLeftButtonAction">
                 <tooltip>
                     <Tooltip text="Copy To Left"/>
                 </tooltip>

@@ -16,15 +16,6 @@
     -fx-text-fill: white;
 }
 
-.text-area {
-    -fx-text-fill: white;
-}
-
-.text-area .content {
-    -fx-background-color: #252526;
-    -fx-border-color: #252526;
-}
-
 .button {
     -fx-pref-height: 25.0;
     -fx-pref-width: 25.0;

@@ -29,6 +29,10 @@
     -fx-background-repeat: no-repeat;
 }
 
+.button:disabled {
+    -fx-background-color: transparent;
+}
+
 #root-pane{
     -fx-pref-height: 500.0;
     -fx-pref-width: 800.0;

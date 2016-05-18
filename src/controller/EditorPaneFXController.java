@@ -1,9 +1,15 @@
 package controller;
 
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.control.Alert;
+import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.FileChooser;
 
@@ -11,31 +17,48 @@ import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.IOException;
+import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.StandardOpenOption;
+import java.util.List;
+import java.util.ResourceBundle;
 
 /**
  * Created by Donghwan on 5/15/2016.
  * 편집 창의 액션을 관리하는 컨트롤러
  */
-public class EditorPaneFXController {
+public class EditorPaneFXController implements Initializable{
+    private enum ViewMode{ EDIT, COMPARE }
     private File source;
+    private ViewMode viewMode;
+    private TextArea editorTextArea;
+    private ListView compareListView;
+    private CompareModeDisabler compareModeDisabler;
 
     @FXML
     private Pane rootPane;
 
     @FXML
-    private TextArea contentTextArea;
-
-    @FXML
     protected void handleEditAction(ActionEvent event){
-        contentTextArea.setEditable(true);
+        // TODO 파일이 없으면 edit 불가능 -> 사용자에게 알려줘야 함
+
+        // Compare 모드일 때는 compareModeDisabler에게 해제를 요청함
+        if(viewMode == ViewMode.COMPARE) {
+            // TODO 모델에서 비교 후 저장된 텍스트 내용을 가져와야 함.
+            switchEditorTextArea(null);
+            editorTextArea.setEditable(true);
+        }else{
+            if(source != null) editorTextArea.setEditable(!(editorTextArea.isEditable()));
+        }
     }
 
     @FXML
     protected void handleSaveAction(ActionEvent event){
-        saveTargetFromContent(source, contentTextArea.getText());
+        if(viewMode == ViewMode.EDIT) saveTargetFromContent(source, editorTextArea.getText());
+        else{
+            // TODO 모델에서 비교 후 저장된 텍스트 내용을 가져와야 함.
+        }
     }
 
     @FXML
@@ -43,12 +66,39 @@ public class EditorPaneFXController {
         File selectedFile = showFileChooser();
         String content = loadTargetFromFile(selectedFile);
         if(content != null) {
-            setTargetToContentTextArea(content);
+            switchEditorTextArea(content);
             source = selectedFile;
-            contentTextArea.setEditable(false);
+            editorTextArea.setEditable(false);
         }
     }
 
+    public boolean isFileContained(){
+        if(source != null) return true;
+        else return false;
+    }
+
+    public String getTextAreaContent(){
+        if(viewMode == ViewMode.EDIT) return editorTextArea.getText();
+        else return null;
+    }
+
+    public void switchEditorTextArea(String content){
+        viewMode = ViewMode.EDIT;
+        if(compareModeDisabler != null) compareModeDisabler.disableCompareMode();
+        editorTextArea.setText(content);
+        setContentPane(editorTextArea);
+    }
+
+    public void switchCompareListView(ObservableList content){
+        viewMode = ViewMode.COMPARE;
+        compareListView.setItems(content);
+        setContentPane(compareListView);
+
+    }
+
+    public void setCompareModeDisabler(CompareModeDisabler compareModeDisabler){ this.compareModeDisabler = compareModeDisabler; }
+
+    // 파일을 불러오는 과정
     private File showFileChooser(){
         // FileChooser로 불러올 파일 선택
         FileChooser fileChooser = new FileChooser();
@@ -56,12 +106,8 @@ public class EditorPaneFXController {
         fileChooser.getExtensionFilters().addAll(
                 new FileChooser.ExtensionFilter("All Files", "*.*"));
         File selectedFile = fileChooser.showOpenDialog(rootPane.getScene().getWindow());
-        if (selectedFile != null) {
-            System.out.println(selectedFile.getAbsolutePath());
-        }
         return selectedFile;
     }
-
     private String loadTargetFromFile(File source){
         // 선택한 파일 불러서 파일 내용 가져오기
         String content = null;
@@ -77,11 +123,6 @@ public class EditorPaneFXController {
             return content;
         }
     }
-
-    private void setTargetToContentTextArea(String content){
-        contentTextArea.setText(content);
-    }
-
     private void saveTargetFromContent(File target, String content){
         try{
             writeFile(target, content);
@@ -94,6 +135,7 @@ public class EditorPaneFXController {
         }
     }
 
+    // 파일 입출력
     private String readFile(File source) throws IOException {
         StringBuffer content = null;
         try (BufferedReader reader = Files.newBufferedReader(source.toPath(), StandardCharsets.UTF_8)) {
@@ -112,6 +154,31 @@ public class EditorPaneFXController {
         try(BufferedWriter writer = Files.newBufferedWriter(target.toPath(),
                 StandardCharsets.UTF_8, StandardOpenOption.WRITE, StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING)){
             writer.write(content);
+        }
+    }
+
+    private void setContentPane(Node node) {
+        List children = rootPane.getChildren();
+        if(children.size() > 1) children.set(1, node);
+        else children.add(1, node);
+    }
+    private void addContentPaneProperty(Node node){
+        AnchorPane.setBottomAnchor(node, 0.0);
+        AnchorPane.setLeftAnchor(node, 0.0);
+        AnchorPane.setRightAnchor(node, 0.0);
+        AnchorPane.setTopAnchor(node, 40.0);
+    }
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        try {
+            editorTextArea = FXMLLoader.load(getClass().getResource("/fxml/EditorTextArea.fxml"));
+            compareListView = FXMLLoader.load(getClass().getResource("/fxml/CompareListView.fxml"));
+            addContentPaneProperty(editorTextArea);
+            addContentPaneProperty(compareListView);
+            switchEditorTextArea(null);
+        }catch(IOException ioe){
+            // TODO Pane 불러오기 실패에 대한 알림
         }
     }
 }

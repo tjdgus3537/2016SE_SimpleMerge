@@ -27,7 +27,6 @@
             </Button>
          </items>
       </ToolBar>
-      <TextArea fx:id="contentTextArea" editable="false" styleClass="background" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="40.0" />
    </children>
     <stylesheets>
         <URL value="@css/EditorPane.css" />

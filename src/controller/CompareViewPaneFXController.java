@@ -7,6 +7,7 @@ import java.util.ResourceBundle;
 
 /**
  * Created by Donghwan on 5/18/2016.
+ * @deprecated 다른 방식으로 비교 창을 보여줌
  * 비교 결과 창을 관리하는 컨트롤러
  */
 public class CompareViewPaneFXController implements Initializable{
