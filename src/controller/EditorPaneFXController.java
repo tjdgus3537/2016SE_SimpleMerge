@@ -30,6 +30,7 @@ public class EditorPaneFXController {
 
     @FXML
     protected void handleEditAction(ActionEvent event){
+        contentTextArea.setEditable(true);
     }
 
     @FXML
@@ -44,6 +45,7 @@ public class EditorPaneFXController {
         if(content != null) {
             setTargetToContentTextArea(content);
             source = selectedFile;
+            contentTextArea.setEditable(false);
         }
     }
 
