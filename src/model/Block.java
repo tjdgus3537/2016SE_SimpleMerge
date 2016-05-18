@@ -30,8 +30,6 @@ public class Block implements StateUsable{
 	
 	public void setStartNumber(int startNumber) {
 		this.startNumber = startNumber;
-		if(state == SPACE)
-			this.startNumber = -1;
 	}
 	
 	public void setNumberOfLine(int numberOfLine) {
@@ -40,8 +38,6 @@ public class Block implements StateUsable{
 	
 	public void setState(int state) {
 		this.state = state;
-		if(state == SPACE)
-			setStartNumber(-1);
 	}
 	
 	public void setContent(String content) {
