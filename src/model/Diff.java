@@ -49,6 +49,9 @@ public class Diff implements StateUsable{
 		
 		pairBlockArrayList = copyToLeft(pairBlockArrayList, blockNum);
 		
+		if(pairBlockArrayList == null)
+			return null;
+		
 		return pairBlockArrayList.getLeft();
 	}
 	
@@ -69,6 +72,9 @@ public class Diff implements StateUsable{
 			return null;
 		
 		pairBlockArrayList = copyToRight(pairBlockArrayList, blockNum);
+		
+		if(pairBlockArrayList == null)
+			return null;
 		
 		return pairBlockArrayList.getRight();
 	}
