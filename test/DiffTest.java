@@ -20,9 +20,6 @@ public class DiffTest {
 	private String blockToString(Block block) {
 		String s = "";
 		
-		s += block.getStartNumber();
-		s += block.getNumberOfLine();
-		s += block.getState();
 		s += block.getContent();
 
 		return s;
