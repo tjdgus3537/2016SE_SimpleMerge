@@ -33,24 +33,44 @@ public class Diff implements StateUsable{
 	
 	/**
 	 * 특정 줄에 해당하는 우측의 Block을 좌측으로 copy한 결과를 Block들로 return
+	 * @param left 비교할 문자열
+	 * @param right 비교할 문자열
 	 * @param lineNum copy할 부분의 줄 번호
      * @return copy를 적용하고 난 후의 좌측의 ArrayList<Block>
      */	
 	//@TODO::내부 구현하기
 	public ArrayList<Block> copyToLeft(String left, String right, int lineNum) {
 		PairBlockArrayList pairBlockArrayList = compare(left, right);
+		int blockNum = findBlockNum(pairBlockArrayList.getRight(), lineNum);
 		
-		return null;
+		//잘못된 blockNum이 입력되었을 때
+		if(blockNum == -1)
+			return null;
+		
+		pairBlockArrayList = copyToLeft(pairBlockArrayList, blockNum);
+		
+		return pairBlockArrayList.getLeft();
 	}
 	
 	/**
 	 * 특정 줄에 해당하는 우측의 Block을 좌측으로 copy한 결과를 Block들로 return
+	 * @param left 비교할 문자열
+	 * @param right 비교할 문자열
 	 * @param lineNum copy할 부분의 줄 번호
      * @return copy를 적용하고 난 후의 좌측의 ArrayList<Block>
      */	
 	//@TODO::내부 구현하기
 	public ArrayList<Block> copyToRight(String left, String right, int lineNum) {
-		return null;
+		PairBlockArrayList pairBlockArrayList = compare(left, right);
+		int blockNum = findBlockNum(pairBlockArrayList.getLeft(), lineNum);
+		
+		//잘못된 blockNum이 입력되었을 때
+		if(blockNum == -1)
+			return null;
+		
+		pairBlockArrayList = copyToRight(pairBlockArrayList, blockNum);
+		
+		return pairBlockArrayList.getRight();
 	}
 	
 	private String getLCS(String left, String right) {
@@ -89,13 +109,13 @@ public class Diff implements StateUsable{
 		return putSpaceBlocks(blockArrayListOfLetf, blockArrayListOfRight);
 	}
 
-	//TODO::다시 구현하기
 	private PairBlockArrayList putSpaceBlocks(ArrayList<Block> left, ArrayList<Block> right) {
 		PairBlockArrayList pairBlockArrayList = new PairBlockArrayList();
 		Block block;
 		int leftIndex = 0, rightIndex = 0;
 		String s;
 		
+		//한 쪽이 ""일 때에 대한 예외처리 부분
 		//""일 때를 처리. 한 쪽이 ""이면 다른 한 쪽이 ""이 아닌 이상, 전체가 changed인 1 block이 됨
 		if(left.size() == 0 && right.size() == 1) {
 			s = makeNLineFeed(right.get(0).getNumberOfLine());
@@ -240,7 +260,6 @@ public class Diff implements StateUsable{
 		for (int i = 0; i < lineStateArrayList.size() - 1; i++) {
 			if (lineStateArrayList.get(i) != lineStateArrayList.get(i + 1)) {
 				//길이는 끝나는 지점 - 시작 지점 + 1
-				//TODO:: block 정의가 바뀌어서 새로 짜야함. 안 고치면 버그 발생.
 				s = concatString(lineStringArrayList, lineCheckIndex, i);
 				block = new Block(lineCheckIndex, i - lineCheckIndex + 1, lineStateArrayList.get(i), s);
 				blockArrayList.add(block);
@@ -252,7 +271,6 @@ public class Diff implements StateUsable{
 		if (lineCheckIndex < lineStateArrayList.size()) {
 			//길이는 끝나는 지점 - 시작 지점 + 1
 			//3번째 parameter에서 size - 1의 원소를 사용하는 이유는 ArrayList가 0에서 시작하기 때문이다.
-			//TODO:: block 정의가 바뀌어서 새로 짜야함. 안 고치면 버그 발생.
 			s = concatString(lineStringArrayList, lineCheckIndex, (lineStateArrayList.size() - 1));
 			block = new Block(lineCheckIndex, (lineStateArrayList.size() - 1) - lineCheckIndex + 1, 
 					lineStateArrayList.get(lineStateArrayList.size() - 1), s);
@@ -295,6 +313,24 @@ public class Diff implements StateUsable{
 			}
 		}
 		
+		//잘못된 lineNum이 입력 되었을 때.
+		if(blockNum == blockArrayList.size())
+			return -1;
+		
 		return blockNum;
+	}
+	
+	private PairBlockArrayList copyToLeft(PairBlockArrayList pairBlockArrayList, int blockNum) {
+		pairBlockArrayList.getLeft().add(blockNum, pairBlockArrayList.getRight().get(blockNum));
+		pairBlockArrayList.getLeft().remove(blockNum + 1);
+		
+		return pairBlockArrayList;
+	}
+	
+	private PairBlockArrayList copyToRight(PairBlockArrayList pairBlockArrayList, int blockNum) {
+		pairBlockArrayList.getRight().add(blockNum, pairBlockArrayList.getLeft().get(blockNum));
+		pairBlockArrayList.getRight().remove(blockNum + 1);
+		
+		return pairBlockArrayList;
 	}
 }
