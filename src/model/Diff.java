@@ -78,6 +78,7 @@ public class Diff implements StateUsable{
 	}
 	
 	private PairBlockArrayList makePairBlockArrayList(String left, String right) {
+		PairBlockArrayList pairBlockArrayList;
 		String lcs = getLCS(left, right);
 		int[] charStateArrayOfLeft;
 		int[] charStateArrayOfRight;
@@ -106,7 +107,9 @@ public class Diff implements StateUsable{
 		blockArrayListOfRight = getBlockArrayList(lineStateArrayListOfRight, lineStringArrayListOfRight);
 		
 		//block들 사이에 SPACE block을 채워 넣어서 line을 일치하게 만든다.
-		return putSpaceBlocks(blockArrayListOfLetf, blockArrayListOfRight);
+		pairBlockArrayList = putSpaceBlocks(blockArrayListOfLetf, blockArrayListOfRight);
+		
+		return null;
 	}
 
 	private PairBlockArrayList putSpaceBlocks(ArrayList<Block> left, ArrayList<Block> right) {
@@ -320,6 +323,7 @@ public class Diff implements StateUsable{
 		return blockNum;
 	}
 	
+	//@TODO::사실 return해 줄 필요 없음 - 리팩토링 때 개선
 	private PairBlockArrayList copyToLeft(PairBlockArrayList pairBlockArrayList, int blockNum) {
 		pairBlockArrayList.getLeft().add(blockNum, pairBlockArrayList.getRight().get(blockNum));
 		pairBlockArrayList.getLeft().remove(blockNum + 1);
@@ -327,9 +331,24 @@ public class Diff implements StateUsable{
 		return pairBlockArrayList;
 	}
 	
+	//@TODO::사실 return해 줄 필요 없음 - 리팩토링 때 개선
 	private PairBlockArrayList copyToRight(PairBlockArrayList pairBlockArrayList, int blockNum) {
 		pairBlockArrayList.getRight().add(blockNum, pairBlockArrayList.getLeft().get(blockNum));
 		pairBlockArrayList.getRight().remove(blockNum + 1);
+		
+		return pairBlockArrayList;
+	}
+	
+	//@TODO::사실 return해 줄 필요 없음 - 리팩토링 때 개선
+	private PairBlockArrayList adjustLineNum(PairBlockArrayList pairBlockArrayList) {
+		int line = 0;
+		
+		//left와 right의 block 수는 동일한 것이 input으로 들어옴.
+		for(int i = 0 ; i < pairBlockArrayList.getLeft().size(); i++) {
+			pairBlockArrayList.getLeft().get(i).setStartNumber(line);
+			pairBlockArrayList.getRight().get(i).setStartNumber(line);
+			line += pairBlockArrayList.getLeft().get(i).getNumberOfLine();
+		}
 		
 		return pairBlockArrayList;
 	}
