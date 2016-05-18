@@ -37,7 +37,9 @@ public class Diff implements StateUsable{
      * @return copy를 적용하고 난 후의 좌측의 ArrayList<Block>
      */	
 	//@TODO::내부 구현하기
-	public ArrayList<Block> copyToLeft(int lineNum) {
+	public ArrayList<Block> copyToLeft(String left, String right, int lineNum) {
+		PairBlockArrayList pairBlockArrayList = compare(left, right);
+		
 		return null;
 	}
 	
@@ -47,7 +49,7 @@ public class Diff implements StateUsable{
      * @return copy를 적용하고 난 후의 좌측의 ArrayList<Block>
      */	
 	//@TODO::내부 구현하기
-	public ArrayList<Block> copyToRight(int lineNum) {
+	public ArrayList<Block> copyToRight(String left, String right, int lineNum) {
 		return null;
 	}
 	
@@ -277,5 +279,20 @@ public class Diff implements StateUsable{
 			s += "\n";
 		
 		return s;
+	}
+	
+	private int findBlockNum(ArrayList<Block> blockArrayList, int lineNum) {
+		int blockNum;
+		
+		//lineNum이 block의 시작 줄 ~ (시작 줄 + 줄의 개수 - 1)에 있으면 그 line은 해당 block에 속하는 것
+		for(blockNum = 0 ; blockNum < blockArrayList.size(); blockNum++) {
+			if(blockArrayList.get(blockNum).getStartNumber() <= lineNum &&
+					lineNum <= blockArrayList.get(blockNum).getStartNumber() 
+					+ blockArrayList.get(blockNum).getNumberOfLine() - 1) {
+				break;
+			}
+		}
+		
+		return blockNum;
 	}
 }
