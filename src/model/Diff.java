@@ -328,6 +328,11 @@ public class Diff implements StateUsable{
 	
 	//@TODO::사실 return해 줄 필요 없음 - 리팩토링 때 개선
 	private PairBlockArrayList copyToLeft(PairBlockArrayList pairBlockArrayList, int blockNum) {
+		//unchanged 상황에서는 copyToLeft가 실행되어서는 안 된다.
+		//@TODO:: 추후 가능하면 exception으로 바꾸기.
+		if(pairBlockArrayList.getRight().get(blockNum).getState() == UNCHANGED)
+			return null;
+		
 		//우측의 blockNum번 block을 좌측에 추가하고, 좌측의 blockNum + 1번째 block을 삭제.
 		pairBlockArrayList.getLeft().add(blockNum, pairBlockArrayList.getRight().get(blockNum));
 		pairBlockArrayList.getLeft().remove(blockNum + 1);
@@ -337,6 +342,11 @@ public class Diff implements StateUsable{
 	
 	//@TODO::사실 return해 줄 필요 없음 - 리팩토링 때 개선
 	private PairBlockArrayList copyToRight(PairBlockArrayList pairBlockArrayList, int blockNum) {
+		//unchanged 상황에서는 copyToLeft가 실행되어서는 안 된다.
+		//@TODO:: 추후 가능하면 exception으로 바꾸기.
+		if(pairBlockArrayList.getLeft().get(blockNum).getState() == UNCHANGED)
+			return null;
+		
 		//우측의 blockNum번 block을 우측에 추가하고, 우측의 blockNum + 1번째 block을 삭제.
 		pairBlockArrayList.getRight().add(blockNum, pairBlockArrayList.getLeft().get(blockNum));
 		pairBlockArrayList.getRight().remove(blockNum + 1);
