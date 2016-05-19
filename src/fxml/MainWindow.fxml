@@ -10,24 +10,25 @@
    <children>
       <ToolBar nodeOrientation="LEFT_TO_RIGHT" styleClass="background" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
          <items>
-             <Button fx:id="compareButton" id="compare-button" mnemonicParsing="false" onAction="#handleCompareButtonAction">
+             <Button id="compare-button" fx:id="compareButton" mnemonicParsing="false" onAction="#handleCompareButtonAction">
                 <tooltip>
-                    <Tooltip text="Compare"/>
+                    <Tooltip text="Compare" />
                 </tooltip>
             </Button>
-            <Button fx:id="copyToRightButton" id="copy-to-right-button" disable="true" mnemonicParsing="false" onAction="#handleCopyToRightButtonAction">
+            <Button id="copy-to-right-button" fx:id="copyToRightButton" disable="true" mnemonicParsing="false" onAction="#handleCopyToRightButtonAction">
                 <tooltip>
-                    <Tooltip text="Copy To Right"/>
+                    <Tooltip text="Copy To Right" />
                 </tooltip>
             </Button>
-            <Button fx:id="copyToLeftButton" id="copy-to-left-button" disable="true" mnemonicParsing="false" onAction="#handelCopyToLeftButtonAction">
+            <Button id="copy-to-left-button" fx:id="copyToLeftButton" disable="true" mnemonicParsing="false" onAction="#handleCopyToLeftButtonAction">
                 <tooltip>
-                    <Tooltip text="Copy To Left"/>
+                    <Tooltip text="Copy To Left" />
                 </tooltip>
             </Button>
          </items>
       </ToolBar>
-      <SplitPane fx:id="editorSplitPane" nodeOrientation="LEFT_TO_RIGHT" styleClass="background" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="40.0" />
+      <SplitPane fx:id="editorSplitPane" nodeOrientation="LEFT_TO_RIGHT" styleClass="background" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="40.0" />
+      <ScrollBar id="compare-view-scroll-bar" fx:id="compareViewScrollBar" disable="true" min="0" orientation="VERTICAL" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="40.0" />
    </children>
     <stylesheets>
         <URL value="@css/MainWindow.css" />

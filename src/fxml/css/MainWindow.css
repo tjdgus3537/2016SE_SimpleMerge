@@ -76,3 +76,25 @@
 #copy-to-left-button{
     -fx-background-image: url("icon/copytoleft.png");
 }
+
+.scroll-bar:vertical,
+.scroll-bar:vertical .track,
+.scroll-bar:vertical .increment-button ,
+.scroll-bar:vertical .decrement-button {
+    -fx-background-color: #3E3E42;
+    -fx-border-color: #3E3E42;
+}
+
+.scroll-bar:vertical .increment-arrow,
+.scroll-bar:vertical  .decrement-arrow
+{
+    -fx-background-color: #999999;
+}
+
+.scroll-bar:vertical .thumb {
+    -fx-background-color: #686868;
+}
+
+#compare-view-scroll-bar{
+    -fx-pref-width: 30.0;
+}

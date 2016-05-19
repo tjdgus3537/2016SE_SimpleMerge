@@ -91,6 +91,10 @@ public class EditorPaneFXController implements Initializable{
         else return null;
     }
 
+    public ListView getCompareListView(){
+        return compareListView;
+    }
+
     public void switchEditorTextArea(String content){
         viewMode = ViewMode.EDIT;
         if(compareModeDisabler != null) compareModeDisabler.disableCompareMode();
@@ -103,7 +107,6 @@ public class EditorPaneFXController implements Initializable{
         compareListView.setItems(content);
         editButton.setSelected(false);
         setContentPane(compareListView);
-
     }
 
     public void setCompareModeDisabler(CompareModeDisabler compareModeDisabler){ this.compareModeDisabler = compareModeDisabler; }

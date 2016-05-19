@@ -5,8 +5,8 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.ScrollBar;
 import javafx.scene.control.SplitPane;
-import javafx.scene.control.ToggleButton;
 import javafx.scene.layout.AnchorPane;
 
 import java.io.IOException;
@@ -30,6 +30,8 @@ public class MainWindowFXController implements Initializable, CompareModeDisable
     private Button copyToLeftButton;
     @FXML
     private SplitPane editorSplitPane;
+    @FXML
+    private ScrollBar compareViewScrollBar;
 
     @FXML
     private void handleCompareButtonAction(ActionEvent event){
@@ -37,10 +39,11 @@ public class MainWindowFXController implements Initializable, CompareModeDisable
         if(!leftPaneController.isFileContained() || !rightPaneController.isFileContained()) {
             return;
         }
-        setDisableCompareModeButtons(false);
+        setDisableCompareModeNodes(false);
         leftPaneController.switchCompareListView(null);
         rightPaneController.switchCompareListView(null);
         // TODO compare 결과를 넣어줘야함.
+        compareViewScrollBar.setMax(1); // comp 결과 길이가 들어가야 함
     }
 
     @FXML
@@ -49,19 +52,20 @@ public class MainWindowFXController implements Initializable, CompareModeDisable
     }
 
     @FXML
-    private void handelCopyToLeftButtonAction(ActionEvent event){
+    private void handleCopyToLeftButtonAction(ActionEvent event){
 
     }
 
-    private void setDisableCompareModeButtons(boolean value){
+    private void setDisableCompareModeNodes(boolean value){
         copyToRightButton.setDisable(value);
         copyToLeftButton.setDisable(value);
+        compareViewScrollBar.setDisable(value);
         compareButton.setDisable(!value);
     }
 
     @Override
     public void disableCompareMode() {
-        setDisableCompareModeButtons(true);
+        setDisableCompareModeNodes(true);
     }
 
     @Override
@@ -82,6 +86,10 @@ public class MainWindowFXController implements Initializable, CompareModeDisable
             items.add(leftEditorPane);
             items.add(rightEditorPane);
             editorSplitPane.setDividerPositions(0.5);
+            compareViewScrollBar.valueProperty().addListener((observable, oldValue, newValue) -> {
+                leftPaneController.getCompareListView().scrollTo(newValue);
+                rightPaneController.getCompareListView().scrollTo(newValue);
+            });
         }catch(IOException e){
             e.printStackTrace();
         }
