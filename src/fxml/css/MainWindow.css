@@ -77,21 +77,21 @@
     -fx-background-image: url("icon/copytoleft.png");
 }
 
-.scroll-bar:vertical,
-.scroll-bar:vertical .track,
-.scroll-bar:vertical .increment-button ,
-.scroll-bar:vertical .decrement-button {
+.scroll-bar,
+.scroll-bar .track,
+.scroll-bar .increment-button ,
+.scroll-bar .decrement-button {
     -fx-background-color: #3E3E42;
     -fx-border-color: #3E3E42;
 }
 
-.scroll-bar:vertical .increment-arrow,
-.scroll-bar:vertical  .decrement-arrow
+.scroll-bar .increment-arrow,
+.scroll-bar .decrement-arrow
 {
     -fx-background-color: #999999;
 }
 
-.scroll-bar:vertical .thumb {
+.scroll-bar .thumb {
     -fx-background-color: #686868;
 }
 

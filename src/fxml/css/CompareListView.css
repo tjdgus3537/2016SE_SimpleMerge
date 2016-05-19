@@ -1,3 +1,4 @@
+/* hide scrollbar of listview from http://blog.ngopal.com.np/2012/09/25/how-to-bind-vertical-scroll-in-multi-tableview/ */
 .list-view .scroll-bar:vertical .track{
     -fx-padding:0px;
     -fx-background-color:transparent;
