@@ -38,7 +38,7 @@
     -fx-pref-width: 800.0;
 }
 
-#compare-tool-bar{
+.tool-bar{
     -fx-pref-height: 40.0;
     -fx-max-height: 40.0;
 }

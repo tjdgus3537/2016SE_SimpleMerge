@@ -34,7 +34,7 @@ public class MainWindowFXController implements Initializable, CompareModeDisable
 
 
     @FXML
-    protected void handleCompareButtonAction(ActionEvent event){
+    private void handleCompareButtonAction(ActionEvent event){
         // 양 쪽 pane에 파일이 존재하지 않으면 비교 불가
         if(!leftPaneController.isFileContained() || !rightPaneController.isFileContained()) return;
         setDisableCopyButtons(false);
@@ -44,12 +44,12 @@ public class MainWindowFXController implements Initializable, CompareModeDisable
     }
 
     @FXML
-    protected void handleCopyToRightButtonAction(ActionEvent event){
+    private void handleCopyToRightButtonAction(ActionEvent event){
 
     }
 
     @FXML
-    protected void handelCopyToLeftButtonAction(ActionEvent event){
+    private void handelCopyToLeftButtonAction(ActionEvent event){
 
     }
 

@@ -7,6 +7,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.AnchorPane;
@@ -38,9 +39,25 @@ public class EditorPaneFXController implements Initializable{
 
     @FXML
     private Pane rootPane;
+    @FXML
+    private Button editButton;
+    @FXML
+    private Button saveButton;
 
     @FXML
-    protected void handleEditAction(ActionEvent event){
+    private void handleLoadAction(ActionEvent event){
+        File selectedFile = showFileChooser();
+        String content = loadTargetFromFile(selectedFile);
+        if(content != null) {
+            switchEditorTextArea(content);
+            source = selectedFile;
+            editorTextArea.setEditable(false);
+            setDisableFileEditButtons(false);
+        }
+    }
+
+    @FXML
+    private void handleEditAction(ActionEvent event){
         // TODO 파일이 없으면 edit 불가능 -> 사용자에게 알려줘야 함
 
         // Compare 모드일 때는 compareModeDisabler에게 해제를 요청함
@@ -54,21 +71,10 @@ public class EditorPaneFXController implements Initializable{
     }
 
     @FXML
-    protected void handleSaveAction(ActionEvent event){
+    private void handleSaveAction(ActionEvent event){
         if(viewMode == ViewMode.EDIT) saveTargetFromContent(source, editorTextArea.getText());
         else{
             // TODO 모델에서 비교 후 저장된 텍스트 내용을 가져와야 함.
-        }
-    }
-
-    @FXML
-    protected void handleLoadAction(ActionEvent event){
-        File selectedFile = showFileChooser();
-        String content = loadTargetFromFile(selectedFile);
-        if(content != null) {
-            switchEditorTextArea(content);
-            source = selectedFile;
-            editorTextArea.setEditable(false);
         }
     }
 
@@ -98,6 +104,10 @@ public class EditorPaneFXController implements Initializable{
 
     public void setCompareModeDisabler(CompareModeDisabler compareModeDisabler){ this.compareModeDisabler = compareModeDisabler; }
 
+    private void setDisableFileEditButtons(boolean value){
+        editButton.setDisable(value);
+        saveButton.setDisable(value);
+    }
     // 파일을 불러오는 과정
     private File showFileChooser(){
         // FileChooser로 불러올 파일 선택
@@ -176,6 +186,7 @@ public class EditorPaneFXController implements Initializable{
             compareListView = FXMLLoader.load(getClass().getResource("/fxml/CompareListView.fxml"));
             addContentPaneProperty(editorTextArea);
             addContentPaneProperty(compareListView);
+            setDisableFileEditButtons(true);
             switchEditorTextArea(null);
         }catch(IOException ioe){
             // TODO Pane 불러오기 실패에 대한 알림
