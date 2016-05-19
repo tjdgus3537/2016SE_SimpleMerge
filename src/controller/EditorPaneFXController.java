@@ -6,10 +6,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.ListView;
-import javafx.scene.control.TextArea;
+import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.FileChooser;
@@ -40,7 +37,7 @@ public class EditorPaneFXController implements Initializable{
     @FXML
     private Pane rootPane;
     @FXML
-    private Button editButton;
+    private ToggleButton editButton;
     @FXML
     private Button saveButton;
 
@@ -52,7 +49,8 @@ public class EditorPaneFXController implements Initializable{
             switchEditorTextArea(content);
             source = selectedFile;
             editorTextArea.setEditable(false);
-            setDisableFileEditButtons(false);
+            setDisableEditModeButtons(false);
+            editButton.setSelected(false);
         }
     }
 
@@ -65,8 +63,13 @@ public class EditorPaneFXController implements Initializable{
             // TODO 모델에서 비교 후 저장된 텍스트 내용을 가져와야 함.
             switchEditorTextArea(null);
             editorTextArea.setEditable(true);
-        }else{
-            if(source != null) editorTextArea.setEditable(!(editorTextArea.isEditable()));
+        }else{ // Edit 모드일 때
+            if(source != null) {
+                boolean editable = editorTextArea.isEditable();
+                // read only <-> edit
+                editorTextArea.setEditable(!editable);
+                editButton.setSelected(!editable);
+            }
         }
     }
 
@@ -98,16 +101,18 @@ public class EditorPaneFXController implements Initializable{
     public void switchCompareListView(ObservableList content){
         viewMode = ViewMode.COMPARE;
         compareListView.setItems(content);
+        editButton.setSelected(false);
         setContentPane(compareListView);
 
     }
 
     public void setCompareModeDisabler(CompareModeDisabler compareModeDisabler){ this.compareModeDisabler = compareModeDisabler; }
 
-    private void setDisableFileEditButtons(boolean value){
+    private void setDisableEditModeButtons(boolean value){
         editButton.setDisable(value);
         saveButton.setDisable(value);
     }
+
     // 파일을 불러오는 과정
     private File showFileChooser(){
         // FileChooser로 불러올 파일 선택
@@ -167,6 +172,7 @@ public class EditorPaneFXController implements Initializable{
         }
     }
 
+    // 파일 내용을 보여주는 창 교체
     private void setContentPane(Node node) {
         List children = rootPane.getChildren();
         if(children.size() > 1) children.set(1, node);
@@ -186,7 +192,6 @@ public class EditorPaneFXController implements Initializable{
             compareListView = FXMLLoader.load(getClass().getResource("/fxml/CompareListView.fxml"));
             addContentPaneProperty(editorTextArea);
             addContentPaneProperty(compareListView);
-            setDisableFileEditButtons(true);
             switchEditorTextArea(null);
         }catch(IOException ioe){
             // TODO Pane 불러오기 실패에 대한 알림

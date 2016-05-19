@@ -11,12 +11,6 @@
     -fx-padding: 0 2 0 2;
 }
 
-.label {
-    -fx-font-size: 12px;
-    -fx-font-weight: bold;
-    -fx-text-fill: white;
-}
-
 .button {
     -fx-pref-height: 25.0;
     -fx-pref-width: 25.0;
@@ -29,8 +23,36 @@
     -fx-background-repeat: no-repeat;
 }
 
+.button:pressed {
+    -fx-background-color: #FFEB3B;
+}
+
 .button:disabled {
     -fx-background-color: transparent;
+}
+
+.toggle-button {
+    -fx-pref-height: 25.0;
+    -fx-pref-width: 25.0;
+    -fx-text-fill: white;
+    -fx-font-family: 'Roboto', sans-serif;
+    -fx-font-weight: bold;
+    -fx-background-color: red;
+    -fx-background-size: contain;
+    -fx-background-positon: center;
+    -fx-background-repeat: no-repeat;
+}
+
+.toggle-button:pressed{
+    -fx-background-color: #FFEB3B;
+}
+
+.toggle-button:disabled {
+    -fx-background-color: transparent;
+}
+
+.toggle-button:selected {
+    -fx-background-color: #3DB57D;
 }
 
 #root-pane{
@@ -53,9 +75,4 @@
 
 #copy-to-left-button{
     -fx-background-image: url("icon/copytoleft.png");
-}
-
-.button:pressed {
-    -fx-background-color: #00bfa5;
-    -fx-border-color: #00bfa5;
 }

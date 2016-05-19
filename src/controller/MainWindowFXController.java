@@ -6,12 +6,11 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.SplitPane;
+import javafx.scene.control.ToggleButton;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.VBox;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.Enumeration;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -32,12 +31,13 @@ public class MainWindowFXController implements Initializable, CompareModeDisable
     @FXML
     private SplitPane editorSplitPane;
 
-
     @FXML
     private void handleCompareButtonAction(ActionEvent event){
         // 양 쪽 pane에 파일이 존재하지 않으면 비교 불가
-        if(!leftPaneController.isFileContained() || !rightPaneController.isFileContained()) return;
-        setDisableCopyButtons(false);
+        if(!leftPaneController.isFileContained() || !rightPaneController.isFileContained()) {
+            return;
+        }
+        setDisableCompareModeButtons(false);
         leftPaneController.switchCompareListView(null);
         rightPaneController.switchCompareListView(null);
         // TODO compare 결과를 넣어줘야함.
@@ -53,7 +53,7 @@ public class MainWindowFXController implements Initializable, CompareModeDisable
 
     }
 
-    private void setDisableCopyButtons(boolean value){
+    private void setDisableCompareModeButtons(boolean value){
         copyToRightButton.setDisable(value);
         copyToLeftButton.setDisable(value);
         compareButton.setDisable(!value);
@@ -61,7 +61,7 @@ public class MainWindowFXController implements Initializable, CompareModeDisable
 
     @Override
     public void disableCompareMode() {
-        setDisableCopyButtons(true);
+        setDisableCompareModeButtons(true);
     }
 
     @Override
@@ -82,9 +82,6 @@ public class MainWindowFXController implements Initializable, CompareModeDisable
             items.add(leftEditorPane);
             items.add(rightEditorPane);
             editorSplitPane.setDividerPositions(0.5);
-
-            // 처음에는 compare 불가
-            setDisableCopyButtons(true);
         }catch(IOException e){
             e.printStackTrace();
         }

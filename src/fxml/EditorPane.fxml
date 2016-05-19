@@ -15,12 +15,12 @@
                     <Tooltip text="Load" />
                 </tooltip>
             </Button>
-            <Button fx:id="editButton" id="edit-button" mnemonicParsing="false" onAction="#handleEditAction">
+            <ToggleButton fx:id="editButton" id="edit-button" selected="false" disable="true" mnemonicParsing="false" onAction="#handleEditAction">
                 <tooltip>
                     <Tooltip text="Edit" />
                 </tooltip>
-            </Button>
-            <Button fx:id="saveButton" id="save-button" mnemonicParsing="false" onAction="#handleSaveAction">
+            </ToggleButton>
+            <Button fx:id="saveButton" id="save-button" disable="true" mnemonicParsing="false" onAction="#handleSaveAction">
                 <tooltip>
                     <Tooltip text="Save" />
                 </tooltip>

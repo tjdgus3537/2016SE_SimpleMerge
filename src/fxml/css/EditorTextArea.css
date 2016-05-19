@@ -5,4 +5,5 @@
 .text-area .content {
     -fx-background-color: #252526;
     -fx-border-color: #252526;
+    -fx-text-fill: white;
 }
