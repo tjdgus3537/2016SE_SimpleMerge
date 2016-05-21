@@ -154,7 +154,7 @@ public class DiffTest {
 		assertEquals("d\naabc\nx\ny\n", s);
 	}
 	
-	//원래 string 보다 큰 lineNum을 입력으로 받았을 때
+	//원래 string 보다 큰 blockNum을 입력으로 받았을 때
 	@Test
 	public void testCopyToLeft4() {
 		ArrayList<Block> blockArrayList;
@@ -163,7 +163,7 @@ public class DiffTest {
 		assertEquals(null, blockArrayList);
 	}
 	
-	//lineNum으로 음수를 입력 받았을 때
+	//blockNum으로 음수를 입력 받았을 때
 	@Test
 	public void testCopyToLeft5() {
 		ArrayList<Block> blockArrayList;
@@ -176,13 +176,13 @@ public class DiffTest {
 	@Test
 	public void testCopyToLeft6() {
 		ArrayList<Block> blockArrayList;
-		blockArrayList = diff.copyToLeft("", "aabc\nx\ny\n", 2);
+		blockArrayList = diff.copyToLeft("", "aabc\nx\ny\n", 0);
 		String s = blockArrayListToString(blockArrayList);
 		
 		assertEquals("aabc\nx\ny\n", s);
 	}
 	
-	//두 String이 모두 공스트링("")일 때 --> lineNum이 그 어떤 String에도 소속할 수 없음
+	//두 String이 모두 공스트링("")일 때 --> blockNum이 그 어떤 String에도 소속할 수 없음
 	@Test
 	public void testCopyToLeft7() {
 		ArrayList<Block> blockArrayList;
@@ -238,7 +238,7 @@ public class DiffTest {
 		assertEquals("\naabc\n\n\n", s);
 	}
 	
-	//원래 string 보다 큰 lineNum을 입력으로 받았을 때
+	//원래 string 보다 큰 blockNum을 입력으로 받았을 때
 	@Test
 	public void testCopyToRight4() {
 		ArrayList<Block> blockArrayList;
@@ -247,7 +247,7 @@ public class DiffTest {
 		assertEquals(null, blockArrayList);
 	}
 	
-	//lineNum으로 음수를 입력 받았을 때
+	//blockNum으로 음수를 입력 받았을 때
 	@Test
 	public void testCopyToRight5() {
 		ArrayList<Block> blockArrayList;
@@ -260,13 +260,13 @@ public class DiffTest {
 	@Test
 	public void testCopyToRight6() {
 		ArrayList<Block> blockArrayList;
-		blockArrayList = diff.copyToRight("", "aabc\nx\ny\n", 2);
+		blockArrayList = diff.copyToRight("", "aabc\nx\ny\n", 0);
 		String s = blockArrayListToString(blockArrayList);
 		
 		assertEquals("\n\n\n", s);
 	}
 	
-	//두 String이 모두 공스트링("")일 때 --> lineNum이 그 어떤 String에도 소속할 수 없음
+	//두 String이 모두 공스트링("")일 때 --> blockNum이 그 어떤 String에도 소속할 수 없음
 	@Test
 	public void testCopyToRight7() {
 		ArrayList<Block> blockArrayList;
