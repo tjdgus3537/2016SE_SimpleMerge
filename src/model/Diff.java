@@ -7,23 +7,13 @@ import java.util.ArrayList;
  * compare 기능과 copyToLeft, copyToRight 기능을 제공하는 Class.
  */
 
-public class Diff implements StateUsable{
-	private LCS lcs;
+public class Diff implements DiffInterface{
+	private LCSInterface lcs;
 	
-	/**
-	 * 생성자
-     */
 	public Diff() {
 		lcs = new LCS();
 	}
 	
-	/**
-	 * 두 개의 string을 input으로 받아서 비교 결과를 PairBlockArrayList 형태로 return.
-	 * compare 함수를 실행하면 내부적으로 member variable값이 변경된다.
-	 * @param left 비교할 문자열
-	 * @param right 비교할 문자열
-     * @return 비교 결과
-     */
 	public PairBlockArrayList compare(String left, String right) {
 		if(left == null || right == null)
 			return null;
@@ -31,14 +21,6 @@ public class Diff implements StateUsable{
 		return makePairBlockArrayList(left, right);
 	}
 	
-	/**
-	 * 특정 줄에 해당하는 우측의 Block을 좌측으로 copy한 결과를 Block들로 return
-	 * @param left 비교할 문자열
-	 * @param right 비교할 문자열
-	 * @param lineNum copy할 부분의 줄 번호
-     * @return copy를 적용하고 난 후의 좌측의 ArrayList<Block>
-     */	
-
 	public ArrayList<Block> copyToLeft(String left, String right, int lineNum) {
 		PairBlockArrayList pairBlockArrayList = compare(left, right);
 		//compare의 결과가 null일 때
@@ -60,14 +42,6 @@ public class Diff implements StateUsable{
 		return pairBlockArrayList.getLeft();
 	}
 	
-	/**
-	 * 특정 줄에 해당하는 우측의 Block을 좌측으로 copy한 결과를 Block들로 return
-	 * @param left 비교할 문자열
-	 * @param right 비교할 문자열
-	 * @param lineNum copy할 부분의 줄 번호
-     * @return copy를 적용하고 난 후의 좌측의 ArrayList<Block>
-     */	
-	//@TODO::내부 구현하기
 	public ArrayList<Block> copyToRight(String left, String right, int lineNum) {
 		PairBlockArrayList pairBlockArrayList = compare(left, right);
 		//compare의 결과가 null일 때
@@ -96,10 +70,10 @@ public class Diff implements StateUsable{
 	private PairBlockArrayList makePairBlockArrayList(String left, String right) {
 		PairBlockArrayList pairBlockArrayList;
 		String lcs = getLCS(left, right);
-		int[] charStateArrayOfLeft;
-		int[] charStateArrayOfRight;
-		ArrayList<Integer> lineStateArrayListOfLeft;
-		ArrayList<Integer> lineStateArrayListOfRight;
+		State[] charStateArrayOfLeft;
+		State[] charStateArrayOfRight;
+		ArrayList<State> lineStateArrayListOfLeft;
+		ArrayList<State> lineStateArrayListOfRight;
 		ArrayList<String> lineStringArrayListOfLeft;
 		ArrayList<String> lineStringArrayListOfRight;
 		ArrayList<Block> blockArrayListOfLetf;
@@ -140,7 +114,7 @@ public class Diff implements StateUsable{
 		//""일 때를 처리. 한 쪽이 ""이면 다른 한 쪽이 ""이 아닌 이상, 전체가 changed인 1 block이 됨
 		if(left.size() == 0 && right.size() == 1) {
 			s = makeNLineFeed(right.get(0).getNumberOfLine());
-			block = new Block(-1, right.get(0).getNumberOfLine(), SPACE, s);
+			block = new Block(-1, right.get(0).getNumberOfLine(), State.SPACE, s);
 			pairBlockArrayList.addLeft(block);
 			pairBlockArrayList.addRight(right.get(0));
 			
@@ -149,7 +123,7 @@ public class Diff implements StateUsable{
 		
 		if(left.size() == 1 && right.size() == 0) {
 			s = makeNLineFeed(left.get(0).getNumberOfLine());
-			block = new Block(-1, left.get(0).getNumberOfLine(), SPACE, s);
+			block = new Block(-1, left.get(0).getNumberOfLine(), State.SPACE, s);
 			pairBlockArrayList.addLeft(left.get(0));
 			pairBlockArrayList.addRight(block);
 			
@@ -159,23 +133,23 @@ public class Diff implements StateUsable{
 		//양 쪽 모두 index < size 여야지 BOF error가 나지 않는다.
 		while (leftIndex < left.size() && rightIndex < right.size()) {
 			//양 쪽 모두 UNCHANGED이면 양쪽에 모두 넣어준다.
-			if (left.get(leftIndex).getState() == UNCHANGED && right.get(rightIndex).getState() == UNCHANGED) {
+			if (left.get(leftIndex).getState() == State.UNCHANGED && right.get(rightIndex).getState() == State.UNCHANGED) {
 				pairBlockArrayList.addLeft(left.get(leftIndex++));
 				pairBlockArrayList.addRight(right.get(rightIndex++));
 			}
 			//왼쪽이 UNCHANGED가 나올 때까지(즉 지금 CHANGED인 동안), 여기에 대응하는 오른쪽에 SPACE block을 채워 넣어주고,
 			//현재의 왼쪽 block을 왼쪽에 넣는다.
-			while (leftIndex < left.size() && left.get(leftIndex).getState() == CHANGED) {
+			while (leftIndex < left.size() && left.get(leftIndex).getState() == State.CHANGED) {
 				s = makeNLineFeed(left.get(leftIndex).getNumberOfLine());
-				block = new Block(-1, left.get(leftIndex).getNumberOfLine(), SPACE, s);
+				block = new Block(-1, left.get(leftIndex).getNumberOfLine(), State.SPACE, s);
 				pairBlockArrayList.addLeft(left.get(leftIndex++));
 				pairBlockArrayList.addRight(block);
 			}
 			//오른쪽이 UNCHANGED가 나올 때까지(즉 지금 CHANGED인 동안), 여기에 대응하는 왼쪽에 SPACE block을 채워 넣어주고,
 			//현재의 오른쪽 block을 오른쪽에 넣는다.
-			while (rightIndex < right.size() && right.get(rightIndex).getState() == CHANGED) {
+			while (rightIndex < right.size() && right.get(rightIndex).getState() == State.CHANGED) {
 				s = makeNLineFeed(right.get(rightIndex).getNumberOfLine());
-				block = new Block(-1, right.get(rightIndex).getNumberOfLine(), SPACE, s);
+				block = new Block(-1, right.get(rightIndex).getNumberOfLine(), State.SPACE, s);
 				pairBlockArrayList.addLeft(block);
 				pairBlockArrayList.addRight(right.get(rightIndex++));
 			}
@@ -184,46 +158,46 @@ public class Diff implements StateUsable{
 		return pairBlockArrayList;
 	}
 	
-	private int[] getStateArray(String s, String lcs) {
+	private State[] getStateArray(String s, String lcs) {
 		//앞에서 부터 비교해나가면서 s가 가리키는 부분과 lcs가 가리키는 부분을 비교하여 판단한다.
-		int[] stateArray = new int[s.length()];
+		State[] stateArray = new State[s.length()];
 		int lcs_index = 0;
 		
 		for (int i = 0; i < s.length(); i++) {
 			//만약 lcs가 이미 다 확인되었으면, 그 이후를 참조하면 BOF가 발생하므로 다 변한 것으로 처리한다.
 			if (lcs_index == lcs.length()) {
-				stateArray[i] = CHANGED;
+				stateArray[i] = State.CHANGED;
 				continue;
 			}
 			//만약 현재 읽은 글자가 lcs가 가리키고 있는 글자와 동일하면 변하지 않은 것이고 그렇지 않으면 변한 것이다.
 			if (s.charAt(i) == lcs.charAt(lcs_index)) {
-				stateArray[i] = UNCHANGED;
+				stateArray[i] = State.UNCHANGED;
 				lcs_index++;
 			}
 			else {
-				stateArray[i] = CHANGED;
+				stateArray[i] = State.CHANGED;
 			}
 		}
 
 		return stateArray;
 	}
 	
-	private ArrayList<Integer> transformCharStateToLineState(String s, int[] charStateArray) {
+	private ArrayList<State> transformCharStateToLineState(String s, State[] charStateArray) {
 		//한 줄이 어디까지 인지를 확인하고, 그 줄이 변했는지를 판단한다.
-		ArrayList<Integer> lineStateArrayList = new ArrayList<Integer>();
-		int stateChecker;
+		ArrayList<State> lineStateArrayList = new ArrayList<State>();
+		State stateChecker;
 		int lineCheckIndex = 0;
 		
 		for (int i = 0; i < s.length(); i++) {
 			//한 줄이 어디까지인지 확인한다.
 			if (s.charAt(i) == '\n') {
-				stateChecker = UNCHANGED;
+				stateChecker = State.UNCHANGED;
 				
 				//만약 줄이 시작 되면 이전 줄의 바로 다음 부분(lineCheckIndex가 나타내는 부분)부터 현재까지의 상태를 확인한다.
 				//lineCheckIndex ~ 현재가 바로 1줄
 				for (; lineCheckIndex <= i; lineCheckIndex++) {
-					if (charStateArray[lineCheckIndex] == CHANGED)
-						stateChecker = CHANGED;
+					if (charStateArray[lineCheckIndex] == State.CHANGED)
+						stateChecker = State.CHANGED;
 				}
 				
 				lineStateArrayList.add(stateChecker);
@@ -232,11 +206,11 @@ public class Diff implements StateUsable{
 		
 		//마지막이 개행으로 끝나지 않을 수도 있으므로, 마지막 줄을 별도로 처리해준다.
 		if (lineCheckIndex != s.length()) {
-			stateChecker = UNCHANGED;
+			stateChecker = State.UNCHANGED;
 
 			for (; lineCheckIndex <= s.length(); lineCheckIndex++) {
-				if (charStateArray[lineCheckIndex] == CHANGED)
-					stateChecker = CHANGED;
+				if (charStateArray[lineCheckIndex] == State.CHANGED)
+					stateChecker = State.CHANGED;
 			}
 			
 			lineStateArrayList.add(stateChecker);
@@ -272,7 +246,7 @@ public class Diff implements StateUsable{
 	}
 	
 	private ArrayList<Block> getBlockArrayList(
-			ArrayList<Integer> lineStateArrayList, ArrayList<String> lineStringArrayList) {
+			ArrayList<State> lineStateArrayList, ArrayList<String> lineStringArrayList) {
 		ArrayList<Block> blockArrayList = new ArrayList<Block>();
 		Block block;
 		String s;
@@ -346,7 +320,7 @@ public class Diff implements StateUsable{
 	private PairBlockArrayList copyToLeft(PairBlockArrayList pairBlockArrayList, int blockNum) {
 		//unchanged 상황에서는 copyToLeft가 실행되어서는 안 된다.
 		//@TODO:: 추후 가능하면 exception으로 바꾸기.
-		if(pairBlockArrayList.getRight().get(blockNum).getState() == UNCHANGED)
+		if(pairBlockArrayList.getRight().get(blockNum).getState() == State.UNCHANGED)
 			return null;
 		
 		//우측의 blockNum번 block을 좌측에 추가하고, 좌측의 blockNum + 1번째 block을 삭제.
@@ -360,7 +334,7 @@ public class Diff implements StateUsable{
 	private PairBlockArrayList copyToRight(PairBlockArrayList pairBlockArrayList, int blockNum) {
 		//unchanged 상황에서는 copyToLeft가 실행되어서는 안 된다.
 		//@TODO:: 추후 가능하면 exception으로 바꾸기.
-		if(pairBlockArrayList.getLeft().get(blockNum).getState() == UNCHANGED)
+		if(pairBlockArrayList.getLeft().get(blockNum).getState() == State.UNCHANGED)
 			return null;
 		
 		//우측의 blockNum번 block을 우측에 추가하고, 우측의 blockNum + 1번째 block을 삭제.
