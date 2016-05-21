@@ -4,24 +4,26 @@ package model;
  * Created by Seonghyeon on 5/15/2016.
  * state가 동일한 주변의 line들을 묶은 단위.
  * 시작하는 줄의 번호 (startNumber), 줄의 개수(numberOfLine), 상태 여부 (state)를 갖는다.
- * SPACE 상태를 갖는 block은 시작 줄은 의미가 없고, 줄의 개수만 의미를 갖는다.
- * 즉, SPACE 상태일 때는 항상 startNumber가 -1 이다.
  */
 
-public class Block implements StateUsable{
+public class Block{
+	//inner class로 enum 사용
+	enum State{
+		UNCHANGED, CHANGED, SPACE;
+	}
 	private int startNumber;
 	private int numberOfLine;
-	private int state;
+	private State state;
 	private String content;
 	
 	public Block() {
-		setState(SPACE);
+		setState(State.SPACE);
 		setStartNumber(-1);
 		setNumberOfLine(0);
 		setContent(null);
 	}
 	
-	public Block(int startNumber, int numberOfLine, int state, String content) {
+	public Block(int startNumber, int numberOfLine, State state, String content) {
 		setState(state);
 		setStartNumber(startNumber);
 		setNumberOfLine(numberOfLine);
@@ -36,7 +38,7 @@ public class Block implements StateUsable{
 		this.numberOfLine = numberOfLine;
 	}
 	
-	public void setState(int state) {
+	public void setState(State state) {
 		this.state = state;
 	}
 	
@@ -52,7 +54,7 @@ public class Block implements StateUsable{
 		return numberOfLine;
 	}
 	
-	public int getState() {
+	public State getState() {
 		return state;
 	}
 	
