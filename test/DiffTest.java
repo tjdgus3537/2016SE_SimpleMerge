@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import model.Block;
 import model.Diff;
+import model.DiffInterface;
 import model.PairBlockArrayList;
 
 import org.junit.Before;
@@ -15,7 +16,7 @@ import org.junit.Test;
  */
 
 public class DiffTest {
-	private Diff diff;
+	private DiffInterface diff;
 	
 	//helper method
 	private String blockToString(Block block) {

@@ -8,11 +8,10 @@ package model;
  * time complexity와 space complexity 모두 O(mn) (단, m은 첫 번째 string의 길이, n은 두 번째 string의 길이)
  */
 
-public class LCS {
-	private final int NONE = 0;
-	private final int UP = 1;
-	private final int LEFT = 2;
-	private final int UP_AND_LEFT = 3;
+public class LCS implements LCSInterface{
+	enum Direction {
+		NONE, UP, LEFT, UP_AND_LEFT;
+	}
 	
 	public String getLCS(String left, String right) {
 		//만약 둘 중 하나라도 null이면 null을 return
@@ -27,7 +26,7 @@ public class LCS {
 		//table[i][j]는 a[i]와 b[j] 사이의 LCS의 길이를 의미한다.
 		int[][] table = new int[left.length() + 1][right.length() + 1];
 		//restore[i][j]는 backtracking을 위한 것으로, 어느 방향에서 이어져 왔는지를 의미한다.
-		int[][] restore = new int[left.length() + 1][right.length() + 1];
+		Direction[][] restore = new Direction[left.length() + 1][right.length() + 1];
 		
 		//initialization.
 		initialize(table, restore, left.length(), right.length());
@@ -38,22 +37,22 @@ public class LCS {
 		return backtrack(table, restore, left, right);
 	}
 	
-	private void initialize(int[][] table, int[][] restore, int leftLength, int rightLength) {
+	private void initialize(int[][] table, Direction[][] restore, int leftLength, int rightLength) {
 		//initialize table[x, 0] and table[0, y]
 		//(0 <= x <= length of first string, 0 <= y <= length of second string).
 		//"<"가 아니라 "<="를 사용하는 것이 중요하다.
 		for (int i = 0; i <= leftLength; i++) {
 			table[i][0] = 0;
-			restore[i][0] = NONE;
+			restore[i][0] = Direction.NONE;
 		}
 
 		for (int i = 0; i <= rightLength; i++) {
 			table[0][i] = 0;
-			restore[0][i] = NONE;
+			restore[0][i] = Direction.NONE;
 		}
 	}
 
-	private void mainLoop(int[][] table, int[][] restore, String left, String right) {
+	private void mainLoop(int[][] table, Direction[][] restore, String left, String right) {
 		//main loop for implementing LCS algorithm.
 		//"<"가 아니라 "<="를 사용하는 것이 중요하다.
 		for (int i = 1; i <= left.length(); i++) {
@@ -61,38 +60,38 @@ public class LCS {
 				//string is starting from 0, so need to use i - 1, j - 1
 				if (left.charAt(i - 1) == right.charAt(j - 1)) {
 					table[i][j] = table[i - 1][j - 1] + 1;
-					restore[i][j] = UP_AND_LEFT;
+					restore[i][j] = Direction.UP_AND_LEFT;
 				}
 				else {
 					if (table[i - 1][j] > table[i][j - 1]) {
 						table[i][j] = table[i - 1][j];
-						restore[i][j] = UP;
+						restore[i][j] = Direction.UP;
 					}
 					else if (table[i - 1][j] < table[i][j - 1]) {
 						table[i][j] = table[i][j - 1];
-						restore[i][j] = LEFT;
+						restore[i][j] = Direction.LEFT;
 					}
 					else {
 						//LCS가 복수개일 때라도 그냥 하나만 구하기 때문에 짧은 string에서는 문제 발생 가능
 						//만약 같은 길이라면 위는 무시하고 왼쪽을 따라감
 						table[i][j] = table[i][j - 1];
-						restore[i][j] = LEFT;
+						restore[i][j] = Direction.LEFT;
 					}
 				}
 			}
 		}
 	}
 	
-	private String backtrack(int[][] table, int[][] restore, String left, String right) {
+	private String backtrack(int[][] table, Direction[][] restore, String left, String right) {
 		//restore과 table를 이용해서 backtracking 하여 LCS를 얻어낸다.
 		int i = left.length(), j = right.length();
 		int size = table[left.length()][right.length()];
 		int index = size - 1;
 		char[] lcs_array = new char[size];
 
-		while (restore[i][j] != NONE) {
+		while (restore[i][j] != Direction.NONE) {
 			//left.charAt(i) == right.charAt(j)
-			if (restore[i][j] == UP_AND_LEFT) {
+			if (restore[i][j] == Direction.UP_AND_LEFT) {
 				//string is starting from 0, so need to use i - 1, j - 1
 				lcs_array[index] = left.charAt(i - 1);
 				index--;
@@ -100,10 +99,10 @@ public class LCS {
 				j--;
 			}
 			else {
-				if (restore[i][j] == UP) {
+				if (restore[i][j] == Direction.UP) {
 					i--;
 				}
-				else if (restore[i][j] == LEFT) {
+				else if (restore[i][j] == Direction.LEFT) {
 					j--;
 				}
 			}
