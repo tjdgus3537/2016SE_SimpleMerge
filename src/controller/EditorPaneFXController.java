@@ -49,7 +49,7 @@ public class EditorPaneFXController implements Initializable{
             alert.setTitle("Save this file?");
             alert.setHeaderText("Save this file?");
             alert.setContentText("If you load other file, you will lose all change about this file.\n Click \'Yes\', if you want to save your changes");
-            alert.showAndWait().filter(response -> response == ButtonType.OK).ifPresent(response -> save); // TODO save method
+            alert.showAndWait().filter(response -> response == ButtonType.OK).ifPresent(response -> saveToFile()); // TODO save method
         }
         loadFromFile();
     }
@@ -75,10 +75,7 @@ public class EditorPaneFXController implements Initializable{
 
     @FXML
     private void handleSaveAction(ActionEvent event){
-        if(viewMode == ViewMode.EDIT) saveTargetFromContent(source, editorTextArea.getText());
-        else{
-            // TODO 모델에서 비교 후 저장된 텍스트 내용을 가져와야 함.
-        }
+        saveToFile();
     }
 
     public boolean isFileContained(){
@@ -114,6 +111,13 @@ public class EditorPaneFXController implements Initializable{
     private void setDisableEditModeButtons(boolean value){
         editButton.setDisable(value);
         saveButton.setDisable(value);
+    }
+
+    private void saveToFile(){
+        if(viewMode == ViewMode.EDIT) writeFileFromContent(source, editorTextArea.getText());
+        else{
+            // TODO 모델에서 비교 후 저장된 텍스트 내용을 가져와야 함.
+        }
     }
 
     // 파일을 불러오는 과정
@@ -152,7 +156,7 @@ public class EditorPaneFXController implements Initializable{
             return content;
         }
     }
-    private void saveTargetFromContent(File target, String content){
+    private void writeFileFromContent(File target, String content){
         try{
             writeFile(target, content);
         }catch(IOException ioe){
