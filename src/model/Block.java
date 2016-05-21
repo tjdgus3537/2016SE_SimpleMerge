@@ -6,7 +6,7 @@ package model;
  * 시작하는 줄의 번호 (startNumber), 줄의 개수(numberOfLine), 상태 여부 (state)를 갖는다.
  */
 
-public class Block{
+public class Block implements BlockReadInterface{
 	//inner class로 enum 사용
 	enum State{
 		UNCHANGED, CHANGED, SPACE;
@@ -60,5 +60,23 @@ public class Block{
 	
 	public String getContent() {
 		return content;
+	}
+
+	public boolean isChanged() {
+		if(state == State.CHANGED)
+			return true;
+		return false;
+	}
+
+	public boolean isUnchanged() {
+		if(state == State.UNCHANGED)
+			return true;
+		return false;
+	}
+
+	public boolean isSpace() {
+		if(state == State.SPACE)
+			return true;
+		return false;
 	}
 }
