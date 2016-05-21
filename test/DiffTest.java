@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import model.Block;
 import model.Diff;
 import model.DiffInterface;
-import model.PairBlockArrayList;
+import model.PairBlocks;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -28,7 +28,7 @@ public class DiffTest {
 	}
 	
 	//helper method
-	private String pairBlockArrayListToString(PairBlockArrayList pairBlockArrayList) {
+	private String pairBlockArrayListToString(PairBlocks pairBlockArrayList) {
 		String s = "";
 		
 		for(int i = 0 ; i < pairBlockArrayList.getLeft().size(); i++)
@@ -60,7 +60,7 @@ public class DiffTest {
 	//정상적인 형태의 임의의 case
 	@Test
 	public void testCompare1() {
-		PairBlockArrayList pairBlockArrayList;
+		PairBlocks pairBlockArrayList;
 		pairBlockArrayList = diff.compare("a\nb\nc\n", "\n\na\nb\n");
 		String s = pairBlockArrayListToString(pairBlockArrayList);
 		
@@ -70,7 +70,7 @@ public class DiffTest {
 	//String 중 왼쪽이 비어있을 때
 	@Test
 	public void testCompare2() {
-		PairBlockArrayList pairBlockArrayList;
+		PairBlocks pairBlockArrayList;
 		pairBlockArrayList = diff.compare("", "\n\na\nb\n");
 		String s = pairBlockArrayListToString(pairBlockArrayList);
 
@@ -80,7 +80,7 @@ public class DiffTest {
 	//String 중 오른쪽이 비어있을 때
 	@Test
 	public void testCompare3() {
-		PairBlockArrayList pairBlockArrayList;
+		PairBlocks pairBlockArrayList;
 		pairBlockArrayList = diff.compare("\n\na\nb\n", "");
 		String s = pairBlockArrayListToString(pairBlockArrayList);
 
@@ -90,7 +90,7 @@ public class DiffTest {
 	//String 두 개가 모두 공스트링인 경우
 	@Test
 	public void testCompare4() {
-		PairBlockArrayList pairBlockArrayList;
+		PairBlocks pairBlockArrayList;
 		pairBlockArrayList = diff.compare("", "");
 		String s = pairBlockArrayListToString(pairBlockArrayList);
 
@@ -100,7 +100,7 @@ public class DiffTest {
 	//String 중 한 개가 null인 경우
 	@Test
 	public void testCompare5() {
-		PairBlockArrayList pairBlockArrayList;
+		PairBlocks pairBlockArrayList;
 		pairBlockArrayList = diff.compare(null, "");
 
 		assertEquals(null, pairBlockArrayList);
@@ -109,7 +109,7 @@ public class DiffTest {
 	//String 두 개 모두 null인 경우
 	@Test
 	public void testCompare6() {
-		PairBlockArrayList pairBlockArrayList;
+		PairBlocks pairBlockArrayList;
 		pairBlockArrayList = diff.compare(null, null);
 
 		assertEquals(null, pairBlockArrayList);
@@ -118,7 +118,7 @@ public class DiffTest {
 	//정상적인 형태의 임의의 case
 	@Test
 	public void testCompare7() {
-		PairBlockArrayList pairBlockArrayList;
+		PairBlocks pairBlockArrayList;
 		pairBlockArrayList = diff.compare("d\naabc\n", "aabc\nx\ny\n");
 		String s = pairBlockArrayListToString(pairBlockArrayList);
 		

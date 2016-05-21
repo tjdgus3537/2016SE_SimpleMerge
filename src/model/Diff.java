@@ -14,7 +14,7 @@ public class Diff implements DiffInterface{
 		lcs = new LCS();
 	}
 	
-	public PairBlockArrayList compare(String left, String right) {
+	public PairBlocks compare(String left, String right) {
 		if(left == null || right == null)
 			return null;
 		
@@ -22,7 +22,7 @@ public class Diff implements DiffInterface{
 	}
 	
 	public ArrayList<Block> copyToLeft(String left, String right, int blockNum) {
-		PairBlockArrayList pairBlockArrayList = compare(left, right);
+		PairBlocks pairBlockArrayList = compare(left, right);
 		//compare의 결과가 null일 때
 		if(pairBlockArrayList == null)
 			return null;
@@ -44,7 +44,7 @@ public class Diff implements DiffInterface{
 	}
 	
 	public ArrayList<Block> copyToRight(String left, String right, int blockNum) {
-		PairBlockArrayList pairBlockArrayList = compare(left, right);
+		PairBlocks pairBlockArrayList = compare(left, right);
 		//compare의 결과가 null일 때
 		if(pairBlockArrayList == null)
 			return null;
@@ -69,8 +69,8 @@ public class Diff implements DiffInterface{
 		return lcs.getLCS(left, right);
 	}
 	
-	private PairBlockArrayList makePairBlockArrayList(String left, String right) {
-		PairBlockArrayList pairBlockArrayList;
+	private PairBlocks makePairBlockArrayList(String left, String right) {
+		PairBlocks pairBlockArrayList;
 		String lcs = getLCS(left, right);
 		State[] charStateArrayOfLeft;
 		State[] charStateArrayOfRight;
@@ -106,8 +106,8 @@ public class Diff implements DiffInterface{
 		return pairBlockArrayList;
 	}
 
-	private PairBlockArrayList putSpaceBlocks(ArrayList<Block> left, ArrayList<Block> right) {
-		PairBlockArrayList pairBlockArrayList = new PairBlockArrayList();
+	private PairBlocks putSpaceBlocks(ArrayList<Block> left, ArrayList<Block> right) {
+		PairBlocks pairBlockArrayList = new PairBlocks();
 		Block block;
 		int leftIndex = 0, rightIndex = 0;
 		String s;
@@ -320,7 +320,7 @@ public class Diff implements DiffInterface{
 	}
 	
 	//@TODO::사실 return해 줄 필요 없음 - 리팩토링 때 개선
-	private PairBlockArrayList copyToLeft(PairBlockArrayList pairBlockArrayList, int blockNum) {
+	private PairBlocks copyToLeft(PairBlocks pairBlockArrayList, int blockNum) {
 		//unchanged 상황에서는 copyToLeft가 실행되어서는 안 된다.
 		//@TODO:: 추후 가능하면 exception으로 바꾸기.
 		if(pairBlockArrayList.getRight().get(blockNum).getState() == State.UNCHANGED)
@@ -334,7 +334,7 @@ public class Diff implements DiffInterface{
 	}
 	
 	//@TODO::사실 return해 줄 필요 없음 - 리팩토링 때 개선
-	private PairBlockArrayList copyToRight(PairBlockArrayList pairBlockArrayList, int blockNum) {
+	private PairBlocks copyToRight(PairBlocks pairBlockArrayList, int blockNum) {
 		//unchanged 상황에서는 copyToLeft가 실행되어서는 안 된다.
 		//@TODO:: 추후 가능하면 exception으로 바꾸기.
 		if(pairBlockArrayList.getLeft().get(blockNum).getState() == State.UNCHANGED)
@@ -348,7 +348,7 @@ public class Diff implements DiffInterface{
 	}
 	
 	//@TODO::사실 return해 줄 필요 없음 - 리팩토링 때 개선
-	private PairBlockArrayList adjustLineNum(PairBlockArrayList pairBlockArrayList) {
+	private PairBlocks adjustLineNum(PairBlocks pairBlockArrayList) {
 		//block들의 startNum을 SPACE를 반영해서 다시 조정함.
 		int line = 0;
 		

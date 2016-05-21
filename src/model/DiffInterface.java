@@ -15,7 +15,7 @@ public interface DiffInterface {
 	 * @param right 비교할 문자열
      * @return 비교 결과
      */
-	public PairBlockArrayList compare(String left, String right);
+	public PairBlocks compare(String left, String right);
 	
 	/**
 	 * 특정 줄에 해당하는 우측의 Block을 좌측으로 copy한 결과를 Block들로 return
