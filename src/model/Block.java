@@ -3,7 +3,8 @@ package model;
 /**
  * Created by Seonghyeon on 5/15/2016.
  * state가 동일한 주변의 line들을 묶은 단위.
- * 시작하는 줄의 번호 (startNumber), 줄의 개수(numberOfLine), 상태 여부 (state)를 갖는다.
+ * 시작하는 줄의 번호 (startNumber), 줄의 개수(numberOfLine), 상태 여부 (state),
+ * 내용(content)를 갖는다.
  */
 
 public class Block implements BlockReadInterface{
