@@ -1,0 +1,9 @@
+.list-cell .changed {
+    -fx-background-color: #EFCB05;
+}
+.list-cell .unchanged {
+
+}
+.list-cell .space {
+    -fx-border-color: #C0C0C0;
+}
