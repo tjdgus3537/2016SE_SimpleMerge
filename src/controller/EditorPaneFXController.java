@@ -43,15 +43,15 @@ public class EditorPaneFXController implements Initializable{
 
     @FXML
     private void handleLoadAction(ActionEvent event){
-        File selectedFile = showFileChooser();
-        String content = loadTargetFromFile(selectedFile);
-        if(content != null) {
-            switchEditorTextArea(content);
-            source = selectedFile;
-            editorTextArea.setEditable(false);
-            setDisableEditModeButtons(false);
-            editButton.setSelected(false);
+        if(source != null){
+            // 이미 다른 파일을 편집중이면 저장할 지 물어봐야 함.
+            Alert alert =  new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Save this file?");
+            alert.setHeaderText("Save this file?");
+            alert.setContentText("If you load other file, you will lose all change about this file.\n Click \'Yes\', if you want to save your changes");
+            alert.showAndWait().filter(response -> response == ButtonType.OK).ifPresent(response -> save); // TODO save method
         }
+        loadFromFile();
     }
 
     @FXML
@@ -117,6 +117,17 @@ public class EditorPaneFXController implements Initializable{
     }
 
     // 파일을 불러오는 과정
+    private void loadFromFile(){
+        File selectedFile = showFileChooser();
+        String content = readContentFromFile(selectedFile);
+        if(content != null) {
+            switchEditorTextArea(content);
+            source = selectedFile;
+            editorTextArea.setEditable(false);
+            setDisableEditModeButtons(false);
+            editButton.setSelected(false);
+        }
+    }
     private File showFileChooser(){
         // FileChooser로 불러올 파일 선택
         FileChooser fileChooser = new FileChooser();
@@ -126,7 +137,7 @@ public class EditorPaneFXController implements Initializable{
         File selectedFile = fileChooser.showOpenDialog(rootPane.getScene().getWindow());
         return selectedFile;
     }
-    private String loadTargetFromFile(File source){
+    private String readContentFromFile(File source){
         // 선택한 파일 불러서 파일 내용 가져오기
         String content = null;
         try {
