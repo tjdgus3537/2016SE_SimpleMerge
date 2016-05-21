@@ -87,8 +87,8 @@ public class MainWindowFXController implements Initializable, CompareModeDisable
             items.add(rightEditorPane);
             editorSplitPane.setDividerPositions(0.5);
             compareViewScrollBar.valueProperty().addListener((observable, oldValue, newValue) -> {
-                leftPaneController.getCompareListView().scrollTo(newValue);
-                rightPaneController.getCompareListView().scrollTo(newValue);
+                leftPaneController.getCompareListView().scrollTo(newValue.intValue());
+                rightPaneController.getCompareListView().scrollTo(newValue.intValue());
             });
         }catch(IOException e){
             e.printStackTrace();
