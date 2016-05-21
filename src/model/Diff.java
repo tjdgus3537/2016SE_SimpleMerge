@@ -21,16 +21,17 @@ public class Diff implements DiffInterface{
 		return makePairBlockArrayList(left, right);
 	}
 	
-	public ArrayList<Block> copyToLeft(String left, String right, int lineNum) {
+	public ArrayList<Block> copyToLeft(String left, String right, int blockNum) {
 		PairBlockArrayList pairBlockArrayList = compare(left, right);
 		//compare의 결과가 null일 때
 		if(pairBlockArrayList == null)
 			return null;
 		
-		int blockNum = findBlockNum(pairBlockArrayList.getRight(), lineNum);
+		//@TODO::이부분 나중에 삭제
+		//int blockNum = findBlockNum(pairBlockArrayList.getRight(), lineNum);
 		
 		//잘못된 blockNum이 입력되었을 때
-		if(blockNum == -1)
+		if(blockNum < 0 || blockNum >= pairBlockArrayList.getRight().size())
 			return null;
 		
 		pairBlockArrayList = copyToLeft(pairBlockArrayList, blockNum);
@@ -42,16 +43,17 @@ public class Diff implements DiffInterface{
 		return pairBlockArrayList.getLeft();
 	}
 	
-	public ArrayList<Block> copyToRight(String left, String right, int lineNum) {
+	public ArrayList<Block> copyToRight(String left, String right, int blockNum) {
 		PairBlockArrayList pairBlockArrayList = compare(left, right);
 		//compare의 결과가 null일 때
 		if(pairBlockArrayList == null)
 			return null;
 		
-		int blockNum = findBlockNum(pairBlockArrayList.getLeft(), lineNum);
+		//@TODO::이부분 나중에 삭제
+		//int blockNum = findBlockNum(pairBlockArrayList.getLeft(), lineNum);
 		
 		//잘못된 blockNum이 입력되었을 때
-		if(blockNum == -1)
+		if(blockNum < 0 || blockNum >= pairBlockArrayList.getLeft().size())
 			return null;
 		
 		pairBlockArrayList = copyToRight(pairBlockArrayList, blockNum);
@@ -296,6 +298,7 @@ public class Diff implements DiffInterface{
 		return s;
 	}
 	
+	//@TODO::이부분 나중에 삭제
 	private int findBlockNum(ArrayList<Block> blockArrayList, int lineNum) {
 		//lineNum에 속하는 blockNum을 return
 		int blockNum;
