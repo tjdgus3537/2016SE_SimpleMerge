@@ -8,10 +8,6 @@ package model;
  */
 
 public class Block implements BlockReadInterface{
-	//inner class로 enum 사용
-	enum State{
-		UNCHANGED, CHANGED, SPACE;
-	}
 	private int startNumber;
 	private int numberOfLine;
 	private State state;
