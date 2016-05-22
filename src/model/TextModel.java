@@ -6,8 +6,17 @@ package model;
  */
 
 public class TextModel implements TextModelInterface {
+	//singleton으로 동작
+	private static TextModel textModel = new TextModel();
 	private TextEntity left;
 	private TextEntity right;
+	
+	private TextModel() {
+	}
+	
+	public static TextModel getInstance() {
+		return textModel;
+	}
 	
 	public void createLeft(String content, String filePath) {
 		left = new TextEntity(content, filePath);
