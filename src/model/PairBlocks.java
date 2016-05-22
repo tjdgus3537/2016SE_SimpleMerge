@@ -45,4 +45,12 @@ public class PairBlocks implements PairBlocksReadOnlyInterface{
 	public void addRight(Block b) {
 		right.add(b);
 	}
+	
+	public ArrayList<? extends BlockReadInterface> getLeftReadOnly() {
+		return left;
+	}
+	
+	public ArrayList<? extends BlockReadInterface> getRightReadOnly() {
+		return right;
+	}
 }
