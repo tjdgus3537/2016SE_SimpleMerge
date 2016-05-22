@@ -37,6 +37,8 @@ public class EditorPaneFXController implements Initializable{
     @FXML
     private Pane rootPane;
     @FXML
+    private Label filePathLabel;
+    @FXML
     private ToggleButton editButton;
     @FXML
     private Button saveButton;
@@ -130,6 +132,7 @@ public class EditorPaneFXController implements Initializable{
             editorTextArea.setEditable(false);
             setDisableEditModeButtons(false);
             editButton.setSelected(false);
+            filePathLabel.setText(selectedFile.getPath().toString());
         }
     }
     private File showFileChooser(){

@@ -3,6 +3,20 @@
     -fx-border-color: transparent;
 }
 
+.scroll-pane .corner{
+    -fx-background-color: #3E3E42;
+    -fx-border-color: #3E3E42;
+}
+
+#file-tool-bar{
+    -fx-min-width: 100.0;
+}
+
+#file-path-label{
+    -fx-text-fill: white;
+    -fx-text-alignment: right;
+}
+
 #load-button{
     -fx-background-image: url("icon/open.png");
 }

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.*?>
 <?import java.net.*?>
 <?import javafx.scene.control.*?>
 <?import java.lang.*?>
@@ -8,25 +9,30 @@
 
 <AnchorPane fx:id="rootPane" styleClass="background" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.EditorPaneFXController">
    <children>
-      <ToolBar styleClass="background" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-         <items>
-            <Button id="load-button" mnemonicParsing="false" onAction="#handleLoadAction">
-                <tooltip>
-                    <Tooltip text="Load" />
-                </tooltip>
-            </Button>
-            <ToggleButton fx:id="editButton" id="edit-button" selected="false" disable="true" mnemonicParsing="false" onAction="#handleEditAction">
-                <tooltip>
-                    <Tooltip text="Edit" />
-                </tooltip>
-            </ToggleButton>
-            <Button fx:id="saveButton" id="save-button" disable="true" mnemonicParsing="false" onAction="#handleSaveAction">
-                <tooltip>
-                    <Tooltip text="Save" />
-                </tooltip>
-            </Button>
-         </items>
-      </ToolBar>
+      <HBox alignment="CENTER_LEFT" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <ToolBar id="file-tool-bar" nodeOrientation="LEFT_TO_RIGHT" styleClass="background" HBox.hgrow="ALWAYS">
+               <items>
+                  <Button id="load-button" mnemonicParsing="false" onAction="#handleLoadAction">
+                      <tooltip>
+                          <Tooltip text="Load" />
+                      </tooltip>
+                  </Button>
+                  <ToggleButton id="edit-button" fx:id="editButton" disable="true" mnemonicParsing="false" onAction="#handleEditAction" selected="false">
+                      <tooltip>
+                          <Tooltip text="Edit" />
+                      </tooltip>
+                  </ToggleButton>
+                  <Button id="save-button" fx:id="saveButton" disable="true" mnemonicParsing="false" onAction="#handleSaveAction">
+                      <tooltip>
+                          <Tooltip text="Save" />
+                      </tooltip>
+                  </Button>
+               </items>
+            </ToolBar>
+            <Label id="file-path-label" fx:id="filePathLabel" alignment="CENTER_RIGHT" styleClass="background" text="No file" HBox.hgrow="NEVER" />
+         </children>
+      </HBox>
    </children>
     <stylesheets>
         <URL value="@css/EditorPane.css" />
