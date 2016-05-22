@@ -34,6 +34,5 @@ public interface DiffInterface {
 	 * @param lineNum copy할 부분의 block 번호
      * @return copy를 적용하고 난 후의 좌측의 ArrayList<Block>
      */	
-	//@TODO::내부 구현하기
 	public ArrayList<Block> copyToRight(String left, String right, int blockNum);
 }

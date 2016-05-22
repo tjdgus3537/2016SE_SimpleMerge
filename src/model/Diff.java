@@ -27,7 +27,7 @@ public class Diff implements DiffInterface{
 		if(pairBlocks == null)
 			return null;
 		
-		//@TODO::이부분 나중에 삭제
+		//TODO::이부분 나중에 삭제
 		//int blockNum = findBlockNum(pairBlockArrayList.getRight(), lineNum);
 		
 		//잘못된 blockNum이 입력되었을 때
@@ -49,7 +49,7 @@ public class Diff implements DiffInterface{
 		if(pairBlocks == null)
 			return null;
 		
-		//@TODO::이부분 나중에 삭제
+		//TODO::이부분 나중에 삭제
 		//int blockNum = findBlockNum(pairBlockArrayList.getLeft(), lineNum);
 		
 		//잘못된 blockNum이 입력되었을 때
@@ -298,7 +298,7 @@ public class Diff implements DiffInterface{
 		return s;
 	}
 	
-	//@TODO::이부분 나중에 삭제
+	//TODO::이부분 나중에 삭제
 	private int findBlockNum(ArrayList<Block> blocks, int lineNum) {
 		//lineNum에 속하는 blockNum을 return
 		int blockNum;
@@ -319,10 +319,10 @@ public class Diff implements DiffInterface{
 		return blockNum;
 	}
 	
-	//@TODO::사실 return해 줄 필요 없음 - 리팩토링 때 개선
+	//TODO::사실 return해 줄 필요 없음 - 리팩토링 때 개선
 	private PairBlocks copyToLeft(PairBlocks pairBlocks, int blockNum) {
 		//unchanged 상황에서는 copyToLeft가 실행되어서는 안 된다.
-		//@TODO:: 추후 가능하면 exception으로 바꾸기.
+		//TODO:: 추후 가능하면 exception으로 바꾸기.
 		if(pairBlocks.getRight().get(blockNum).getState() == State.UNCHANGED)
 			return null;
 		
@@ -333,10 +333,10 @@ public class Diff implements DiffInterface{
 		return pairBlocks;
 	}
 	
-	//@TODO::사실 return해 줄 필요 없음 - 리팩토링 때 개선
+	//TODO::사실 return해 줄 필요 없음 - 리팩토링 때 개선
 	private PairBlocks copyToRight(PairBlocks pairBlocks, int blockNum) {
 		//unchanged 상황에서는 copyToLeft가 실행되어서는 안 된다.
-		//@TODO:: 추후 가능하면 exception으로 바꾸기.
+		//TODO:: 추후 가능하면 exception으로 바꾸기.
 		if(pairBlocks.getLeft().get(blockNum).getState() == State.UNCHANGED)
 			return null;
 		
@@ -347,7 +347,7 @@ public class Diff implements DiffInterface{
 		return pairBlocks;
 	}
 	
-	//@TODO::사실 return해 줄 필요 없음 - 리팩토링 때 개선
+	//TODO::사실 return해 줄 필요 없음 - 리팩토링 때 개선
 	private PairBlocks adjustLineNum(PairBlocks pairBlocks) {
 		//block들의 startNum을 SPACE를 반영해서 다시 조정함.
 		int line = 0;
