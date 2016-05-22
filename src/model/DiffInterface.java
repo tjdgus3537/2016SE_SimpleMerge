@@ -15,25 +15,25 @@ public interface DiffInterface {
 	 * @param right 비교할 문자열
      * @return 비교 결과
      */
-	public PairBlockArrayList compare(String left, String right);
+	public PairBlocks compare(String left, String right);
 	
 	/**
 	 * 특정 줄에 해당하는 우측의 Block을 좌측으로 copy한 결과를 Block들로 return
 	 * @param left 비교할 문자열
 	 * @param right 비교할 문자열
-	 * @param lineNum copy할 부분의 줄 번호
+	 * @param lineNum copy할 부분의 block 번호
      * @return copy를 적용하고 난 후의 좌측의 ArrayList<Block>
      */	
 
-	public ArrayList<Block> copyToLeft(String left, String right, int lineNum);
+	public ArrayList<Block> copyToLeft(String left, String right, int blockNum);
 	
 	/**
 	 * 특정 줄에 해당하는 우측의 Block을 좌측으로 copy한 결과를 Block들로 return
 	 * @param left 비교할 문자열
 	 * @param right 비교할 문자열
-	 * @param lineNum copy할 부분의 줄 번호
+	 * @param lineNum copy할 부분의 block 번호
      * @return copy를 적용하고 난 후의 좌측의 ArrayList<Block>
      */	
 	//@TODO::내부 구현하기
-	public ArrayList<Block> copyToRight(String left, String right, int lineNum);
+	public ArrayList<Block> copyToRight(String left, String right, int blockNum);
 }
