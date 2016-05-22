@@ -8,19 +8,22 @@ import java.util.ArrayList;
  */
 
 public interface CompareModelInterface {
+	/**
+	 * left를 set한다
+     */	
 	public void setLeft(ArrayList<BlockReadInterface> blocks);
 	/**
-	 * right의 content를 set한다
+	 * right를 set한다
      */		
 	public void setRight(ArrayList<BlockReadInterface> blocks);
 	/**
-	 * left를 readOnly로 얻는다.
-	 * @return readOnly 상태의 left entity
+	 * left를 얻는다.
+	 * @return left
      */	
-	public BlockReadInterface getLeft();
+	public ArrayList<BlockReadInterface> getLeft();
 	/**
-	 * right를 readOnly로 얻는다.
-	 * @return readOnly 상태의 right entity
+	 * right를 얻는다.
+	 * @return right
      */		
-	public BlockReadInterface getRight();
+	public ArrayList<BlockReadInterface> getRight();
 }
