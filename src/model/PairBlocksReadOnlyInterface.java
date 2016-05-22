@@ -15,5 +15,5 @@ public interface PairBlocksReadOnlyInterface {
 	/**
 	 * right를 read only로 get한다
      */
-	public ArrayList<? extends BlockReadInterface> getRightOnly();
+	public ArrayList<? extends BlockReadInterface> getRightReadOnly();
 }
