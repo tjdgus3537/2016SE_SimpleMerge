@@ -20,10 +20,10 @@ public interface CompareModelInterface {
 	 * left를 얻는다.
 	 * @return left
      */	
-	public ArrayList<BlockReadInterface> getLeft();
+	public ArrayList<? extends BlockReadInterface> getLeft();
 	/**
 	 * right를 얻는다.
 	 * @return right
      */		
-	public ArrayList<BlockReadInterface> getRight();
+	public ArrayList<? extends BlockReadInterface> getRight();
 }

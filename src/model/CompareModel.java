@@ -9,8 +9,8 @@ import java.util.ArrayList;
 
 public class CompareModel implements CompareModelInterface{
 	private static CompareModel compareModel = new CompareModel();
-	private ArrayList<BlockReadInterface> left;
-	private ArrayList<BlockReadInterface> right;
+	private ArrayList<? extends BlockReadInterface> left;
+	private ArrayList<? extends BlockReadInterface> right;
 	
 	private CompareModel() {
 	}
@@ -27,11 +27,11 @@ public class CompareModel implements CompareModelInterface{
 		right = blocks;
 	}
 
-	public ArrayList<BlockReadInterface> getLeft() {
+	public ArrayList<? extends BlockReadInterface> getLeft() {
 		return left;
 	}
 
-	public ArrayList<BlockReadInterface> getRight() {
+	public ArrayList<? extends BlockReadInterface> getRight() {
 		return right;
 	}
 	
