@@ -10,7 +10,7 @@ import java.util.ArrayList;
 
 public class DiffCommand implements DiffCommandInterface{
 	private TextModelInterface textModel;
-	private CompareModel compareModel;
+	private CompareModelInterface compareModel;
 	private DiffInterface diff;
 	
 	public DiffCommand() {
