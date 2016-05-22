@@ -19,11 +19,11 @@ public class CompareModel implements CompareModelInterface{
 		return compareModel;
 	}
 	
-	public void setLeft(ArrayList<BlockReadInterface> blocks) {
+	public void setLeft(ArrayList<? extends BlockReadInterface> blocks) {
 		left = blocks;
 	}
 
-	public void setRight(ArrayList<BlockReadInterface> blocks) {
+	public void setRight(ArrayList<? extends BlockReadInterface> blocks) {
 		right = blocks;
 	}
 

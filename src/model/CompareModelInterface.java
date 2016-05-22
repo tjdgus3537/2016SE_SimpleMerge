@@ -11,11 +11,11 @@ public interface CompareModelInterface {
 	/**
 	 * left를 set한다
      */	
-	public void setLeft(ArrayList<BlockReadInterface> blocks);
+	public void setLeft(ArrayList<? extends BlockReadInterface> blocks);
 	/**
 	 * right를 set한다
      */		
-	public void setRight(ArrayList<BlockReadInterface> blocks);
+	public void setRight(ArrayList<? extends BlockReadInterface> blocks);
 	/**
 	 * left를 얻는다.
 	 * @return left
