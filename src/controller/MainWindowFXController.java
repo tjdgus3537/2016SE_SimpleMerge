@@ -71,16 +71,13 @@ public class MainWindowFXController implements Initializable, CompareModeDisable
     @Override
     public void initialize(URL location, ResourceBundle resources){
         try{
-            FXMLLoader fxmlLoader = new FXMLLoader();
-            fxmlLoader.setLocation(getClass().getResource("/fxml/EditorPane.fxml"));
-            AnchorPane leftEditorPane = fxmlLoader.load();
-            leftPaneController = fxmlLoader.getController();
+            FXMLLoader leftPaneFXMLLoader = new FXMLLoader(getClass().getResource("/fxml/EditorPane.fxml"));
+            AnchorPane leftEditorPane = leftPaneFXMLLoader.load();
+            leftPaneController = leftPaneFXMLLoader.getController();
             leftPaneController.setCompareModeDisabler(this);
-            fxmlLoader.setRoot(null);
-            fxmlLoader.setController(null);
-            fxmlLoader.setLocation(getClass().getResource("/fxml/EditorPane.fxml"));
-            AnchorPane rightEditorPane = fxmlLoader.load();
-            rightPaneController = fxmlLoader.getController();
+            FXMLLoader rightPaneFXMLLoader = new FXMLLoader(getClass().getResource("/fxml/EditorPane.fxml"));
+            AnchorPane rightEditorPane = rightPaneFXMLLoader.load();
+            rightPaneController = rightPaneFXMLLoader.getController();
             rightPaneController.setCompareModeDisabler(this);
             List items = editorSplitPane.getItems();
             items.add(leftEditorPane);

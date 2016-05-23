@@ -1,31 +1,24 @@
 package controller;
 
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.control.ListView;
-import model.BlockReadInterface;
-
-import java.util.List;
+import model.BlockInterface;
+import model.ComparisonFile;
 
 /**
  * Created by Donghwan on 5/22/2016.
  */
-public class CompareListViewFXController implements ContentHolder {
-    private ObservableList<BlockReadInterface> model;
+public class CompareListViewFXController implements ContentNodeProvider {
     @FXML
-    private ListView<BlockReadInterface> compareListVIew;
+    private ListView<BlockInterface> compareListVIew;
 
-    public void setModel(ObservableList<BlockReadInterface> model){
-        this.model = model;
-        compareListVIew.setItems(model);
-    }
-
-    public ObservableList<BlockReadInterface> getModel(){
-        return model;
+    public void setComparisonFile(ComparisonFile comparisonFile){
+        compareListVIew.setItems(comparisonFile.getContent());
     }
 
     @Override
-    public String getContentString() {
-        return model.toString();
+    public Node getContentNode() {
+        return compareListVIew;
     }
 }

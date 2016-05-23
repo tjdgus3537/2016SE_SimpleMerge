@@ -1,9 +1,23 @@
-.list-cell .changed {
-    -fx-background-color: #EFCB05;
+/* scroll bar */
+.scroll-bar,
+.scroll-bar .track,
+.scroll-bar .increment-button ,
+.scroll-bar .decrement-button {
+    -fx-background-color: #3E3E42;
+    -fx-border-color: #3E3E42;
 }
-.list-cell .unchanged {
 
+.scroll-bar .increment-arrow,
+.scroll-bar .decrement-arrow
+{
+    -fx-background-color: #999999;
 }
-.list-cell .space {
-    -fx-border-color: #C0C0C0;
+
+.scroll-bar .thumb {
+    -fx-background-color: #686868;
+}
+
+.scroll-pane .corner{
+    -fx-background-color: #3E3E42;
+    -fx-border-color: #3E3E42;
 }

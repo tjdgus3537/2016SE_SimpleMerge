@@ -45,7 +45,7 @@ public class DiffCommand implements DiffCommandInterface{
 		textModel.setRightContent(changeBlocksToContent(compareModel.getRight()));
 	}
 	
-	private String changeBlocksToContent(ArrayList<? extends BlockReadInterface> blocks) {
+	private String changeBlocksToContent(ArrayList<? extends BlockInterface> blocks) {
 		String s = "";
 		
 		for(int i = 0 ; i < blocks.size(); i++) {

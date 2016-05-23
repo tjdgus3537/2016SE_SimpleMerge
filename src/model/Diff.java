@@ -13,6 +13,8 @@ public class Diff implements DiffInterface{
 	public Diff() {
 		lcs = new LCS();
 	}
+
+	public Diff(LCSInterface lcs) { this.lcs = lcs; }
 	
 	public PairBlocks compare(String left, String right) {
 		if(left == null || right == null)

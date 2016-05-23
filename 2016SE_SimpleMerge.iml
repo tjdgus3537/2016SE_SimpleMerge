@@ -12,5 +12,6 @@
     <orderEntry type="library" scope="TEST" name="org.easymock:easymock:3.4" level="project" />
     <orderEntry type="library" scope="TEST" name="junit:junit:4.12" level="project" />
     <orderEntry type="library" scope="TEST" name="org.objenesis:objenesis:2.2" level="project" />
+    <orderEntry type="library" name="org.apache.commons:commons-lang3:3.4" level="project" />
   </component>
 </module>

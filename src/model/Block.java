@@ -1,5 +1,13 @@
 package model;
 
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
+import javafx.beans.property.adapter.JavaBeanStringProperty;
+import javafx.beans.property.adapter.JavaBeanStringPropertyBuilder;
+import org.apache.commons.lang3.StringUtils;
+
+import java.util.stream.Stream;
+
 /**
  * Created by Seonghyeon on 5/15/2016.
  * state가 동일한 주변의 line들을 묶은 단위.
@@ -7,73 +15,41 @@ package model;
  * 내용(content)를 갖는다.
  */
 
-public class Block implements BlockReadInterface{
-	private int startNumber;
-	private int numberOfLine;
+public class Block implements BlockInterface {
 	private State state;
-	private String content;
+	private StringProperty contentProperty;
 	
 	public Block() {
 		setState(State.SPACE);
-		setStartNumber(-1);
-		setNumberOfLine(0);
 		setContent(null);
 	}
 	
-	public Block(int startNumber, int numberOfLine, State state, String content) {
+	public Block(State state, String content) {
 		setState(state);
-		setStartNumber(startNumber);
-		setNumberOfLine(numberOfLine);
 		setContent(content);
 	}
-	
-	public void setStartNumber(int startNumber) {
-		this.startNumber = startNumber;
-	}
-	
-	public void setNumberOfLine(int numberOfLine) {
-		this.numberOfLine = numberOfLine;
-	}
-	
+
 	public void setState(State state) {
 		this.state = state;
 	}
 	
 	public void setContent(String content) {
-		this.content = content;
+		this.contentProperty = new SimpleStringProperty(content);
 	}
-	
-	public int getStartNumber() {
-		return startNumber;
+
+	public int getNumberOfLine() { return StringUtils.countMatches(getContent(), '\n'); }
+
+	public StringProperty contentProperty(){
+		return contentProperty;
 	}
-	
-	public int getNumberOfLine() {
-		return numberOfLine;
-	}
-	
+
+	@Override
 	public State getState() {
 		return state;
 	}
-	
+
+	@Override
 	public String getContent() {
-		return content;
-	}
-
-	public boolean isChanged() {
-		if(state == State.CHANGED)
-			return true;
-		return false;
-	}
-
-	public boolean isUnchanged() {
-		if(state == State.UNCHANGED)
-			return true;
-		return false;
-	}
-
-	public boolean isSpace() {
-		if(state == State.SPACE)
-			return true;
-		return false;
+		return contentProperty.get();
 	}
 }

@@ -46,11 +46,11 @@ public class PairBlocks implements PairBlocksReadOnlyInterface{
 		right.add(b);
 	}
 	
-	public ArrayList<? extends BlockReadInterface> getLeftReadOnly() {
+	public ArrayList<? extends BlockInterface> getLeftReadOnly() {
 		return left;
 	}
 	
-	public ArrayList<? extends BlockReadInterface> getRightReadOnly() {
+	public ArrayList<? extends BlockInterface> getRightReadOnly() {
 		return right;
 	}
 }
