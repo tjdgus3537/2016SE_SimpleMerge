@@ -10,6 +10,7 @@ import java.util.List;
  * compare 기능과 copyToLeft, copyToRight 기능을 제공하는 Class.
  */
 
+// TODO Diff가 static이어야 하는지 아닌지 확인해야 함
 public class Diff implements DiffInterface{
 	private LCSInterface lcs;
 	
@@ -174,7 +175,7 @@ public class Diff implements DiffInterface{
 		if (lineCheckIndex != s.length()) {
 			stateChecker = State.UNCHANGED;
 
-			for (; lineCheckIndex <= s.length(); lineCheckIndex++) {
+			for (; lineCheckIndex < s.length(); lineCheckIndex++) {
 				if (charStates[lineCheckIndex] == State.CHANGED)
 					stateChecker = State.CHANGED;
 			}
@@ -274,8 +275,12 @@ public class Diff implements DiffInterface{
 			return;
 		
 		//우측의 blockNum번 block을 좌측에 추가하고, 좌측의 blockNum + 1번째 block을 삭제.
-		leftCompareResult.add(blockNum, rightCompareResult.get(blockNum));
-		leftCompareResult.remove(blockNum + 1);
+		// TODO 스테이트가 Unchanged로 바뀌어야 함
+		Block newBlock = new Block(State.UNCHANGED, rightCompareResult.get(blockNum).getContent());
+		rightCompareResult.remove(blockNum);
+		leftCompareResult.remove(blockNum);
+		rightCompareResult.add(newBlock);
+		leftCompareResult.add(newBlock);
 	}
 
 	@Override

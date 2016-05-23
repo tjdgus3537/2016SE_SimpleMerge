@@ -16,6 +16,7 @@ import static org.junit.Assert.assertTrue;
  * Created by Donghwan on 5/12/2016.
  * 파일IO에 대한 테스트
  */
+
 public class FileIOTest extends EasyMockSupport{
     String testFileResult;
     String testFileResult2;

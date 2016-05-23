@@ -22,7 +22,7 @@ import java.util.ResourceBundle;
  * Created by Donghwan on 5/15/2016.
  * 편집 창의 액션을 관리하는 컨트롤러
  */
-public class EditorPaneFXController implements Initializable{
+public class EditorPaneFXController implements Initializable, ContentNodeProvider{
     private ComparisonFile comparisonFile;
     private ViewMode viewMode;
     private EditorTextAreaFXController editorTextAreaFXController;
@@ -75,6 +75,13 @@ public class EditorPaneFXController implements Initializable{
         saveToFile();
     }
 
+    // TODO 이 쓰레기같은 getter 좀 없애봐야 함
+    public ListView getCompareListView(){
+        return (ListView)compareListViewFXController.getContentNode();
+    }
+
+    public ComparisonFile getComparisonFile(){ return comparisonFile; }
+
     public boolean isFileContained(){
         if(comparisonFile != null) return true;
         else return false;
@@ -94,6 +101,11 @@ public class EditorPaneFXController implements Initializable{
     }
 
     public void setCompareModeDisabler(CompareModeDisabler compareModeDisabler){ this.compareModeDisabler = compareModeDisabler; }
+
+    @Override
+    public Node getContentNode() {
+        return rootPane;
+    }
 
     private void setDisableEditModeButtons(boolean value){
         editButton.setDisable(value);
@@ -115,10 +127,12 @@ public class EditorPaneFXController implements Initializable{
     // 파일을 불러오는 과정
     private void loadFromFile(){
         File selectedFile = showFileChooser();
+        if(selectedFile == null) return;
         try {
             ComparisonFile loadedFile = ComparisonFileReader.readComparisonFile(selectedFile);
             if (loadedFile != null) {
                 comparisonFile = loadedFile;
+                compareListViewFXController.setComparisonFile(comparisonFile);
                 switchEditorTextArea();
                 editorTextAreaFXController.setEditable(false);
                 setDisableEditModeButtons(false);

@@ -17,10 +17,11 @@ public class Block implements BlockInterface {
 	
 	public Block() {
 		setState(State.SPACE);
-		setContent(null);
+		this.contentProperty = new SimpleStringProperty();
 	}
 	
 	public Block(State state, String content) {
+		this();
 		setState(state);
 		setContent(content);
 	}
@@ -30,7 +31,7 @@ public class Block implements BlockInterface {
 	}
 	
 	public void setContent(String content) {
-		this.contentProperty = new SimpleStringProperty(content);
+		this.contentProperty.setValue(content);
 	}
 
 	@Override
@@ -47,6 +48,6 @@ public class Block implements BlockInterface {
 
 	@Override
 	public String getContent() {
-		return contentProperty.get();
+		return contentProperty.getValue();
 	}
 }

@@ -1,6 +1,7 @@
 package model;
 
 import javafx.beans.property.StringProperty;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 import java.io.File;
@@ -33,7 +34,8 @@ public class ComparisonFile {
     }
 
     public void setContent(String content){
-        this.content.clear();
+        if(this.content != null) this.content.clear();
+        else this.content = FXCollections.observableArrayList();
         this.content.add(new Block(State.UNCHANGED, content));
     }
 
@@ -46,13 +48,13 @@ public class ComparisonFile {
     }
 
     public StringProperty getTextAreaProperty(){
-        Block singleBlock = new Block(State.UNCHANGED, content.stream().collect(Collector.of(()->new StringBuffer(), (buf, item)-> buf.append(item), (buf1, buf2) -> buf1.append(buf2), StringBuffer::toString)));
+        Block singleBlock = new Block(State.UNCHANGED, content.stream().filter(block->block.getState() != State.SPACE).collect(Collector.of(()->new StringBuffer(), (buf, item)-> buf.append(item.getContent()), (buf1, buf2) -> buf1.append(buf2), StringBuffer::toString)));
         content.clear();
         content.add(singleBlock);
         return singleBlock.contentProperty();
     }
 
     public String getContentToString() {
-        return content.stream().collect(Collector.of(()->new StringBuffer(), (buf, item)-> buf.append(item), (buf1, buf2) -> buf1.append(buf2), StringBuffer::toString));
+        return content.stream().filter(block->block.getState() != State.SPACE).collect(Collector.of(()->new StringBuffer(), (buf, item)-> buf.append(item.getContent()), (buf1, buf2) -> buf1.append(buf2), StringBuffer::toString));
     }
 }

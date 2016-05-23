@@ -1,13 +1,16 @@
 package controller;
 
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollBar;
 import javafx.scene.control.SplitPane;
 import javafx.scene.layout.AnchorPane;
+import model.Diff;
 
 import java.io.IOException;
 import java.net.URL;
@@ -40,20 +43,24 @@ public class MainWindowFXController implements Initializable, CompareModeDisable
             return;
         }
         setDisableCompareModeNodes(false);
-        leftPaneController.switchCompareListView(null);
-        rightPaneController.switchCompareListView(null);
-        // TODO compare 결과를 넣어줘야함.
-        compareViewScrollBar.setMax(1); // comp 결과 길이가 들어가야 함
+        leftPaneController.switchCompareListView();
+        rightPaneController.switchCompareListView();
+        Diff diff = new Diff();
+        diff.compare(leftPaneController.getComparisonFile(), rightPaneController.getComparisonFile());
+        compareViewScrollBar.setMax(leftPaneController.getComparisonFile().getContent().size()); // comp 결과 길이가 들어가야 함
     }
 
+    // TODO Comp 모드에서는 undo 불가?
     @FXML
     private void handleCopyToRightButtonAction(ActionEvent event){
-
+        Diff diff = new Diff();
+        diff.copyToRight(leftPaneController.getComparisonFile(), rightPaneController.getComparisonFile(), leftPaneController.getCompareListView().getSelectionModel().getSelectedIndex());
     }
 
     @FXML
     private void handleCopyToLeftButtonAction(ActionEvent event){
-
+        Diff diff = new Diff();
+        diff.copyToLeft(leftPaneController.getComparisonFile(), rightPaneController.getComparisonFile(), rightPaneController.getCompareListView().getSelectionModel().getSelectedIndex());
     }
 
     private void setDisableCompareModeNodes(boolean value){
@@ -72,16 +79,16 @@ public class MainWindowFXController implements Initializable, CompareModeDisable
     public void initialize(URL location, ResourceBundle resources){
         try{
             FXMLLoader leftPaneFXMLLoader = new FXMLLoader(getClass().getResource("/fxml/EditorPane.fxml"));
-            AnchorPane leftEditorPane = leftPaneFXMLLoader.load();
+            leftPaneFXMLLoader.load();
             leftPaneController = leftPaneFXMLLoader.getController();
             leftPaneController.setCompareModeDisabler(this);
             FXMLLoader rightPaneFXMLLoader = new FXMLLoader(getClass().getResource("/fxml/EditorPane.fxml"));
-            AnchorPane rightEditorPane = rightPaneFXMLLoader.load();
+            rightPaneFXMLLoader.load();
             rightPaneController = rightPaneFXMLLoader.getController();
             rightPaneController.setCompareModeDisabler(this);
-            List items = editorSplitPane.getItems();
-            items.add(leftEditorPane);
-            items.add(rightEditorPane);
+            ObservableList<Node> items = editorSplitPane.getItems();
+            items.add(leftPaneController.getContentNode());
+            items.add(rightPaneController.getContentNode());
             editorSplitPane.setDividerPositions(0.5);
             compareViewScrollBar.valueProperty().addListener((observable, oldValue, newValue) -> {
                 leftPaneController.getCompareListView().scrollTo(newValue.intValue());

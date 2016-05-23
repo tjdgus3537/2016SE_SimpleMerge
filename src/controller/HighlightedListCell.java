@@ -12,6 +12,7 @@ public class HighlightedListCell extends ListCell<BlockInterface> {
     @Override
     protected void updateItem(BlockInterface item, boolean empty) {
         super.updateItem(item, empty);
+        if(empty || item == null) return;
         setText(item.getContent());
         setStyle(item.getState().getStyle());
     }

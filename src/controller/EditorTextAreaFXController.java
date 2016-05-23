@@ -13,7 +13,7 @@ public class EditorTextAreaFXController implements ContentNodeProvider{
     private TextArea editorTextArea;
 
     public void setContent(ComparisonFile comparisonFile) {
-        editorTextArea.textProperty().bind(comparisonFile.getTextAreaProperty());
+        if(comparisonFile != null) editorTextArea.textProperty().bind(comparisonFile.getTextAreaProperty());
     }
 
     public void setEditable(boolean value){
