@@ -110,8 +110,5 @@ public class LCS implements LCSInterface{
 
 		return new String(lcs_array);
 	}
-	
-	
-	
-	
+
 }

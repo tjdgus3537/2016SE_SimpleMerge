@@ -2,11 +2,7 @@ package model;
 
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
-import javafx.beans.property.adapter.JavaBeanStringProperty;
-import javafx.beans.property.adapter.JavaBeanStringPropertyBuilder;
 import org.apache.commons.lang3.StringUtils;
-
-import java.util.stream.Stream;
 
 /**
  * Created by Seonghyeon on 5/15/2016.
@@ -37,7 +33,8 @@ public class Block implements BlockInterface {
 		this.contentProperty = new SimpleStringProperty(content);
 	}
 
-	public int getNumberOfLine() { return StringUtils.countMatches(getContent(), '\n'); }
+	@Override
+	public int getNumberOfLines() { return StringUtils.countMatches(getContent(), '\n') + 1; }
 
 	public StringProperty contentProperty(){
 		return contentProperty;

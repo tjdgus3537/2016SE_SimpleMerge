@@ -6,10 +6,12 @@ package model;
  */
 
 public interface BlockInterface {
-	public State getState();
+	State getState();
 	/**
 	 * block의 Content 내용을 얻는다.
      * @return String 형태의 Content를 return
      */
-	public String getContent();
+	String getContent();
+
+	int getNumberOfLines();
 }

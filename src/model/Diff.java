@@ -1,6 +1,9 @@
 package model;
 
+import javafx.collections.ObservableList;
+
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Seonghyeon on 5/15/2016.
@@ -15,121 +18,80 @@ public class Diff implements DiffInterface{
 	}
 
 	public Diff(LCSInterface lcs) { this.lcs = lcs; }
-	
-	public PairBlocks compare(String left, String right) {
-		if(left == null || right == null)
-			return null;
+
+	@Override
+	public void compare(ComparisonFile left, ComparisonFile right) {
+		if(left == null || right == null) return;
 		
-		return makePairBlocks(left, right);
-	}
-	
-	public ArrayList<Block> copyToLeft(String left, String right, int blockNum) {
-		PairBlocks pairBlocks = compare(left, right);
-		//compare의 결과가 null일 때
-		if(pairBlocks == null)
-			return null;
-		
-		//TODO::이부분 나중에 삭제
-		//int blockNum = findBlockNum(pairBlockArrayList.getRight(), lineNum);
-		
-		//잘못된 blockNum이 입력되었을 때
-		if(blockNum < 0 || blockNum >= pairBlocks.getRight().size())
-			return null;
-		
-		pairBlocks = copyToLeft(pairBlocks, blockNum);
-		
-		//copyToLeft를 수행할 수 없을 때 null을 return
-		if(pairBlocks == null)
-			return null;
-		
-		return pairBlocks.getLeft();
-	}
-	
-	public ArrayList<Block> copyToRight(String left, String right, int blockNum) {
-		PairBlocks pairBlocks = compare(left, right);
-		//compare의 결과가 null일 때
-		if(pairBlocks == null)
-			return null;
-		
-		//TODO::이부분 나중에 삭제
-		//int blockNum = findBlockNum(pairBlockArrayList.getLeft(), lineNum);
-		
-		//잘못된 blockNum이 입력되었을 때
-		if(blockNum < 0 || blockNum >= pairBlocks.getLeft().size())
-			return null;
-		
-		pairBlocks = copyToRight(pairBlocks, blockNum);
-		
-		//copyToRight를 수행할 수 없을 때 null을 return
-		if(pairBlocks == null)
-			return null;
-		
-		return pairBlocks.getRight();
+		PairBlockList pairBlockList = createCompareResult(left.getContentToString(), right.getContentToString());
+
+		ObservableList<BlockInterface> leftCompareResult = left.getContent();
+		ObservableList<BlockInterface> rightCompareResult = right.getContent();
+
+		leftCompareResult.clear();
+		rightCompareResult.clear();
+
+		leftCompareResult.addAll(pairBlockList.getLeft());
+		rightCompareResult.addAll(pairBlockList.getRight());
 	}
 	
 	private String getLCS(String left, String right) {
 		return lcs.getLCS(left, right);
 	}
 	
-	private PairBlocks makePairBlocks(String left, String right) {
-		PairBlocks pairBlocks;
+	private PairBlockList createCompareResult(String left, String right) {
+		PairBlockList pairBlocks;
 		String lcs = getLCS(left, right);
-		State[] charStatesOfLeft;
-		State[] charStatesOfRight;
-		ArrayList<State> lineStatesOfLeft;
-		ArrayList<State> lineStatesOfRight;
-		ArrayList<String> lineStringsOfLeft;
-		ArrayList<String> lineStringsOfRight;
-		ArrayList<Block> blocksOfLetf;
-		ArrayList<Block> blocksOfRight;
-		
+
+		// TODO ArrayList와 Array로 짠 구조를 개선할 수 있는지 알아봐야 함
 		//string과 lcs를 비교해서 원래의 string에서 각 char가 변화 여부에 대해 알아본다.
-		charStatesOfLeft = getStateArray(left, lcs);
-		charStatesOfRight = getStateArray(right, lcs);
+		State[] charStatesOfLeft = getStateArray(left, lcs);
+		State[] charStatesOfRight = getStateArray(right, lcs);
 		
 		//위에서 얻은 각 char의 변화 여부를 이용하여, line 단위의 변화 여부에 대해 알아본다.
-		lineStatesOfLeft = transformCharStateToLineState(left, charStatesOfLeft);
-		lineStatesOfRight = transformCharStateToLineState(right, charStatesOfRight);
+		ArrayList<State> lineStatesOfLeft = transformCharStateToLineState(left, charStatesOfLeft);
+		ArrayList<State> lineStatesOfRight = transformCharStateToLineState(right, charStatesOfRight);
 		
 		//각 line이 어떤 String으로 구성되어 있는지 알아본다.
-		lineStringsOfLeft = parseString(left);
-		lineStringsOfRight = parseString(right);
+		ArrayList<String> lineStringsOfLeft = parseString(left);
+		ArrayList<String> lineStringsOfRight = parseString(right);
 		
 		
 		//위에서 얻은 line 단위의 변화 여부를 이용하여 block으로 묶는다.
-		blocksOfLetf = getBlockArrayList(lineStatesOfLeft, lineStringsOfLeft);
-		blocksOfRight = getBlockArrayList(lineStatesOfRight, lineStringsOfRight);
+		ArrayList<Block> blocksOfLeft = getBlockArrayList(lineStatesOfLeft, lineStringsOfLeft);
+		ArrayList<Block> blocksOfRight = getBlockArrayList(lineStatesOfRight, lineStringsOfRight);
 		
 		//block들 사이에 SPACE block을 채워 넣어서 line을 일치하게 만든다.
-		pairBlocks = putSpaceBlocks(blocksOfLetf, blocksOfRight);
-		
-		pairBlocks = adjustLineNum(pairBlocks);
+		pairBlocks = putSpaceBlocks(blocksOfLeft, blocksOfRight);
 		
 		return pairBlocks;
 	}
 
-	private PairBlocks putSpaceBlocks(ArrayList<Block> left, ArrayList<Block> right) {
-		PairBlocks pairBlocks = new PairBlocks();
+	private PairBlockList putSpaceBlocks(ArrayList<Block> left, ArrayList<Block> right) {
+		PairBlockList pairBlocks = new PairBlockList();
+		List<BlockInterface> newLeft = pairBlocks.getLeft();
+		List<BlockInterface> newRight = pairBlocks.getRight();
 		Block block;
 		int leftIndex = 0, rightIndex = 0;
 		String s;
 		
 		//한 쪽이 ""일 때에 대한 예외처리 부분
 		//""일 때를 처리. 한 쪽이 ""이면 다른 한 쪽이 ""이 아닌 이상, 전체가 changed인 1 block이 됨
-		if(left.size() == 0 && right.size() == 1) {
-			s = makeNLineFeed(right.get(0).getNumberOfLine());
-			block = new Block(-1, right.get(0).getNumberOfLine(), State.SPACE, s);
-			pairBlocks.addLeft(block);
-			pairBlocks.addRight(right.get(0));
+		// TODO 왜 right.size가 1이여야 하는지 모르겠네;;;
+		if(left.isEmpty() && right.size() == 1) {
+			s = makeNLineFeed(right.get(0).getNumberOfLines());
+			block = new Block(State.SPACE, s);
+			newLeft.add(block);
+			newRight.add(right.get(0));
 			
 			return pairBlocks;
 		}
 		
-		if(left.size() == 1 && right.size() == 0) {
-			s = makeNLineFeed(left.get(0).getNumberOfLine());
-			block = new Block(-1, left.get(0).getNumberOfLine(), State.SPACE, s);
-			pairBlocks.addLeft(left.get(0));
-			pairBlocks.addRight(block);
+		if(left.size() == 1 && right.isEmpty()) {
+			s = makeNLineFeed(left.get(0).getNumberOfLines());
+			block = new Block(State.SPACE, s);
+			newLeft.add(left.get(0));
+			newRight.add(block);
 			
 			return pairBlocks;
 		}
@@ -138,24 +100,24 @@ public class Diff implements DiffInterface{
 		while (leftIndex < left.size() && rightIndex < right.size()) {
 			//양 쪽 모두 UNCHANGED이면 양쪽에 모두 넣어준다.
 			if (left.get(leftIndex).getState() == State.UNCHANGED && right.get(rightIndex).getState() == State.UNCHANGED) {
-				pairBlocks.addLeft(left.get(leftIndex++));
-				pairBlocks.addRight(right.get(rightIndex++));
+				newLeft.add(left.get(leftIndex++));
+				newRight.add(right.get(rightIndex++));
 			}
 			//왼쪽이 UNCHANGED가 나올 때까지(즉 지금 CHANGED인 동안), 여기에 대응하는 오른쪽에 SPACE block을 채워 넣어주고,
 			//현재의 왼쪽 block을 왼쪽에 넣는다.
 			while (leftIndex < left.size() && left.get(leftIndex).getState() == State.CHANGED) {
-				s = makeNLineFeed(left.get(leftIndex).getNumberOfLine());
-				block = new Block(-1, left.get(leftIndex).getNumberOfLine(), State.SPACE, s);
-				pairBlocks.addLeft(left.get(leftIndex++));
-				pairBlocks.addRight(block);
+				s = makeNLineFeed(left.get(leftIndex).getNumberOfLines());
+				block = new Block(State.SPACE, s);
+				newLeft.add(left.get(leftIndex++));
+				newRight.add(block);
 			}
 			//오른쪽이 UNCHANGED가 나올 때까지(즉 지금 CHANGED인 동안), 여기에 대응하는 왼쪽에 SPACE block을 채워 넣어주고,
 			//현재의 오른쪽 block을 오른쪽에 넣는다.
 			while (rightIndex < right.size() && right.get(rightIndex).getState() == State.CHANGED) {
-				s = makeNLineFeed(right.get(rightIndex).getNumberOfLine());
-				block = new Block(-1, right.get(rightIndex).getNumberOfLine(), State.SPACE, s);
-				pairBlocks.addLeft(block);
-				pairBlocks.addRight(right.get(rightIndex++));
+				s = makeNLineFeed(right.get(rightIndex).getNumberOfLines());
+				block = new Block(State.SPACE, s);
+				newLeft.add(block);
+				newRight.add(right.get(rightIndex++));
 			}
 		}
 		
@@ -260,7 +222,7 @@ public class Diff implements DiffInterface{
 			if (lineStates.get(i) != lineStates.get(i + 1)) {
 				//길이는 끝나는 지점 - 시작 지점 + 1
 				s = concatString(lineStrings, lineCheckIndex, i);
-				block = new Block(lineCheckIndex, i - lineCheckIndex + 1, lineStates.get(i), s);
+				block = new Block(lineStates.get(i), s);
 				blocks.add(block);
 				lineCheckIndex = i + 1;
 			}
@@ -271,8 +233,7 @@ public class Diff implements DiffInterface{
 			//길이는 끝나는 지점 - 시작 지점 + 1
 			//3번째 parameter에서 size - 1의 원소를 사용하는 이유는 ArrayList가 0에서 시작하기 때문이다.
 			s = concatString(lineStrings, lineCheckIndex, (lineStates.size() - 1));
-			block = new Block(lineCheckIndex, (lineStates.size() - 1) - lineCheckIndex + 1, 
-					lineStates.get(lineStates.size() - 1), s);
+			block = new Block(lineStates.get(lineStates.size() - 1), s);
 			lineCheckIndex = (lineStates.size() - 1) + 1;
 			blocks.add(block);
 		}
@@ -292,75 +253,33 @@ public class Diff implements DiffInterface{
 
 	private String makeNLineFeed(int count) {
 		//count의 개수만큼의 개행을 String으로 return
-		String s ="";
+		StringBuilder stringBuilder = new StringBuilder();
 		
 		for(int i = 0 ; i < count; i++)
-			s += "\n";
+			stringBuilder.append("\n");
 		
-		return s;
+		return stringBuilder.toString();
 	}
-	
-	//TODO::이부분 나중에 삭제
-	private int findBlockNum(ArrayList<Block> blocks, int lineNum) {
-		//lineNum에 속하는 blockNum을 return
-		int blockNum;
-		
-		//lineNum이 block의 시작 줄 ~ (시작 줄 + 줄의 개수 - 1)에 있으면 그 line은 해당 block에 속하는 것
-		for(blockNum = 0 ; blockNum < blocks.size(); blockNum++) {
-			if(blocks.get(blockNum).getStartNumber() <= lineNum &&
-					lineNum <= blocks.get(blockNum).getStartNumber() 
-					+ blocks.get(blockNum).getNumberOfLine() - 1) {
-				break;
-			}
-		}
-		
-		//잘못된 lineNum이 입력 되었을 때.
-		if(blockNum == blocks.size())
-			return -1;
-		
-		return blockNum;
-	}
-	
-	//TODO::사실 return해 줄 필요 없음 - 리팩토링 때 개선
-	private PairBlocks copyToLeft(PairBlocks pairBlocks, int blockNum) {
+
+	// TODO 원래 코드는 blockNum이 OutOfBoundaryException 발생하는지 미리 체크했는데 살릴지 말지 확인하기
+	@Override
+	public void copyToLeft(ComparisonFile left, ComparisonFile right, int blockNum) {
+		ObservableList<BlockInterface> leftCompareResult = left.getContent();
+		ObservableList<BlockInterface> rightCompareResult = right.getContent();
+
 		//unchanged 상황에서는 copyToLeft가 실행되어서는 안 된다.
 		//TODO:: 추후 가능하면 exception으로 바꾸기.
-		if(pairBlocks.getRight().get(blockNum).getState() == State.UNCHANGED)
-			return null;
+		//TODO 이걸 exception으로 해야 할지 아니면 부드럽게 처리할지 결정해야 함.
+		if(rightCompareResult.get(blockNum).getState() == State.UNCHANGED)
+			return;
 		
 		//우측의 blockNum번 block을 좌측에 추가하고, 좌측의 blockNum + 1번째 block을 삭제.
-		pairBlocks.getLeft().add(blockNum, pairBlocks.getRight().get(blockNum));
-		pairBlocks.getLeft().remove(blockNum + 1);
-		
-		return pairBlocks;
+		leftCompareResult.add(blockNum, rightCompareResult.get(blockNum));
+		leftCompareResult.remove(blockNum + 1);
 	}
-	
-	//TODO::사실 return해 줄 필요 없음 - 리팩토링 때 개선
-	private PairBlocks copyToRight(PairBlocks pairBlocks, int blockNum) {
-		//unchanged 상황에서는 copyToLeft가 실행되어서는 안 된다.
-		//TODO:: 추후 가능하면 exception으로 바꾸기.
-		if(pairBlocks.getLeft().get(blockNum).getState() == State.UNCHANGED)
-			return null;
-		
-		//우측의 blockNum번 block을 우측에 추가하고, 우측의 blockNum + 1번째 block을 삭제.
-		pairBlocks.getRight().add(blockNum, pairBlocks.getLeft().get(blockNum));
-		pairBlocks.getRight().remove(blockNum + 1);
-		
-		return pairBlocks;
-	}
-	
-	//TODO::사실 return해 줄 필요 없음 - 리팩토링 때 개선
-	private PairBlocks adjustLineNum(PairBlocks pairBlocks) {
-		//block들의 startNum을 SPACE를 반영해서 다시 조정함.
-		int line = 0;
-		
-		//left와 right의 block 수는 동일한 것이 input으로 들어옴.
-		for(int i = 0 ; i < pairBlocks.getLeft().size(); i++) {
-			pairBlocks.getLeft().get(i).setStartNumber(line);
-			pairBlocks.getRight().get(i).setStartNumber(line);
-			line += pairBlocks.getLeft().get(i).getNumberOfLine();
-		}
-		
-		return pairBlocks;
+
+	@Override
+	public void copyToRight(ComparisonFile left, ComparisonFile right, int blockNum) {
+		copyToLeft(right, left, blockNum);
 	}
 }
