@@ -2,7 +2,6 @@ package model;
 
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
-import org.apache.commons.lang3.StringUtils;
 
 /**
  * Created by Seonghyeon on 5/15/2016.
@@ -56,7 +55,9 @@ public class Block implements BlockReadInterface{
 		return numberOfLine;
 	}
 
-	public StringProperty contentProperty(){ return contentProperty; }
+	public StringProperty contentProperty(){ 
+		return contentProperty; 
+	}
 
 	@Override
 	public State getState() {
