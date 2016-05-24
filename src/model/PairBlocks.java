@@ -11,45 +11,45 @@ import java.util.ArrayList;
 public class PairBlocks implements PairBlocksReadOnlyInterface{
 	private ArrayList<Block> left;
 	private ArrayList<Block> right;
-	
+
 	public PairBlocks() {
 		left = new ArrayList<Block>();
 		right = new ArrayList<Block>();
 	}
-	
+
 	public PairBlocks(ArrayList<Block> left, ArrayList<Block> right) {
 		setLeft(left);
 		setRight(right);
 	}
-	
+
 	public void setLeft(ArrayList<Block> left) {
 		this.left = left;
 	}
-	
+
 	public void setRight(ArrayList<Block> right) {
 		this.right = right;
 	}
-	
+
 	public ArrayList<Block> getLeft() {
 		return left;
 	}
-	
+
 	public ArrayList<Block> getRight() {
 		return right;
 	}
-	
+
 	public void addLeft(Block b) {
 		left.add(b);
 	}
-	
+
 	public void addRight(Block b) {
 		right.add(b);
 	}
-	
+
 	public ArrayList<? extends BlockReadInterface> getLeftReadOnly() {
 		return left;
 	}
-	
+
 	public ArrayList<? extends BlockReadInterface> getRightReadOnly() {
 		return right;
 	}

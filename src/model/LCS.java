@@ -12,7 +12,8 @@ public class LCS implements LCSInterface{
 	enum Direction {
 		NONE, UP, LEFT, UP_AND_LEFT;
 	}
-	
+
+	@Override
 	public String getLCS(String left, String right) {
 		//만약 둘 중 하나라도 null이면 null을 return
 		if(left == null || right == null)

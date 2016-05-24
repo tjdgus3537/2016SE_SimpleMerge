@@ -3,9 +3,54 @@
     -fx-border-color: transparent;
 }
 
-.scroll-pane .corner{
-    -fx-background-color: #3E3E42;
-    -fx-border-color: #3E3E42;
+.tool-bar{
+    -fx-pref-height: 40.0;
+    -fx-max-height: 40.0;
+}
+
+/* button */
+.button {
+    -fx-pref-height: 25.0;
+    -fx-pref-width: 25.0;
+    -fx-text-fill: white;
+    -fx-font-family: sans-serif;
+    -fx-font-weight: bold;
+    -fx-background-color: #3DB57D;
+    -fx-background-size: contain;
+    -fx-background-positon: center;
+    -fx-background-repeat: no-repeat;
+}
+
+.button:pressed {
+    -fx-background-color: #FFEB3B;
+}
+
+.button:disabled {
+    -fx-background-color: transparent;
+}
+
+.toggle-button {
+    -fx-pref-height: 25.0;
+    -fx-pref-width: 25.0;
+    -fx-text-fill: white;
+    -fx-font-family: sans-serif;
+    -fx-font-weight: bold;
+    -fx-background-color: red;
+    -fx-background-size: contain;
+    -fx-background-positon: center;
+    -fx-background-repeat: no-repeat;
+}
+
+.toggle-button:pressed{
+    -fx-background-color: #FFEB3B;
+}
+
+.toggle-button:disabled {
+    -fx-background-color: transparent;
+}
+
+.toggle-button:selected {
+    -fx-background-color: #3DB57D;
 }
 
 #file-tool-bar{

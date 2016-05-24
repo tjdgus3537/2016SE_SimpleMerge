@@ -50,30 +50,14 @@ public class Block implements BlockReadInterface{
 	public int getNumberOfLine() {
 		return numberOfLine;
 	}
-	
+
+	@Override
 	public State getState() {
 		return state;
 	}
-	
+
+	@Override
 	public String getContent() {
 		return content;
-	}
-
-	public boolean isChanged() {
-		if(state == State.CHANGED)
-			return true;
-		return false;
-	}
-
-	public boolean isUnchanged() {
-		if(state == State.UNCHANGED)
-			return true;
-		return false;
-	}
-
-	public boolean isSpace() {
-		if(state == State.SPACE)
-			return true;
-		return false;
 	}
 }

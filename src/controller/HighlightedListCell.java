@@ -1,8 +1,6 @@
 package controller;
 
-import javafx.collections.ObservableList;
 import javafx.scene.control.ListCell;
-import model.Block;
 import model.BlockReadInterface;
 
 /**
@@ -13,15 +11,8 @@ public class HighlightedListCell extends ListCell<BlockReadInterface> {
     @Override
     protected void updateItem(BlockReadInterface item, boolean empty) {
         super.updateItem(item, empty);
+        if(empty || item == null) return;
         setText(item.getContent());
-        ObservableList<String> styleList = getStyleClass();
-        styleList.removeAll("changed", "unchanged", "space");
-        if(item.isChanged()) {
-            styleList.add("changed");
-        }else if(item.isSpace()){
-            styleList.add("space");
-        }else if(item.isUnchanged()){
-            styleList.add("unchanged");
-        }
+        setStyle(item.getState().getStyle());
     }
 }

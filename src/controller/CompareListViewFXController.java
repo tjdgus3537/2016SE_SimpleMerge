@@ -1,31 +1,35 @@
 package controller;
 
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.control.ListView;
 import model.BlockReadInterface;
+import model.ComparisonFile;
 
-import java.util.List;
+import java.net.URL;
+import java.util.ResourceBundle;
 
 /**
  * Created by Donghwan on 5/22/2016.
  */
-public class CompareListViewFXController implements ContentHolder {
-    private ObservableList<BlockReadInterface> model;
+public class CompareListViewFXController implements Initializable, ContentNodeProvider {
     @FXML
     private ListView<BlockReadInterface> compareListVIew;
 
-    public void setModel(ObservableList<BlockReadInterface> model){
-        this.model = model;
-        compareListVIew.setItems(model);
-    }
-
-    public ObservableList<BlockReadInterface> getModel(){
-        return model;
+    public void setComparisonFile(ComparisonFile comparisonFile){
+        compareListVIew.setItems(comparisonFile.getContent());
     }
 
     @Override
-    public String getContentString() {
-        return model.toString();
+    public Node getContentNode() {
+        return compareListVIew;
+    }
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        compareListVIew.setCellFactory((listview)->{
+            return new HighlightedListCell();
+        });
     }
 }

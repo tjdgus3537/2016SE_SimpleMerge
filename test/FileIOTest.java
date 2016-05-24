@@ -16,6 +16,7 @@ import static org.junit.Assert.assertTrue;
  * Created by Donghwan on 5/12/2016.
  * 파일IO에 대한 테스트
  */
+
 public class FileIOTest extends EasyMockSupport{
     String testFileResult;
     String testFileResult2;
@@ -38,6 +39,7 @@ public class FileIOTest extends EasyMockSupport{
         }
     }
 
+    /*
     @org.junit.Test
     public void testReadFile() throws Exception {
         assertEquals(testFileResult, fileReader.readFile(new File("test/readTestFile.txt")).toString());
@@ -67,6 +69,7 @@ public class FileIOTest extends EasyMockSupport{
         assertEquals(testFileResult, savedFile.getContent().toString());
         assertTrue(new File("test/writeTestFile.txt").equals(savedFile.getSource()));
     }
+    */
 
     @org.junit.After
     public void tearDown() throws Exception{

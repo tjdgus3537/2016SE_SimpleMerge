@@ -12,5 +12,5 @@ public interface LCSInterface {
 	 * @param right 비교할 문자열
      * @return 두 문자열에 대한 lcs 값
      */
-	public String getLCS(String left, String right);
+	String getLCS(String left, String right);
 }
