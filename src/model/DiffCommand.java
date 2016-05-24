@@ -23,22 +23,22 @@ public class DiffCommand implements DiffCommandInterface{
 		//diff의 compare를 호출하여 결과를 얻는다.
 		pairBlocks = diff.compare(left.getContentToString(), right.getContentToString());
 		//새로운 결과로 compareModel을 update.
-		ObservableList<BlockReadInterface> leftContent = left.getContent();
-		ObservableList<BlockReadInterface> rightContent = right.getContent();
-		leftContent.setAll(pairBlocks.getLeft());
-		rightContent.setAll(pairBlocks.getRight());
+		//ObservableList<BlockReadInterface> leftContent = left.getContent();
+		//ObservableList<BlockReadInterface> rightContent = right.getContent();
+		//leftContent.setAll(pairBlocks.getLeft());
+		//rightContent.setAll(pairBlocks.getRight());
 	}
 
 	@Override
 	public void copyToLeft(ComparisonFile left, ComparisonFile right, int blockNum) {
 		//diff의 copyToLeft를 호출하여 얻은 결과를 compareModel의 left에 update.
-		left.getContent().setAll((diff.copyToLeft(left.getContentToString(), right.getContentToString(), blockNum)));
+		//left.getContent().setAll((diff.copyToLeft(left.getContentToString(), right.getContentToString(), blockNum)));
 	}
 
 	@Override
 	public void copyToRight(ComparisonFile left, ComparisonFile right, int blockNum) {
 		//diff의 copyToRight를 호출하여 얻은 결과를 compareModel의 right에 update.
-		right.getContent().setAll(diff.copyToRight(left.getContentToString(), right.getContentToString(), blockNum));
+		//right.getContent().setAll(diff.copyToRight(left.getContentToString(), right.getContentToString(), blockNum));
 	}
 	
 	private String changeBlocksToContent(ArrayList<? extends BlockReadInterface> blocks) {

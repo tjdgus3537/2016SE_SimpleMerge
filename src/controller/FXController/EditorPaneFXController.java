@@ -14,6 +14,7 @@ import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.FileChooser;
+import model.Block;
 import model.ComparisonFile;
 import java.io.File;
 import java.io.IOException;
@@ -60,7 +61,7 @@ public class EditorPaneFXController implements Initializable, ContentNodeProvide
 
         // Compare 모드일 때는 compareModeDisabler에게 해제를 요청함
         if(viewMode == ViewMode.COMPARE) {
-            editorTextAreaFXController.setContent(comparisonFile);
+            editorTextAreaFXController.setContent(comparisonFile.textProperty());
             switchEditorTextArea();
             editorTextAreaFXController.setEditable(true);
         }else{ // Edit 모드일 때
@@ -79,8 +80,8 @@ public class EditorPaneFXController implements Initializable, ContentNodeProvide
     }
 
     // TODO 이 쓰레기같은 getter 좀 없애봐야 함
-    public ListView getCompareListView(){
-        return (ListView)compareListViewFXController.getContentNode();
+    public ListView<Block> getCompareListView(){
+        return (ListView<Block>)compareListViewFXController.getContentNode();
     }
 
     public ComparisonFile getComparisonFile(){ return comparisonFile; }
@@ -93,7 +94,6 @@ public class EditorPaneFXController implements Initializable, ContentNodeProvide
     public void switchEditorTextArea(){
         viewMode = ViewMode.EDIT;
         if(compareModeDisabler != null) compareModeDisabler.disableCompareMode();
-        editorTextAreaFXController.setContent(comparisonFile);
         setContentNode(editorTextAreaFXController.getContentNode());
     }
 
@@ -135,7 +135,7 @@ public class EditorPaneFXController implements Initializable, ContentNodeProvide
             ComparisonFile loadedFile = ComparisonFileReader.readComparisonFile(selectedFile);
             if (loadedFile != null) {
                 comparisonFile = loadedFile;
-                compareListViewFXController.setContent(comparisonFile);
+                editorTextAreaFXController.setContent(comparisonFile.textProperty());
                 switchEditorTextArea();
                 editorTextAreaFXController.setEditable(false);
                 setDisableEditModeButtons(false);

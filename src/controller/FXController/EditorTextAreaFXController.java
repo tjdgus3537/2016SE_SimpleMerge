@@ -1,5 +1,6 @@
 package controller.FXController;
 
+import javafx.beans.property.StringProperty;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.TextArea;
@@ -12,8 +13,8 @@ public class EditorTextAreaFXController {
     @FXML
     private TextArea editorTextArea;
 
-    public void setContent(ComparisonFile comparisonFile) {
-        if(comparisonFile != null) editorTextArea.textProperty().bind(comparisonFile.textProperty());
+    public void setContent(StringProperty stringProperty) {
+        if(stringProperty != null) editorTextArea.textProperty().bind(stringProperty);
     }
 
     public void setEditable(boolean value){

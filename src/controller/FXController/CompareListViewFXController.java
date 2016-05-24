@@ -1,13 +1,12 @@
 package controller.FXController;
 
 import controller.HighlightedListCell;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.ListView;
-import model.BlockReadInterface;
-import model.ComparisonFile;
-import model.ObservableBlocksProvider;
+import model.Block;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -17,10 +16,10 @@ import java.util.ResourceBundle;
  */
 public class CompareListViewFXController implements Initializable{
     @FXML
-    private ListView<BlockReadInterface> compareListVIew;
+    private ListView<Block> compareListVIew;
 
-    public void setContent(ObservableBlocksProvider comparisonFile){
-        compareListVIew.setItems(comparisonFile.getContent());
+    public void setContent(ObservableList<Block> content){
+        compareListVIew.setItems(content);
     }
 
     public Node getContentNode() {

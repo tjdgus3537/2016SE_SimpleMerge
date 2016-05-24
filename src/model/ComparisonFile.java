@@ -12,7 +12,7 @@ import java.util.stream.Collector;
  * Created by Donghwan on 5/12/2016.
  * 비교하는 파일에 대해서 저장하는 클래스
  */
-public class ComparisonFile implements TextPropertyProvider{
+public class ComparisonFile{
     private File source;
     private StringProperty content;
 
@@ -33,7 +33,7 @@ public class ComparisonFile implements TextPropertyProvider{
     public File getSource() {
         return source;
     }
-    @Override
+
     public StringProperty textProperty(){
         return content;
     }

@@ -1,6 +1,7 @@
 package controller.FXController;
 
 import controller.CompareModeDisabler;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -13,6 +14,7 @@ import javafx.scene.control.SplitPane;
 import model.Diff;
 import model.DiffCommand;
 import model.DiffCommandInterface;
+import model.PairBlocks;
 
 import java.io.IOException;
 import java.net.URL;
@@ -46,9 +48,12 @@ public class MainWindowFXController implements Initializable, CompareModeDisable
         setDisableCompareModeNodes(false);
         leftPaneController.switchCompareListView();
         rightPaneController.switchCompareListView();
-        DiffCommandInterface diff = new DiffCommand();
-        diff.compare(leftPaneController.getComparisonFile(), rightPaneController.getComparisonFile());
-        compareViewScrollBar.setMax(leftPaneController.getComparisonFile().getContent().size()); // comp 결과 길이가 들어가야 함
+        // TODO fix: diff 직접 사용중
+        Diff diff = new Diff();
+        PairBlocks pairBlocks = diff.compare(leftPaneController.getComparisonFile().getContentToString(), rightPaneController.getComparisonFile().getContentToString());
+        leftPaneController.getCompareListView().setItems(FXCollections.observableArrayList(pairBlocks.getLeft()));
+        rightPaneController.getCompareListView().setItems(FXCollections.observableArrayList(pairBlocks.getRight()));
+        compareViewScrollBar.setMax(pairBlocks.getLeft().size()); // comp 결과 길이가 들어가야 함
     }
 
     // TODO Comp 모드에서는 undo 불가?
