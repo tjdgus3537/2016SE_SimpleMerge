@@ -29,6 +29,10 @@
     -fx-background-color: transparent;
 }
 
+.button:hover{
+    -fx-cursor: hand;
+}
+
 .toggle-button {
     -fx-pref-height: 25.0;
     -fx-pref-width: 25.0;
@@ -51,6 +55,10 @@
 
 .toggle-button:selected {
     -fx-background-color: #3DB57D;
+}
+
+.toggle-button:hover{
+    -fx-cursor: hand;
 }
 
 #file-tool-bar{

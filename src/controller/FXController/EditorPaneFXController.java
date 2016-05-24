@@ -49,7 +49,7 @@ public class EditorPaneFXController implements Initializable, ContentNodeProvide
             alert.setTitle("Save this file?");
             alert.setHeaderText("Save this file?");
             alert.setContentText("If you load other file, you will lose all change about this file.\n Click \'Yes\', if you want to save your changes");
-            alert.showAndWait().filter(response -> response == ButtonType.OK).ifPresent(response -> saveToFile()); // TODO save method
+            alert.showAndWait().filter(response -> response == ButtonType.OK).ifPresent(response -> saveToFile());
         }
         loadFromFile();
     }
