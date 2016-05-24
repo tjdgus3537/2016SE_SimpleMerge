@@ -17,17 +17,12 @@ public class Block implements BlockReadInterface{
 	private StringProperty contentProperty;
 	
 	public Block() {
-		setState(State.UNCHANGED);
-		setStartNumber(0);
+		setState(State.SPACE);
+		setStartNumber(-1);
 		setNumberOfLine(0);
 		this.contentProperty = new SimpleStringProperty();
 	}
-	
-	public Block(String content) {
-		this();
-		setContent(content);
-	}
-	
+
 	public Block(int startNumber, int numberOfLine, State state, String content) {
 		this();
 		setState(state);
