@@ -14,13 +14,13 @@ public class Block implements BlockReadInterface{
 	private int startNumber;
 	private int numberOfLine;
 	private State state;
-	private StringProperty contentProperty;
+	private String content;
 	
 	public Block() {
 		setState(State.SPACE);
 		setStartNumber(-1);
 		setNumberOfLine(0);
-		this.contentProperty = new SimpleStringProperty();
+		setContent(null);
 	}
 
 	public Block(int startNumber, int numberOfLine, State state, String content) {
@@ -32,7 +32,7 @@ public class Block implements BlockReadInterface{
 	}
 
 	public void setContent(String content) {
-		this.contentProperty.setValue(content);
+		this.content = content;
 	}
 	
 	public void setStartNumber(int startNumber) {
@@ -55,10 +55,6 @@ public class Block implements BlockReadInterface{
 		return numberOfLine;
 	}
 
-	public StringProperty contentProperty(){ 
-		return contentProperty; 
-	}
-
 	@Override
 	public State getState() {
 		return state;
@@ -66,6 +62,6 @@ public class Block implements BlockReadInterface{
 
 	@Override
 	public String getContent() {
-		return contentProperty.getValue();
+		return content;
 	}
 }
