@@ -2,6 +2,7 @@ package controller.FXController;
 
 import controller.CompareModeDisabler;
 import javafx.collections.FXCollections;
+import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -11,14 +12,12 @@ import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollBar;
 import javafx.scene.control.SplitPane;
-import model.Diff;
-import model.DiffCommand;
-import model.DiffCommandInterface;
-import model.PairBlocks;
+import model.*;
 
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.stream.Collector;
 
 /**
  * Created by Donghwan on 5/14/2016.
@@ -27,6 +26,9 @@ import java.util.ResourceBundle;
 public class MainWindowFXController implements Initializable, CompareModeDisabler {
     private EditorPaneFXController leftPaneController;
     private EditorPaneFXController rightPaneController;
+    private Diff diff;
+    ObservableList<Block> left;
+    ObservableList<Block> right;
 
     @FXML
     private Button compareButton;
@@ -49,18 +51,27 @@ public class MainWindowFXController implements Initializable, CompareModeDisable
         leftPaneController.switchCompareListView();
         rightPaneController.switchCompareListView();
         // TODO fix: diff 직접 사용중
-        Diff diff = new Diff();
+        diff = new Diff();
         PairBlocks pairBlocks = diff.compare(leftPaneController.getComparisonFile().getContentToString(), rightPaneController.getComparisonFile().getContentToString());
-        leftPaneController.getCompareListView().setItems(FXCollections.observableArrayList(pairBlocks.getLeft()));
-        rightPaneController.getCompareListView().setItems(FXCollections.observableArrayList(pairBlocks.getRight()));
+        left = FXCollections.observableArrayList(pairBlocks.getLeft());
+        right = FXCollections.observableArrayList(pairBlocks.getRight());
+        right.addListener((ListChangeListener<Block>) c -> {
+            rightPaneController.getComparisonFile().textProperty().setValue(left.stream().map(item->item.getContent()).collect(Collector.of(()->new StringBuffer(), StringBuffer::append, StringBuffer::append, StringBuffer::toString)));
+        });
+        leftPaneController.getCompareListView().setItems(left);
+        rightPaneController.getCompareListView().setItems(right);
         compareViewScrollBar.setMax(pairBlocks.getLeft().size()); // comp 결과 길이가 들어가야 함
     }
 
     // TODO Comp 모드에서는 undo 불가?
     @FXML
     private void handleCopyToRightButtonAction(ActionEvent event){
-        DiffCommandInterface diff = new DiffCommand();
-        diff.copyToRight(leftPaneController.getComparisonFile(), rightPaneController.getComparisonFile(), leftPaneController.getCompareListView().getSelectionModel().getSelectedIndex());
+        int blockNum = leftPaneController.getCompareListView().getSelectionModel().getSelectedIndex();
+        if(left.get(blockNum).getState() == State.UNCHANGED) return;
+
+        //우측의 blockNum번 block을 좌측에 추가하고, 좌측의 blockNum + 1번째 block을 삭제.
+        right.add(blockNum, left.get(blockNum));
+        right.remove(blockNum + 1);
     }
 
     @FXML

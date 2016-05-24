@@ -210,7 +210,7 @@ public class Diff implements DiffInterface{
 		if (lineCheckIndex != s.length()) {
 			stateChecker = State.UNCHANGED;
 
-			for (; lineCheckIndex <= s.length(); lineCheckIndex++) {
+			for (; lineCheckIndex < s.length(); lineCheckIndex++) {
 				if (charStates[lineCheckIndex] == State.CHANGED)
 					stateChecker = State.CHANGED;
 			}
@@ -325,7 +325,7 @@ public class Diff implements DiffInterface{
 		//TODO:: 추후 가능하면 exception으로 바꾸기.
 		if(pairBlocks.getRight().get(blockNum).getState() == State.UNCHANGED)
 			return null;
-		
+
 		//우측의 blockNum번 block을 좌측에 추가하고, 좌측의 blockNum + 1번째 block을 삭제.
 		pairBlocks.getLeft().add(blockNum, pairBlocks.getRight().get(blockNum));
 		pairBlocks.getLeft().remove(blockNum + 1);
