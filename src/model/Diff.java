@@ -17,7 +17,7 @@ public class Diff implements DiffInterface{
 	public PairBlocks compare(String left, String right) {
 		if(left == null || right == null)
 			return null;
-		
+
 		return makePairBlocks(left, right);
 	}
 	
