@@ -21,7 +21,7 @@ public interface DiffInterface {
 	 * 특정 줄에 해당하는 우측의 Block을 좌측으로 copy한 결과를 Block들로 return
 	 * @param left 비교할 문자열
 	 * @param right 비교할 문자열
-	 * @param lineNum copy할 부분의 block 번호
+	 * @param blockNum copy할 부분의 block 번호
      * @return copy를 적용하고 난 후의 좌측의 ArrayList<Block>
      */	
 
@@ -31,7 +31,7 @@ public interface DiffInterface {
 	 * 특정 줄에 해당하는 우측의 Block을 좌측으로 copy한 결과를 Block들로 return
 	 * @param left 비교할 문자열
 	 * @param right 비교할 문자열
-	 * @param lineNum copy할 부분의 block 번호
+	 * @param blockNum copy할 부분의 block 번호
      * @return copy를 적용하고 난 후의 좌측의 ArrayList<Block>
      */	
 	public ArrayList<Block> copyToRight(String left, String right, int blockNum);

@@ -1,5 +1,9 @@
 package model;
 
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
+import org.apache.commons.lang3.StringUtils;
+
 /**
  * Created by Seonghyeon on 5/15/2016.
  * state가 동일한 주변의 line들을 묶은 단위.
@@ -11,20 +15,25 @@ public class Block implements BlockReadInterface{
 	private int startNumber;
 	private int numberOfLine;
 	private State state;
-	private String content;
+	private StringProperty contentProperty;
 	
 	public Block() {
 		setState(State.SPACE);
 		setStartNumber(-1);
 		setNumberOfLine(0);
-		setContent(null);
+		this.contentProperty = new SimpleStringProperty();
 	}
 	
 	public Block(int startNumber, int numberOfLine, State state, String content) {
+		this();
 		setState(state);
 		setStartNumber(startNumber);
 		setNumberOfLine(numberOfLine);
 		setContent(content);
+	}
+
+	public void setContent(String content) {
+		this.contentProperty.setValue(content);
 	}
 	
 	public void setStartNumber(int startNumber) {
@@ -39,10 +48,6 @@ public class Block implements BlockReadInterface{
 		this.state = state;
 	}
 	
-	public void setContent(String content) {
-		this.content = content;
-	}
-	
 	public int getStartNumber() {
 		return startNumber;
 	}
@@ -51,6 +56,8 @@ public class Block implements BlockReadInterface{
 		return numberOfLine;
 	}
 
+	public StringProperty contentProperty(){ return contentProperty; }
+
 	@Override
 	public State getState() {
 		return state;
@@ -58,6 +65,6 @@ public class Block implements BlockReadInterface{
 
 	@Override
 	public String getContent() {
-		return content;
+		return contentProperty.getValue();
 	}
 }

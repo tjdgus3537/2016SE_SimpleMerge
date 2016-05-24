@@ -1,5 +1,6 @@
-package controller;
+package controller.FXController;
 
+import controller.CompareModeDisabler;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -9,19 +10,19 @@ import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollBar;
 import javafx.scene.control.SplitPane;
-import javafx.scene.layout.AnchorPane;
 import model.Diff;
+import model.DiffCommand;
+import model.DiffCommandInterface;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.List;
 import java.util.ResourceBundle;
 
 /**
  * Created by Donghwan on 5/14/2016.
  * 메인 윈도우의 액션을 관리하는 컨트롤러
  */
-public class MainWindowFXController implements Initializable, CompareModeDisabler{
+public class MainWindowFXController implements Initializable, CompareModeDisabler {
     private EditorPaneFXController leftPaneController;
     private EditorPaneFXController rightPaneController;
 
@@ -45,7 +46,7 @@ public class MainWindowFXController implements Initializable, CompareModeDisable
         setDisableCompareModeNodes(false);
         leftPaneController.switchCompareListView();
         rightPaneController.switchCompareListView();
-        Diff diff = new Diff();
+        DiffCommandInterface diff = new DiffCommand();
         diff.compare(leftPaneController.getComparisonFile(), rightPaneController.getComparisonFile());
         compareViewScrollBar.setMax(leftPaneController.getComparisonFile().getContent().size()); // comp 결과 길이가 들어가야 함
     }
@@ -53,13 +54,13 @@ public class MainWindowFXController implements Initializable, CompareModeDisable
     // TODO Comp 모드에서는 undo 불가?
     @FXML
     private void handleCopyToRightButtonAction(ActionEvent event){
-        Diff diff = new Diff();
+        DiffCommandInterface diff = new DiffCommand();
         diff.copyToRight(leftPaneController.getComparisonFile(), rightPaneController.getComparisonFile(), leftPaneController.getCompareListView().getSelectionModel().getSelectedIndex());
     }
 
     @FXML
     private void handleCopyToLeftButtonAction(ActionEvent event){
-        Diff diff = new Diff();
+        DiffCommandInterface diff = new DiffCommand();
         diff.copyToLeft(leftPaneController.getComparisonFile(), rightPaneController.getComparisonFile(), rightPaneController.getCompareListView().getSelectionModel().getSelectedIndex());
     }
 

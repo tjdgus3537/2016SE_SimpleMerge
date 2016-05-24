@@ -1,5 +1,7 @@
 package model;
 
+import javafx.collections.ObservableList;
+
 import java.util.ArrayList;
 
 /**
@@ -9,47 +11,41 @@ import java.util.ArrayList;
  */
 
 public class DiffCommand implements DiffCommandInterface{
-	private TextModelInterface textModel;
-	private CompareModelInterface compareModel;
 	private DiffInterface diff;
 	
 	public DiffCommand() {
-		textModel = TextModel.getInstance();
-		compareModel = CompareModel.getInstance();
 		diff = new Diff();
 	}
 
-	public void compare() {
-		PairBlocksReadOnlyInterface pairBlocks;
-		
+	@Override
+	public void compare(ComparisonFile left, ComparisonFile right) {
+		PairBlocks pairBlocks;
 		//diff의 compare를 호출하여 결과를 얻는다.
-		pairBlocks = diff.compare(textModel.getLeftReadOnly().getContent(), textModel.getRightReadOnly().getContent());
+		pairBlocks = diff.compare(left.getContentToString(), right.getContentToString());
 		//새로운 결과로 compareModel을 update.
-		compareModel.setLeft(pairBlocks.getLeftReadOnly());
-		compareModel.setRight(pairBlocks.getRightReadOnly());
+		ObservableList<BlockReadInterface> leftContent = left.getContent();
+		ObservableList<BlockReadInterface> rightContent = right.getContent();
+		leftContent.setAll(pairBlocks.getLeft());
+		rightContent.setAll(pairBlocks.getRight());
 	}
 
-	public void copyToLeft(int blockNum) {
+	@Override
+	public void copyToLeft(ComparisonFile left, ComparisonFile right, int blockNum) {
 		//diff의 copyToLeft를 호출하여 얻은 결과를 compareModel의 left에 update.
-		compareModel.setLeft(diff.copyToLeft(textModel.getLeftReadOnly().getContent(), 
-				textModel.getRightReadOnly().getContent(), blockNum));
-		//compareModel의 left에 update된 값을 바탕으로 textModel의 left를 update.
-		textModel.setLeftContent(changeBlocksToContent(compareModel.getLeft()));
+		left.getContent().setAll((diff.copyToLeft(left.getContentToString(), right.getContentToString(), blockNum)));
 	}
 
-	public void copyToRight(int blockNum) {
+	@Override
+	public void copyToRight(ComparisonFile left, ComparisonFile right, int blockNum) {
 		//diff의 copyToRight를 호출하여 얻은 결과를 compareModel의 right에 update.
-		compareModel.setRight(diff.copyToRight(textModel.getLeftReadOnly().getContent(), 
-				textModel.getRightReadOnly().getContent(), blockNum));
-		//compareModel의 right에 update된 값을 바탕으로 textModel의 right를 update.
-		textModel.setRightContent(changeBlocksToContent(compareModel.getRight()));
+		right.getContent().setAll(diff.copyToRight(left.getContentToString(), right.getContentToString(), blockNum));
 	}
 	
 	private String changeBlocksToContent(ArrayList<? extends BlockReadInterface> blocks) {
 		String s = "";
 		
 		for(int i = 0 ; i < blocks.size(); i++) {
-			if(blocks.get(i).isSpace())
+			if(blocks.get(i).getState() == State.SPACE)
 				continue;
 			
 			s += blocks.get(i).getContent();

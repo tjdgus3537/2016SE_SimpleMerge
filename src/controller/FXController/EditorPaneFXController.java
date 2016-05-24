@@ -1,5 +1,8 @@
-package controller;
+package controller.FXController;
 
+import controller.CompareModeDisabler;
+import controller.ContentNodeProvider;
+import controller.ViewMode;
 import controller.fileIO.ComparisonFileReader;
 import controller.fileIO.ComparisonFileWriter;
 import javafx.event.ActionEvent;
@@ -22,7 +25,7 @@ import java.util.ResourceBundle;
  * Created by Donghwan on 5/15/2016.
  * 편집 창의 액션을 관리하는 컨트롤러
  */
-public class EditorPaneFXController implements Initializable, ContentNodeProvider{
+public class EditorPaneFXController implements Initializable, ContentNodeProvider {
     private ComparisonFile comparisonFile;
     private ViewMode viewMode;
     private EditorTextAreaFXController editorTextAreaFXController;
@@ -132,12 +135,12 @@ public class EditorPaneFXController implements Initializable, ContentNodeProvide
             ComparisonFile loadedFile = ComparisonFileReader.readComparisonFile(selectedFile);
             if (loadedFile != null) {
                 comparisonFile = loadedFile;
-                compareListViewFXController.setComparisonFile(comparisonFile);
+                compareListViewFXController.setContent(comparisonFile);
                 switchEditorTextArea();
                 editorTextAreaFXController.setEditable(false);
                 setDisableEditModeButtons(false);
                 editButton.setSelected(false); // set read-only
-                filePathLabel.setText(selectedFile.getPath().toString());
+                filePathLabel.setText(selectedFile.getPath());
             }
         }catch (IOException ioe){
             Alert fileLoadErrorAlert = new Alert(Alert.AlertType.ERROR);

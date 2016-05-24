@@ -19,7 +19,7 @@ public class ComparisonFileWriter {
     private static final Charset CHARSET = StandardCharsets.UTF_8;
 
     public static void writeComparisonFile(ComparisonFile target) throws IOException{
-        writeFile(target.getSource(), target.getContent().toString());
+        writeFile(target.getSource(), target.getContentToString());
     }
 
     private static void writeFile(File target, String content) throws IOException{

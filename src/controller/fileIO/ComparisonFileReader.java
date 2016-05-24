@@ -27,8 +27,8 @@ public class ComparisonFileReader {
     	try (BufferedReader reader = Files.newBufferedReader(source.toPath(), CHARSET)) {
 			return reader.lines().collect(Collector.of(
 					()->new StringJoiner("\n"),
-					(join, line)->join.add(line),
-					(join1, join2)->join1.merge(join2),
+					StringJoiner::add,
+					StringJoiner::merge,
 					StringJoiner::toString));
 		}
     }

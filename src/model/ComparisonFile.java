@@ -3,6 +3,7 @@ package model;
 import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import org.apache.commons.lang3.StringUtils;
 
 import java.io.File;
 import java.util.stream.Collector;
@@ -11,7 +12,7 @@ import java.util.stream.Collector;
  * Created by Donghwan on 5/12/2016.
  * 비교하는 파일에 대해서 저장하는 클래스
  */
-public class ComparisonFile {
+public class ComparisonFile implements TextPropertyProvider, ObservableBlocksProvider{
     private File source;
     private ObservableList<BlockReadInterface> content;
 
@@ -36,19 +37,27 @@ public class ComparisonFile {
     public void setContent(String content){
         if(this.content != null) this.content.clear();
         else this.content = FXCollections.observableArrayList();
-        this.content.add(new Block(State.UNCHANGED, content));
+        Block block = new Block();
+        block.setState(State.UNCHANGED);
+        block.setStartNumber(0);
+        block.setNumberOfLine(StringUtils.countMatches(content, '\n')+1);
+        block.setContent(content);
+        this.content.add(block);
     }
 
     public File getSource() {
         return source;
     }
 
+    @Override
     public ObservableList<BlockReadInterface> getContent() {
         return content;
     }
 
-    public StringProperty getTextAreaProperty(){
-        Block singleBlock = new Block(State.UNCHANGED, content.stream().filter(block->block.getState() != State.SPACE).collect(Collector.of(()->new StringBuffer(), (buf, item)-> buf.append(item.getContent()), (buf1, buf2) -> buf1.append(buf2), StringBuffer::toString)));
+    @Override
+    public StringProperty textProperty(){
+        Block singleBlock = new Block();
+        singleBlock.setContent(content.stream().filter(block->block.getState() != State.SPACE).collect(Collector.of(()->new StringBuffer(), (buf, item)-> buf.append(item.getContent()), (buf1, buf2) -> buf1.append(buf2), StringBuffer::toString)));
         content.clear();
         content.add(singleBlock);
         return singleBlock.contentProperty();

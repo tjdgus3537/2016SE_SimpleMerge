@@ -10,15 +10,15 @@ public interface DiffCommandInterface {
 	/**
 	 * Model에서 String을 얻어서 Diff의 compare를 실행하고 그 결과를 Model에 반영한다.
      */
-	public void compare();
+	public void compare(ComparisonFile left, ComparisonFile right);
 	/**
 	 * Model에서 String을 얻어서 Diff의 copyToLeft를 실행하고 그 결과를 Model에 반영한다.
 	 * @param blockNum copy하려는 block의 번호
      */	
-	public void copyToLeft(int blockNum);
+	public void copyToLeft(ComparisonFile left, ComparisonFile right, int blockNum);
 	/**
 	 * Model에서 String을 얻어서 Diff의 copyToRight를 실행하고 그 결과를 Model에 반영한다.
 	 * @param blockNum copy하려는 block의 번호
      */	
-	public void copyToRight(int blockNum);
+	public void copyToRight(ComparisonFile left, ComparisonFile right, int blockNum);
 }

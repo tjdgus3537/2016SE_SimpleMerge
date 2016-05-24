@@ -5,6 +5,4 @@ package controller;
  */
 public enum ViewMode {
     EDIT, COMPARE
-
-
 }

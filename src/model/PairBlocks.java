@@ -8,7 +8,7 @@ import java.util.ArrayList;
  * Diff Class에서 leftString과 rightString이 input으로 주어지고 Compare 했을 때 return되는 data의 type
  */
 
-public class PairBlocks implements PairBlocksReadOnlyInterface{
+public class PairBlocks {
 	private ArrayList<Block> left;
 	private ArrayList<Block> right;
 
@@ -44,13 +44,5 @@ public class PairBlocks implements PairBlocksReadOnlyInterface{
 
 	public void addRight(Block b) {
 		right.add(b);
-	}
-
-	public ArrayList<? extends BlockReadInterface> getLeftReadOnly() {
-		return left;
-	}
-
-	public ArrayList<? extends BlockReadInterface> getRightReadOnly() {
-		return right;
 	}
 }
