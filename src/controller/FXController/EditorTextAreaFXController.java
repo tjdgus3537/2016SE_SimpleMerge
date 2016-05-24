@@ -14,7 +14,7 @@ public class EditorTextAreaFXController {
     private TextArea editorTextArea;
 
     public void setContent(StringProperty stringProperty) {
-        if(stringProperty != null) editorTextArea.textProperty().bind(stringProperty);
+        if(stringProperty != null) editorTextArea.textProperty().bindBidirectional(stringProperty);
     }
 
     public void setEditable(boolean value){
