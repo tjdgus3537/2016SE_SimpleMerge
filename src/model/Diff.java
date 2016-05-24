@@ -210,7 +210,7 @@ public class Diff implements DiffInterface{
 		if (lineCheckIndex != s.length()) {
 			stateChecker = State.UNCHANGED;
 
-			for (; lineCheckIndex <= s.length(); lineCheckIndex++) {
+			for (; lineCheckIndex < s.length(); lineCheckIndex++) {
 				if (charStates[lineCheckIndex] == State.CHANGED)
 					stateChecker = State.CHANGED;
 			}
