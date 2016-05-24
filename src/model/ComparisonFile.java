@@ -3,7 +3,6 @@ package model;
 import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import org.apache.commons.lang3.StringUtils;
 
 import java.io.File;
 import java.util.stream.Collector;
@@ -37,11 +36,7 @@ public class ComparisonFile implements TextPropertyProvider, ObservableBlocksPro
     public void setContent(String content){
         if(this.content != null) this.content.clear();
         else this.content = FXCollections.observableArrayList();
-        Block block = new Block();
-        block.setState(State.UNCHANGED);
-        block.setStartNumber(0);
-        block.setNumberOfLine(StringUtils.countMatches(content, '\n')+1);
-        block.setContent(content);
+        Block block = new Block(content);
         this.content.add(block);
     }
 
@@ -56,8 +51,7 @@ public class ComparisonFile implements TextPropertyProvider, ObservableBlocksPro
 
     @Override
     public StringProperty textProperty(){
-        Block singleBlock = new Block();
-        singleBlock.setContent(content.stream().filter(block->block.getState() != State.SPACE).collect(Collector.of(()->new StringBuffer(), (buf, item)-> buf.append(item.getContent()), (buf1, buf2) -> buf1.append(buf2), StringBuffer::toString)));
+        Block singleBlock = new Block(content.stream().filter(block->block.getState() != State.SPACE).collect(Collector.of(()->new StringBuffer(), (buf, item)-> buf.append(item.getContent()), (buf1, buf2) -> buf1.append(buf2), StringBuffer::toString)));
         content.clear();
         content.add(singleBlock);
         return singleBlock.contentProperty();
