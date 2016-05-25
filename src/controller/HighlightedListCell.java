@@ -2,7 +2,6 @@ package controller;
 
 import javafx.scene.control.ListCell;
 import model.Block;
-import model.BlockReadInterface;
 
 /**
  * Created by Donghwan on 5/20/2016.
@@ -15,5 +14,6 @@ public class HighlightedListCell extends ListCell<Block> {
         if(empty || item == null) return;
         setText(item.getContent());
         setStyle(item.getState().getStyle());
+        setDisable(!item.getState().isModifiable());
     }
 }

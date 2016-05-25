@@ -1,7 +1,6 @@
 package controller.FXController;
 
 import controller.CompareModeDisabler;
-import controller.ContentNodeProvider;
 import controller.ViewMode;
 import controller.fileIO.ComparisonFileReader;
 import controller.fileIO.ComparisonFileWriter;
@@ -30,7 +29,7 @@ public class EditorPaneFXController implements Initializable, ContentNodeProvide
     private ComparisonFile comparisonFile;
     private ViewMode viewMode;
     private EditorTextAreaFXController editorTextAreaFXController;
-    private CompareListViewFXController compareListViewFXController;
+    private CompResultListViewFXController compareListViewFXController;
     private CompareModeDisabler compareModeDisabler;
 
     @FXML
