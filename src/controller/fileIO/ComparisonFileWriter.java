@@ -15,16 +15,24 @@ import java.nio.file.StandardOpenOption;
  * 프로그램에서 비교할 파일을 저장하는 파일
  */
 public class ComparisonFileWriter {
+    private final Charset charset;
+    private static final Charset DEFAULT_CHARSET = StandardCharsets.UTF_8;
 
-    private static final Charset CHARSET = StandardCharsets.UTF_8;
+    public ComparisonFileWriter(){
+        charset = DEFAULT_CHARSET;
+    }
 
-    public static void writeComparisonFile(ComparisonFile target) throws IOException{
+    public ComparisonFileWriter(Charset charset){
+        this.charset = charset;
+    }
+
+    public void writeComparisonFile(ComparisonFile target) throws IOException{
         writeFile(target.getSource(), target.getContentToString());
     }
 
-    private static void writeFile(File target, String content) throws IOException{
+    private void writeFile(File target, String content) throws IOException{
         try(BufferedWriter writer = Files.newBufferedWriter(target.toPath(),
-                CHARSET, StandardOpenOption.WRITE, StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING)){
+                charset, StandardOpenOption.WRITE, StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING)){
             writer.write(content);
         }
     }

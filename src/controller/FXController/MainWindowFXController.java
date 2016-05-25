@@ -26,9 +26,6 @@ import java.util.stream.Collector;
 public class MainWindowFXController implements Initializable, CompareModeDisabler {
     private EditorPaneFXController leftPaneController;
     private EditorPaneFXController rightPaneController;
-    private Diff diff;
-    ObservableList<Block> left;
-    ObservableList<Block> right;
 
     @FXML
     private Button compareButton;
@@ -43,6 +40,7 @@ public class MainWindowFXController implements Initializable, CompareModeDisable
 
     @FXML
     private void handleCompareButtonAction(ActionEvent event){
+
         // 양 쪽 pane에 파일이 존재하지 않으면 비교 불가
         if(!leftPaneController.isFileContained() || !rightPaneController.isFileContained()) {
             return;
@@ -50,34 +48,21 @@ public class MainWindowFXController implements Initializable, CompareModeDisable
         setDisableCompareModeNodes(false);
         leftPaneController.switchCompareListView();
         rightPaneController.switchCompareListView();
-        // TODO fix: diff 직접 사용중
-        diff = new Diff();
-        PairBlocks pairBlocks = diff.compare(leftPaneController.getComparisonFile().getContentToString(), rightPaneController.getComparisonFile().getContentToString());
-        left = FXCollections.observableArrayList(pairBlocks.getLeft());
-        right = FXCollections.observableArrayList(pairBlocks.getRight());
-        right.addListener((ListChangeListener<Block>) c -> {
-            rightPaneController.getComparisonFile().textProperty().setValue(left.stream().map(item->item.getContent()).collect(Collector.of(()->new StringBuffer(), StringBuffer::append, StringBuffer::append, StringBuffer::toString)));
-        });
+
         leftPaneController.getCompareListView().setItems(left);
         rightPaneController.getCompareListView().setItems(right);
         compareViewScrollBar.setMax(pairBlocks.getLeft().size()); // comp 결과 길이가 들어가야 함
     }
 
-    // TODO Comp 모드에서는 undo 불가?
+    // TODO Comp 모드에서는 undo 불가? ==> 한계점
     @FXML
     private void handleCopyToRightButtonAction(ActionEvent event){
-        int blockNum = leftPaneController.getCompareListView().getSelectionModel().getSelectedIndex();
-        if(left.get(blockNum).getState() == State.UNCHANGED) return;
 
-        //우측의 blockNum번 block을 좌측에 추가하고, 좌측의 blockNum + 1번째 block을 삭제.
-        right.add(blockNum, left.get(blockNum));
-        right.remove(blockNum + 1);
     }
 
     @FXML
     private void handleCopyToLeftButtonAction(ActionEvent event){
-        DiffCommandInterface diff = new DiffCommand();
-        diff.copyToLeft(leftPaneController.getComparisonFile(), rightPaneController.getComparisonFile(), rightPaneController.getCompareListView().getSelectionModel().getSelectedIndex());
+
     }
 
     private void setDisableCompareModeNodes(boolean value){

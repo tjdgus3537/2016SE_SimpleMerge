@@ -1,7 +1,6 @@
 package controller.FXController;
 
 import controller.CompareModeDisabler;
-import controller.ContentNodeProvider;
 import controller.ViewMode;
 import controller.fileIO.ComparisonFileReader;
 import controller.fileIO.ComparisonFileWriter;
@@ -29,8 +28,8 @@ import java.util.ResourceBundle;
 public class EditorPaneFXController implements Initializable, ContentNodeProvider {
     private ComparisonFile comparisonFile;
     private ViewMode viewMode;
-    private EditorTextAreaFXController editorTextAreaFXController;
-    private CompareListViewFXController compareListViewFXController;
+    private EditorTextAreaControllerInterface editorTextAreaFXController;
+    private CompResultListViewControllerInterface compResultListViewFXController;
     private CompareModeDisabler compareModeDisabler;
 
     @FXML
@@ -81,7 +80,7 @@ public class EditorPaneFXController implements Initializable, ContentNodeProvide
 
     // TODO 이 쓰레기같은 getter 좀 없애봐야 함
     public ListView<Block> getCompareListView(){
-        return (ListView<Block>)compareListViewFXController.getContentNode();
+        return (ListView<Block>) compResultListViewFXController.getContentNode();
     }
 
     public ComparisonFile getComparisonFile(){ return comparisonFile; }
@@ -100,7 +99,7 @@ public class EditorPaneFXController implements Initializable, ContentNodeProvide
     public void switchCompareListView(){
         viewMode = ViewMode.COMPARE;
         editButton.setSelected(false);
-        setContentNode(compareListViewFXController.getContentNode());
+        setContentNode(compResultListViewFXController.getContentNode());
     }
 
     public void setCompareModeDisabler(CompareModeDisabler compareModeDisabler){ this.compareModeDisabler = compareModeDisabler; }
@@ -117,7 +116,8 @@ public class EditorPaneFXController implements Initializable, ContentNodeProvide
 
     private void saveToFile(){
         try {
-            ComparisonFileWriter.writeComparisonFile(comparisonFile);
+            ComparisonFileWriter comparisonFileWriter = new ComparisonFileWriter();
+            comparisonFileWriter.writeComparisonFile(comparisonFile);
         }catch(IOException ioe){
             Alert fileLoadErrorAlert = new Alert(Alert.AlertType.ERROR);
             fileLoadErrorAlert.setTitle("File save failed");
@@ -132,7 +132,8 @@ public class EditorPaneFXController implements Initializable, ContentNodeProvide
         File selectedFile = showFileChooser();
         if(selectedFile == null) return;
         try {
-            ComparisonFile loadedFile = ComparisonFileReader.readComparisonFile(selectedFile);
+            ComparisonFileReader comparisonFileReader = new ComparisonFileReader();
+            ComparisonFile loadedFile = comparisonFileReader.readComparisonFile(selectedFile);
             if (loadedFile != null) {
                 comparisonFile = loadedFile;
                 editorTextAreaFXController.setContent(comparisonFile.textProperty());
@@ -182,9 +183,9 @@ public class EditorPaneFXController implements Initializable, ContentNodeProvide
             editorTextAreaFXController = editorTextAreaFXMLLoader.getController();
             FXMLLoader compareListViewFXMLLoader = new FXMLLoader(getClass().getResource("/fxml/CompareListView.fxml"));
             compareListViewFXMLLoader.load();
-            compareListViewFXController = compareListViewFXMLLoader.getController();
+            compResultListViewFXController = compareListViewFXMLLoader.getController();
             addContentNodeProperty(editorTextAreaFXController.getContentNode());
-            addContentNodeProperty(compareListViewFXController.getContentNode());
+            addContentNodeProperty(compResultListViewFXController.getContentNode());
             switchEditorTextArea();
         }catch(IOException ioe){
             // TODO Pane 불러오기 실패에 대한 알림

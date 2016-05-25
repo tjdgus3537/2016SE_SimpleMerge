@@ -14,14 +14,16 @@ import java.util.ResourceBundle;
 /**
  * Created by Donghwan on 5/22/2016.
  */
-public class CompResultListViewFXController implements Initializable{
+public class CompResultListViewFXController implements Initializable, CompResultListViewControllerInterface{
     @FXML
     private ListView<Block> compareListVIew;
 
+    @Override
     public void setContent(ObservableList<Block> content){
         compareListVIew.setItems(content);
     }
 
+    @Override
     public Node getContentNode() {
         return compareListVIew;
     }

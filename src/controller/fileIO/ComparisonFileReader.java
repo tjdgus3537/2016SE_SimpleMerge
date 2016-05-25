@@ -16,15 +16,23 @@ import java.util.stream.Collector;
  * 프로그램에서 비교할 파일을 읽어오는 객체
  */
 public class ComparisonFileReader {
+	private final Charset charset;
+	private static final Charset DEFAULT_CHARSET = StandardCharsets.UTF_8;
 
-	private static final Charset CHARSET = StandardCharsets.UTF_8;
+	public ComparisonFileReader(){
+		charset = DEFAULT_CHARSET;
+	}
 
-	public static ComparisonFile readComparisonFile(File source) throws IOException{
+	public ComparisonFileReader(Charset charset){
+		this.charset = charset;
+	}
+
+	public ComparisonFile readComparisonFile(File source) throws IOException{
 		return new ComparisonFile(source, readFile(source));
 	}
 
-    private static String readFile(File source) throws IOException {
-    	try (BufferedReader reader = Files.newBufferedReader(source.toPath(), CHARSET)) {
+    private String readFile(File source) throws IOException {
+    	try (BufferedReader reader = Files.newBufferedReader(source.toPath(), charset)) {
 			return reader.lines().collect(Collector.of(
 					()->new StringJoiner("\n"),
 					StringJoiner::add,

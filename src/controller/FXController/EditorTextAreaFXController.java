@@ -9,7 +9,7 @@ import model.ComparisonFile;
 /**
  * Created by Donghwan on 5/22/2016.
  */
-public class EditorTextAreaFXController {
+public class EditorTextAreaFXController implements EditorTextAreaControllerInterface{
     @FXML
     private TextArea editorTextArea;
 
