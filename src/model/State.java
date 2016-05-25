@@ -6,12 +6,15 @@ package model;
  */
 
 public enum State {
-	UNCHANGED(""), CHANGED("-fx-background-color: #EFCB05"), SPACE("-fx-background-color: #C0C0C0");
+	UNCHANGED("", false), CHANGED("-fx-background-color: #EFCB05", true), SPACE("-fx-background-color: #C0C0C0", true);
 	private final String style;
+	private final boolean modifiable;
 
-	private State(String style){
+	private State(String style, boolean modifiable){
 		this.style = style;
+		this.modifiable = modifiable;
 	}
 
 	public String getStyle(){ return style; }
+	public boolean isModifiable(){return modifiable;}
 }

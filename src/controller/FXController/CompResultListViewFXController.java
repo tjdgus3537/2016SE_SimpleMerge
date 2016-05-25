@@ -1,12 +1,15 @@
 package controller.FXController;
 
 import controller.HighlightedListCell;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.ListView;
 import model.Block;
+import model.State;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -30,8 +33,6 @@ public class CompResultListViewFXController implements Initializable, CompResult
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        compareListVIew.setCellFactory((listview)->{
-            return new HighlightedListCell();
-        });
+        compareListVIew.setCellFactory(listview-> new HighlightedListCell());
     }
 }
