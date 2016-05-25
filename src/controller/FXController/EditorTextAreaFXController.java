@@ -13,18 +13,22 @@ public class EditorTextAreaFXController implements EditorTextAreaControllerInter
     @FXML
     private TextArea editorTextArea;
 
+    @Override
     public void setContent(StringProperty stringProperty) {
         if(stringProperty != null) editorTextArea.textProperty().bindBidirectional(stringProperty);
     }
 
+    @Override
     public void setEditable(boolean value){
         editorTextArea.setEditable(value);
     }
 
+    @Override
     public boolean isEditable(){
         return editorTextArea.isEditable();
     }
 
+    @Override
     public Node getContentNode() {
         return editorTextArea;
     }

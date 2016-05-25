@@ -21,3 +21,8 @@
     -fx-background-color: #3E3E42;
     -fx-border-color: #3E3E42;
 }
+
+.list-cell:selected{
+    -fx-background-color: #4579D3;
+    -fx-text-fill: white;
+}
