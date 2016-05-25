@@ -52,8 +52,6 @@ public class MainWindowFXController implements Initializable, CompareModeDisable
         // TODO compare result 넣어야 함
         // TODO listener 달아야 함.
         // list.stream().filter(item -> item.getState() != State.SPACE).collect(StringBuffer::new, StringBuffer::append, StringBuffer::append, StringBuffer::toString);
-        leftPaneController.setListItems(null);
-        rightPaneController.setListItems(null);
         compareViewScrollBar.setMax(1); // TODO comp 결과 길이가 들어가야 함
     }
 

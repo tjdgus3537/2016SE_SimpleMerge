@@ -1,6 +1,5 @@
-import controller.fileIO.ComparisonFileReader;
-import controller.fileIO.ComparisonFileWriter;
-import model.ComparisonFile;
+import model.fileIO.ComparisonFileReader;
+import model.fileIO.ComparisonFileWriter;
 import org.easymock.EasyMockSupport;
 
 import java.io.BufferedWriter;

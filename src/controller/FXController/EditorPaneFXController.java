@@ -2,8 +2,8 @@ package controller.FXController;
 
 import controller.CompareModeDisabler;
 import controller.ViewMode;
-import controller.fileIO.ComparisonFileReader;
-import controller.fileIO.ComparisonFileWriter;
+import model.fileIO.ComparisonFileReader;
+import model.fileIO.ComparisonFileWriter;
 import javafx.beans.property.StringProperty;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -28,7 +28,7 @@ import java.util.ResourceBundle;
  * 편집 창의 액션을 관리하는 컨트롤러
  */
 public class EditorPaneFXController implements Initializable, ContentNodeProvider {
-    private ComparisonFile comparisonFile;
+    // TODO model 추가
     private ViewMode viewMode;
     private EditorTextAreaControllerInterface editorTextAreaFXController;
     private CompResultListViewControllerInterface compResultListViewFXController;
@@ -45,7 +45,7 @@ public class EditorPaneFXController implements Initializable, ContentNodeProvide
 
     @FXML
     private void handleLoadAction(ActionEvent event){
-        if(comparisonFile != null){
+        if(comparisonFile != null){ // TODO 모델에게 파일이 존재하는 지 쿼리해야 함
             // 이미 다른 파일을 편집중이면 저장할 지 물어봐야 함.
             Alert alert =  new Alert(Alert.AlertType.CONFIRMATION);
             alert.setTitle("Save this file?");
@@ -62,7 +62,7 @@ public class EditorPaneFXController implements Initializable, ContentNodeProvide
 
         // Compare 모드일 때는 compareModeDisabler에게 해제를 요청함
         if(viewMode == ViewMode.COMPARE) {
-            editorTextAreaFXController.setContent(comparisonFile.textProperty());
+            editorTextAreaFXController.setContent(comparisonFile.textProperty()); // TODO 자기가 쿼리하도록 해야 함
             switchEditorTextArea();
             editorTextAreaFXController.setEditable(true);
         }else{ // Edit 모드일 때
@@ -80,21 +80,8 @@ public class EditorPaneFXController implements Initializable, ContentNodeProvide
         saveToFile();
     }
 
-    public StringProperty getTextProperty() { return comparisonFile.textProperty(); }
-
-    public void setListItems(ObservableList<Block> items){
-        compResultListViewFXController.setContent(items);
-    }
-
     public void scrollTo(int value){
         compResultListViewFXController.scrollTo(value);
-    }
-
-    public ComparisonFile getComparisonFile(){ return comparisonFile; }
-
-    public boolean isFileContained(){
-        if(comparisonFile != null) return true;
-        else return false;
     }
 
     public void switchEditorTextArea(){
