@@ -4,6 +4,8 @@ import controller.CompareModeDisabler;
 import controller.ViewMode;
 import controller.fileIO.ComparisonFileReader;
 import controller.fileIO.ComparisonFileWriter;
+import javafx.beans.property.StringProperty;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -78,9 +80,14 @@ public class EditorPaneFXController implements Initializable, ContentNodeProvide
         saveToFile();
     }
 
-    // TODO 이 쓰레기같은 getter 좀 없애봐야 함
-    public ListView<Block> getCompareListView(){
-        return (ListView<Block>) compResultListViewFXController.getContentNode();
+    public StringProperty getTextProperty() { return comparisonFile.textProperty(); }
+
+    public void setListItems(ObservableList<Block> items){
+        compResultListViewFXController.setContent(items);
+    }
+
+    public void scrollTo(int value){
+        compResultListViewFXController.scrollTo(value);
     }
 
     public ComparisonFile getComparisonFile(){ return comparisonFile; }
@@ -157,7 +164,7 @@ public class EditorPaneFXController implements Initializable, ContentNodeProvide
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Open Resource File");
         fileChooser.getExtensionFilters().addAll(
-                new FileChooser.ExtensionFilter("All Files", "*.*"));
+                new FileChooser.ExtensionFilter("Text file", "*.txt"));
         File selectedFile = fileChooser.showOpenDialog(rootPane.getScene().getWindow());
         return selectedFile;
     }

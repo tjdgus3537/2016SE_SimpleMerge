@@ -27,6 +27,11 @@ public class CompResultListViewFXController implements Initializable, CompResult
     }
 
     @Override
+    public void scrollTo(int value) {
+        compareListVIew.scrollTo(value);
+    }
+
+    @Override
     public Node getContentNode() {
         return compareListVIew;
     }

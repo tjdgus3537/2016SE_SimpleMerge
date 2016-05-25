@@ -49,9 +49,12 @@ public class MainWindowFXController implements Initializable, CompareModeDisable
         leftPaneController.switchCompareListView();
         rightPaneController.switchCompareListView();
 
-        leftPaneController.getCompareListView().setItems(left);
-        rightPaneController.getCompareListView().setItems(right);
-        compareViewScrollBar.setMax(pairBlocks.getLeft().size()); // comp 결과 길이가 들어가야 함
+        // TODO compare result 넣어야 함
+        // TODO listener 달아야 함.
+        // list.stream().filter(item -> item.getState() != State.SPACE).collect(StringBuffer::new, StringBuffer::append, StringBuffer::append, StringBuffer::toString);
+        leftPaneController.setListItems(null);
+        rightPaneController.setListItems(null);
+        compareViewScrollBar.setMax(1); // TODO comp 결과 길이가 들어가야 함
     }
 
     // TODO Comp 모드에서는 undo 불가? ==> 한계점
@@ -93,8 +96,8 @@ public class MainWindowFXController implements Initializable, CompareModeDisable
             items.add(rightPaneController.getContentNode());
             editorSplitPane.setDividerPositions(0.5);
             compareViewScrollBar.valueProperty().addListener((observable, oldValue, newValue) -> {
-                leftPaneController.getCompareListView().scrollTo(newValue.intValue());
-                rightPaneController.getCompareListView().scrollTo(newValue.intValue());
+                leftPaneController.scrollTo(newValue.intValue());
+                rightPaneController.scrollTo(newValue.intValue());
             });
         }catch(IOException e){
             e.printStackTrace();

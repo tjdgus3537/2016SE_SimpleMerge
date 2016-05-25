@@ -9,6 +9,7 @@ import model.Block;
  */
 public interface CompResultListViewControllerInterface extends ContentNodeProvider {
     void setContent(ObservableList<Block> content);
+    void scrollTo(int value);
     @Override
     Node getContentNode();
 }

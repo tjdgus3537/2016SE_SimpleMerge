@@ -2,11 +2,7 @@ package model;
 
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-
 import java.io.File;
-import java.util.stream.Collector;
 
 /**
  * Created by Donghwan on 5/12/2016.
