@@ -2,10 +2,10 @@ import static org.junit.Assert.*;
 
 import java.util.ArrayList;
 
-import model.Block;
-import model.Diff;
-import model.DiffInterface;
-import model.PairBlocks;
+import model.diff.block.Block;
+import model.diff.Diff;
+import model.diff.DiffInterface;
+import model.diff.block.PairBlocks;
 
 import org.junit.Before;
 import org.junit.Test;

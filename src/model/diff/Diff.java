@@ -1,4 +1,10 @@
-package model;
+package model.diff;
+
+import model.diff.block.Block;
+import model.diff.block.PairBlocks;
+import model.diff.block.State;
+import model.diff.lcs.LCS;
+import model.diff.lcs.LCSInterface;
 
 import java.util.ArrayList;
 

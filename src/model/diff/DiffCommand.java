@@ -1,6 +1,9 @@
-package model;
+package model.diff;
 
-import javafx.collections.ObservableList;
+import model.ObservableComparisonFile;
+import model.diff.block.BlockReadInterface;
+import model.diff.block.PairBlocks;
+import model.diff.block.State;
 
 import java.util.ArrayList;
 
@@ -18,27 +21,27 @@ public class DiffCommand implements DiffCommandInterface{
 	}
 
 	@Override
-	public void compare(ComparisonFile left, ComparisonFile right) {
+	public void compare(ObservableComparisonFile left, ObservableComparisonFile right) {
 		PairBlocks pairBlocks;
 		//diff의 compare를 호출하여 결과를 얻는다.
 		pairBlocks = diff.compare(left.getContentToString(), right.getContentToString());
 		//새로운 결과로 compareModel을 update.
-		//ObservableList<BlockReadInterface> leftContent = left.getContent();
-		//ObservableList<BlockReadInterface> rightContent = right.getContent();
+		//ObservableList<BlockReadInterface> leftContent = left.getContentProperty();
+		//ObservableList<BlockReadInterface> rightContent = right.getContentProperty();
 		//leftContent.setAll(pairBlocks.getLeft());
 		//rightContent.setAll(pairBlocks.getRight());
 	}
 
 	@Override
-	public void copyToLeft(ComparisonFile left, ComparisonFile right, int blockNum) {
+	public void copyToLeft(ObservableComparisonFile left, ObservableComparisonFile right, int blockNum) {
 		//diff의 copyToLeft를 호출하여 얻은 결과를 compareModel의 left에 update.
-		//left.getContent().setAll((diff.copyToLeft(left.getContentToString(), right.getContentToString(), blockNum)));
+		//left.getContentProperty().setAll((diff.copyToLeft(left.getContentToString(), right.getContentToString(), blockNum)));
 	}
 
 	@Override
-	public void copyToRight(ComparisonFile left, ComparisonFile right, int blockNum) {
+	public void copyToRight(ObservableComparisonFile left, ObservableComparisonFile right, int blockNum) {
 		//diff의 copyToRight를 호출하여 얻은 결과를 compareModel의 right에 update.
-		//right.getContent().setAll(diff.copyToRight(left.getContentToString(), right.getContentToString(), blockNum));
+		//right.getContentProperty().setAll(diff.copyToRight(left.getContentToString(), right.getContentToString(), blockNum));
 	}
 	
 	private String changeBlocksToContent(ArrayList<? extends BlockReadInterface> blocks) {

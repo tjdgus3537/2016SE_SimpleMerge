@@ -1,4 +1,4 @@
-package model;
+package model.diff.block;
 
 /**
  * Created by Seonghyeon on 5/21/2016.

@@ -55,18 +55,18 @@ public class FileIOTest extends EasyMockSupport{
 
     @org.junit.Test
     public void testLoadComparisonFile() throws Exception {
-        ComparisonFile comparisonFile = fileReader.readComparisonFile(new File("test/readTestFile.txt"));
-        assertEquals(testFileResult, comparisonFile.getContent().toString());
-        assertTrue(new File("test/readTestFile.txt").equals(comparisonFile.getSource()));
+        ObservableComparisonFile comparisonFile = fileReader.readComparisonFile(new File("test/readTestFile.txt"));
+        assertEquals(testFileResult, comparisonFile.getContentProperty().toString());
+        assertTrue(new File("test/readTestFile.txt").equals(comparisonFile.getSourceProperty()));
     }
 
     @org.junit.Test
     public void testSaveComparisonFile() throws Exception {
-        ComparisonFile comparisonFile = new ComparisonFile(new File("test/writeTestFile.txt"), new StringBuffer(testFileResult));
+        ObservableComparisonFile comparisonFile = new ObservableComparisonFile(new File("test/writeTestFile.txt"), new StringBuffer(testFileResult));
         fileWriter.writeComparisonFile(comparisonFile);
-        ComparisonFile savedFile = fileReader.readComparisonFile(new File("test/writeTestFile.txt"));
-        assertEquals(testFileResult, savedFile.getContent().toString());
-        assertTrue(new File("test/writeTestFile.txt").equals(savedFile.getSource()));
+        ObservableComparisonFile savedFile = fileReader.readComparisonFile(new File("test/writeTestFile.txt"));
+        assertEquals(testFileResult, savedFile.getContentProperty().toString());
+        assertTrue(new File("test/writeTestFile.txt").equals(savedFile.getSourceProperty()));
     }
     */
 

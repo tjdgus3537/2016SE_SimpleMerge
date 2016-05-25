@@ -1,7 +1,7 @@
 package controller;
 
 import javafx.scene.control.ListCell;
-import model.Block;
+import model.diff.block.Block;
 
 /**
  * Created by Donghwan on 5/20/2016.

@@ -1,6 +1,6 @@
 import static org.junit.Assert.*;
-import model.LCS;
-import model.LCSInterface;
+import model.diff.lcs.LCS;
+import model.diff.lcs.LCSInterface;
 
 import org.junit.Before;
 import org.junit.Test;

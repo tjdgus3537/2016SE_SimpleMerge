@@ -1,4 +1,6 @@
-package model;
+package model.diff;
+
+import model.ObservableComparisonFile;
 
 /**
  * Created by Seonghyeon on 5/22/2016.
@@ -10,15 +12,15 @@ public interface DiffCommandInterface {
 	/**
 	 * Model에서 String을 얻어서 Diff의 compare를 실행하고 그 결과를 Model에 반영한다.
      */
-	public void compare(ComparisonFile left, ComparisonFile right);
+	public void compare(ObservableComparisonFile left, ObservableComparisonFile right);
 	/**
 	 * Model에서 String을 얻어서 Diff의 copyToLeft를 실행하고 그 결과를 Model에 반영한다.
 	 * @param blockNum copy하려는 block의 번호
      */	
-	public void copyToLeft(ComparisonFile left, ComparisonFile right, int blockNum);
+	public void copyToLeft(ObservableComparisonFile left, ObservableComparisonFile right, int blockNum);
 	/**
 	 * Model에서 String을 얻어서 Diff의 copyToRight를 실행하고 그 결과를 Model에 반영한다.
 	 * @param blockNum copy하려는 block의 번호
      */	
-	public void copyToRight(ComparisonFile left, ComparisonFile right, int blockNum);
+	public void copyToRight(ObservableComparisonFile left, ObservableComparisonFile right, int blockNum);
 }

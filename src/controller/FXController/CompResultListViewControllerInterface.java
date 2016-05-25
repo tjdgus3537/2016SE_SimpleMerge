@@ -2,7 +2,7 @@ package controller.FXController;
 
 import javafx.collections.ObservableList;
 import javafx.scene.Node;
-import model.Block;
+import model.diff.block.Block;
 
 /**
  * Created by Donghwan on 5/25/2016.

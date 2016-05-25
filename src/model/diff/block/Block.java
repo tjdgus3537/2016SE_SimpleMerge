@@ -1,7 +1,4 @@
-package model;
-
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
+package model.diff.block;
 
 /**
  * Created by Seonghyeon on 5/15/2016.

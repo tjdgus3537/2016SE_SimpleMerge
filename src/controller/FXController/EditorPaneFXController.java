@@ -4,8 +4,6 @@ import controller.CompareModeDisabler;
 import controller.ViewMode;
 import model.fileIO.ComparisonFileReader;
 import model.fileIO.ComparisonFileWriter;
-import javafx.beans.property.StringProperty;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -15,8 +13,7 @@ import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.FileChooser;
-import model.Block;
-import model.ComparisonFile;
+import model.ObservableComparisonFile;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
@@ -127,7 +124,7 @@ public class EditorPaneFXController implements Initializable, ContentNodeProvide
         if(selectedFile == null) return;
         try {
             ComparisonFileReader comparisonFileReader = new ComparisonFileReader();
-            ComparisonFile loadedFile = comparisonFileReader.readComparisonFile(selectedFile);
+            ObservableComparisonFile loadedFile = comparisonFileReader.readComparisonFile(selectedFile);
             if (loadedFile != null) {
                 comparisonFile = loadedFile;
                 editorTextAreaFXController.setContent(comparisonFile.textProperty());

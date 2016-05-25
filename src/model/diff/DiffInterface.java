@@ -1,4 +1,7 @@
-package model;
+package model.diff;
+
+import model.diff.block.Block;
+import model.diff.block.PairBlocks;
 
 import java.util.ArrayList;
 

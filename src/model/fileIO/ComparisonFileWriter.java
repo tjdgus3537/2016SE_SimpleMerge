@@ -1,6 +1,6 @@
 package model.fileIO;
 
-import model.ComparisonFile;
+import model.ObservableComparisonFile;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -26,8 +26,8 @@ public class ComparisonFileWriter {
         this.charset = charset;
     }
 
-    public void writeComparisonFile(ComparisonFile target) throws IOException{
-        writeFile(target.getSource(), target.getContentToString());
+    public void writeComparisonFile(ObservableComparisonFile target) throws IOException{
+        writeFile(target.getSourceProperty(), target.getContentToString());
     }
 
     private void writeFile(File target, String content) throws IOException{
