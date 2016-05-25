@@ -14,7 +14,7 @@ import java.util.ResourceBundle;
 /**
  * Created by Donghwan on 5/22/2016.
  */
-public class CompareListViewFXController implements Initializable{
+public class CompResultListViewFXController implements Initializable{
     @FXML
     private ListView<Block> compareListVIew;
 
