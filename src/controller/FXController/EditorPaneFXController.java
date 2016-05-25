@@ -2,6 +2,9 @@ package controller.FXController;
 
 import controller.CompareModeDisabler;
 import controller.ViewMode;
+import javafx.beans.value.ChangeListener;
+import javafx.collections.ListChangeListener;
+import model.editorModel.EditorModelInterface;
 import model.fileIO.ComparisonFileReader;
 import model.fileIO.ComparisonFileWriter;
 import javafx.event.ActionEvent;
@@ -24,8 +27,8 @@ import java.util.ResourceBundle;
  * Created by Donghwan on 5/15/2016.
  * 편집 창의 액션을 관리하는 컨트롤러
  */
-public class EditorPaneFXController implements Initializable, ContentNodeProvider {
-    // TODO model 추가
+public class EditorPaneFXController implements Initializable, EditorPaneControllerInterface{
+    private EditorModelInterface model;
     private ViewMode viewMode;
     private EditorTextAreaControllerInterface editorTextAreaFXController;
     private CompResultListViewControllerInterface compResultListViewFXController;
@@ -42,7 +45,7 @@ public class EditorPaneFXController implements Initializable, ContentNodeProvide
 
     @FXML
     private void handleLoadAction(ActionEvent event){
-        if(comparisonFile != null){ // TODO 모델에게 파일이 존재하는 지 쿼리해야 함
+        if(model.fileReadOnlyProperty().get() != null){ // TODO 모델에게 파일이 존재하는 지 쿼리해야 함
             // 이미 다른 파일을 편집중이면 저장할 지 물어봐야 함.
             Alert alert =  new Alert(Alert.AlertType.CONFIRMATION);
             alert.setTitle("Save this file?");
@@ -55,15 +58,12 @@ public class EditorPaneFXController implements Initializable, ContentNodeProvide
 
     @FXML
     private void handleEditAction(ActionEvent event){
-        // TODO 파일이 없으면 edit 불가능 -> 사용자에게 알려줘야 함
-
         // Compare 모드일 때는 compareModeDisabler에게 해제를 요청함
         if(viewMode == ViewMode.COMPARE) {
-            editorTextAreaFXController.setContent(comparisonFile.textProperty()); // TODO 자기가 쿼리하도록 해야 함
             switchEditorTextArea();
-            editorTextAreaFXController.setEditable(true);
+            setEditable(true);
         }else{ // Edit 모드일 때
-            if(comparisonFile != null) {
+            if(model.fileReadOnlyProperty().get() != null) {
                 boolean editable = editorTextAreaFXController.isEditable();
                 // read only <-> edit
                 editorTextAreaFXController.setEditable(!editable);
@@ -74,30 +74,48 @@ public class EditorPaneFXController implements Initializable, ContentNodeProvide
 
     @FXML
     private void handleSaveAction(ActionEvent event){
-        saveToFile();
+        model.save();
     }
 
+    @Override
+    public void setModel(EditorModelInterface model){
+        this.model = model;
+        model.fileReadOnlyProperty().addListener((observable, oldValue, newValue) -> {
+            filePathLabel.setText(newValue.getPath());
+        });
+        editorTextAreaFXController.setModel(this.model.getObservableTextModel());
+        compResultListViewFXController.setModel(this.model.getObservableListModel());
+    }
+
+    @Override
+    public int getSelectedIndex() {
+        return compResultListViewFXController.getSelectedIndex();
+    }
+
+    @Override
     public void scrollTo(int value){
         compResultListViewFXController.scrollTo(value);
     }
 
-    public void switchEditorTextArea(){
-        viewMode = ViewMode.EDIT;
-        if(compareModeDisabler != null) compareModeDisabler.disableCompareMode();
-        setContentNode(editorTextAreaFXController.getContentNode());
-    }
-
+    @Override
     public void switchCompareListView(){
         viewMode = ViewMode.COMPARE;
-        editButton.setSelected(false);
+        setEditable(false);
         setContentNode(compResultListViewFXController.getContentNode());
     }
 
+    @Override
     public void setCompareModeDisabler(CompareModeDisabler compareModeDisabler){ this.compareModeDisabler = compareModeDisabler; }
 
     @Override
     public Node getContentNode() {
         return rootPane;
+    }
+
+    private void switchEditorTextArea(){
+        viewMode = ViewMode.EDIT;
+        if(compareModeDisabler != null) compareModeDisabler.disableCompareMode();
+        setContentNode(editorTextAreaFXController.getContentNode());
     }
 
     private void setDisableEditModeButtons(boolean value){
@@ -107,8 +125,7 @@ public class EditorPaneFXController implements Initializable, ContentNodeProvide
 
     private void saveToFile(){
         try {
-            ComparisonFileWriter comparisonFileWriter = new ComparisonFileWriter();
-            comparisonFileWriter.writeComparisonFile(comparisonFile);
+            model.save();
         }catch(IOException ioe){
             Alert fileLoadErrorAlert = new Alert(Alert.AlertType.ERROR);
             fileLoadErrorAlert.setTitle("File save failed");
@@ -123,17 +140,10 @@ public class EditorPaneFXController implements Initializable, ContentNodeProvide
         File selectedFile = showFileChooser();
         if(selectedFile == null) return;
         try {
-            ComparisonFileReader comparisonFileReader = new ComparisonFileReader();
-            ObservableComparisonFile loadedFile = comparisonFileReader.readComparisonFile(selectedFile);
-            if (loadedFile != null) {
-                comparisonFile = loadedFile;
-                editorTextAreaFXController.setContent(comparisonFile.textProperty());
-                switchEditorTextArea();
-                editorTextAreaFXController.setEditable(false);
-                setDisableEditModeButtons(false);
-                editButton.setSelected(false); // set read-only
-                filePathLabel.setText(selectedFile.getPath());
-            }
+            model.load(selectedFile);
+            setEditable(false);
+            setDisableEditModeButtons(false);
+            filePathLabel.setText(selectedFile.getPath());
         }catch (IOException ioe){
             Alert fileLoadErrorAlert = new Alert(Alert.AlertType.ERROR);
             fileLoadErrorAlert.setTitle("File load failed");
@@ -141,6 +151,11 @@ public class EditorPaneFXController implements Initializable, ContentNodeProvide
             fileLoadErrorAlert.setContentText("Selected file is not loaded. Check if it exists and try again.");
             fileLoadErrorAlert.show();
         }
+    }
+
+    private void setEditable(boolean value){
+        editButton.setSelected(value);
+        editorTextAreaFXController.setEditable(value);
     }
 
     private File showFileChooser(){
