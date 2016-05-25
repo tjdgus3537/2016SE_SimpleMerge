@@ -17,7 +17,7 @@ public class Diff implements DiffInterface{
 	public PairBlocks compare(String left, String right) {
 		if(left == null || right == null)
 			return null;
-		
+
 		return makePairBlocks(left, right);
 	}
 	
@@ -93,17 +93,28 @@ public class Diff implements DiffInterface{
 		lineStringsOfLeft = parseString(left);
 		lineStringsOfRight = parseString(right);
 		
+		//TODO:line 사이에 SPACE 채워넣는 것 만들기.
+		putSpaceLine(lineStatesOfLeft, lineStatesOfRight, lineStringsOfLeft, lineStringsOfRight);
 		
 		//위에서 얻은 line 단위의 변화 여부를 이용하여 block으로 묶는다.
 		blocksOfLetf = getBlockArrayList(lineStatesOfLeft, lineStringsOfLeft);
 		blocksOfRight = getBlockArrayList(lineStatesOfRight, lineStringsOfRight);
 		
+		//TODO:pairBlocks 만들기
+		if(blocksOfLetf != null && blocksOfRight != null) {
+			pairBlocks = new PairBlocks();
+			pairBlocks.setLeft(blocksOfLetf);
+			pairBlocks.setRight(blocksOfRight);
+			return pairBlocks;
+		}
+		//TODO:여기 지우기
 		//block들 사이에 SPACE block을 채워 넣어서 line을 일치하게 만든다.
-		pairBlocks = putSpaceBlocks(blocksOfLetf, blocksOfRight);
+//		pairBlocks = putSpaceBlocks(blocksOfLetf, blocksOfRight);
 		
-		pairBlocks = adjustLineNum(pairBlocks);
+		//TODO: 이것도 지우기
+//		pairBlocks = adjustLineNum(pairBlocks);
 		
-		return pairBlocks;
+		return null;
 	}
 
 	private PairBlocks putSpaceBlocks(ArrayList<Block> left, ArrayList<Block> right) {
@@ -155,6 +166,11 @@ public class Diff implements DiffInterface{
 				pairBlocks.addLeft(block);
 				pairBlocks.addRight(right.get(rightIndex++));
 			}
+		}
+		if (leftIndex < left.size() && rightIndex < right.size() &&
+				left.get(leftIndex).getState() == State.UNCHANGED && right.get(rightIndex).getState() == State.UNCHANGED) {
+			pairBlocks.addLeft(left.get(leftIndex++));
+			pairBlocks.addRight(right.get(rightIndex++));
 		}
 		
 		return pairBlocks;
@@ -210,7 +226,7 @@ public class Diff implements DiffInterface{
 		if (lineCheckIndex != s.length()) {
 			stateChecker = State.UNCHANGED;
 
-			for (; lineCheckIndex <= s.length(); lineCheckIndex++) {
+			for (; lineCheckIndex < s.length(); lineCheckIndex++) {
 				if (charStates[lineCheckIndex] == State.CHANGED)
 					stateChecker = State.CHANGED;
 			}
@@ -245,6 +261,57 @@ public class Diff implements DiffInterface{
 		}
 		
 		return lineStrings;
+	}
+	
+	//TODO:
+	private void putSpaceLine(ArrayList<State> lineStatesOfLeft, ArrayList<State> lineStatesOfRight, 
+			ArrayList<String> lineStringsOfLeft, ArrayList<String> lineStringsOfRight) {
+		int leftIndex = 0, rightIndex = 0;
+		
+		//한 쪽이 ""일 때에 대한 예외처리 부분
+		//""일 때를 처리. 한 쪽이 ""이면 다른 한 쪽이 ""이 아닌 이상, 전체가 changed인 1 block이 됨
+		if(lineStatesOfLeft.size() == 0 && lineStatesOfRight.size() != 0) {
+			for(int i = 0; i < lineStatesOfRight.size(); i++) {
+				lineStatesOfLeft.add(i, State.SPACE);
+				lineStringsOfLeft.add(i, "\n");
+			}
+			return;
+		}
+		
+		if(lineStatesOfLeft.size() != 0 && lineStatesOfRight.size() == 0) {
+			for(int i = 0 ; i < lineStatesOfLeft.size(); i++) {
+				lineStatesOfRight.add(i, State.SPACE);
+				lineStringsOfRight.add(i, "\n");
+			}
+			return;
+		}
+		
+		
+		//양 쪽 모두 index < size 여야지 BOF error가 나지 않는다.
+		while (leftIndex < lineStatesOfLeft.size() && rightIndex < lineStatesOfRight.size()) {
+			//양 쪽 모두 UNCHANGED이면 양쪽에 모두 넣어준다.
+			if (lineStatesOfLeft.get(leftIndex) == State.UNCHANGED && lineStatesOfRight.get(rightIndex) == State.UNCHANGED) {
+				leftIndex++;
+				rightIndex++;
+			}
+			//왼쪽이 UNCHANGED가 나올 때까지(즉 지금 CHANGED인 동안), 여기에 대응하는 오른쪽에 SPACE line을 채워 넣어주고,
+			//현재의 왼쪽 block을 왼쪽에 넣는다.
+			while (leftIndex < lineStatesOfLeft.size() && lineStatesOfLeft.get(leftIndex) == State.CHANGED) {
+				lineStatesOfRight.add(rightIndex, State.SPACE);
+				lineStringsOfRight.add(rightIndex, "\n");
+				leftIndex++;
+				rightIndex++;
+			}
+			//오른쪽이 UNCHANGED가 나올 때까지(즉 지금 CHANGED인 동안), 여기에 대응하는 왼쪽에 SPACE block을 채워 넣어주고,
+			//현재의 오른쪽 block을 오른쪽에 넣는다.
+			while (rightIndex < lineStatesOfRight.size() && lineStatesOfRight.get(rightIndex) == State.CHANGED) {
+				lineStatesOfLeft.add(leftIndex, State.SPACE);
+				lineStringsOfLeft.add(leftIndex, "\n");
+				leftIndex++;
+				rightIndex++;
+			}
+		}
+		
 	}
 	
 	private ArrayList<Block> getBlockArrayList(
@@ -325,7 +392,7 @@ public class Diff implements DiffInterface{
 		//TODO:: 추후 가능하면 exception으로 바꾸기.
 		if(pairBlocks.getRight().get(blockNum).getState() == State.UNCHANGED)
 			return null;
-		
+
 		//우측의 blockNum번 block을 좌측에 추가하고, 좌측의 blockNum + 1번째 block을 삭제.
 		pairBlocks.getLeft().add(blockNum, pairBlocks.getRight().get(blockNum));
 		pairBlocks.getLeft().remove(blockNum + 1);
