@@ -10,7 +10,7 @@ import java.util.ArrayList;
 
 /**
  * Created by Seonghyeon on 5/15/2016.
- * compare 기능과 copyToLeft, copyToRight 기능을 제공하는 Class.
+ * compare 기능을 제공하는 Class.
  */
 
 public class Diff implements DiffInterface{
@@ -25,44 +25,6 @@ public class Diff implements DiffInterface{
 			return null;
 
 		return makePairBlocks(left, right);
-	}
-	
-	public ArrayList<Block> copyToLeft(String left, String right, int blockNum) {
-		PairBlocks pairBlocks = compare(left, right);
-		//compare의 결과가 null일 때
-		if(pairBlocks == null)
-			return null;
-
-		//잘못된 blockNum이 입력되었을 때
-		if(blockNum < 0 || blockNum >= pairBlocks.getRight().size())
-			return null;
-		
-		pairBlocks = copyToLeft(pairBlocks, blockNum);
-		
-		//copyToLeft를 수행할 수 없을 때 null을 return
-		if(pairBlocks == null)
-			return null;
-		
-		return pairBlocks.getLeft();
-	}
-	
-	public ArrayList<Block> copyToRight(String left, String right, int blockNum) {
-		PairBlocks pairBlocks = compare(left, right);
-		//compare의 결과가 null일 때
-		if(pairBlocks == null)
-			return null;
-
-		//잘못된 blockNum이 입력되었을 때
-		if(blockNum < 0 || blockNum >= pairBlocks.getLeft().size())
-			return null;
-		
-		pairBlocks = copyToRight(pairBlocks, blockNum);
-		
-		//copyToRight를 수행할 수 없을 때 null을 return
-		if(pairBlocks == null)
-			return null;
-		
-		return pairBlocks.getRight();
 	}
 	
 	private String getLCS(String left, String right) {
@@ -279,33 +241,5 @@ public class Diff implements DiffInterface{
 			s += lineStrings.get(i);
 		
 		return s;
-	}
-	
-	//TODO::사실 return해 줄 필요 없음 - 리팩토링 때 개선
-	private PairBlocks copyToLeft(PairBlocks pairBlocks, int blockNum) {
-		//unchanged 상황에서는 copyToLeft가 실행되어서는 안 된다.
-		//TODO:: 추후 가능하면 exception으로 바꾸기.
-		if(pairBlocks.getRight().get(blockNum).getState() == State.UNCHANGED)
-			return null;
-
-		//우측의 blockNum번 block을 좌측에 추가하고, 좌측의 blockNum + 1번째 block을 삭제.
-		pairBlocks.getLeft().add(blockNum, pairBlocks.getRight().get(blockNum));
-		pairBlocks.getLeft().remove(blockNum + 1);
-		
-		return pairBlocks;
-	}
-	
-	//TODO::사실 return해 줄 필요 없음 - 리팩토링 때 개선
-	private PairBlocks copyToRight(PairBlocks pairBlocks, int blockNum) {
-		//unchanged 상황에서는 copyToLeft가 실행되어서는 안 된다.
-		//TODO:: 추후 가능하면 exception으로 바꾸기.
-		if(pairBlocks.getLeft().get(blockNum).getState() == State.UNCHANGED)
-			return null;
-		
-		//우측의 blockNum번 block을 우측에 추가하고, 우측의 blockNum + 1번째 block을 삭제.
-		pairBlocks.getRight().add(blockNum, pairBlocks.getLeft().get(blockNum));
-		pairBlocks.getRight().remove(blockNum + 1);
-		
-		return pairBlocks;
 	}
 }
