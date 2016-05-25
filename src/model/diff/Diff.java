@@ -190,9 +190,9 @@ public class Diff implements DiffInterface{
 		return lineStrings;
 	}
 	
-	//TODO:
 	private void putSpaceLine(ArrayList<State> lineStatesOfLeft, ArrayList<State> lineStatesOfRight, 
 			ArrayList<String> lineStringsOfLeft, ArrayList<String> lineStringsOfRight) {
+		//각 줄을 비교하여 SPACE line을 적절히 채워 넣어준다.
 		int leftIndex = 0, rightIndex = 0;
 		
 		//한 쪽이 ""일 때에 대한 예외처리 부분
