@@ -8,6 +8,12 @@ import model.editorModel.EditorModelInterface;
  */
 public interface MainModelInterface {
     /**
+     * 비교가 가능한 지 확인함
+     * @return 비교가 가능하면 true, 아니면 false를 반환한다.
+     */
+    boolean isReadyToCompare();
+
+    /**
      * 모델에 저장된 두 파일 내용을 비교해서 비교 결과에 그 내용을 저장한다.
      * 만약 이미 결과가 있는 경우, 리스트의 모든 내용을 지우고 새로운 결과로 덮어 씌운다.
      */
