@@ -54,15 +54,16 @@ public class Diff implements DiffInterface{
 		ArrayList<Block> blocksOfLetf = getBlockArrayList(lineStatesOfLeft, lineStringsOfLeft);
 		ArrayList<Block> blocksOfRight = getBlockArrayList(lineStatesOfRight, lineStringsOfRight);
 		
-		//TODO:pairBlocks 만들기
-		if(blocksOfLetf != null && blocksOfRight != null) {
-			pairBlocks = new PairBlocks();
-			pairBlocks.setLeft(blocksOfLetf);
-			pairBlocks.setRight(blocksOfRight);
-			return pairBlocks;
-		}
+		//한 쪽이라도 block이 생성이 안 되었으면 null을 return
+		if(blocksOfLetf == null || blocksOfRight == null)
+			return null;
 		
-		return null;
+		//pairBlocks를 만들기.
+		pairBlocks = new PairBlocks();
+		pairBlocks.setLeft(blocksOfLetf);
+		pairBlocks.setRight(blocksOfRight);
+		
+		return pairBlocks;
 	}
 	
 	private State[] getStateArray(String s, String lcs) {
