@@ -1,6 +1,7 @@
 package model;
 
 import model.diff.Copier;
+import model.diff.CopierInterface;
 import model.diff.Diff;
 import model.diff.DiffInterface;
 import model.diff.block.PairBlocks;
@@ -17,7 +18,7 @@ public class MainModel implements MainModelInterface {
 	private EditorModel leftEditorModel;
 	private EditorModel rightEditorModel;
 	private DiffInterface diff;
-	private Copier copier;
+	private CopierInterface copier;
 	
 	public MainModel() {
 		leftComparisonFile = new ObservableComparisonFile();
