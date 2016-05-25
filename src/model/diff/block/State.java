@@ -15,6 +15,10 @@ public enum State {
 		this.modifiable = modifiable;
 	}
 
-	public String getStyle(){ return style; }
-	public boolean isModifiable(){return modifiable;}
+	public String getStyle() {
+		return style; 
+	}
+	public boolean isModifiable() {
+		return modifiable;
+	}
 }
