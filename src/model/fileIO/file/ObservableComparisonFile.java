@@ -1,9 +1,6 @@
-package model;
+package model.fileIO.file;
 
-import javafx.beans.property.ObjectProperty;
-import javafx.beans.property.SimpleObjectProperty;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
+import javafx.beans.property.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
@@ -17,7 +14,7 @@ import java.util.stream.Collector;
  * Created by Donghwan on 5/12/2016.
  * 비교하는 파일에 대해서 저장하는 클래스
  */
-public class ObservableComparisonFile {
+public class ObservableComparisonFile implements FilePropertyProvider, ObservableBlocksProvider, TextPropertyProvider{
     private ObjectProperty<File> sourceProperty;
     private StringProperty contentProperty;
     private ObservableList<Block> comparisonResult;
@@ -45,28 +42,33 @@ public class ObservableComparisonFile {
 
     public ObservableComparisonFile(File source, String content){
         this();
-        setSourceProperty(source);
-        setContentProperty(content);
+        setSource(source);
+        setContent(content);
     }
 
-    public void setSourceProperty(File sourceProperty) {
+    // 이 네 개의 객체로 사용하면 됨.
+    public void setSource(File sourceProperty) {
         this.sourceProperty.setValue(sourceProperty);
     }
 
-    public void setContentProperty(String content){
+    public void setContent(String content){
         this.contentProperty.setValue(content);
     }
 
-    public File getSourceProperty() {
+    public File getSource() {
         return sourceProperty.getValue();
     }
 
-    public String getContentProperty() { return contentProperty.getValue(); }
+    public String getContent() { return contentProperty.getValue(); }
 
-    public ObservableList<Block> getComparisonResult() { return comparisonResult; }
+    // 아래 세 메소드는 뷰가 사용해야 함.
+    @Override
+    public ObservableList<Block> getObservableBlocks() { return comparisonResult; }
 
-    public ObjectProperty<File> sourcePropertyProperty() { return sourceProperty; }
+    @Override
+    public ReadOnlyObjectProperty<File> fileReadOnlyProperty() { return sourceProperty; }
 
+    @Override
     public StringProperty textProperty(){
         return contentProperty;
     }

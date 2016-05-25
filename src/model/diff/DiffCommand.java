@@ -1,9 +1,7 @@
 package model.diff;
 
-import model.ObservableComparisonFile;
-import model.diff.block.BlockReadInterface;
+import model.fileIO.file.ObservableComparisonFile;
 import model.diff.block.PairBlocks;
-import model.diff.block.State;
 
 import java.util.ArrayList;
 
@@ -43,7 +41,8 @@ public class DiffCommand implements DiffCommandInterface{
 		//diff의 copyToRight를 호출하여 얻은 결과를 compareModel의 right에 update.
 		//right.getContentProperty().setAll(diff.copyToRight(left.getContentToString(), right.getContentToString(), blockNum));
 	}
-	
+
+	/*
 	private String changeBlocksToContent(ArrayList<? extends BlockReadInterface> blocks) {
 		String s = "";
 		
@@ -56,4 +55,5 @@ public class DiffCommand implements DiffCommandInterface{
 		
 		return s;
 	}
+	*/
 }

@@ -13,7 +13,7 @@ import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.FileChooser;
-import model.ObservableComparisonFile;
+import model.fileIO.file.ObservableComparisonFile;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;

@@ -1,6 +1,6 @@
 package model.diff;
 
-import model.ObservableComparisonFile;
+import model.fileIO.file.ObservableComparisonFile;
 
 /**
  * Created by Seonghyeon on 5/22/2016.

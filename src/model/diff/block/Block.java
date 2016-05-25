@@ -7,7 +7,7 @@ package model.diff.block;
  * 내용(content)를 갖는다.
  */
 
-public class Block implements BlockReadInterface{
+public class Block{
 	private int startNumber;
 	private int numberOfLine;
 	private State state;

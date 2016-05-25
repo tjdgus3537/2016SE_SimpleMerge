@@ -1,6 +1,6 @@
 package model.fileIO;
 
-import model.ObservableComparisonFile;
+import model.fileIO.file.ObservableComparisonFile;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -27,6 +27,7 @@ public class ComparisonFileReader {
 		this.charset = charset;
 	}
 
+	// TODO 나중에 이름 수정해야 함
 	public ObservableComparisonFile readComparisonFile(File source) throws IOException{
 		return new ObservableComparisonFile(source, readFile(source));
 	}
