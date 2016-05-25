@@ -1,4 +1,4 @@
-package controller.fileIO;
+package model.fileIO;
 
 import model.ComparisonFile;
 
