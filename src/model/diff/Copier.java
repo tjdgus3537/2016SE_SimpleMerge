@@ -26,15 +26,18 @@ public class Copier implements CopierInterface{
 			return;
 		
 		//우측의 blockNum번 block을 좌측에 추가하고, 좌측의 blockNum + 1번째 block을 삭제.
-		Block block = new Block(State.UNCHANGED, right.get(blockNum).getContent());
-		left.add(blockNum, block);
+		String content = right.get(blockNum).getContent();
+		Block leftNewBlock = new Block(State.UNCHANGED, content);
+		left.add(blockNum, leftNewBlock);
 		left.remove(blockNum + 1);
 		
 		//우측에서도 SPACE 또는 CHANGED Block의 상태를 UNCHANGED 상태로 바꿔줘야 하므로 갈아끼운다.
-		right.add(blockNum, block);
+		Block rightNewBlock = new Block(State.UNCHANGED, content);
+		right.add(blockNum, rightNewBlock);
 		right.remove(blockNum + 1);
 		
 		updateBlocks(left);
+		updateBlocks(right);
 	}
 
 	@Override

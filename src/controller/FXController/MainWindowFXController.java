@@ -43,6 +43,7 @@ public class MainWindowFXController implements Initializable, CompareModeDisable
         if(!model.isReadyToCompare()) {
             return;
         }
+        model.compare();
         setDisableCompareModeNodes(false);
         leftPaneController.switchCompareListView();
         rightPaneController.switchCompareListView();

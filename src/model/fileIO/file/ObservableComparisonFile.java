@@ -30,6 +30,7 @@ public class ObservableComparisonFile implements FilePropertyProvider, Observabl
             contentProperty.setValue(comparisonResult
                     .stream()
                     .filter(item -> item.getState() != State.SPACE)
+                    .map(item->item.getContent())
                     .collect(
                             Collector.of(
                                     StringBuffer::new,

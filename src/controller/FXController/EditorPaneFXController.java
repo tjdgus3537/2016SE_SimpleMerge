@@ -74,7 +74,7 @@ public class EditorPaneFXController implements Initializable, EditorPaneControll
 
     @FXML
     private void handleSaveAction(ActionEvent event){
-        model.save();
+        saveToFile();
     }
 
     @Override
