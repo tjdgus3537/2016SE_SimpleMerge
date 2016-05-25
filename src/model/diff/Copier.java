@@ -33,6 +33,8 @@ public class Copier implements CopierInterface{
 		//우측에서도 SPACE 또는 CHANGED Block의 상태를 UNCHANGED 상태로 바꿔줘야 하므로 갈아끼운다.
 		right.add(blockNum, block);
 		right.remove(blockNum + 1);
+		
+		updateBlocks(left);
 	}
 
 	@Override
@@ -40,4 +42,15 @@ public class Copier implements CopierInterface{
 		copyToLeft(right, left, blockNum);
 	}
 
+	private void updateBlocks(List<Block> blocks) {
+		//size() - 1 까지인 이유는 i와 i+1 번째를 비교하기 때문
+		for(int i = 0 ; i < blocks.size() - 1; i++) {
+			if(blocks.get(i).getState() == State.UNCHANGED && blocks.get(i + 1).getState() == State.UNCHANGED) {
+				Block block = new Block(State.UNCHANGED, blocks.get(i).getContent() + blocks.get(i + 1).getContent());
+				blocks.remove(i + 1);
+				blocks.remove(i);
+				blocks.add(i, block);
+			}
+		}
+	}
 }
