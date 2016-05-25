@@ -1,8 +1,6 @@
 package controller.FXController;
 
 import controller.CompareModeDisabler;
-import javafx.collections.FXCollections;
-import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -17,15 +15,15 @@ import model.*;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
-import java.util.stream.Collector;
 
 /**
  * Created by Donghwan on 5/14/2016.
  * 메인 윈도우의 액션을 관리하는 컨트롤러
  */
-public class MainWindowFXController implements Initializable, CompareModeDisabler {
-    private EditorPaneFXController leftPaneController;
-    private EditorPaneFXController rightPaneController;
+public class MainWindowFXController implements Initializable, CompareModeDisabler, MainWindowControllerInterface {
+    private EditorPaneControllerInterface leftPaneController;
+    private EditorPaneControllerInterface rightPaneController;
+    private MainModelInterface model;
 
     @FXML
     private Button compareButton;
@@ -42,28 +40,31 @@ public class MainWindowFXController implements Initializable, CompareModeDisable
     private void handleCompareButtonAction(ActionEvent event){
 
         // 양 쪽 pane에 파일이 존재하지 않으면 비교 불가
-        if(!leftPaneController.isFileContained() || !rightPaneController.isFileContained()) {
+        if(!model.isReadyToCompare()) {
             return;
         }
         setDisableCompareModeNodes(false);
         leftPaneController.switchCompareListView();
         rightPaneController.switchCompareListView();
-
-        // TODO compare result 넣어야 함
-        // TODO listener 달아야 함.
-        // list.stream().filter(item -> item.getState() != State.SPACE).collect(StringBuffer::new, StringBuffer::append, StringBuffer::append, StringBuffer::toString);
-        compareViewScrollBar.setMax(1); // TODO comp 결과 길이가 들어가야 함
+        compareViewScrollBar.setMax(model.size()); // comp 결과 길이가 들어가야 함
     }
 
     // TODO Comp 모드에서는 undo 불가? ==> 한계점
     @FXML
     private void handleCopyToRightButtonAction(ActionEvent event){
-
+        model.copyToRight(leftPaneController.getSelectedIndex());
     }
 
     @FXML
     private void handleCopyToLeftButtonAction(ActionEvent event){
+        model.copyToLeft(rightPaneController.getSelectedIndex());
+    }
 
+    @Override
+    public void setModel(MainModelInterface model){
+        this.model = model;
+        leftPaneController.setModel(model.getLeftEditorModel());
+        rightPaneController.setModel(model.getRightEditorModel());
     }
 
     private void setDisableCompareModeNodes(boolean value){
