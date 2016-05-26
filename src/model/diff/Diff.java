@@ -18,7 +18,6 @@ public class Diff implements DiffInterface{
 	}
 	
 	public Diff() {
-//		lcs = new LCS();
 	}
 	
 	public PairBlocks compare(String left, String right) {
@@ -28,11 +27,7 @@ public class Diff implements DiffInterface{
 
 		return makePairBlocks(left, right);
 	}
-/*	
-	private String getLCS(String left, String right) {
-		return lcs.getLCS(left, right);
-	}
-*/
+	
 	private PairBlocks makePairBlocks(String left, String right) {		
 		PairBlocks pairBlocks;
 
@@ -65,84 +60,7 @@ public class Diff implements DiffInterface{
 		
 		return pairBlocks;
 	}
-/*	
-	private PairBlocks makePairBlocks(String left, String right) {
-		PairBlocks pairBlocks;
-		String lcs = getLCS(left, right);
-		
-		//각 line이 어떤 String으로 구성되어 있는지 알아본다.
-		ArrayList<String> lineStringOfLcs = parseString(lcs);
-		
-		ArrayList<String> lineStringsOfLeft = parseString(left);
-		ArrayList<String> lineStringsOfRight = parseString(right);
 
-		//위에서 얻은 각 char의 변화 여부를 이용하여, line 단위의 변화 여부에 대해 알아본다.
-		ArrayList<State> lineStatesOfLeft = getLineState(lineStringsOfLeft, lineStringOfLcs);
-		ArrayList<State> lineStatesOfRight = getLineState(lineStringsOfRight, lineStringOfLcs);
-		
-		//line 사이에 SPACE 채워넣는 것 만들기.
-		putSpaceLine(lineStatesOfLeft, lineStatesOfRight, lineStringsOfLeft, lineStringsOfRight);
-		
-		//위에서 얻은 line 단위의 변화 여부를 이용하여 block으로 묶는다.
-		ArrayList<Block> blocksOfLetf = getBlockArrayList(lineStatesOfLeft, lineStringsOfLeft);
-		ArrayList<Block> blocksOfRight = getBlockArrayList(lineStatesOfRight, lineStringsOfRight);
-		
-		//한 쪽이라도 block이 생성이 안 되었으면 null을 return
-		if(blocksOfLetf == null || blocksOfRight == null)
-			return null;
-		
-		//pairBlocks를 만들기.
-		pairBlocks = new PairBlocks();
-		pairBlocks.setLeft(blocksOfLetf);
-		pairBlocks.setRight(blocksOfRight);
-		
-		return pairBlocks;
-	}
-*/
-
-	private ArrayList<State> getLineState(ArrayList<String> s, ArrayList<String> lcs) {
-		//한 줄이 어디까지 인지를 확인하고, 그 줄이 변했는지를 판단한다.
-		ArrayList<State> lineStates = new ArrayList<State>();
-		int lcsIndex = 0;
-		
-		for (int i = 0; i < s.size(); i++) {
-			//한 줄이 어디까지인지 확인한다.
-			if(lcsIndex < lcs.size()) {
-				if(s.get(i).equals(lcs.get(lcsIndex))) {
-					lineStates.add(State.UNCHANGED);
-					lcsIndex++;
-					continue;
-				}
-			}
-			lineStates.add(State.CHANGED);
-		}
-		
-		return lineStates;
-	}
-	
-/*
-	private ArrayList<State> getLineState(ArrayList<String> s, ArrayList<String> lineStringOfLcs) {
-		//한 줄이 어디까지 인지를 확인하고, 그 줄이 변했는지를 판단한다.
-		ArrayList<State> lineStates = new ArrayList<State>();
-		int lcsIndex = 0;
-		String partOfLcs;
-		
-		for (int i = 0; i < s.size(); i++) {
-			//한 줄이 어디까지인지 확인한다.
-			if(lcsIndex < lineStringOfLcs.size()) {
-				partOfLcs = lineStringOfLcs.get(lcsIndex);
-				if(s.get(i).equals(partOfLcs)) {
-					lineStates.add(State.UNCHANGED);
-					lcsIndex++;
-					continue;
-				}
-			}
-			lineStates.add(State.CHANGED);
-		}
-		
-		return lineStates;
-	}
-*/
 	private ArrayList<String> parseString(String s) {
 		//한 줄씩 찾아서 String 단위로 묶어준다.
 		ArrayList<String> lineStrings = new ArrayList<String>();
@@ -169,6 +87,26 @@ public class Diff implements DiffInterface{
 		return lineStrings;
 	}
 	
+	private ArrayList<State> getLineState(ArrayList<String> s, ArrayList<String> lcs) {
+		//한 줄이 어디까지 인지를 확인하고, 그 줄이 변했는지를 판단한다.
+		ArrayList<State> lineStates = new ArrayList<State>();
+		int lcsIndex = 0;
+		
+		for (int i = 0; i < s.size(); i++) {
+			//한 줄이 어디까지인지 확인한다.
+			if(lcsIndex < lcs.size()) {
+				if(s.get(i).equals(lcs.get(lcsIndex))) {
+					lineStates.add(State.UNCHANGED);
+					lcsIndex++;
+					continue;
+				}
+			}
+			lineStates.add(State.CHANGED);
+		}
+		
+		return lineStates;
+	}
+		
 	private void putSpaceLine(ArrayList<State> lineStatesOfLeft, ArrayList<State> lineStatesOfRight, 
 			ArrayList<String> lineStringsOfLeft, ArrayList<String> lineStringsOfRight) {
 		//각 줄을 비교하여 SPACE line을 적절히 채워 넣어준다.
@@ -191,8 +129,7 @@ public class Diff implements DiffInterface{
 			}
 			return;
 		}
-		
-		
+				
 		//양 쪽 모두 index < size 여야지 BOF error가 나지 않는다.
 		while (leftIndex < lineStatesOfLeft.size() && rightIndex < lineStatesOfRight.size()) {
 			//양 쪽 모두 UNCHANGED이면 양쪽에 모두 넣어준다.
