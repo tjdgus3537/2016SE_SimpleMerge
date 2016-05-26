@@ -12,22 +12,9 @@ public class PairBlocks {
 	private ArrayList<Block> left;
 	private ArrayList<Block> right;
 
-	public PairBlocks() {
-		left = new ArrayList<Block>();
-		right = new ArrayList<Block>();
-	}
-
 	public PairBlocks(ArrayList<Block> left, ArrayList<Block> right) {
 		setLeft(left);
 		setRight(right);
-	}
-
-	public void setLeft(ArrayList<Block> left) {
-		this.left = left;
-	}
-
-	public void setRight(ArrayList<Block> right) {
-		this.right = right;
 	}
 
 	public ArrayList<Block> getLeft() {
@@ -37,12 +24,12 @@ public class PairBlocks {
 	public ArrayList<Block> getRight() {
 		return right;
 	}
-
-	public void addLeft(Block b) {
-		left.add(b);
+	
+	private void setLeft(ArrayList<Block> left) {
+		this.left = left;
 	}
 
-	public void addRight(Block b) {
-		right.add(b);
+	private void setRight(ArrayList<Block> right) {
+		this.right = right;
 	}
 }

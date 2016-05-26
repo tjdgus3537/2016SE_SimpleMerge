@@ -46,17 +46,15 @@ public class Diff implements DiffInterface{
 		putSpaceLine(lineStatesOfLeft, lineStatesOfRight, lineStringsOfLeft, lineStringsOfRight);
 		
 		//위에서 얻은 line 단위의 변화 여부를 이용하여 block으로 묶는다.
-		ArrayList<Block> blocksOfLetf = getBlockArrayList(lineStatesOfLeft, lineStringsOfLeft);
+		ArrayList<Block> blocksOfLeft = getBlockArrayList(lineStatesOfLeft, lineStringsOfLeft);
 		ArrayList<Block> blocksOfRight = getBlockArrayList(lineStatesOfRight, lineStringsOfRight);
 		
 		//한 쪽이라도 block이 생성이 안 되었으면 null을 return
-		if(blocksOfLetf == null || blocksOfRight == null)
+		if(blocksOfLeft == null || blocksOfRight == null)
 			return null;
 		
 		//pairBlocks를 만들기.
-		pairBlocks = new PairBlocks();
-		pairBlocks.setLeft(blocksOfLetf);
-		pairBlocks.setRight(blocksOfRight);
+		pairBlocks = new PairBlocks(blocksOfLeft, blocksOfRight);
 		
 		return pairBlocks;
 	}
