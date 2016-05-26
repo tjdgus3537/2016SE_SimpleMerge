@@ -143,7 +143,7 @@ public class EditorPaneFXController implements Initializable, EditorPaneControll
             model.load(selectedFile);
             setEditable(false);
             setDisableEditModeButtons(false);
-            filePathLabel.setText(selectedFile.getPath());
+            switchEditorTextArea();
         }catch (IOException ioe){
             Alert fileLoadErrorAlert = new Alert(Alert.AlertType.ERROR);
             fileLoadErrorAlert.setTitle("File load failed");
