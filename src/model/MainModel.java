@@ -15,8 +15,8 @@ import model.fileIO.file.ObservableComparisonFile;
 public class MainModel implements MainModelInterface {
 	private ObservableComparisonFile leftComparisonFile;
 	private ObservableComparisonFile rightComparisonFile;
-	private EditorModel leftEditorModel;
-	private EditorModel rightEditorModel;
+	private EditorModelInterface leftEditorModel;
+	private EditorModelInterface rightEditorModel;
 	private DiffInterface diff;
 	private CopierInterface copier;
 	

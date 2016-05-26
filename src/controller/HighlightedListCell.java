@@ -16,9 +16,7 @@ public class HighlightedListCell extends ListCell<Block> {
         if(empty || item == null) return;
         setText(item.getContent());
         setStyle(item.getState().getStyle());
-        if(!item.getState().isModifiable()) {
-            setDisable(true);
-        }
+        setDisable(!item.getState().isModifiable());
     }
 
     @Override
