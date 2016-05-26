@@ -14,10 +14,13 @@ import java.util.ArrayList;
  */
 
 public class Diff implements DiffInterface{
-	private LCSInterface lcs;
+	//private LCSInterface lcs;
+	enum Direction {
+		NONE, UP, LEFT, UP_AND_LEFT;
+	}
 	
 	public Diff() {
-		lcs = new LCS();
+//		lcs = new LCS();
 	}
 	
 	public PairBlocks compare(String left, String right) {
@@ -26,26 +29,38 @@ public class Diff implements DiffInterface{
 
 		return makePairBlocks(left, right);
 	}
-	
+/*	
 	private String getLCS(String left, String right) {
 		return lcs.getLCS(left, right);
 	}
-	
+*/
+	private PairBlocks makePairBlocks(String left, String right) {
+		//만약 둘 중 하나라도 null이면 null을 return
+		if(left == null || right == null)
+			return null;
+		
+		PairBlocks pairBlocks;
+
+		//각 line이 어떤 String으로 구성되어 있는지 개행 단위로 파싱한다.
+		ArrayList<String> lineStringsOfLeft = parseString(left);
+		ArrayList<String> lineStringsOfRight = parseString(right);
+		
+		return null;
+	}
+/*	
 	private PairBlocks makePairBlocks(String left, String right) {
 		PairBlocks pairBlocks;
 		String lcs = getLCS(left, right);
 		
-		//string과 lcs를 비교해서 원래의 string에서 각 char가 변화 여부에 대해 알아본다.
-		State[] charStatesOfLeft = getStateArray(left, lcs);
-		State[] charStatesOfRight = getStateArray(right, lcs);
-		
-		//위에서 얻은 각 char의 변화 여부를 이용하여, line 단위의 변화 여부에 대해 알아본다.
-		ArrayList<State> lineStatesOfLeft = transformCharStateToLineState(left, charStatesOfLeft);
-		ArrayList<State> lineStatesOfRight = transformCharStateToLineState(right, charStatesOfRight);
-		
 		//각 line이 어떤 String으로 구성되어 있는지 알아본다.
+		ArrayList<String> lineStringOfLcs = parseString(lcs);
+		
 		ArrayList<String> lineStringsOfLeft = parseString(left);
 		ArrayList<String> lineStringsOfRight = parseString(right);
+
+		//위에서 얻은 각 char의 변화 여부를 이용하여, line 단위의 변화 여부에 대해 알아본다.
+		ArrayList<State> lineStatesOfLeft = getLineState(lineStringsOfLeft, lineStringOfLcs);
+		ArrayList<State> lineStatesOfRight = getLineState(lineStringsOfRight, lineStringOfLcs);
 		
 		//line 사이에 SPACE 채워넣는 것 만들기.
 		putSpaceLine(lineStatesOfLeft, lineStatesOfRight, lineStringsOfLeft, lineStringsOfRight);
@@ -65,68 +80,30 @@ public class Diff implements DiffInterface{
 		
 		return pairBlocks;
 	}
+*/
 	
-	private State[] getStateArray(String s, String lcs) {
-		//앞에서 부터 비교해나가면서 s가 가리키는 부분과 lcs가 가리키는 부분을 비교하여 판단한다.
-		State[] states = new State[s.length()];
-		int lcs_index = 0;
-		
-		for (int i = 0; i < s.length(); i++) {
-			//만약 lcs가 이미 다 확인되었으면, 그 이후를 참조하면 BOF가 발생하므로 다 변한 것으로 처리한다.
-			if (lcs_index == lcs.length()) {
-				states[i] = State.CHANGED;
-				continue;
-			}
-			//만약 현재 읽은 글자가 lcs가 가리키고 있는 글자와 동일하면 변하지 않은 것이고 그렇지 않으면 변한 것이다.
-			if (s.charAt(i) == lcs.charAt(lcs_index)) {
-				states[i] = State.UNCHANGED;
-				lcs_index++;
-			}
-			else {
-				states[i] = State.CHANGED;
-			}
-		}
-
-		return states;
-	}
-	
-	private ArrayList<State> transformCharStateToLineState(String s, State[] charStates) {
+	private ArrayList<State> getLineState(ArrayList<String> s, ArrayList<String> lineStringOfLcs) {
 		//한 줄이 어디까지 인지를 확인하고, 그 줄이 변했는지를 판단한다.
 		ArrayList<State> lineStates = new ArrayList<State>();
-		State stateChecker;
-		int lineCheckIndex = 0;
+		int lcsIndex = 0;
+		String partOfLcs;
 		
-		for (int i = 0; i < s.length(); i++) {
+		for (int i = 0; i < s.size(); i++) {
 			//한 줄이 어디까지인지 확인한다.
-			if (s.charAt(i) == '\n') {
-				stateChecker = State.UNCHANGED;
-				
-				//만약 줄이 시작 되면 이전 줄의 바로 다음 부분(lineCheckIndex가 나타내는 부분)부터 현재까지의 상태를 확인한다.
-				//lineCheckIndex ~ 현재가 바로 1줄
-				for (; lineCheckIndex <= i; lineCheckIndex++) {
-					if (charStates[lineCheckIndex] == State.CHANGED)
-						stateChecker = State.CHANGED;
+			if(lcsIndex < lineStringOfLcs.size()) {
+				partOfLcs = lineStringOfLcs.get(lcsIndex);
+				if(s.get(i).equals(partOfLcs)) {
+					lineStates.add(State.UNCHANGED);
+					lcsIndex++;
+					continue;
 				}
-				
-				lineStates.add(stateChecker);
 			}
-		}
-		
-		//마지막이 개행으로 끝나지 않을 수도 있으므로, 마지막 줄을 별도로 처리해준다.
-		if (lineCheckIndex != s.length()) {
-			stateChecker = State.UNCHANGED;
-
-			for (; lineCheckIndex < s.length(); lineCheckIndex++) {
-				if (charStates[lineCheckIndex] == State.CHANGED)
-					stateChecker = State.CHANGED;
-			}
-			
-			lineStates.add(stateChecker);
+			lineStates.add(State.CHANGED);
 		}
 		
 		return lineStates;
 	}
-	
+
 	private ArrayList<String> parseString(String s) {
 		//한 줄씩 찾아서 String 단위로 묶어준다.
 		ArrayList<String> lineStrings = new ArrayList<String>();
@@ -242,5 +219,92 @@ public class Diff implements DiffInterface{
 			s += lineStrings.get(i);
 		
 		return s;
+	}
+	
+	private ArrayList<String> makeLCS(ArrayList<String> left, ArrayList<String> right) {
+		//다음의 두 이차원 배열에서 각 길이에 +1 씩 있는 이유는 0 ~ StringLength 까지 사용하기 때문이다.(StringLenth -1 이 아니다)
+		//table[i][j]는 a[i]와 b[j] 사이의 LCS의 길이를 의미한다.
+		int[][] table = new int[left.size() + 1][right.size() + 1];
+		//restore[i][j]는 backtracking을 위한 것으로, 어느 방향에서 이어져 왔는지를 의미한다.
+		Direction[][] restore = new Direction[left.size() + 1][right.size() + 1];
+		
+		//initialization.
+		initialize(table, restore, left.size(), right.size());
+		
+		//implementation.
+		mainLoop(table, restore, left, right);
+		
+		return backtrack(table, restore, left, right);
+	}
+	
+	private void initialize(int[][] table, Direction[][] restore, int leftLength, int rightLength) {
+		//initialize table[x, 0] and table[0, y]
+		//(0 <= x <= length of first string, 0 <= y <= length of second string).
+		//"<"가 아니라 "<="를 사용하는 것이 중요하다.
+		for (int i = 0; i <= leftLength; i++) {
+			table[i][0] = 0;
+			restore[i][0] = Direction.NONE;
+		}
+
+		for (int i = 0; i <= rightLength; i++) {
+			table[0][i] = 0;
+			restore[0][i] = Direction.NONE;
+		}
+	}
+
+	private void mainLoop(int[][] table, Direction[][] restore, ArrayList<String> left, ArrayList<String> right) {
+		//main loop for implementing LCS algorithm.
+		//"<"가 아니라 "<="를 사용하는 것이 중요하다.
+		for (int i = 1; i <= left.size(); i++) {
+			for (int j = 1; j <= right.size(); j++) {
+				//string is starting from 0, so need to use i - 1, j - 1
+				if (left.get(i - 1).equals(right.get(j - 1))) {
+					table[i][j] = table[i - 1][j - 1] + 1;
+					restore[i][j] = Direction.UP_AND_LEFT;
+				}
+				else {
+					if (table[i - 1][j] > table[i][j - 1]) {
+						table[i][j] = table[i - 1][j];
+						restore[i][j] = Direction.UP;
+					}
+					else if (table[i - 1][j] < table[i][j - 1]) {
+						table[i][j] = table[i][j - 1];
+						restore[i][j] = Direction.LEFT;
+					}
+					else {
+						//LCS가 복수개일 때라도 그냥 하나만 구하기 때문에 짧은 string에서는 문제 발생 가능
+						//만약 같은 길이라면 위는 무시하고 왼쪽을 따라감
+						table[i][j] = table[i][j - 1];
+						restore[i][j] = Direction.LEFT;
+					}
+				}
+			}
+		}
+	}
+	
+	private ArrayList<String> backtrack(int[][] table, Direction[][] restore, ArrayList<String> left, ArrayList<String> right) {
+		//restore과 table를 이용해서 backtracking 하여 LCS를 얻어낸다.
+		int i = left.size(), j = right.size();
+		ArrayList<String> lcs = new ArrayList<String>();
+
+		while (restore[i][j] != Direction.NONE) {
+			//left.get(i) == right.get(j)
+			if (restore[i][j] == Direction.UP_AND_LEFT) {
+				//string is starting from 0, so need to use i - 1, j - 1
+				lcs.add(0, left.get(i - 1));
+				i--;
+				j--;
+			}
+			else {
+				if (restore[i][j] == Direction.UP) {
+					i--;
+				}
+				else if (restore[i][j] == Direction.LEFT) {
+					j--;
+				}
+			}
+		}
+
+		return lcs;
 	}
 }
