@@ -24,6 +24,7 @@ public class Diff implements DiffInterface{
 	}
 	
 	public PairBlocks compare(String left, String right) {
+		//만약 둘 중 하나라도 null이면 null을 return
 		if(left == null || right == null)
 			return null;
 
@@ -34,18 +35,37 @@ public class Diff implements DiffInterface{
 		return lcs.getLCS(left, right);
 	}
 */
-	private PairBlocks makePairBlocks(String left, String right) {
-		//만약 둘 중 하나라도 null이면 null을 return
-		if(left == null || right == null)
-			return null;
-		
+	private PairBlocks makePairBlocks(String left, String right) {		
 		PairBlocks pairBlocks;
 
 		//각 line이 어떤 String으로 구성되어 있는지 개행 단위로 파싱한다.
 		ArrayList<String> lineStringsOfLeft = parseString(left);
 		ArrayList<String> lineStringsOfRight = parseString(right);
 		
-		return null;
+		//line by line으로 비교하여 동일한 line들을 얻어낸다.
+		ArrayList<String> lcs = makeLCS(lineStringsOfLeft, lineStringsOfRight);
+		
+		//line 단위의 변화 여부에 대해 알아본다.
+		ArrayList<State> lineStatesOfLeft = getLineState(lineStringsOfLeft, lcs);
+		ArrayList<State> lineStatesOfRight = getLineState(lineStringsOfRight, lcs);
+
+		//line 사이에 SPACE 채워넣는 것 만들기.
+		putSpaceLine(lineStatesOfLeft, lineStatesOfRight, lineStringsOfLeft, lineStringsOfRight);
+		
+		//위에서 얻은 line 단위의 변화 여부를 이용하여 block으로 묶는다.
+		ArrayList<Block> blocksOfLetf = getBlockArrayList(lineStatesOfLeft, lineStringsOfLeft);
+		ArrayList<Block> blocksOfRight = getBlockArrayList(lineStatesOfRight, lineStringsOfRight);
+		
+		//한 쪽이라도 block이 생성이 안 되었으면 null을 return
+		if(blocksOfLetf == null || blocksOfRight == null)
+			return null;
+		
+		//pairBlocks를 만들기.
+		pairBlocks = new PairBlocks();
+		pairBlocks.setLeft(blocksOfLetf);
+		pairBlocks.setRight(blocksOfRight);
+		
+		return pairBlocks;
 	}
 /*	
 	private PairBlocks makePairBlocks(String left, String right) {
@@ -81,7 +101,28 @@ public class Diff implements DiffInterface{
 		return pairBlocks;
 	}
 */
+
+	private ArrayList<State> getLineState(ArrayList<String> s, ArrayList<String> lcs) {
+		//한 줄이 어디까지 인지를 확인하고, 그 줄이 변했는지를 판단한다.
+		ArrayList<State> lineStates = new ArrayList<State>();
+		int lcsIndex = 0;
+		
+		for (int i = 0; i < s.size(); i++) {
+			//한 줄이 어디까지인지 확인한다.
+			if(lcsIndex < lcs.size()) {
+				if(s.get(i).equals(lcs.get(lcsIndex))) {
+					lineStates.add(State.UNCHANGED);
+					lcsIndex++;
+					continue;
+				}
+			}
+			lineStates.add(State.CHANGED);
+		}
+		
+		return lineStates;
+	}
 	
+/*
 	private ArrayList<State> getLineState(ArrayList<String> s, ArrayList<String> lineStringOfLcs) {
 		//한 줄이 어디까지 인지를 확인하고, 그 줄이 변했는지를 판단한다.
 		ArrayList<State> lineStates = new ArrayList<State>();
@@ -103,7 +144,7 @@ public class Diff implements DiffInterface{
 		
 		return lineStates;
 	}
-
+*/
 	private ArrayList<String> parseString(String s) {
 		//한 줄씩 찾아서 String 단위로 묶어준다.
 		ArrayList<String> lineStrings = new ArrayList<String>();
