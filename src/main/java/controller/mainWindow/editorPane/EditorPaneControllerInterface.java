@@ -1,6 +1,6 @@
 package controller.mainWindow.editorPane;
 
-import controller.CompareModeDisabler;
+import controller.CompModeDisableReceiver;
 import controller.ContentNodeProvider;
 import model.editorModel.EditorModelInterface;
 
@@ -23,7 +23,7 @@ public interface EditorPaneControllerInterface extends ContentNodeProvider, Sing
 
     /**
      * 비교 모드를 끄는 명령을 받는 객체를 등록한다.
-     * @param compareModeDisabler 비교 모드를 끄는 명령을 받는 객체
+     * @param compModeDisableReceiver 비교 모드를 끄는 명령을 받는 객체
      */
-    void setCompareModeDisabler(CompareModeDisabler compareModeDisabler);
+    void setCompModeDisableReceiver(CompModeDisableReceiver compModeDisableReceiver);
 }

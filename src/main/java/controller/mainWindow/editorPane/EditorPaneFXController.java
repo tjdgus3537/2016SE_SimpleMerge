@@ -1,7 +1,7 @@
 package controller.mainWindow.editorPane;
 
 import controller.mainWindow.editorPane.listView.CompResultsViewControllerInterface;
-import controller.CompareModeDisabler;
+import controller.CompModeDisableReceiver;
 import controller.mainWindow.editorPane.textArea.EditorTextAreaControllerInterface;
 import model.editorModel.EditorModelInterface;
 import javafx.event.ActionEvent;
@@ -27,25 +27,36 @@ import java.util.ResourceBundle;
 public class EditorPaneFXController implements Initializable, EditorPaneControllerInterface {
     // 뷰 상테에 따라서 EditorPaneFXController가 해야하는 행동이 다르다.
     private interface ViewMode {
+        void handleLoadAction();
         void handleEditAction();
     }
     private class CompMode implements ViewMode{
+        @Override
+        public void handleLoadAction() {
+            if(compModeDisableReceiver != null) compModeDisableReceiver.disableCompareMode(); // 비교 모드에서 해제되는 것이므로 이를 알려야 함.
+            loadFromFile();
+        }
+
         @Override
         public void handleEditAction() {
             // 비교 모드를 끝내고 편집 모드로 바꿈
             switchEditorTextArea();
             setEditable(true);
+            if(compModeDisableReceiver != null) compModeDisableReceiver.disableCompareMode(); // 비교 모드에서 해제되는 것이므로 이를 알려야 함.
         }
     }
     private class EditMode implements ViewMode{
         @Override
+        public void handleLoadAction() {
+            loadFromFile();
+        }
+
+        @Override
         public void handleEditAction() {
             // 편집 모드에서 읽기 전용과 쓰기 가능 모드 사이에서 전환한다.
-            if(model.fileReadOnlyProperty().get() != null) {
-                boolean editable = editorTextAreaFXController.isEditable();
-                editorTextAreaFXController.setEditable(!editable);
-                editButton.setSelected(!editable);
-            }
+            boolean editable = editorTextAreaFXController.isEditable();
+            editorTextAreaFXController.setEditable(!editable);
+            editButton.setSelected(!editable);
         }
     }
 
@@ -53,7 +64,7 @@ public class EditorPaneFXController implements Initializable, EditorPaneControll
     private ViewMode viewMode;
     private EditorTextAreaControllerInterface editorTextAreaFXController;
     private CompResultsViewControllerInterface compResultListViewFXController;
-    private CompareModeDisabler compareModeDisabler;
+    private CompModeDisableReceiver compModeDisableReceiver;
 
     @FXML
     private Pane rootPane;
@@ -68,15 +79,7 @@ public class EditorPaneFXController implements Initializable, EditorPaneControll
 
     @FXML
     private void handleLoadAction(ActionEvent event){
-        if(model.fileReadOnlyProperty().get() != null){
-            // 이미 다른 파일을 편집중이면 저장할 지 물어봐야 함.
-            Alert alert =  new Alert(Alert.AlertType.CONFIRMATION);
-            alert.setTitle("Confirmation");
-            alert.setHeaderText("Save this file?");
-            alert.setContentText("If you load other file, you will lose all change about this file.\n Click \'Yes\' to save your changes");
-            alert.showAndWait().filter(response -> response == ButtonType.OK).ifPresent(response -> saveToFile());
-        }
-        loadFromFile();
+        viewMode.handleLoadAction();
     }
 
     @FXML
@@ -117,8 +120,7 @@ public class EditorPaneFXController implements Initializable, EditorPaneControll
         setContentNode(compResultListViewFXController.getContentNode());
     }
 
-    @Override
-    public void setCompareModeDisabler(CompareModeDisabler compareModeDisabler){ this.compareModeDisabler = compareModeDisabler; }
+    public void setCompModeDisableReceiver(CompModeDisableReceiver compModeDisableReceiver){ this.compModeDisableReceiver = compModeDisableReceiver; }
 
     @Override
     public Node getContentNode() {
@@ -128,14 +130,13 @@ public class EditorPaneFXController implements Initializable, EditorPaneControll
     private void switchEditorTextArea(){
         // 텍스트 에이리어로 교체한다.
         viewMode = new EditMode();
-        if(compareModeDisabler != null) compareModeDisabler.disableCompareMode(); // 비교 모드에서 해제되는 것이므로 이를 알려야 함.
         setContentNode(editorTextAreaFXController.getContentNode());
     }
 
-    private void setDisableEditModeButtons(boolean value){
+    private void setDisableEditModeButtons(boolean disable){
         // 편집 모드와 관련된 버튼을 비활성화 한다.
-        editButton.setDisable(value);
-        saveButton.setDisable(value);
+        editButton.setDisable(disable);
+        saveButton.setDisable(disable);
     }
 
     private void saveToFile(){
@@ -151,6 +152,14 @@ public class EditorPaneFXController implements Initializable, EditorPaneControll
     }
 
     private void loadFromFile(){
+        if(model.fileReadOnlyProperty().getValue() != null){
+            // 이미 다른 파일을 편집중이면 저장할 지 물어봐야 함.
+            Alert alert =  new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Confirmation");
+            alert.setHeaderText("Save this file?");
+            alert.setContentText("If you load other file, you will lose all change about this file.\n Click \'Yes\' to save your changes");
+            alert.showAndWait().filter(response -> response == ButtonType.OK).ifPresent(response -> saveToFile());
+        }
         File selectedFile = showFileChooser();
         if(selectedFile == null) return;
         try {

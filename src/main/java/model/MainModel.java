@@ -44,11 +44,9 @@ public class MainModel implements MainModelInterface {
 
 	private boolean isComparable(){
 		if(leftComparisonFile.getSource() != null && rightComparisonFile.getSource() != null) {
-			System.out.println("comp");
 			return true;
 		}
 		else {
-			System.out.println("edit");
 			return false;
 		}
 	}

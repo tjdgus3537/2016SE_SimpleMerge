@@ -46,7 +46,6 @@ public class MainWindowFXController implements Initializable, MainWindowControll
         compareViewScrollBar.setMax(model.size()); // comp 결과 길이가 들어가야 함
     }
 
-    // TODO Comp 모드에서는 undo 불가? ==> 한계점
     @FXML
     private void handleCopyToRightButtonAction(ActionEvent event){
         model.copyToRight(leftPaneController.getSelectedIndex());
@@ -71,7 +70,7 @@ public class MainWindowFXController implements Initializable, MainWindowControll
         copyToRightButton.setDisable(disable);
         copyToLeftButton.setDisable(disable);
         compareViewScrollBar.setDisable(disable);
-        if(compareButton.isDisable()) compareButton.setDisable(!disable);
+        compareButton.setDisable(!disable);
     }
 
     @Override
@@ -85,11 +84,11 @@ public class MainWindowFXController implements Initializable, MainWindowControll
             FXMLLoader leftPaneFXMLLoader = new FXMLLoader(getClass().getResource("/fxml/EditorPane.fxml"));
             leftPaneFXMLLoader.load();
             leftPaneController = leftPaneFXMLLoader.getController();
-            leftPaneController.setCompareModeDisabler(this);
+            leftPaneController.setCompModeDisableReceiver(this);
             FXMLLoader rightPaneFXMLLoader = new FXMLLoader(getClass().getResource("/fxml/EditorPane.fxml"));
             rightPaneFXMLLoader.load();
             rightPaneController = rightPaneFXMLLoader.getController();
-            rightPaneController.setCompareModeDisabler(this);
+            rightPaneController.setCompModeDisableReceiver(this);
             ObservableList<Node> items = editorSplitPane.getItems();
             items.add(leftPaneController.getContentNode());
             items.add(rightPaneController.getContentNode());

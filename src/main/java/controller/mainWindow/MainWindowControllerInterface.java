@@ -1,6 +1,6 @@
 package controller.mainWindow;
 
-import controller.CompareModeDisabler;
+import controller.CompModeDisableReceiver;
 import model.MainModelInterface;
 
 /**
@@ -8,7 +8,7 @@ import model.MainModelInterface;
  *
  * 메인 창의 컨트롤러 인터페이스
  */
-public interface MainWindowControllerInterface extends CompareModeDisabler {
+public interface MainWindowControllerInterface extends CompModeDisableReceiver {
     /**
      * 해당 컨트롤러가 참조할 모델을 설정한다.
      * @param model 컨트롤러가 참조할 모델
