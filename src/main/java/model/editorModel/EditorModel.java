@@ -8,9 +8,9 @@ import model.editorModel.contentNodeModel.ObservableCompResultModel;
 import model.editorModel.contentNodeModel.ObservableCompResultInterface;
 import model.editorModel.contentNodeModel.ObservableTextModel;
 import model.editorModel.contentNodeModel.ObservableTextModelInterface;
-import model.fileIO.ComparisonFileReader;
-import model.fileIO.ComparisonFileWriter;
-import model.fileIO.file.ObservableComparisonFileInterface;
+import model.fileIO.ComparisonTargetReader;
+import model.fileIO.ComparisonTargetWriter;
+import model.fileIO.file.ComparisonTargetInterface;
 
 /**
  * Created by Donghwan on 5/25/2016.
@@ -18,33 +18,37 @@ import model.fileIO.file.ObservableComparisonFileInterface;
  * 편집 창의 모델
  */
 public class EditorModel implements EditorModelInterface {
-	ObservableComparisonFileInterface comparisonFile;
+	ComparisonTargetInterface comparisonTarget;
     ObservableTextModelInterface observableTextModelInterface;
     ObservableCompResultInterface observableCompResultInterface;
 	
-	public EditorModel(ObservableComparisonFileInterface comparisonFile) {
-		this.comparisonFile = comparisonFile;
-        this.observableCompResultInterface = new ObservableCompResultModel(this.comparisonFile);
-        this.observableTextModelInterface = new ObservableTextModel(this.comparisonFile);
+	public EditorModel(ComparisonTargetInterface comparisonTarget) {
+		this.comparisonTarget = comparisonTarget;
+        this.observableCompResultInterface = new ObservableCompResultModel(this.comparisonTarget);
+        this.observableTextModelInterface = new ObservableTextModel(this.comparisonTarget);
+	}
+
+	@Override
+	public boolean isFileLoaded() {
+		if(comparisonTarget.getSource() == null) return false;
+		else return true;
 	}
 
 	@Override
 	public ReadOnlyObjectProperty<File> fileReadOnlyProperty() {
-		return comparisonFile.fileProperty();
+		return comparisonTarget.fileProperty();
 	}
 
 	@Override
 	public void load(File source) throws IOException{
-        ComparisonFileReader reader = new ComparisonFileReader();
-        ObservableComparisonFileInterface comparisonFile = reader.readComparisonFile(source);
-        this.comparisonFile.setSource(comparisonFile.getSource());
-        this.comparisonFile.setContent(comparisonFile.getContent());
+        ComparisonTargetReader loader = new ComparisonTargetReader();
+        loader.readComparisonFile(source, comparisonTarget);
 	}
 
 	@Override
 	public void save() throws IOException{
-        ComparisonFileWriter writer = new ComparisonFileWriter();
-        writer.writeComparisonFile(comparisonFile);
+        ComparisonTargetWriter writer = new ComparisonTargetWriter();
+        writer.writeComparisonFile(comparisonTarget);
 	}
 
 	@Override

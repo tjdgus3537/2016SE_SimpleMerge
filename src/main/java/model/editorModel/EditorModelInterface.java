@@ -26,6 +26,12 @@ public interface EditorModelInterface extends ReadOnlyFilePropertyProvider {
     void save() throws IOException;
 
     /**
+     * 불러온 파일이 있는지 확인한다.
+     * @return 파일이 있으면 true, 아니면 false
+     */
+    boolean isFileLoaded();
+
+    /**
      * 텍스트 표시와 관련된 모델을 반환한다.
      * @return 텍스트 표시를 해주는 모델
      */

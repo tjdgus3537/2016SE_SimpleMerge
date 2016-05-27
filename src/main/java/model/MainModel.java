@@ -9,8 +9,8 @@ import model.diff.DiffInterface;
 import model.diff.block.PairBlocks;
 import model.editorModel.EditorModel;
 import model.editorModel.EditorModelInterface;
-import model.fileIO.file.ObservableComparisonFile;
-import model.fileIO.file.ObservableComparisonFileInterface;
+import model.fileIO.file.ComparisonTarget;
+import model.fileIO.file.ComparisonTargetInterface;
 
 /**
  * Created by Donghwan on 5/25/2016.
@@ -18,8 +18,8 @@ import model.fileIO.file.ObservableComparisonFileInterface;
  * 메인 창의 모델
  */
 public class MainModel implements MainModelInterface {
-	private ObservableComparisonFileInterface leftComparisonFile;
-	private ObservableComparisonFileInterface rightComparisonFile;
+	private ComparisonTargetInterface leftComparisonTarget;
+	private ComparisonTargetInterface rightComparisonTarget;
 	private EditorModelInterface leftEditorModel;
 	private EditorModelInterface rightEditorModel;
 	private DiffInterface diff;
@@ -27,23 +27,23 @@ public class MainModel implements MainModelInterface {
 	private BooleanProperty comparableProperty;
 	
 	public MainModel() {
-		leftComparisonFile = new ObservableComparisonFile();
-		rightComparisonFile = new ObservableComparisonFile();
-		leftEditorModel = new EditorModel(leftComparisonFile);
-		rightEditorModel = new EditorModel(rightComparisonFile);
+		leftComparisonTarget = new ComparisonTarget();
+		rightComparisonTarget = new ComparisonTarget();
+		leftEditorModel = new EditorModel(leftComparisonTarget);
+		rightEditorModel = new EditorModel(rightComparisonTarget);
 		diff = new Diff();
 		copier = new Copier();
 		comparableProperty = new SimpleBooleanProperty(false);
-		leftComparisonFile.fileProperty().addListener((observable, oldValue, newValue) -> {
+		leftComparisonTarget.fileProperty().addListener((observable, oldValue, newValue) -> {
 			comparableProperty.setValue(isComparable());
 		});
-		rightComparisonFile.fileProperty().addListener((observable, oldValue, newValue) -> {
+		rightComparisonTarget.fileProperty().addListener((observable, oldValue, newValue) -> {
 			comparableProperty.setValue(isComparable());
 		});
 	}
 
 	private boolean isComparable(){
-		if(leftComparisonFile.getSource() != null && rightComparisonFile.getSource() != null) {
+		if(leftComparisonTarget.getSource() != null && rightComparisonTarget.getSource() != null) {
 			return true;
 		}
 		else {
@@ -58,24 +58,24 @@ public class MainModel implements MainModelInterface {
 
 	@Override
 	public void compare() {
-		PairBlocks pairBlocks = diff.compare(leftComparisonFile.getContent(), rightComparisonFile.getContent());
-		leftComparisonFile.getObservableBlocks().setAll(pairBlocks.getLeft());
-		rightComparisonFile.getObservableBlocks().setAll(pairBlocks.getRight());	
+		PairBlocks pairBlocks = diff.compare(leftComparisonTarget.getContent(), rightComparisonTarget.getContent());
+		leftComparisonTarget.getObservableBlocks().setAll(pairBlocks.getLeft());
+		rightComparisonTarget.getObservableBlocks().setAll(pairBlocks.getRight());
 	}
 
 	@Override
 	public void copyToLeft(int blockNum) {
-		copier.copyToLeft(leftComparisonFile.getObservableBlocks(), rightComparisonFile.getObservableBlocks(), blockNum);
+		copier.copyToLeft(leftComparisonTarget.getObservableBlocks(), rightComparisonTarget.getObservableBlocks(), blockNum);
 	}
 
 	@Override
 	public void copyToRight(int blockNum) {
-		copier.copyToRight(leftComparisonFile.getObservableBlocks(), rightComparisonFile.getObservableBlocks(), blockNum);
+		copier.copyToRight(leftComparisonTarget.getObservableBlocks(), rightComparisonTarget.getObservableBlocks(), blockNum);
 	}
 
 	@Override
 	public int size() {
-		return leftComparisonFile.getObservableBlocks().size();
+		return leftComparisonTarget.getObservableBlocks().size();
 	}
 
 	@Override

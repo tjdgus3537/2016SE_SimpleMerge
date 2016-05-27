@@ -1,5 +1,5 @@
-import model.fileIO.ComparisonFileReader;
-import model.fileIO.ComparisonFileWriter;
+import model.fileIO.ComparisonTargetReader;
+import model.fileIO.ComparisonTargetWriter;
 import org.easymock.EasyMockSupport;
 
 import java.io.BufferedWriter;
@@ -19,8 +19,8 @@ import static org.junit.Assert.assertTrue;
 public class FileIOTest extends EasyMockSupport{
     String testFileResult;
     String testFileResult2;
-    ComparisonFileReader fileReader;
-    ComparisonFileWriter fileWriter;
+    ComparisonTargetReader fileReader;
+    ComparisonTargetWriter fileWriter;
 
     @org.junit.Before
     public void setUp() throws Exception {
@@ -29,8 +29,8 @@ public class FileIOTest extends EasyMockSupport{
                 "and\n" +
                 "java";
         testFileResult2 = "I hate you JB";
-        fileReader = new ComparisonFileReader();
-        fileWriter = new ComparisonFileWriter();
+        fileReader = new ComparisonTargetReader();
+        fileWriter = new ComparisonTargetWriter();
 
         try(BufferedWriter bufferedWriter = Files.newBufferedWriter(new File("writeTestFile.txt").toPath(), StandardCharsets.UTF_8, StandardOpenOption.WRITE, StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING)){
             bufferedWriter.write(testFileResult);
@@ -55,16 +55,16 @@ public class FileIOTest extends EasyMockSupport{
 
     @org.junit.Test
     public void testLoadComparisonFile() throws Exception {
-        ObservableComparisonFile comparisonFile = fileReader.readComparisonFile(new File("test/readTestFile.txt"));
+        ComparisonTarget comparisonFile = fileReader.readComparisonFile(new File("test/readTestFile.txt"));
         assertEquals(testFileResult, comparisonFile.getContentProperty().toString());
         assertTrue(new File("test/readTestFile.txt").equals(comparisonFile.getSourceProperty()));
     }
 
     @org.junit.Test
     public void testSaveComparisonFile() throws Exception {
-        ObservableComparisonFile comparisonFile = new ObservableComparisonFile(new File("test/writeTestFile.txt"), new StringBuffer(testFileResult));
+        ComparisonTarget comparisonFile = new ComparisonTarget(new File("test/writeTestFile.txt"), new StringBuffer(testFileResult));
         fileWriter.writeComparisonFile(comparisonFile);
-        ObservableComparisonFile savedFile = fileReader.readComparisonFile(new File("test/writeTestFile.txt"));
+        ComparisonTarget savedFile = fileReader.readComparisonFile(new File("test/writeTestFile.txt"));
         assertEquals(testFileResult, savedFile.getContentProperty().toString());
         assertTrue(new File("test/writeTestFile.txt").equals(savedFile.getSourceProperty()));
     }

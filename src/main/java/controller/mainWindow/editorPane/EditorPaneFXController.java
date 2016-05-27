@@ -152,7 +152,7 @@ public class EditorPaneFXController implements Initializable, EditorPaneControll
     }
 
     private void loadFromFile(){
-        if(model.fileReadOnlyProperty().getValue() != null){
+        if(model.isFileLoaded()){
             // 이미 다른 파일을 편집중이면 저장할 지 물어봐야 함.
             Alert alert =  new Alert(Alert.AlertType.CONFIRMATION);
             alert.setTitle("Confirmation");
@@ -185,7 +185,7 @@ public class EditorPaneFXController implements Initializable, EditorPaneControll
     private File showFileChooser(){
         // FileChooser로 불러올 파일 선택
         FileChooser fileChooser = new FileChooser();
-        fileChooser.setTitle("Open Resource File");
+        fileChooser.setTitle("Open Text File");
         fileChooser.getExtensionFilters().addAll(
                 new FileChooser.ExtensionFilter("Text file", "*.txt"));
         return fileChooser.showOpenDialog(rootPane.getScene().getWindow());
