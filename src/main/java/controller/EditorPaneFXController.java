@@ -1,12 +1,10 @@
-package controller.FXController;
+package controller;
 
-import controller.CompareModeDisabler;
-import controller.ViewMode;
-import javafx.beans.value.ChangeListener;
-import javafx.collections.ListChangeListener;
+import controller.Interface.CompResultsViewControllerInterface;
+import controller.Interface.CompareModeDisabler;
+import controller.Interface.EditorPaneControllerInterface;
+import controller.Interface.EditorTextAreaControllerInterface;
 import model.editorModel.EditorModelInterface;
-import model.fileIO.ComparisonFileReader;
-import model.fileIO.ComparisonFileWriter;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -16,7 +14,6 @@ import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.FileChooser;
-import model.fileIO.file.ObservableComparisonFile;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
@@ -25,17 +22,44 @@ import java.util.ResourceBundle;
 
 /**
  * Created by Donghwan on 5/15/2016.
+ *
  * 편집 창의 액션을 관리하는 컨트롤러
  */
-public class EditorPaneFXController implements Initializable, EditorPaneControllerInterface{
+public class EditorPaneFXController implements Initializable, EditorPaneControllerInterface {
+    // 뷰 상테에 따라서 EditorPaneFXController가 해야하는 행동이 다르다.
+    private interface ViewMode {
+        void handleEditAction();
+    }
+    private class CompMode implements ViewMode{
+        @Override
+        public void handleEditAction() {
+            // 비교 모드를 끝내고 편집 모드로 바꿈
+            switchEditorTextArea();
+            setEditable(true);
+        }
+    }
+    private class EditMode implements ViewMode{
+        @Override
+        public void handleEditAction() {
+            // 편집 모드에서 읽기 전용과 쓰기 가능 모드 사이에서 전환한다.
+            if(model.fileReadOnlyProperty().get() != null) {
+                boolean editable = editorTextAreaFXController.isEditable();
+                editorTextAreaFXController.setEditable(!editable);
+                editButton.setSelected(!editable);
+            }
+        }
+    }
+
     private EditorModelInterface model;
     private ViewMode viewMode;
     private EditorTextAreaControllerInterface editorTextAreaFXController;
-    private CompResultListViewControllerInterface compResultListViewFXController;
+    private CompResultsViewControllerInterface compResultListViewFXController;
     private CompareModeDisabler compareModeDisabler;
 
     @FXML
     private Pane rootPane;
+    @FXML
+    private Pane contentPane;
     @FXML
     private Label filePathLabel;
     @FXML
@@ -45,12 +69,12 @@ public class EditorPaneFXController implements Initializable, EditorPaneControll
 
     @FXML
     private void handleLoadAction(ActionEvent event){
-        if(model.fileReadOnlyProperty().get() != null){ // TODO 모델에게 파일이 존재하는 지 쿼리해야 함
+        if(model.fileReadOnlyProperty().get() != null){
             // 이미 다른 파일을 편집중이면 저장할 지 물어봐야 함.
             Alert alert =  new Alert(Alert.AlertType.CONFIRMATION);
-            alert.setTitle("Save this file?");
+            alert.setTitle("Confirmation");
             alert.setHeaderText("Save this file?");
-            alert.setContentText("If you load other file, you will lose all change about this file.\n Click \'Yes\', if you want to save your changes");
+            alert.setContentText("If you load other file, you will lose all change about this file.\n Click \'Yes\' to save your changes");
             alert.showAndWait().filter(response -> response == ButtonType.OK).ifPresent(response -> saveToFile());
         }
         loadFromFile();
@@ -58,18 +82,7 @@ public class EditorPaneFXController implements Initializable, EditorPaneControll
 
     @FXML
     private void handleEditAction(ActionEvent event){
-        // Compare 모드일 때는 compareModeDisabler에게 해제를 요청함
-        if(viewMode == ViewMode.COMPARE) {
-            switchEditorTextArea();
-            setEditable(true);
-        }else{ // Edit 모드일 때
-            if(model.fileReadOnlyProperty().get() != null) {
-                boolean editable = editorTextAreaFXController.isEditable();
-                // read only <-> edit
-                editorTextAreaFXController.setEditable(!editable);
-                editButton.setSelected(!editable);
-            }
-        }
+        viewMode.handleEditAction();
     }
 
     @FXML
@@ -93,13 +106,14 @@ public class EditorPaneFXController implements Initializable, EditorPaneControll
     }
 
     @Override
-    public void scrollTo(int value){
-        compResultListViewFXController.scrollTo(value);
+    public void scrollTo(int index){
+        compResultListViewFXController.scrollTo(index);
     }
 
     @Override
-    public void switchCompareListView(){
-        viewMode = ViewMode.COMPARE;
+    public void switchCompResultsView(){
+        // 비교 결과를 보여주는 뷰로 변경
+        viewMode = new EditMode();
         setEditable(false);
         setContentNode(compResultListViewFXController.getContentNode());
     }
@@ -113,12 +127,14 @@ public class EditorPaneFXController implements Initializable, EditorPaneControll
     }
 
     private void switchEditorTextArea(){
-        viewMode = ViewMode.EDIT;
-        if(compareModeDisabler != null) compareModeDisabler.disableCompareMode();
+        // 텍스트 에이리어로 교체한다.
+        viewMode = new EditMode();
+        if(compareModeDisabler != null) compareModeDisabler.disableCompareMode(); // 비교 모드에서 해제되는 것이므로 이를 알려야 함.
         setContentNode(editorTextAreaFXController.getContentNode());
     }
 
     private void setDisableEditModeButtons(boolean value){
+        // 편집 모드와 관련된 버튼을 비활성화 한다.
         editButton.setDisable(value);
         saveButton.setDisable(value);
     }
@@ -128,14 +144,13 @@ public class EditorPaneFXController implements Initializable, EditorPaneControll
             model.save();
         }catch(IOException ioe){
             Alert fileLoadErrorAlert = new Alert(Alert.AlertType.ERROR);
-            fileLoadErrorAlert.setTitle("File save failed");
-            fileLoadErrorAlert.setHeaderText(null);
+            fileLoadErrorAlert.setTitle("Error");
+            fileLoadErrorAlert.setHeaderText("File save failed");
             fileLoadErrorAlert.setContentText("Selected file is not saved. Check if it saved normally or try again.");
             fileLoadErrorAlert.show();
         }
     }
 
-    // 파일을 불러오는 과정
     private void loadFromFile(){
         File selectedFile = showFileChooser();
         if(selectedFile == null) return;
@@ -146,16 +161,17 @@ public class EditorPaneFXController implements Initializable, EditorPaneControll
             switchEditorTextArea();
         }catch (IOException ioe){
             Alert fileLoadErrorAlert = new Alert(Alert.AlertType.ERROR);
-            fileLoadErrorAlert.setTitle("File load failed");
-            fileLoadErrorAlert.setHeaderText(null);
+            fileLoadErrorAlert.setTitle("Error");
+            fileLoadErrorAlert.setHeaderText("File load failed");
             fileLoadErrorAlert.setContentText("Selected file is not loaded. Check if it exists and try again.");
             fileLoadErrorAlert.show();
         }
     }
 
-    private void setEditable(boolean value){
-        editButton.setSelected(value);
-        editorTextAreaFXController.setEditable(value);
+    private void setEditable(boolean editable){
+        // 편집 버튼과 텍스트 에이리어의 편집 상태를 바꾼다.
+        editButton.setSelected(editable);
+        editorTextAreaFXController.setEditable(editable);
     }
 
     private File showFileChooser(){
@@ -164,37 +180,48 @@ public class EditorPaneFXController implements Initializable, EditorPaneControll
         fileChooser.setTitle("Open Resource File");
         fileChooser.getExtensionFilters().addAll(
                 new FileChooser.ExtensionFilter("Text file", "*.txt"));
-        File selectedFile = fileChooser.showOpenDialog(rootPane.getScene().getWindow());
-        return selectedFile;
+        return fileChooser.showOpenDialog(rootPane.getScene().getWindow());
     }
 
-    // 파일 내용을 보여주는 창 교체
     private void setContentNode(Node node) {
-        List children = rootPane.getChildren();
-        if(children.size() > 1) children.set(1, node);
-        else children.add(1, node);
+        // 파일 내용을 보여주는 노드 교체
+        // 반드시 내용을 보여주는 AnchorPane은 하나의 자식만 가져야 한다.
+        List children = contentPane.getChildren();
+        if(children.size() == 0) children.add(0, node);
+        else children.set(0, node);
     }
+
     private void addContentNodeProperty(Node node){
+        // 내용을 보여주는 노드에 앵커페인 속성을 추가해서 특정 창에 고정해놓는다.
         AnchorPane.setBottomAnchor(node, 0.0);
         AnchorPane.setLeftAnchor(node, 0.0);
         AnchorPane.setRightAnchor(node, 0.0);
-        AnchorPane.setTopAnchor(node, 40.0);
+        AnchorPane.setTopAnchor(node, 0.0);
     }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         try {
+            // 텍스트 에이리어 로드
             FXMLLoader editorTextAreaFXMLLoader = new FXMLLoader(getClass().getResource("/fxml/EditorTextArea.fxml"));
             editorTextAreaFXMLLoader.load();
             editorTextAreaFXController = editorTextAreaFXMLLoader.getController();
-            FXMLLoader compareListViewFXMLLoader = new FXMLLoader(getClass().getResource("/fxml/CompareListView.fxml"));
-            compareListViewFXMLLoader.load();
-            compResultListViewFXController = compareListViewFXMLLoader.getController();
+            // 비교 리스트창 로드
+            FXMLLoader compResultsViewFXMLLoader = new FXMLLoader(getClass().getResource("/fxml/CompResultsView.fxml"));
+            compResultsViewFXMLLoader.load();
+            compResultListViewFXController = compResultsViewFXMLLoader.getController();
+            // 내용을 출력하는 노드를 편집 창의 앵커페인 속성을 붙여서 특정 위치에만 표시되도록 고정한다.
             addContentNodeProperty(editorTextAreaFXController.getContentNode());
             addContentNodeProperty(compResultListViewFXController.getContentNode());
+            // 로드가 끝나면 텍스트 에이리어로 교체한다.
             switchEditorTextArea();
         }catch(IOException ioe){
-            // TODO Pane 불러오기 실패에 대한 알림
+            Alert viewLoadAlert = new Alert(Alert.AlertType.ERROR);
+            viewLoadAlert.setTitle("Error");
+            viewLoadAlert.setHeaderText("View load failed");
+            viewLoadAlert.setContentText("View is not loaded. Please Restart the program.\n" +
+                    "If this error occurs several time, please report bug to wraithkim@cau.ac.kr");
+            viewLoadAlert.show();
         }
     }
 }

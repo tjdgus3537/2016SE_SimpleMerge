@@ -2,7 +2,7 @@ package model.diff;
 
 import model.diff.block.Block;
 import model.diff.block.PairBlocks;
-import model.diff.block.State;
+import model.diff.block.CompState;
 
 import java.util.ArrayList;
 
@@ -39,8 +39,8 @@ public class Diff implements DiffInterface{
 		ArrayList<String> lcs = makeLCS(lineStringsOfLeft, lineStringsOfRight);
 		
 		//line 단위의 변화 여부에 대해 알아본다.
-		ArrayList<State> lineStatesOfLeft = getLineState(lineStringsOfLeft, lcs);
-		ArrayList<State> lineStatesOfRight = getLineState(lineStringsOfRight, lcs);
+		ArrayList<CompState> lineStatesOfLeft = getLineState(lineStringsOfLeft, lcs);
+		ArrayList<CompState> lineStatesOfRight = getLineState(lineStringsOfRight, lcs);
 
 		//line 사이에 SPACE 채워넣는 것 만들기.
 		putSpaceLine(lineStatesOfLeft, lineStatesOfRight, lineStringsOfLeft, lineStringsOfRight);
@@ -87,28 +87,28 @@ public class Diff implements DiffInterface{
 		return lineStrings;
 	}
 	
-	private ArrayList<State> getLineState(ArrayList<String> s, ArrayList<String> lcs) {
+	private ArrayList<CompState> getLineState(ArrayList<String> s, ArrayList<String> lcs) {
 		//한 줄이 어디까지 인지를 확인하고, 그 줄이 변했는지를 판단한다.
-		ArrayList<State> lineStates = new ArrayList<State>();
+		ArrayList<CompState> lineStates = new ArrayList<CompState>();
 		int lcsIndex = 0;
 		
 		for (int i = 0; i < s.size(); i++) {
 			//한 줄이 어디까지인지 확인한다.
 			if(lcsIndex < lcs.size()) {
 				if(s.get(i).equals(lcs.get(lcsIndex))) {
-					lineStates.add(State.UNCHANGED);
+					lineStates.add(CompState.UNCHANGED);
 					lcsIndex++;
 					continue;
 				}
 			}
-			lineStates.add(State.CHANGED);
+			lineStates.add(CompState.CHANGED);
 		}
 		
 		return lineStates;
 	}
 		
-	private void putSpaceLine(ArrayList<State> lineStatesOfLeft, ArrayList<State> lineStatesOfRight, 
-			ArrayList<String> lineStringsOfLeft, ArrayList<String> lineStringsOfRight) {
+	private void putSpaceLine(ArrayList<CompState> lineStatesOfLeft, ArrayList<CompState> lineStatesOfRight,
+							  ArrayList<String> lineStringsOfLeft, ArrayList<String> lineStringsOfRight) {
 		//각 줄을 비교하여 SPACE line을 적절히 채워 넣어준다.
 		int leftIndex = 0, rightIndex = 0;
 		
@@ -116,7 +116,7 @@ public class Diff implements DiffInterface{
 		//""일 때를 처리. 한 쪽이 ""이면 다른 한 쪽이 ""이 아닌 이상, 전체가 changed인 1 block이 됨
 		if(lineStatesOfLeft.size() == 0 && lineStatesOfRight.size() != 0) {
 			for(int i = 0; i < lineStatesOfRight.size(); i++) {
-				lineStatesOfLeft.add(i, State.SPACE);
+				lineStatesOfLeft.add(i, CompState.SPACE);
 				lineStringsOfLeft.add(i, "\n");
 			}
 			return;
@@ -124,7 +124,7 @@ public class Diff implements DiffInterface{
 		
 		if(lineStatesOfLeft.size() != 0 && lineStatesOfRight.size() == 0) {
 			for(int i = 0 ; i < lineStatesOfLeft.size(); i++) {
-				lineStatesOfRight.add(i, State.SPACE);
+				lineStatesOfRight.add(i, CompState.SPACE);
 				lineStringsOfRight.add(i, "\n");
 			}
 			return;
@@ -133,22 +133,22 @@ public class Diff implements DiffInterface{
 		//양 쪽 모두 index < size 여야지 BOF error가 나지 않는다.
 		while (leftIndex < lineStatesOfLeft.size() && rightIndex < lineStatesOfRight.size()) {
 			//양 쪽 모두 UNCHANGED이면 양쪽에 모두 넣어준다.
-			if (lineStatesOfLeft.get(leftIndex) == State.UNCHANGED && lineStatesOfRight.get(rightIndex) == State.UNCHANGED) {
+			if (lineStatesOfLeft.get(leftIndex) == CompState.UNCHANGED && lineStatesOfRight.get(rightIndex) == CompState.UNCHANGED) {
 				leftIndex++;
 				rightIndex++;
 			}
 			//왼쪽이 UNCHANGED가 나올 때까지(즉 지금 CHANGED인 동안), 여기에 대응하는 오른쪽에 SPACE line을 채워 넣어주고,
 			//현재의 왼쪽 block을 왼쪽에 넣는다.
-			while (leftIndex < lineStatesOfLeft.size() && lineStatesOfLeft.get(leftIndex) == State.CHANGED) {
-				lineStatesOfRight.add(rightIndex, State.SPACE);
+			while (leftIndex < lineStatesOfLeft.size() && lineStatesOfLeft.get(leftIndex) == CompState.CHANGED) {
+				lineStatesOfRight.add(rightIndex, CompState.SPACE);
 				lineStringsOfRight.add(rightIndex, "\n");
 				leftIndex++;
 				rightIndex++;
 			}
 			//오른쪽이 UNCHANGED가 나올 때까지(즉 지금 CHANGED인 동안), 여기에 대응하는 왼쪽에 SPACE block을 채워 넣어주고,
 			//현재의 오른쪽 block을 오른쪽에 넣는다.
-			while (rightIndex < lineStatesOfRight.size() && lineStatesOfRight.get(rightIndex) == State.CHANGED) {
-				lineStatesOfLeft.add(leftIndex, State.SPACE);
+			while (rightIndex < lineStatesOfRight.size() && lineStatesOfRight.get(rightIndex) == CompState.CHANGED) {
+				lineStatesOfLeft.add(leftIndex, CompState.SPACE);
 				lineStringsOfLeft.add(leftIndex, "\n");
 				leftIndex++;
 				rightIndex++;
@@ -158,7 +158,7 @@ public class Diff implements DiffInterface{
 	}
 	
 	private ArrayList<Block> getBlockArrayList(
-			ArrayList<State> lineStates, ArrayList<String> lineStrings) {
+			ArrayList<CompState> lineStates, ArrayList<String> lineStrings) {
 		ArrayList<Block> blocks = new ArrayList<Block>();
 		Block block;
 		String s;

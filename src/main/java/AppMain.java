@@ -2,7 +2,7 @@
  * Created by Donghwan on 5/14/2016.
  */
 
-import controller.FXController.MainWindowControllerInterface;
+import controller.Interface.MainWindowControllerInterface;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;

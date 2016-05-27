@@ -1,21 +1,21 @@
-package controller.FXController;
+package controller;
 
-import controller.HighlightedListCell;
-import javafx.collections.ObservableList;
+import controller.Interface.CompResultsViewControllerInterface;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.ListView;
 import model.diff.block.Block;
 import model.editorModel.contentNodeModel.ObservableListModelInterface;
-
 import java.net.URL;
 import java.util.ResourceBundle;
 
 /**
  * Created by Donghwan on 5/22/2016.
+ * 비교 결과를 보여주는 뷰의 컨트롤러
+ *
  */
-public class CompResultListViewFXController implements Initializable, CompResultListViewControllerInterface{
+public class CompResultsViewFXController implements Initializable, CompResultsViewControllerInterface {
 
     private ObservableListModelInterface model;
     @FXML
@@ -28,8 +28,8 @@ public class CompResultListViewFXController implements Initializable, CompResult
     }
 
     @Override
-    public void scrollTo(int value) {
-        compareListVIew.scrollTo(value);
+    public void scrollTo(int index) {
+        compareListVIew.scrollTo(index);
     }
 
     @Override
@@ -44,6 +44,7 @@ public class CompResultListViewFXController implements Initializable, CompResult
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        compareListVIew.setCellFactory(listview-> new HighlightedListCell());
+        // 비교 결과를 하이라이팅해서 표시
+        compareListVIew.setCellFactory(listView-> new CompStateHighlightedListCell());
     }
 }

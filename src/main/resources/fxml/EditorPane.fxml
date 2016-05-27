@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.*?>
 <?import java.net.URL?>
 
-<AnchorPane fx:id="rootPane" styleClass="background" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.FXController.EditorPaneFXController">
+<AnchorPane fx:id="rootPane" styleClass="background" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.EditorPaneFXController">
    <children>
       <HBox alignment="CENTER_LEFT" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -30,9 +30,13 @@
                   </Button>
                </items>
             </ToolBar>
-            <Label id="file-path-label" fx:id="filePathLabel" alignment="CENTER_RIGHT" styleClass="background" text="No file" HBox.hgrow="NEVER" />
+            <Label id="file-path-label" fx:id="filePathLabel" alignment="CENTER_RIGHT" styleClass="background" text="No file" HBox.hgrow="NEVER">
+               <HBox.margin>
+                  <Insets right="5.0" />
+               </HBox.margin></Label>
          </children>
       </HBox>
+      <AnchorPane fx:id="contentPane" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="40.0" />
    </children>
     <stylesheets>
         <URL value="@css/EditorPane.css" />

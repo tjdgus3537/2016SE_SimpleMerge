@@ -2,6 +2,7 @@ package model.diff.block;
 
 /**
  * Created by Seonghyeon on 5/15/2016.
+ *
  * state가 동일한 주변의 line들을 묶은 단위.
  * View에서 출력할 목적으로 사용하기 때문에 setter는 제공하지 않고 getter만 제공한다.
  * Block을 생성할 때만 생성자를 통해 값을 넣고, 그 이후에 Block을 수정할 수 없다.
@@ -9,21 +10,21 @@ package model.diff.block;
  */
 
 public class Block{
-	private State state;
+	private CompState state;
 	private String content;
 	
 	public Block() {
-		setState(State.UNCHANGED);
+		setState(CompState.UNCHANGED);
 		setContent(null);
 	}
 
-	public Block(State state, String content) {
+	public Block(CompState state, String content) {
 		this();
 		setState(state);
 		setContent(content);
 	}
 
-	public State getState() {
+	public CompState getState() {
 		return state;
 	}
 
@@ -35,7 +36,7 @@ public class Block{
 		this.content = content;
 	}
 	
-	private void setState(State state) {
+	private void setState(CompState state) {
 		this.state = state;
 	}
 }

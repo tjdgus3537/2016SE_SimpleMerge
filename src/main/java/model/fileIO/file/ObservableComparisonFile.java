@@ -5,7 +5,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import model.diff.block.Block;
-import model.diff.block.State;
+import model.diff.block.CompState;
 
 import java.io.File;
 import java.util.stream.Collector;
@@ -29,7 +29,7 @@ public class ObservableComparisonFile implements FilePropertyProvider, Observabl
         comparisonResult.addListener((ListChangeListener<Block>) c -> {
             contentProperty.setValue(comparisonResult
                     .stream()
-                    .filter(item -> item.getState() != State.SPACE)
+                    .filter(item -> item.getState() != CompState.SPACE)
                     .map(item->item.getContent())
                     .collect(
                             Collector.of(

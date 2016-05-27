@@ -32,7 +32,7 @@ public class FileIOTest extends EasyMockSupport{
         fileReader = new ComparisonFileReader();
         fileWriter = new ComparisonFileWriter();
 
-        try(BufferedWriter bufferedWriter = Files.newBufferedWriter(new File("test/writeTestFile.txt").toPath(), StandardCharsets.UTF_8, StandardOpenOption.WRITE, StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING)){
+        try(BufferedWriter bufferedWriter = Files.newBufferedWriter(new File("writeTestFile.txt").toPath(), StandardCharsets.UTF_8, StandardOpenOption.WRITE, StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING)){
             bufferedWriter.write(testFileResult);
             bufferedWriter.flush();
         }

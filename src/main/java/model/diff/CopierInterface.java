@@ -12,12 +12,16 @@ import model.diff.block.Block;
 public interface CopierInterface {
     /**
      * blockNum에 대응하는 오른쪽 block을 왼쪽으로 copy하고, 필요하면 block을 통합함.
-     * @param compare의 결과 중 left
+     * @param left 비교 결과의 왼쪽 리스트
+	 * @param right 비교 결과의 오른쪽 리스트
+	 * @param blockNum 복사할 블럭 번호
      */
-	public void copyToLeft(List<Block> left, List<Block> right, int blockNum);
+	void copyToLeft(List<Block> left, List<Block> right, int blockNum);
 	/**
      * blockNum에 대응하는 왼쪽 block을 오른쪽으로 copy하고, 필요하면 block을 통합함.
-     * @param compare의 결과 중 right
+	 * @param left 비교 결과의 왼쪽 리스트
+	 * @param right 비교 결과의 오른쪽 리스트
+	 * @param blockNum 복사할 블럭 번호
      */
-	public void copyToRight(List<Block> left, List<Block> right, int blockNum);
+	void copyToRight(List<Block> left, List<Block> right, int blockNum);
 }

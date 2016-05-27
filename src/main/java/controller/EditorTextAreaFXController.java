@@ -1,6 +1,6 @@
-package controller.FXController;
+package controller;
 
-import javafx.beans.property.StringProperty;
+import controller.Interface.EditorTextAreaControllerInterface;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.TextArea;
@@ -8,8 +8,10 @@ import model.editorModel.contentNodeModel.ObservableTextModelInterface;
 
 /**
  * Created by Donghwan on 5/22/2016.
+ *
+ * 편집 창에서 파일의 내용을 편집할 수 있는 텍스트 에이리어의 컨트롤러
  */
-public class EditorTextAreaFXController implements EditorTextAreaControllerInterface{
+public class EditorTextAreaFXController implements EditorTextAreaControllerInterface {
     private ObservableTextModelInterface model;
     @FXML
     private TextArea editorTextArea;
@@ -21,8 +23,8 @@ public class EditorTextAreaFXController implements EditorTextAreaControllerInter
     }
 
     @Override
-    public void setEditable(boolean value){
-        editorTextArea.setEditable(value);
+    public void setEditable(boolean editable){
+        editorTextArea.setEditable(editable);
     }
 
     @Override

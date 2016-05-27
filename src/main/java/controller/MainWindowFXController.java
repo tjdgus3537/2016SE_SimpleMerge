@@ -1,6 +1,7 @@
-package controller.FXController;
+package controller;
 
-import controller.CompareModeDisabler;
+import controller.Interface.EditorPaneControllerInterface;
+import controller.Interface.MainWindowControllerInterface;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -11,16 +12,16 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ScrollBar;
 import javafx.scene.control.SplitPane;
 import model.*;
-
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
 /**
  * Created by Donghwan on 5/14/2016.
- * 메인 윈도우의 액션을 관리하는 컨트롤러
+ *
+ * 메인 창의 컨트롤러
  */
-public class MainWindowFXController implements Initializable, CompareModeDisabler, MainWindowControllerInterface {
+public class MainWindowFXController implements Initializable, MainWindowControllerInterface {
     private EditorPaneControllerInterface leftPaneController;
     private EditorPaneControllerInterface rightPaneController;
     private MainModelInterface model;
@@ -45,8 +46,8 @@ public class MainWindowFXController implements Initializable, CompareModeDisable
         }
         model.compare();
         setDisableCompareModeNodes(false);
-        leftPaneController.switchCompareListView();
-        rightPaneController.switchCompareListView();
+        leftPaneController.switchCompResultsView();
+        rightPaneController.switchCompResultsView();
         compareViewScrollBar.setMax(model.size()); // comp 결과 길이가 들어가야 함
     }
 
