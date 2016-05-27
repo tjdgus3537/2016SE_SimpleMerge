@@ -1,6 +1,7 @@
 package model.fileIO;
 
 import model.fileIO.file.ObservableComparisonFile;
+import model.fileIO.file.ObservableComparisonFileInterface;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -28,7 +29,7 @@ public class ComparisonFileReader {
 	}
 
 	// TODO 나중에 이름 수정해야 함
-	public ObservableComparisonFile readComparisonFile(File source) throws IOException{
+	public ObservableComparisonFileInterface readComparisonFile(File source) throws IOException{
 		return new ObservableComparisonFile(source, readFile(source));
 	}
 

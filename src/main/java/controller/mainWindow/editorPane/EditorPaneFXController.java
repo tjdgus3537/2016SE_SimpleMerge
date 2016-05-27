@@ -1,9 +1,8 @@
-package controller;
+package controller.mainWindow.editorPane;
 
-import controller.Interface.CompResultsViewControllerInterface;
-import controller.Interface.CompareModeDisabler;
-import controller.Interface.EditorPaneControllerInterface;
-import controller.Interface.EditorTextAreaControllerInterface;
+import controller.mainWindow.editorPane.listView.CompResultsViewControllerInterface;
+import controller.CompareModeDisabler;
+import controller.mainWindow.editorPane.textArea.EditorTextAreaControllerInterface;
 import model.editorModel.EditorModelInterface;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -113,7 +112,7 @@ public class EditorPaneFXController implements Initializable, EditorPaneControll
     @Override
     public void switchCompResultsView(){
         // 비교 결과를 보여주는 뷰로 변경
-        viewMode = new EditMode();
+        viewMode = new CompMode();
         setEditable(false);
         setContentNode(compResultListViewFXController.getContentNode());
     }

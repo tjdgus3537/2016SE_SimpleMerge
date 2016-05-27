@@ -4,7 +4,7 @@ import model.diff.block.PairBlocks;
 
 /**
  * Created by Seonghyeon on 5/21/2016.
- * compare 기능을 제공하는 Interface.
+ * compare 기능을 제공하는 concreteClass.
  */
 
 public interface DiffInterface {

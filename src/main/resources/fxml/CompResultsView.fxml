@@ -5,7 +5,7 @@
 
 
 <?import java.net.URL?>
-<ListView fx:id="compareListVIew" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.CompResultsViewFXController">
+<ListView fx:id="compareListVIew" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.mainWindow.editorPane.listView.CompResultsViewFXController">
     <stylesheets>
         <URL value="@css/CompResultsView.css"/>
     </stylesheets>

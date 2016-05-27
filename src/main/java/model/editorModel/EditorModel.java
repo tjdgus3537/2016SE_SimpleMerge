@@ -10,7 +10,7 @@ import model.editorModel.contentNodeModel.ObservableTextModel;
 import model.editorModel.contentNodeModel.ObservableTextModelInterface;
 import model.fileIO.ComparisonFileReader;
 import model.fileIO.ComparisonFileWriter;
-import model.fileIO.file.ObservableComparisonFile;
+import model.fileIO.file.ObservableComparisonFileInterface;
 
 /**
  * Created by Donghwan on 5/25/2016.
@@ -18,11 +18,11 @@ import model.fileIO.file.ObservableComparisonFile;
  * 편집 창의 모델
  */
 public class EditorModel implements EditorModelInterface {
-	ObservableComparisonFile comparisonFile;
+	ObservableComparisonFileInterface comparisonFile;
     ObservableTextModelInterface observableTextModelInterface;
     ObservableCompResultInterface observableCompResultInterface;
 	
-	public EditorModel(ObservableComparisonFile comparisonFile) {
+	public EditorModel(ObservableComparisonFileInterface comparisonFile) {
 		this.comparisonFile = comparisonFile;
         this.observableCompResultInterface = new ObservableCompResultModel(this.comparisonFile);
         this.observableTextModelInterface = new ObservableTextModel(this.comparisonFile);
@@ -30,13 +30,13 @@ public class EditorModel implements EditorModelInterface {
 
 	@Override
 	public ReadOnlyObjectProperty<File> fileReadOnlyProperty() {
-		return comparisonFile.fileReadOnlyProperty();
+		return comparisonFile.fileProperty();
 	}
 
 	@Override
 	public void load(File source) throws IOException{
         ComparisonFileReader reader = new ComparisonFileReader();
-        ObservableComparisonFile comparisonFile = reader.readComparisonFile(source);
+        ObservableComparisonFileInterface comparisonFile = reader.readComparisonFile(source);
         this.comparisonFile.setSource(comparisonFile.getSource());
         this.comparisonFile.setContent(comparisonFile.getContent());
 	}

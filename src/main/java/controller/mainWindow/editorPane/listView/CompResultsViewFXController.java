@@ -1,6 +1,5 @@
-package controller;
+package controller.mainWindow.editorPane.listView;
 
-import controller.Interface.CompResultsViewControllerInterface;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;

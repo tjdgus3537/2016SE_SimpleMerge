@@ -14,15 +14,15 @@ import java.util.stream.Collector;
  * Created by Donghwan on 5/12/2016.
  * 비교하는 파일에 대해서 저장하는 클래스
  */
-public class ObservableComparisonFile implements ReadOnlyFilePropertyProvider, ObservableBlocksProvider, TextPropertyProvider{
+public class ObservableComparisonFile implements ObservableComparisonFileInterface{
     private ObjectProperty<File> sourceProperty;
     private StringProperty contentProperty;
     private ObservableList<Block> comparisonResult;
 
     public ObservableComparisonFile() {
         // 처음 객체 초기화
-        sourceProperty = new SimpleObjectProperty<>();
-        contentProperty = new SimpleStringProperty();
+        sourceProperty = new SimpleObjectProperty<>(null);
+        contentProperty = new SimpleStringProperty(null);
         comparisonResult = FXCollections.observableArrayList();
 
         // 비교결과가 바뀔때마다 텍스트 모델에 변경 사항 저장
@@ -48,8 +48,8 @@ public class ObservableComparisonFile implements ReadOnlyFilePropertyProvider, O
     }
 
     // 이 네 개의 객체로 사용하면 됨.
-    public void setSource(File sourceProperty) {
-        this.sourceProperty.setValue(sourceProperty);
+    public void setSource(File source) {
+        this.sourceProperty.setValue(source);
     }
 
     public void setContent(String content){
@@ -67,7 +67,7 @@ public class ObservableComparisonFile implements ReadOnlyFilePropertyProvider, O
     public ObservableList<Block> getObservableBlocks() { return comparisonResult; }
 
     @Override
-    public ReadOnlyObjectProperty<File> fileReadOnlyProperty() { return sourceProperty; }
+    public ObjectProperty<File> fileProperty() { return sourceProperty; }
 
     @Override
     public StringProperty textProperty(){

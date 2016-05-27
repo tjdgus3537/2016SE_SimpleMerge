@@ -1,4 +1,4 @@
-package controller.Interface;
+package controller.mainWindow.editorPane;
 
 /**
  * Created by Donghwan on 5/27/2016.

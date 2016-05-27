@@ -1,6 +1,7 @@
 package model.fileIO;
 
 import model.fileIO.file.ObservableComparisonFile;
+import model.fileIO.file.ObservableComparisonFileInterface;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -27,7 +28,7 @@ public class ComparisonFileWriter {
     }
 
     // TODO 나중에 이름 수정
-    public void writeComparisonFile(ObservableComparisonFile target) throws IOException{
+    public void writeComparisonFile(ObservableComparisonFileInterface target) throws IOException{
         writeFile(target.getSource(), target.getContent());
     }
 

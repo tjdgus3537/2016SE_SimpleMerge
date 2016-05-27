@@ -1,4 +1,4 @@
-import controller.Interface.MainWindowControllerInterface;
+import controller.mainWindow.MainWindowControllerInterface;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;

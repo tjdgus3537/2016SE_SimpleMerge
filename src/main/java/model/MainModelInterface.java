@@ -1,5 +1,6 @@
 package model;
 
+import javafx.beans.property.BooleanProperty;
 import model.editorModel.EditorModelInterface;
 
 /**
@@ -8,11 +9,12 @@ import model.editorModel.EditorModelInterface;
  * MainModel을 가져다 쓰는 객체들을 위한 인터페이스
  */
 public interface MainModelInterface {
+
     /**
-     * 비교가 가능한 지 확인함
-     * @return 비교가 가능하면 true, 아니면 false를 반환한다.
+     * 비교가 가능한 상태인지 저장하고 있는 Property 객체를 반환한다.
+     * @return 비교 가능한 상태인지 저장하고 있는 Property
      */
-    boolean isReadyToCompare();
+    BooleanProperty getComparableProperty();
 
     /**
      * 모델에 저장된 두 파일 내용을 비교해서 비교 결과에 그 내용을 저장한다.

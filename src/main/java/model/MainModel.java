@@ -1,5 +1,7 @@
 package model;
 
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 import model.diff.Copier;
 import model.diff.CopierInterface;
 import model.diff.Diff;
@@ -8,6 +10,7 @@ import model.diff.block.PairBlocks;
 import model.editorModel.EditorModel;
 import model.editorModel.EditorModelInterface;
 import model.fileIO.file.ObservableComparisonFile;
+import model.fileIO.file.ObservableComparisonFileInterface;
 
 /**
  * Created by Donghwan on 5/25/2016.
@@ -15,12 +18,13 @@ import model.fileIO.file.ObservableComparisonFile;
  * 메인 창의 모델
  */
 public class MainModel implements MainModelInterface {
-	private ObservableComparisonFile leftComparisonFile;
-	private ObservableComparisonFile rightComparisonFile;
+	private ObservableComparisonFileInterface leftComparisonFile;
+	private ObservableComparisonFileInterface rightComparisonFile;
 	private EditorModelInterface leftEditorModel;
 	private EditorModelInterface rightEditorModel;
 	private DiffInterface diff;
 	private CopierInterface copier;
+	private BooleanProperty comparableProperty;
 	
 	public MainModel() {
 		leftComparisonFile = new ObservableComparisonFile();
@@ -29,14 +33,29 @@ public class MainModel implements MainModelInterface {
 		rightEditorModel = new EditorModel(rightComparisonFile);
 		diff = new Diff();
 		copier = new Copier();
+		comparableProperty = new SimpleBooleanProperty(false);
+		leftComparisonFile.fileProperty().addListener((observable, oldValue, newValue) -> {
+			comparableProperty.setValue(isComparable());
+		});
+		rightComparisonFile.fileProperty().addListener((observable, oldValue, newValue) -> {
+			comparableProperty.setValue(isComparable());
+		});
+	}
+
+	private boolean isComparable(){
+		if(leftComparisonFile.getSource() != null && rightComparisonFile.getSource() != null) {
+			System.out.println("comp");
+			return true;
+		}
+		else {
+			System.out.println("edit");
+			return false;
+		}
 	}
 
 	@Override
-	public boolean isReadyToCompare() {
-		if(leftComparisonFile.getSource() == null || rightComparisonFile.getSource() == null)
-			return false;
-		
-		return true;
+	public BooleanProperty getComparableProperty() {
+		return comparableProperty;
 	}
 
 	@Override

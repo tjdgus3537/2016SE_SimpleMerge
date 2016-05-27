@@ -1,5 +1,6 @@
-package controller.Interface;
+package controller.mainWindow.editorPane.textArea;
 
+import controller.ContentNodeProvider;
 import model.editorModel.contentNodeModel.ObservableTextModelInterface;
 
 /**

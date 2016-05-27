@@ -1,4 +1,4 @@
-package controller.Interface;
+package controller;
 
 import javafx.scene.Node;
 

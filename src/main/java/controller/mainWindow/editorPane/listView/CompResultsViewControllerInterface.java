@@ -1,5 +1,7 @@
-package controller.Interface;
+package controller.mainWindow.editorPane.listView;
 
+import controller.ContentNodeProvider;
+import controller.mainWindow.editorPane.SingleSelectionListViewControllerInterface;
 import model.editorModel.contentNodeModel.ObservableCompResultInterface;
 
 /**

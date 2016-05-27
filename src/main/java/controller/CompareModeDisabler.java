@@ -1,4 +1,4 @@
-package controller.Interface;
+package controller;
 
 /**
  * Created by Donghwan on 5/19/2016.

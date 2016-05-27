@@ -1,6 +1,5 @@
-package controller;
+package controller.mainWindow.editorPane.textArea;
 
-import controller.Interface.EditorTextAreaControllerInterface;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.TextArea;

@@ -1,7 +1,6 @@
-package controller;
+package controller.mainWindow;
 
-import controller.Interface.EditorPaneControllerInterface;
-import controller.Interface.MainWindowControllerInterface;
+import controller.mainWindow.editorPane.EditorPaneControllerInterface;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -39,11 +38,7 @@ public class MainWindowFXController implements Initializable, MainWindowControll
 
     @FXML
     private void handleCompareButtonAction(ActionEvent event){
-
         // 양 쪽 pane에 파일이 존재하지 않으면 비교 불가
-        if(!model.isReadyToCompare()) {
-            return;
-        }
         model.compare();
         setDisableCompareModeNodes(false);
         leftPaneController.switchCompResultsView();
@@ -67,13 +62,16 @@ public class MainWindowFXController implements Initializable, MainWindowControll
         this.model = model;
         leftPaneController.setModel(model.getLeftEditorModel());
         rightPaneController.setModel(model.getRightEditorModel());
+        model.getComparableProperty().addListener((observable, oldValue, newValue) -> {
+            compareButton.setDisable(!newValue);
+        });
     }
 
-    private void setDisableCompareModeNodes(boolean value){
-        copyToRightButton.setDisable(value);
-        copyToLeftButton.setDisable(value);
-        compareViewScrollBar.setDisable(value);
-        compareButton.setDisable(!value);
+    private void setDisableCompareModeNodes(boolean disable){
+        copyToRightButton.setDisable(disable);
+        copyToLeftButton.setDisable(disable);
+        compareViewScrollBar.setDisable(disable);
+        if(compareButton.isDisable()) compareButton.setDisable(!disable);
     }
 
     @Override
@@ -100,6 +98,7 @@ public class MainWindowFXController implements Initializable, MainWindowControll
                 leftPaneController.scrollTo(newValue.intValue());
                 rightPaneController.scrollTo(newValue.intValue());
             });
+            compareButton.setDisable(true);
         }catch(IOException e){
             e.printStackTrace();
         }

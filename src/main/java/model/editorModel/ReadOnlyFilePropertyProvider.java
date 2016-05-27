@@ -1,4 +1,4 @@
-package model.fileIO.file;
+package model.editorModel;
 
 import javafx.beans.property.ReadOnlyObjectProperty;
 

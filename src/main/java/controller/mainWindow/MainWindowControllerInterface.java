@@ -1,5 +1,6 @@
-package controller.Interface;
+package controller.mainWindow;
 
+import controller.CompareModeDisabler;
 import model.MainModelInterface;
 
 /**

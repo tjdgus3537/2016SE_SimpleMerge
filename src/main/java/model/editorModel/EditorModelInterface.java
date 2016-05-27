@@ -2,7 +2,6 @@ package model.editorModel;
 
 import model.editorModel.contentNodeModel.ObservableCompResultInterface;
 import model.editorModel.contentNodeModel.ObservableTextModelInterface;
-import model.fileIO.file.ReadOnlyFilePropertyProvider;
 
 import java.io.File;
 import java.io.IOException;
