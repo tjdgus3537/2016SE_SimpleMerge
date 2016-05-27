@@ -14,7 +14,7 @@ import java.util.stream.Collector;
  * Created by Donghwan on 5/12/2016.
  * 비교하는 파일에 대해서 저장하는 클래스
  */
-public class ObservableComparisonFile implements FilePropertyProvider, ObservableBlocksProvider, TextPropertyProvider{
+public class ObservableComparisonFile implements ReadOnlyFilePropertyProvider, ObservableBlocksProvider, TextPropertyProvider{
     private ObjectProperty<File> sourceProperty;
     private StringProperty contentProperty;
     private ObservableList<Block> comparisonResult;

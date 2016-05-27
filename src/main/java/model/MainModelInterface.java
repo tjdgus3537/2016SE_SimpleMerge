@@ -4,6 +4,7 @@ import model.editorModel.EditorModelInterface;
 
 /**
  * Created by Donghwan on 5/25/2016.
+ *
  * MainModel을 가져다 쓰는 객체들을 위한 인터페이스
  */
 public interface MainModelInterface {

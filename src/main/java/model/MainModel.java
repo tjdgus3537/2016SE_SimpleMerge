@@ -11,6 +11,8 @@ import model.fileIO.file.ObservableComparisonFile;
 
 /**
  * Created by Donghwan on 5/25/2016.
+ *
+ * 메인 창의 모델
  */
 public class MainModel implements MainModelInterface {
 	private ObservableComparisonFile leftComparisonFile;

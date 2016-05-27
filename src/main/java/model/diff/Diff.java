@@ -12,8 +12,7 @@ import java.util.ArrayList;
  */
 
 public class Diff implements DiffInterface{
-	//private LCSInterface lcs;
-	enum Direction {
+	private enum Direction {
 		NONE, UP, LEFT, UP_AND_LEFT;
 	}
 	

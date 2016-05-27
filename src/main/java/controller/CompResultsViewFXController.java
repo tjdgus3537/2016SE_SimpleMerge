@@ -6,7 +6,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.ListView;
 import model.diff.block.Block;
-import model.editorModel.contentNodeModel.ObservableListModelInterface;
+import model.editorModel.contentNodeModel.ObservableCompResultInterface;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -17,12 +17,12 @@ import java.util.ResourceBundle;
  */
 public class CompResultsViewFXController implements Initializable, CompResultsViewControllerInterface {
 
-    private ObservableListModelInterface model;
+    private ObservableCompResultInterface model;
     @FXML
     private ListView<Block> compareListVIew;
 
     @Override
-    public void setModel(ObservableListModelInterface model) {
+    public void setModel(ObservableCompResultInterface model) {
         this.model = model;
         compareListVIew.setItems(model.getObservableBlocks());
     }

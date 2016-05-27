@@ -6,6 +6,7 @@ import model.diff.block.Block;
 
 /**
  * Created by Seonghyeon on 5/26/2016.
+ *
  * copyToLeft, copyToRight를 제공해주는 interface
  */
 

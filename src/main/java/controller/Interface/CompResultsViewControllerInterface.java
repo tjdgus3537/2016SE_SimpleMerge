@@ -1,6 +1,6 @@
 package controller.Interface;
 
-import model.editorModel.contentNodeModel.ObservableListModelInterface;
+import model.editorModel.contentNodeModel.ObservableCompResultInterface;
 
 /**
  * Created by Donghwan on 5/25/2016.
@@ -11,5 +11,5 @@ public interface CompResultsViewControllerInterface extends ContentNodeProvider,
      * 해당 컨트롤러가 참조할 모델을 설정한다.
      * @param model ObservableList 형태의 비교 결과를 제공해주는 모델
      */
-    void setModel(ObservableListModelInterface model);
+    void setModel(ObservableCompResultInterface model);
 }

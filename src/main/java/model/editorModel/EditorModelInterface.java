@@ -1,16 +1,18 @@
 package model.editorModel;
 
-import model.editorModel.contentNodeModel.ObservableListModelInterface;
+import model.editorModel.contentNodeModel.ObservableCompResultInterface;
 import model.editorModel.contentNodeModel.ObservableTextModelInterface;
-import model.fileIO.file.FilePropertyProvider;
+import model.fileIO.file.ReadOnlyFilePropertyProvider;
 
 import java.io.File;
 import java.io.IOException;
 
 /**
  * Created by Donghwan on 5/25/2016.
+ *
+ * 편집 창의 모델 인터페이스
  */
-public interface EditorModelInterface extends FilePropertyProvider {
+public interface EditorModelInterface extends ReadOnlyFilePropertyProvider {
     /**
      * 해당 파일을 불러온다
      * @param source 불러올 파일
@@ -34,5 +36,5 @@ public interface EditorModelInterface extends FilePropertyProvider {
      * 리스트 표시와 관련된 모델을 반환한다.
      * @return 리스트 표시를 해주는 모델
      */
-    ObservableListModelInterface getObservableListModel();
+    ObservableCompResultInterface getObservableListModel();
 }
