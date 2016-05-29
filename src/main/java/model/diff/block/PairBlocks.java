@@ -1,4 +1,4 @@
-package main.java.model.diff.block;
+package model.diff.block;
 
 import java.util.ArrayList;
 
