@@ -26,17 +26,22 @@ public class Copier implements CopierInterface{
 		if(left.get(blockNum).getState() == CompState.UNCHANGED)
 			return;
 		
-		//우측의 blockNum번 block을 좌측에 추가하고, 좌측의 blockNum + 1번째 block을 삭제.
-		String content = right.get(blockNum).getContent();
-		Block leftNewBlock = new Block(CompState.UNCHANGED, content);
-		left.add(blockNum, leftNewBlock);
-		left.remove(blockNum + 1);
-		
-		//우측에서도 SPACE 또는 CHANGED Block의 상태를 UNCHANGED 상태로 바꿔줘야 하므로 갈아끼운다.
-		Block rightNewBlock = new Block(CompState.UNCHANGED, content);
-		right.add(blockNum, rightNewBlock);
-		right.remove(blockNum + 1);
-		
+		if(right.get(blockNum).getState() != CompState.SPACE) {
+			//우측의 blockNum번 block을 좌측에 추가하고, 좌측의 blockNum + 1번째 block을 삭제.
+			String content = right.get(blockNum).getContent();
+			Block leftNewBlock = new Block(CompState.UNCHANGED, content);
+			left.add(blockNum, leftNewBlock);
+			left.remove(blockNum + 1);
+			
+			//우측에서도 SPACE 또는 CHANGED Block의 상태를 UNCHANGED 상태로 바꿔줘야 하므로 갈아끼운다.
+			Block rightNewBlock = new Block(CompState.UNCHANGED, content);
+			right.add(blockNum, rightNewBlock);
+			right.remove(blockNum + 1);
+		}
+		else {
+			left.remove(blockNum);
+			right.remove(blockNum);
+		}
 		updateBlocks(left);
 		updateBlocks(right);
 	}
