@@ -27,6 +27,11 @@ public class CompResultsViewFXController implements Initializable, CompResultsVi
     }
 
     @Override
+    public void clearSelection(){
+        compareListVIew.getSelectionModel().clearSelection();
+    }
+
+    @Override
     public void scrollTo(int index) {
         compareListVIew.scrollTo(index);
     }

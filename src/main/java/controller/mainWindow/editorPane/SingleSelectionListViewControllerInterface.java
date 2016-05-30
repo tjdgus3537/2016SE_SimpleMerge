@@ -16,4 +16,9 @@ public interface SingleSelectionListViewControllerInterface {
      * @return 선택된 항목의 위치를 반환
      */
     int getSelectedIndex();
+
+    /**
+     * 항목을 선택한 상태를 없앰
+     */
+    void clearSelection();
 }

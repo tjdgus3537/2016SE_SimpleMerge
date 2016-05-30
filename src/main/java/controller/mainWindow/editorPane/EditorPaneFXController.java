@@ -34,12 +34,14 @@ public class EditorPaneFXController implements Initializable, EditorPaneControll
         @Override
         public void handleLoadAction() {
             if(compModeDisableReceiver != null) compModeDisableReceiver.disableCompareMode(); // 비교 모드에서 해제되는 것이므로 이를 알려야 함.
+            clearSelection();
             loadFromFile();
         }
 
         @Override
         public void handleEditAction() {
             // 비교 모드를 끝내고 편집 모드로 바꿈
+            clearSelection();
             switchEditorTextArea();
             setEditable(true);
             if(compModeDisableReceiver != null) compModeDisableReceiver.disableCompareMode(); // 비교 모드에서 해제되는 것이므로 이를 알려야 함.
@@ -90,6 +92,11 @@ public class EditorPaneFXController implements Initializable, EditorPaneControll
     @FXML
     private void handleSaveAction(ActionEvent event){
         saveToFile();
+    }
+
+    @Override
+    public void clearSelection() {
+        compResultListViewFXController.clearSelection();
     }
 
     @Override

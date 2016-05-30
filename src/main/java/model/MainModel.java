@@ -75,7 +75,7 @@ public class MainModel implements MainModelInterface {
 
 	@Override
 	public int size() {
-		return leftComparisonTarget.getObservableBlocks().size();
+		return Integer.min(leftComparisonTarget.getObservableBlocks().size(), rightComparisonTarget.getObservableBlocks().size());
 	}
 
 	@Override

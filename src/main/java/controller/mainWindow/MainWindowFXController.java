@@ -49,11 +49,13 @@ public class MainWindowFXController implements Initializable, MainWindowControll
     @FXML
     private void handleCopyToRightButtonAction(ActionEvent event){
         model.copyToRight(leftPaneController.getSelectedIndex());
+        leftPaneController.clearSelection();
     }
 
     @FXML
     private void handleCopyToLeftButtonAction(ActionEvent event){
         model.copyToLeft(rightPaneController.getSelectedIndex());
+        rightPaneController.clearSelection();
     }
 
     @Override
@@ -94,8 +96,10 @@ public class MainWindowFXController implements Initializable, MainWindowControll
             items.add(rightPaneController.getContentNode());
             editorSplitPane.setDividerPositions(0.5);
             compareViewScrollBar.valueProperty().addListener((observable, oldValue, newValue) -> {
-                leftPaneController.scrollTo(newValue.intValue());
-                rightPaneController.scrollTo(newValue.intValue());
+                if(newValue.intValue() < model.size()) {
+                    leftPaneController.scrollTo(newValue.intValue());
+                    rightPaneController.scrollTo(newValue.intValue());
+                }
             });
             compareButton.setDisable(true);
         }catch(IOException e){
