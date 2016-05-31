@@ -19,6 +19,7 @@ public class Diff implements DiffInterface{
 	public Diff() {
 	}
 	
+	@Override
 	public PairBlocks compare(String left, String right) {
 		//만약 둘 중 하나라도 null이면 null을 return
 		if(left == null || right == null)
