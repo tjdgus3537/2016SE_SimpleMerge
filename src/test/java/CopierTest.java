@@ -24,16 +24,16 @@ public class CopierTest {
 	}
 
 	//helper method
-	private String pairBlockArrayListToString(PairBlocks pairBlockArrayList) {
+	private String pairBlocksToString(PairBlocks pairBlocks) {
 		String s = "";
 		
-		for(int i = 0 ; i < pairBlockArrayList.getLeft().size(); i++)
-			s += blockToString(pairBlockArrayList.getLeft().get(i));
+		for(int i = 0 ; i < pairBlocks.getLeft().size(); i++)
+			s += blockToString(pairBlocks.getLeft().get(i));
 		
 		s += " ";
 		
-		for(int i = 0 ; i < pairBlockArrayList.getRight().size(); i++)
-			s += blockToString(pairBlockArrayList.getRight().get(i));
+		for(int i = 0 ; i < pairBlocks.getRight().size(); i++)
+			s += blockToString(pairBlocks.getRight().get(i));
 		
 		return s;
 	}
@@ -50,7 +50,7 @@ public class CopierTest {
 	public void testCopyToLeft1() {
 		blocks = diff.compare("d\naabc\n", "aabc\nx\ny\n");
 		copier.copyToLeft(blocks.getLeft(), blocks.getRight(), 0);
-		String s = pairBlockArrayListToString(blocks);
+		String s = pairBlocksToString(blocks);
 		
 		assertEquals("aabc\n\n\n aabc\nx\ny\n", s);
 	}
@@ -59,9 +59,9 @@ public class CopierTest {
 	@Test
 	public void testCopyToLeft2() {
 		blocks = diff.compare("d\naabc\n", "aabc\nx\ny\n");
-		String s_before = pairBlockArrayListToString(blocks);
+		String s_before = pairBlocksToString(blocks);
 		copier.copyToLeft(blocks.getLeft(), blocks.getRight(), 1);
-		String s_after = pairBlockArrayListToString(blocks);
+		String s_after = pairBlocksToString(blocks);
 		
 		assertEquals(s_before, s_after);
 	}
@@ -71,7 +71,7 @@ public class CopierTest {
 	public void testCopyToLeft3() {
 		blocks = diff.compare("d\naabc\n", "aabc\nx\ny\n");
 		copier.copyToLeft(blocks.getLeft(), blocks.getRight(), 2);
-		String s = pairBlockArrayListToString(blocks);
+		String s = pairBlocksToString(blocks);
 		
 		assertEquals("d\naabc\nx\ny\n \naabc\nx\ny\n", s);
 	}
@@ -80,9 +80,9 @@ public class CopierTest {
 	@Test
 	public void testCopyToLeft4() {
 		blocks = diff.compare("d\naabc\n", "aabc\nx\ny\n");
-		String s_before = pairBlockArrayListToString(blocks);
+		String s_before = pairBlocksToString(blocks);
 		copier.copyToLeft(blocks.getLeft(), blocks.getRight(), 10);
-		String s_after = pairBlockArrayListToString(blocks);
+		String s_after = pairBlocksToString(blocks);
 		
 		assertEquals(s_before, s_after);
 	}
@@ -91,9 +91,9 @@ public class CopierTest {
 	@Test
 	public void testCopyToLeft5() {
 		blocks = diff.compare("d\naabc\n", "aabc\nx\ny\n");
-		String s_before = pairBlockArrayListToString(blocks);
+		String s_before = pairBlocksToString(blocks);
 		copier.copyToLeft(blocks.getLeft(), blocks.getRight(), -1);
-		String s_after = pairBlockArrayListToString(blocks);
+		String s_after = pairBlocksToString(blocks);
 		
 		assertEquals(s_before, s_after);
 	}
@@ -103,18 +103,18 @@ public class CopierTest {
 	public void testCopyToLeft6() {
 		blocks = diff.compare("", "aabc\nx\ny\n");
 		copier.copyToLeft(blocks.getLeft(), blocks.getRight(), 0);
-		String s = pairBlockArrayListToString(blocks);
+		String s = pairBlocksToString(blocks);
 		
 		assertEquals("aabc\nx\ny\n aabc\nx\ny\n", s);
 	}
 	
-	//두 String이 모두 공스트링("")일 때 --> blockNum이 그 어떤 String에도 소속할 수 없음
+	//두 String이 모두 공스트링("")일 때
 	@Test
 	public void testCopyToLeft7() {
 		blocks = diff.compare("", "");
-		String s_before = pairBlockArrayListToString(blocks);
+		String s_before = pairBlocksToString(blocks);
 		copier.copyToLeft(blocks.getLeft(), blocks.getRight(), 0);
-		String s_after = pairBlockArrayListToString(blocks);
+		String s_after = pairBlocksToString(blocks);
 		
 		assertEquals(s_before, s_after);
 	}
@@ -124,7 +124,7 @@ public class CopierTest {
 	public void testCopyToRight1() {
 		blocks = diff.compare("d\naabc\n", "aabc\nx\ny\n");
 		copier.copyToRight(blocks.getLeft(), blocks.getRight(), 0);
-		String s = pairBlockArrayListToString(blocks);
+		String s = pairBlocksToString(blocks);
 		
 		assertEquals("d\naabc\n\n\n d\naabc\nx\ny\n", s);
 	}
@@ -133,9 +133,9 @@ public class CopierTest {
 	@Test
 	public void testCopyToRight2() {
 		blocks = diff.compare("d\naabc\n", "aabc\nx\ny\n");
-		String s_before = pairBlockArrayListToString(blocks);
+		String s_before = pairBlocksToString(blocks);
 		copier.copyToRight(blocks.getLeft(), blocks.getRight(), 1);
-		String s_after = pairBlockArrayListToString(blocks);
+		String s_after = pairBlocksToString(blocks);
 		
 		assertEquals(s_before, s_after);
 	}
@@ -145,7 +145,7 @@ public class CopierTest {
 	public void testCopyToRight3() {
 		blocks = diff.compare("d\naabc\n", "aabc\nx\ny\n");
 		copier.copyToRight(blocks.getLeft(), blocks.getRight(), 2);
-		String s = pairBlockArrayListToString(blocks);
+		String s = pairBlocksToString(blocks);
 		
 		assertEquals("d\naabc\n \naabc\n", s);
 	}
@@ -154,9 +154,9 @@ public class CopierTest {
 	@Test
 	public void testCopyToRight4() {
 		blocks = diff.compare("d\naabc\n", "aabc\nx\ny\n");
-		String s_before = pairBlockArrayListToString(blocks);
+		String s_before = pairBlocksToString(blocks);
 		copier.copyToRight(blocks.getLeft(), blocks.getRight(), 10);
-		String s_after = pairBlockArrayListToString(blocks);
+		String s_after = pairBlocksToString(blocks);
 		
 		assertEquals(s_before, s_after);
 	}
@@ -165,9 +165,9 @@ public class CopierTest {
 	@Test
 	public void testCopyToRight5() {
 		blocks = diff.compare("d\naabc\n", "aabc\nx\ny\n");
-		String s_before = pairBlockArrayListToString(blocks);
+		String s_before = pairBlocksToString(blocks);
 		copier.copyToRight(blocks.getLeft(), blocks.getRight(), -1);
-		String s_after = pairBlockArrayListToString(blocks);
+		String s_after = pairBlocksToString(blocks);
 		
 		assertEquals(s_before, s_after);
 	}
@@ -177,18 +177,18 @@ public class CopierTest {
 	public void testCopyToRight6() {
 		blocks = diff.compare("", "aabc\nx\ny\n");
 		copier.copyToRight(blocks.getLeft(), blocks.getRight(), 0);
-		String s = pairBlockArrayListToString(blocks);
+		String s = pairBlocksToString(blocks);
 		
 		assertEquals(" ", s);
 	}
 	
-	//두 String이 모두 공스트링("")일 때 --> blockNum이 그 어떤 String에도 소속할 수 없음
+	//두 String이 모두 공스트링("")일 때
 	@Test
 	public void testCopyToRight7() {
 		blocks = diff.compare("", "");
-		String s_before = pairBlockArrayListToString(blocks);
+		String s_before = pairBlocksToString(blocks);
 		copier.copyToRight(blocks.getLeft(), blocks.getRight(), 0);
-		String s_after = pairBlockArrayListToString(blocks);
+		String s_after = pairBlocksToString(blocks);
 		
 		assertEquals(s_before, s_after);
 	}
