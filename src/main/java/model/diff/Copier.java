@@ -59,6 +59,7 @@ public class Copier implements CopierInterface{
 				blocks.remove(i + 1);
 				blocks.remove(i);
 				blocks.add(i, block);
+				i--;
 			}
 		}
 	}
