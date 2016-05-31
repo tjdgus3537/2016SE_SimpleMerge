@@ -14,6 +14,9 @@ public class CompStateHighlightedListCell extends ListCell<Block> {
     @Override
     protected void updateItem(Block item, boolean empty) {
         super.updateItem(item, empty);
+        setStyle(null);
+        setText(null);
+
         if(empty || item == null) return;
         // 항목의 내용을 셀에 넣는다.
         setText(item.getContent());

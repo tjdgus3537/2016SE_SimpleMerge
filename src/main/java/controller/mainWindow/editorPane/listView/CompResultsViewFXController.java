@@ -29,6 +29,7 @@ public class CompResultsViewFXController implements Initializable, CompResultsVi
     @Override
     public void clearSelection(){
         compareListVIew.getSelectionModel().clearSelection();
+        compareListVIew.refresh();
     }
 
     @Override
