@@ -1,7 +1,5 @@
 import static org.junit.Assert.*;
 
-import java.util.ArrayList;
-
 import model.diff.block.Block;
 import model.diff.Diff;
 import model.diff.DiffInterface;
@@ -41,17 +39,7 @@ public class DiffTest {
 		
 		return s;
 	}
-	
-	//helper method
-	private String blockArrayListToString(ArrayList<Block> blockArrayList) {
-		String s = "";
 		
-		for(int i = 0 ; i < blockArrayList.size(); i++)
-			s += blockToString(blockArrayList.get(i));
-		
-		return s;
-	}
-	
 	@Before
 	public void setUp() throws Exception {
 		diff = new Diff();
@@ -140,192 +128,10 @@ public class DiffTest {
 	@Test
 	public void testCompare9() {
 		PairBlocks pairBlockArrayList;
-		pairBlockArrayList = diff.compare("\n#ignore thumbnails created by windows\nsyntax: glob\n\nThumbs.db\n#Ignore files build by Visual Studio\n*.obj\n*.exe\n*.pdb\n*.user\n*.aps\n*.pch\n*.vspscc\n*_i.c\n*_p.c\n*.ncb\n*.suo\n*.tlb\n*.tlh\n*.bak\n*.cache\n*.ilk\n*.log\n*.dll\n*.lib\n*.sbr",
-				"syntax: glob\n\nThumbs.db\n*.obj\n*.exe\n*.pdb\n*.user\n*.aps\n*.pch\n*.vspscc\n*_i.c\n*_p.c\n*.ncb\n*.suo\n*.tlb\n*.tlh\n*.bak\n*.cache\n*.ilk\n*.log\n*.dll\n*.lib\n*.sbr");
+		pairBlockArrayList = diff.compare("\n#ignore thumbnails created by windows\nsyntax: glob\n\nThumbs.db\n#Ignore files build by Visual Studio\n*.obj\n*",
+				"syntax: glob\n\nThumbs.db\n*.obj\n*");
 		String s = pairBlockArrayListToString(pairBlockArrayList);
 		
-		assertEquals("d\naabc\n\n\n \naabc\nx\ny\n", s);
+		assertEquals("\n#ignore thumbnails created by windows\nsyntax: glob\n\nThumbs.db\n#Ignore files build by Visual Studio\n*.obj\n* \n\nsyntax: glob\n\nThumbs.db\n\n*.obj\n*", s);
 	}
-
-/*	
-	//정상적인 형태의 임의의 case
-	@Test
-	public void testCopyToLeft1() {
-		ArrayList<Block> blockArrayList;
-		blockArrayList = diff.copyToLeft("d\naabc\n", "aabc\nx\ny\n", 0);
-		String s = blockArrayListToString(blockArrayList);
-		
-		assertEquals("\naabc\n\n\n", s);
-	}
-	
-	//unchanged Block을 copy 시도
-	@Test
-	public void testCopyToLeft2() {
-		ArrayList<Block> blockArrayList;
-		blockArrayList = diff.copyToLeft("d\naabc\n", "aabc\nx\ny\n", 1);
-		
-		assertEquals(null, blockArrayList);
-	}
-	
-	//정상적인 형태의 임의의 case
-	@Test
-	public void testCopyToLeft3() {
-		ArrayList<Block> blockArrayList;
-		blockArrayList = diff.copyToLeft("d\naabc\n", "aabc\nx\ny\n", 2);
-		String s = blockArrayListToString(blockArrayList);
-		
-		assertEquals("d\naabc\nx\ny\n", s);
-	}
-	
-	//원래 string 보다 큰 blockNum을 입력으로 받았을 때
-	@Test
-	public void testCopyToLeft4() {
-		ArrayList<Block> blockArrayList;
-		blockArrayList = diff.copyToLeft("d\naabc\n", "aabc\nx\ny\n", 10);
-		
-		assertEquals(null, blockArrayList);
-	}
-	
-	//blockNum으로 음수를 입력 받았을 때
-	@Test
-	public void testCopyToLeft5() {
-		ArrayList<Block> blockArrayList;
-		blockArrayList = diff.copyToLeft("d\naabc\n", "aabc\nx\ny\n", -1);
-		
-		assertEquals(null, blockArrayList);
-	}
-	
-	//정상적인 형태의 임의의 case
-	@Test
-	public void testCopyToLeft6() {
-		ArrayList<Block> blockArrayList;
-		blockArrayList = diff.copyToLeft("", "aabc\nx\ny\n", 0);
-		String s = blockArrayListToString(blockArrayList);
-		
-		assertEquals("aabc\nx\ny\n", s);
-	}
-	
-	//두 String이 모두 공스트링("")일 때 --> blockNum이 그 어떤 String에도 소속할 수 없음
-	@Test
-	public void testCopyToLeft7() {
-		ArrayList<Block> blockArrayList;
-		blockArrayList = diff.copyToLeft("", "", 0);
-		
-		assertEquals(null, blockArrayList);
-	}
-	
-	//한 String이 null일 때
-	@Test
-	public void testCopyToLeft8() {
-		ArrayList<Block> blockArrayList;
-		blockArrayList = diff.copyToLeft(null, "asdsad", 0);
-		
-		assertEquals(null, blockArrayList);
-	}
-	
-	//두 String 모두 null일 때
-	@Test
-	public void testCopyToLeft9() {
-		ArrayList<Block> blockArrayList;
-		blockArrayList = diff.copyToLeft(null, null, 0);
-		
-		assertEquals(null, blockArrayList);
-	}
-	
-	//정상적인 형태의 임의의 case
-	@Test
-	public void testCopyToRight1() {
-		ArrayList<Block> blockArrayList;
-		blockArrayList = diff.copyToRight("d\naabc\n", "aabc\nx\ny\n", 0);
-		String s = blockArrayListToString(blockArrayList);
-		
-		assertEquals("d\naabc\nx\ny\n", s);
-	}
-	
-	//unchanged Block을 copy 시도
-	@Test
-	public void testCopyToRight2() {
-		ArrayList<Block> blockArrayList;
-		blockArrayList = diff.copyToRight("d\naabc\n", "aabc\nx\ny\n", 1);
-		
-		assertEquals(null, blockArrayList);
-	}
-	
-	//정상적인 형태의 임의의 case
-	@Test
-	public void testCopyToRight3() {
-		ArrayList<Block> blockArrayList;
-		blockArrayList = diff.copyToRight("d\naabc\n", "aabc\nx\ny\n", 2);
-		String s = blockArrayListToString(blockArrayList);
-		
-		assertEquals("\naabc\n\n\n", s);
-	}
-	
-	//원래 string 보다 큰 blockNum을 입력으로 받았을 때
-	@Test
-	public void testCopyToRight4() {
-		ArrayList<Block> blockArrayList;
-		blockArrayList = diff.copyToRight("d\naabc\n", "aabc\nx\ny\n", 10);
-		
-		assertEquals(null, blockArrayList);
-	}
-	
-	//blockNum으로 음수를 입력 받았을 때
-	@Test
-	public void testCopyToRight5() {
-		ArrayList<Block> blockArrayList;
-		blockArrayList = diff.copyToRight("d\naabc\n", "aabc\nx\ny\n", -1);
-		
-		assertEquals(null, blockArrayList);
-	}
-	
-	//정상적인 형태의 임의의 case
-	@Test
-	public void testCopyToRight6() {
-		ArrayList<Block> blockArrayList;
-		blockArrayList = diff.copyToRight("", "aabc\nx\ny\n", 0);
-		String s = blockArrayListToString(blockArrayList);
-		
-		assertEquals("\n\n\n", s);
-	}
-	
-	//두 String이 모두 공스트링("")일 때 --> blockNum이 그 어떤 String에도 소속할 수 없음
-	@Test
-	public void testCopyToRight7() {
-		ArrayList<Block> blockArrayList;
-		blockArrayList = diff.copyToRight("", "", 0);
-		
-		assertEquals(null, blockArrayList);
-	}
-	
-	//한 String이 null일 때
-	@Test
-	public void testCopyToRight8() {
-		ArrayList<Block> blockArrayList;
-		blockArrayList = diff.copyToRight(null, "asdsad", 0);
-		
-		assertEquals(null, blockArrayList);
-	}
-	
-	//두 String 모두 null일 때
-	@Test
-	public void testCopyToRight9() {
-		ArrayList<Block> blockArrayList;
-		blockArrayList = diff.copyToRight(null, null, 0);
-		
-		assertEquals(null, blockArrayList);
-	}
-
-	//정상적인 형태의 임의의 case
-	@Test
-	public void testCopyToRight10() {
-		ArrayList<Block> blockArrayList;
-		blockArrayList = diff.copyToRight("syntax: glob\n\nThumbs.db\n*.obj\n*.exe\n*.pdb\n*.user\n*.aps\n*.pch\n*.vspscc\n*_i.c\n*_p.c\n*.ncb\n*.suo\n*.tlb\n*.tlh\n*.bak\n*.cache\n*.ilk\n*.log\n*.dll\n*.lib\n*.sbr\n",
-				"\n#ignore thumbnails created by windows\nThumbs.db\n#Ignore files build by Visual Studio\n*.obj\n*.exe\n*.pdb\n*.user\n*.aps\n*.pch\n*.vspscc\n*_i.c\n*_p.c\n*.ncb\n*.suo\n*.tlb\n*.tlh\n*.bak\n*.cache\n*.ilk\n*.log\n*.dll\n*.lib\n*.sbr\n", 0);
-		String s = blockArrayListToString(blockArrayList);
-
-		assertEquals("syntax: glob\n\n\n#ignore thumbnails created by windows\nThumbs.db\n#Ignore files build by Visual Studio\n", s);
-	}
-*/
-
 }
