@@ -8,7 +8,7 @@
 
 <AnchorPane id="root-pane" styleClass="background" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.mainWindow.MainWindowFXController">
    <children>
-      <ToolBar nodeOrientation="LEFT_TO_RIGHT" styleClass="background" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+      <ToolBar nodeOrientation="LEFT_TO_RIGHT" styleClass="background" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <items>
              <Button id="compare-button" fx:id="compareButton" mnemonicParsing="false" onAction="#handleCompareButtonAction">
                 <tooltip>

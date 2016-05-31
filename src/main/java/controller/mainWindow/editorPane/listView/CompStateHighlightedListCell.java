@@ -27,7 +27,6 @@ public class CompStateHighlightedListCell extends ListCell<Block> {
             setStyle(DEFAULT_STYLE);
         }
         setDisable(!modifiable);
-
     }
 
     @Override
@@ -40,8 +39,4 @@ public class CompStateHighlightedListCell extends ListCell<Block> {
             if(!isEmpty())setStyle(getItem().getState().getStyle());
         }
     }
-
-
-
-
 }
