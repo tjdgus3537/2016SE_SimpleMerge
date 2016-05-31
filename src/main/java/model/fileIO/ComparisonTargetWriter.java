@@ -16,7 +16,6 @@ import java.nio.file.StandardOpenOption;
  */
 public class ComparisonTargetWriter {
 
-    // TODO 나중에 이름 수정
     public void writeComparisonFile(ComparisonTargetInterface target) throws IOException{
         writeFile(target.getSource(), target.getContent(), target.getEncoding());
     }
