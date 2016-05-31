@@ -135,10 +135,10 @@ public class DiffTest {
 		
 		assertEquals("\n#ignore thumbnails created by windows\n\n\nThumbs.db\n \n\nsyntax: glob\n\nThumbs.db\n", s);
 	}
-/*	
+	
 	//정상적인 형태의 임의의 case
 	@Test
-	public void testCompare8() {
+	public void testCompare9() {
 		PairBlocks pairBlockArrayList;
 		pairBlockArrayList = diff.compare("\n#ignore thumbnails created by windows\nsyntax: glob\n\nThumbs.db\n#Ignore files build by Visual Studio\n*.obj\n*.exe\n*.pdb\n*.user\n*.aps\n*.pch\n*.vspscc\n*_i.c\n*_p.c\n*.ncb\n*.suo\n*.tlb\n*.tlh\n*.bak\n*.cache\n*.ilk\n*.log\n*.dll\n*.lib\n*.sbr",
 				"syntax: glob\n\nThumbs.db\n*.obj\n*.exe\n*.pdb\n*.user\n*.aps\n*.pch\n*.vspscc\n*_i.c\n*_p.c\n*.ncb\n*.suo\n*.tlb\n*.tlh\n*.bak\n*.cache\n*.ilk\n*.log\n*.dll\n*.lib\n*.sbr");
@@ -146,7 +146,7 @@ public class DiffTest {
 		
 		assertEquals("d\naabc\n\n\n \naabc\nx\ny\n", s);
 	}
-*/
+
 /*	
 	//정상적인 형태의 임의의 case
 	@Test
