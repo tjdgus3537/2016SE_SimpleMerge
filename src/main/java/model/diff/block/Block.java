@@ -10,18 +10,12 @@ package model.diff.block;
  */
 
 public class Block{
-	private CompState state;
-	private String content;
-	
-	public Block() {
-		setState(CompState.UNCHANGED);
-		setContent(null);
-	}
+	private final CompState state;
+	private final String content;
 
 	public Block(CompState state, String content) {
-		this();
-		setState(state);
-		setContent(content);
+		this.content = content;
+		this.state = state;
 	}
 
 	public CompState getState() {
@@ -30,13 +24,5 @@ public class Block{
 
 	public String getContent() {
 		return content;
-	}
-	
-	private void setContent(String content) {
-		this.content = content;
-	}
-	
-	private void setState(CompState state) {
-		this.state = state;
 	}
 }
