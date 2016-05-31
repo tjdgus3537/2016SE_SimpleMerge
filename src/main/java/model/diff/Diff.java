@@ -135,7 +135,6 @@ public class Diff implements DiffInterface{
 				rightIndex++;
 			}
 
-			// TODO 코드 중복이 있음.
 			//왼쪽이 UNCHANGED가 나올 때까지(즉 지금 CHANGED인 동안), 여기에 대응하는 오른쪽에 SPACE line을 채워 넣어주고,
 			//현재의 왼쪽 block을 왼쪽에 넣는다.
 			while (leftIndex < lineStatesOfLeft.size() && lineStatesOfLeft.get(leftIndex) == CompState.CHANGED) {
@@ -209,7 +208,7 @@ public class Diff implements DiffInterface{
 		//implementation.
 		mainLoop(table, restore, left, right);
 		
-		return backtrack(table, restore, left, right);
+		return backtrack(restore, left, right);
 	}
 	
 	private void initialize(int[][] table, Direction[][] restore, int leftLength, int rightLength) {
@@ -257,7 +256,7 @@ public class Diff implements DiffInterface{
 		}
 	}
 	
-	private ArrayList<String> backtrack(int[][] table, Direction[][] restore, ArrayList<String> left, ArrayList<String> right) {
+	private ArrayList<String> backtrack(Direction[][] restore, ArrayList<String> left, ArrayList<String> right) {
 		//restore과 table를 이용해서 backtracking 하여 LCS를 얻어낸다.
 		int i = left.size(), j = right.size();
 		ArrayList<String> lcs = new ArrayList<String>();
