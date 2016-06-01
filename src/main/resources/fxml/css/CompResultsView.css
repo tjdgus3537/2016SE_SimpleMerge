@@ -17,7 +17,7 @@
     -fx-background-color: #686868;
 }
 
-.scroll-pane .corner{
+.list-view .corner {
     -fx-background-color: #3E3E42;
     -fx-border-color: #3E3E42;
 }
