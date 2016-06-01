@@ -37,7 +37,7 @@ public class ComparisonTargetReader {
 			} else {
 				System.out.println("No encoding detected.");
 				String osName = System.getProperty("os.name");
-				if(osName.startsWith("Windows")) return Charset.forName("windows-1252");
+				if(osName.startsWith("Windows")) return Charset.forName("x-windows-949");
 				else return StandardCharsets.UTF_8;
 			}
 		}
