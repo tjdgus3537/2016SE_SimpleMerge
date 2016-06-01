@@ -43,12 +43,7 @@ public class MainModel implements MainModelInterface {
 	}
 
 	private boolean isComparable(){
-		if(leftComparisonTarget.getSource() != null && rightComparisonTarget.getSource() != null) {
-			return true;
-		}
-		else {
-			return false;
-		}
+		return leftComparisonTarget.getSource() != null && rightComparisonTarget.getSource() != null;
 	}
 
 	@Override

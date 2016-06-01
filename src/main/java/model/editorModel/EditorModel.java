@@ -31,8 +31,7 @@ public class EditorModel implements EditorModelInterface {
 
 	@Override
 	public boolean isFileLoaded() {
-		if(comparisonTarget.getSource() == null) return false;
-		else return true;
+		return comparisonTarget.getSource() != null;
 	}
 
 	@Override
