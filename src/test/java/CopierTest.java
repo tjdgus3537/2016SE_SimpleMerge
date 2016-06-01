@@ -13,7 +13,7 @@ import model.diff.block.PairBlocks;
 
 /**
  * Created by Seonghyeon on 6/1/2016.
- * Diff에 관련한 테스트
+ * Copier에 관련한 테스트
  */
 
 public class CopierTest {
