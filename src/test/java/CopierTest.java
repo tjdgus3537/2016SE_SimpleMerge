@@ -154,7 +154,6 @@ public class CopierTest {
 		
 		blocks.getRight().add(makeChangedBlock("aabc\nx\ny\n"));
 		
-//		blocks = diff.compare("", "aabc\nx\ny\n");
 		copier.copyToLeft(blocks.getLeft(), blocks.getRight(), 0);
 		String s = pairBlocksToString(blocks);
 		
