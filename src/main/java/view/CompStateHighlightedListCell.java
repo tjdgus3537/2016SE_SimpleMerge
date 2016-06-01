@@ -1,4 +1,4 @@
-package controller.mainWindow.editorPane.listView;
+package view;
 
 import javafx.scene.control.ListCell;
 import model.diff.block.Block;

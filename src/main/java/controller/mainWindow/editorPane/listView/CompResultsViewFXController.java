@@ -6,6 +6,8 @@ import javafx.scene.Node;
 import javafx.scene.control.ListView;
 import model.diff.block.Block;
 import model.editorModel.contentNodeModel.ObservableCompResultInterface;
+import view.CompStateHighlightedListCell;
+
 import java.net.URL;
 import java.util.ResourceBundle;
 
