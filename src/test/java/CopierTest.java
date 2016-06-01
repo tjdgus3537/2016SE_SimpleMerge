@@ -1,17 +1,18 @@
 import static org.junit.Assert.*;
 
-import org.junit.*;
+import java.util.ArrayList;
+
+import org.junit.Before;
+import org.junit.Test;
 
 import model.diff.Copier;
 import model.diff.CopierInterface;
-import model.diff.Diff;
-import model.diff.DiffInterface;
 import model.diff.block.Block;
+import model.diff.block.CompState;
 import model.diff.block.PairBlocks;
 
 public class CopierTest {
 	private CopierInterface copier;
-	private DiffInterface diff;
 	PairBlocks blocks;
 	
 	//helper method
@@ -38,17 +39,37 @@ public class CopierTest {
 		return s;
 	}
 	
+	//helper method
+	private Block makeChangedBlock(String content) {
+		return new Block(CompState.CHANGED, content);
+	}
+	
+	private Block makeUnchangedBlock(String content) {
+		return new Block(CompState.UNCHANGED, content);
+	}
+	
+	private Block makeSpaceBlock(String content) {
+		return new Block(CompState.SPACE, content);
+	}
+	
 	@Before
 	public void setUp() throws Exception {
 		copier = new Copier();
-		diff = new Diff();
+		blocks = new PairBlocks(new ArrayList<Block>(), new ArrayList<Block>());
 	}
 
 		
 	//정상적인 형태의 임의의 case
 	@Test
 	public void testCopyToLeft1() {
-		blocks = diff.compare("d\naabc\n", "aabc\nx\ny\n");
+		blocks.getLeft().add(makeChangedBlock("d\n"));
+		blocks.getLeft().add(makeUnchangedBlock("aabc\n"));
+		blocks.getLeft().add(makeSpaceBlock("\n\n"));
+		
+		blocks.getRight().add(makeSpaceBlock("\n"));
+		blocks.getRight().add(makeUnchangedBlock("aabc\n"));
+		blocks.getRight().add(makeChangedBlock("x\ny\n"));
+		
 		copier.copyToLeft(blocks.getLeft(), blocks.getRight(), 0);
 		String s = pairBlocksToString(blocks);
 		
@@ -58,7 +79,14 @@ public class CopierTest {
 	//unchanged Block을 copy 시도
 	@Test
 	public void testCopyToLeft2() {
-		blocks = diff.compare("d\naabc\n", "aabc\nx\ny\n");
+		blocks.getLeft().add(makeChangedBlock("d\n"));
+		blocks.getLeft().add(makeUnchangedBlock("aabc\n"));
+		blocks.getLeft().add(makeSpaceBlock("\n\n"));
+		
+		blocks.getRight().add(makeSpaceBlock("\n"));
+		blocks.getRight().add(makeUnchangedBlock("aabc\n"));
+		blocks.getRight().add(makeChangedBlock("x\ny\n"));
+		
 		String s_before = pairBlocksToString(blocks);
 		copier.copyToLeft(blocks.getLeft(), blocks.getRight(), 1);
 		String s_after = pairBlocksToString(blocks);
@@ -69,7 +97,14 @@ public class CopierTest {
 	//정상적인 형태의 임의의 case
 	@Test
 	public void testCopyToLeft3() {
-		blocks = diff.compare("d\naabc\n", "aabc\nx\ny\n");
+		blocks.getLeft().add(makeChangedBlock("d\n"));
+		blocks.getLeft().add(makeUnchangedBlock("aabc\n"));
+		blocks.getLeft().add(makeSpaceBlock("\n\n"));
+		
+		blocks.getRight().add(makeSpaceBlock("\n"));
+		blocks.getRight().add(makeUnchangedBlock("aabc\n"));
+		blocks.getRight().add(makeChangedBlock("x\ny\n"));
+		
 		copier.copyToLeft(blocks.getLeft(), blocks.getRight(), 2);
 		String s = pairBlocksToString(blocks);
 		
@@ -79,7 +114,14 @@ public class CopierTest {
 	//원래 string 보다 큰 blockNum을 입력으로 받았을 때
 	@Test
 	public void testCopyToLeft4() {
-		blocks = diff.compare("d\naabc\n", "aabc\nx\ny\n");
+		blocks.getLeft().add(makeChangedBlock("d\n"));
+		blocks.getLeft().add(makeUnchangedBlock("aabc\n"));
+		blocks.getLeft().add(makeSpaceBlock("\n\n"));
+		
+		blocks.getRight().add(makeSpaceBlock("\n"));
+		blocks.getRight().add(makeUnchangedBlock("aabc\n"));
+		blocks.getRight().add(makeChangedBlock("x\ny\n"));
+		
 		String s_before = pairBlocksToString(blocks);
 		copier.copyToLeft(blocks.getLeft(), blocks.getRight(), 10);
 		String s_after = pairBlocksToString(blocks);
@@ -90,7 +132,14 @@ public class CopierTest {
 	//blockNum으로 음수를 입력 받았을 때
 	@Test
 	public void testCopyToLeft5() {
-		blocks = diff.compare("d\naabc\n", "aabc\nx\ny\n");
+		blocks.getLeft().add(makeChangedBlock("d\n"));
+		blocks.getLeft().add(makeUnchangedBlock("aabc\n"));
+		blocks.getLeft().add(makeSpaceBlock("\n\n"));
+		
+		blocks.getRight().add(makeSpaceBlock("\n"));
+		blocks.getRight().add(makeUnchangedBlock("aabc\n"));
+		blocks.getRight().add(makeChangedBlock("x\ny\n"));
+		
 		String s_before = pairBlocksToString(blocks);
 		copier.copyToLeft(blocks.getLeft(), blocks.getRight(), -1);
 		String s_after = pairBlocksToString(blocks);
@@ -101,7 +150,11 @@ public class CopierTest {
 	//정상적인 형태의 임의의 case
 	@Test
 	public void testCopyToLeft6() {
-		blocks = diff.compare("", "aabc\nx\ny\n");
+		blocks.getLeft().add(makeSpaceBlock("\n\n\n"));
+		
+		blocks.getRight().add(makeChangedBlock("aabc\nx\ny\n"));
+		
+//		blocks = diff.compare("", "aabc\nx\ny\n");
 		copier.copyToLeft(blocks.getLeft(), blocks.getRight(), 0);
 		String s = pairBlocksToString(blocks);
 		
@@ -110,8 +163,7 @@ public class CopierTest {
 	
 	//두 String이 모두 공스트링("")일 때
 	@Test
-	public void testCopyToLeft7() {
-		blocks = diff.compare("", "");
+	public void testCopyToLeft7() {		
 		String s_before = pairBlocksToString(blocks);
 		copier.copyToLeft(blocks.getLeft(), blocks.getRight(), 0);
 		String s_after = pairBlocksToString(blocks);
@@ -122,7 +174,14 @@ public class CopierTest {
 	//정상적인 형태의 임의의 case
 	@Test
 	public void testCopyToRight1() {
-		blocks = diff.compare("d\naabc\n", "aabc\nx\ny\n");
+		blocks.getLeft().add(makeChangedBlock("d\n"));
+		blocks.getLeft().add(makeUnchangedBlock("aabc\n"));
+		blocks.getLeft().add(makeSpaceBlock("\n\n"));
+		
+		blocks.getRight().add(makeSpaceBlock("\n"));
+		blocks.getRight().add(makeUnchangedBlock("aabc\n"));
+		blocks.getRight().add(makeChangedBlock("x\ny\n"));
+		
 		copier.copyToRight(blocks.getLeft(), blocks.getRight(), 0);
 		String s = pairBlocksToString(blocks);
 		
@@ -132,7 +191,14 @@ public class CopierTest {
 	//unchanged Block을 copy 시도
 	@Test
 	public void testCopyToRight2() {
-		blocks = diff.compare("d\naabc\n", "aabc\nx\ny\n");
+		blocks.getLeft().add(makeChangedBlock("d\n"));
+		blocks.getLeft().add(makeUnchangedBlock("aabc\n"));
+		blocks.getLeft().add(makeSpaceBlock("\n\n"));
+		
+		blocks.getRight().add(makeSpaceBlock("\n"));
+		blocks.getRight().add(makeUnchangedBlock("aabc\n"));
+		blocks.getRight().add(makeChangedBlock("x\ny\n"));
+		
 		String s_before = pairBlocksToString(blocks);
 		copier.copyToRight(blocks.getLeft(), blocks.getRight(), 1);
 		String s_after = pairBlocksToString(blocks);
@@ -143,7 +209,14 @@ public class CopierTest {
 	//정상적인 형태의 임의의 case
 	@Test
 	public void testCopyToRight3() {
-		blocks = diff.compare("d\naabc\n", "aabc\nx\ny\n");
+		blocks.getLeft().add(makeChangedBlock("d\n"));
+		blocks.getLeft().add(makeUnchangedBlock("aabc\n"));
+		blocks.getLeft().add(makeSpaceBlock("\n\n"));
+		
+		blocks.getRight().add(makeSpaceBlock("\n"));
+		blocks.getRight().add(makeUnchangedBlock("aabc\n"));
+		blocks.getRight().add(makeChangedBlock("x\ny\n"));
+		
 		copier.copyToRight(blocks.getLeft(), blocks.getRight(), 2);
 		String s = pairBlocksToString(blocks);
 		
@@ -153,7 +226,14 @@ public class CopierTest {
 	//원래 string 보다 큰 blockNum을 입력으로 받았을 때
 	@Test
 	public void testCopyToRight4() {
-		blocks = diff.compare("d\naabc\n", "aabc\nx\ny\n");
+		blocks.getLeft().add(makeChangedBlock("d\n"));
+		blocks.getLeft().add(makeUnchangedBlock("aabc\n"));
+		blocks.getLeft().add(makeSpaceBlock("\n\n"));
+		
+		blocks.getRight().add(makeSpaceBlock("\n"));
+		blocks.getRight().add(makeUnchangedBlock("aabc\n"));
+		blocks.getRight().add(makeChangedBlock("x\ny\n"));
+		
 		String s_before = pairBlocksToString(blocks);
 		copier.copyToRight(blocks.getLeft(), blocks.getRight(), 10);
 		String s_after = pairBlocksToString(blocks);
@@ -164,7 +244,14 @@ public class CopierTest {
 	//blockNum으로 음수를 입력 받았을 때
 	@Test
 	public void testCopyToRight5() {
-		blocks = diff.compare("d\naabc\n", "aabc\nx\ny\n");
+		blocks.getLeft().add(makeChangedBlock("d\n"));
+		blocks.getLeft().add(makeUnchangedBlock("aabc\n"));
+		blocks.getLeft().add(makeSpaceBlock("\n\n"));
+		
+		blocks.getRight().add(makeSpaceBlock("\n"));
+		blocks.getRight().add(makeUnchangedBlock("aabc\n"));
+		blocks.getRight().add(makeChangedBlock("x\ny\n"));
+
 		String s_before = pairBlocksToString(blocks);
 		copier.copyToRight(blocks.getLeft(), blocks.getRight(), -1);
 		String s_after = pairBlocksToString(blocks);
@@ -175,7 +262,10 @@ public class CopierTest {
 	//정상적인 형태의 임의의 case
 	@Test
 	public void testCopyToRight6() {
-		blocks = diff.compare("", "aabc\nx\ny\n");
+		blocks.getLeft().add(makeSpaceBlock("\n\n\n"));
+		
+		blocks.getRight().add(makeChangedBlock("aabc\nx\ny\n"));
+
 		copier.copyToRight(blocks.getLeft(), blocks.getRight(), 0);
 		String s = pairBlocksToString(blocks);
 		
@@ -185,7 +275,6 @@ public class CopierTest {
 	//두 String이 모두 공스트링("")일 때
 	@Test
 	public void testCopyToRight7() {
-		blocks = diff.compare("", "");
 		String s_before = pairBlocksToString(blocks);
 		copier.copyToRight(blocks.getLeft(), blocks.getRight(), 0);
 		String s_after = pairBlocksToString(blocks);
