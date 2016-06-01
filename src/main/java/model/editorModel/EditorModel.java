@@ -2,6 +2,7 @@ package model.editorModel;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.charset.MalformedInputException;
 
 import javafx.beans.property.ReadOnlyObjectProperty;
 import model.editorModel.contentNodeModel.ObservableCompResultModel;
@@ -41,8 +42,15 @@ public class EditorModel implements EditorModelInterface {
 
 	@Override
 	public void load(File source) throws IOException{
-        ComparisonTargetReader loader = new ComparisonTargetReader();
-        loader.readComparisonFile(source, comparisonTarget);
+		try {
+			ComparisonTargetReader loader = new ComparisonTargetReader();
+			loader.readComparisonFile(source, comparisonTarget);
+		}catch(MalformedInputException mie){
+			comparisonTarget.setEncoding(null);
+			comparisonTarget.setSource(null);
+			comparisonTarget.setContent(null);
+			throw mie;
+		}
 	}
 
 	@Override

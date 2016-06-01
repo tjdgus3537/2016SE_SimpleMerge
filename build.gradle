@@ -8,12 +8,21 @@ apply plugin: 'idea'
 
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
-
-applicationDefaultJvmArgs = ['-Dfile.encoding=UTF-8']
-
 mainClassName = "AppMain"
 
+[ compileJava, compileTestJava ]*.options*.encoding = 'UTF-8'
 
+//create a single Jar with all dependencies
+task fatJar(type: Jar) {
+    manifest {
+        attributes ("Implementation-Title": "2016SE_SimpleMerge",
+                "Implementation-Version": version,
+                "Main-Class": "AppMain")
+    }
+    baseName = project.name + '-all'
+    from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
+    with jar
+}
 
 repositories {
     mavenCentral()
@@ -24,8 +33,4 @@ dependencies {
     testCompile 'org.easymock:easymock:3.4'
     testCompile 'org.objenesis:objenesis:2.2'
     compile 'com.googlecode.juniversalchardet:juniversalchardet:1.0.3'
-    testCompile 'org.testfx:testfx-core:4.0.+'
-    testCompile 'org.testfx:testfx-legacy:4.0.+', {
-        exclude group: "junit", module: "junit"
-    }
 }

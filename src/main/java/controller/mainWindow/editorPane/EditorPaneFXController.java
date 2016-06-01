@@ -16,6 +16,7 @@ import javafx.stage.FileChooser;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.nio.charset.MalformedInputException;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -174,6 +175,12 @@ public class EditorPaneFXController implements Initializable, EditorPaneControll
             setEditable(false);
             setDisableEditModeButtons(false);
             switchEditorTextArea();
+        }catch (MalformedInputException mie){
+            Alert fileEncodingErrorAlert = new Alert(Alert.AlertType.ERROR);
+            fileEncodingErrorAlert.setTitle("Error");
+            fileEncodingErrorAlert.setHeaderText("Can't detect file encoding.");
+            fileEncodingErrorAlert.setContentText("The character set of this file is unknown. Please convert this file to utf-8 encoding.");
+            fileEncodingErrorAlert.show();
         }catch (IOException ioe){
             Alert fileLoadErrorAlert = new Alert(Alert.AlertType.ERROR);
             fileLoadErrorAlert.setTitle("Error");

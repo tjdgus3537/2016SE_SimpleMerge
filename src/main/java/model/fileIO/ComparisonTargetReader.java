@@ -36,12 +36,14 @@ public class ComparisonTargetReader {
 				return Charset.forName(encoding);
 			} else {
 				System.out.println("No encoding detected.");
-				return StandardCharsets.UTF_8;
+				String osName = System.getProperty("os.name");
+				if(osName.startsWith("Windows")) return Charset.forName("windows-1252");
+				else return StandardCharsets.UTF_8;
 			}
 		}
 	}
 
-    private String readFile(File source, Charset charset) throws IOException {
+    private String readFile(File source, Charset charset) throws IOException{
     	try (BufferedReader reader = Files.newBufferedReader(source.toPath(), charset)) {
 			return reader.lines().collect(Collector.of(
 					()->new StringJoiner("\n"),
