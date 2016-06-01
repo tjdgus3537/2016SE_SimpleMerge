@@ -14,5 +14,5 @@ public interface DiffInterface {
 	 * @param right 비교할 문자열
      * @return 비교 결과
      */
-	public PairBlocks compare(String left, String right);
+	PairBlocks compare(String left, String right);
 }
