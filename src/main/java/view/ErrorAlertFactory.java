@@ -17,6 +17,10 @@ public class ErrorAlertFactory {
         return errorAlert;
     }
 
+    /**
+     * 뷰를 불러오다 실패했을 때, 보여주는 에러 메세지를 생헝합니다.
+     * @return 뷰 불러오기를 실패했을 때, 보여주는 Alert 객체
+     */
     public static Alert newViewLoadErrorAlert(){
         Alert viewLoadAlert = newErrorAlert();
         viewLoadAlert.setHeaderText("View load failed");
@@ -25,6 +29,10 @@ public class ErrorAlertFactory {
         return viewLoadAlert;
     }
 
+    /**
+     * 파일 저장에 실패했을 때, 보여주는 에러 메세지를 생성합니다.
+     * @return 파일 저장에 실패했을 때, 보여주는 Alert 객체
+     */
     public static Alert newFileSaveErrorAlert(){
         Alert fileLoadErrorAlert = newErrorAlert();
         fileLoadErrorAlert.setHeaderText("File save failed");
@@ -32,6 +40,10 @@ public class ErrorAlertFactory {
         return fileLoadErrorAlert;
     }
 
+    /**
+     * 파일 인코딩 감지에 실패했을 때, 보여주는 에러 메세지를 생성합니다.
+     * @return 파일 인코딩 감지에 실패했을 때, 보여주는 Alert 객체
+     */
     public static Alert newFileEncodingErrorAlert(){
         Alert fileEncodingErrorAlert = newErrorAlert();
         fileEncodingErrorAlert.setHeaderText("Can't detect file encoding.");
@@ -39,6 +51,10 @@ public class ErrorAlertFactory {
         return fileEncodingErrorAlert;
     }
 
+    /**
+     * 파일 불러오기에 실패했을 때, 보여주는 에러 메세지를 생성합니다.
+     * @return 파일 불러오기에 실패했을 때, 보여주는 Alert 객체
+     */
     public static Alert newFileLoadErrorAlert(){
         Alert fileLoadErrorAlert = newErrorAlert();
         fileLoadErrorAlert.setHeaderText("File load failed");

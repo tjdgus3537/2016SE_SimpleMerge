@@ -15,6 +15,11 @@ public class ConfirmationAlertFactory {
         confirmationAlert.setTitle("Confirmation");
         return confirmationAlert;
     }
+
+    /**
+     * 편집한 파일을 저장할 것이냐고 묻는 확인 메세지를 생성합니다.
+     * @return 편집한 파일을 저장할 것인지 묻는 Alert 객체
+     */
     public static Alert newSaveEditedFileConfirmationAlert(){
         Alert saveEditedFileAlert = newConfirmationAlert();
         saveEditedFileAlert.setHeaderText("Save this file?");
