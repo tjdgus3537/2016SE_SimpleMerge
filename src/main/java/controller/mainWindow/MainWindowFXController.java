@@ -7,10 +7,13 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollBar;
 import javafx.scene.control.SplitPane;
 import model.*;
+import view.ErrorAlertFactory;
+
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -104,8 +107,9 @@ public class MainWindowFXController implements Initializable, MainWindowControll
                 }
             });
             compareButton.setDisable(true);
-        }catch(IOException e){
-            e.printStackTrace();
+        }catch(IOException ioe){
+            Alert viewLoadAlert = ErrorAlertFactory.newViewLoadErrorAlert();
+            viewLoadAlert.show();
         }
     }
 }

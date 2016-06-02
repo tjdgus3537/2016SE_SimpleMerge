@@ -13,8 +13,12 @@ import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.FileChooser;
+import view.ConfirmationAlertFactory;
+import view.ErrorAlertFactory;
+
 import java.io.File;
 import java.io.IOException;
+import java.io.UncheckedIOException;
 import java.net.URL;
 import java.nio.charset.MalformedInputException;
 import java.util.List;
@@ -128,7 +132,9 @@ public class EditorPaneFXController implements Initializable, EditorPaneControll
         setContentNode(compResultListViewFXController.getContentNode());
     }
 
-    public void setCompModeDisableReceiver(CompModeDisableReceiver compModeDisableReceiver){ this.compModeDisableReceiver = compModeDisableReceiver; }
+    public void setCompModeDisableReceiver(CompModeDisableReceiver compModeDisableReceiver){
+        this.compModeDisableReceiver = compModeDisableReceiver;
+    }
 
     @Override
     public Node getContentNode() {
@@ -151,22 +157,16 @@ public class EditorPaneFXController implements Initializable, EditorPaneControll
         try {
             model.save();
         }catch(IOException ioe){
-            Alert fileLoadErrorAlert = new Alert(Alert.AlertType.ERROR);
-            fileLoadErrorAlert.setTitle("Error");
-            fileLoadErrorAlert.setHeaderText("File save failed");
-            fileLoadErrorAlert.setContentText("Selected file is not saved. Check if it saved normally or try again.");
-            fileLoadErrorAlert.show();
+            Alert fileSaveErrorAlert = ErrorAlertFactory.newFileSaveErrorAlert();
+            fileSaveErrorAlert.show();
         }
     }
 
     private void loadFromFile(){
         if(model.isFileLoaded()){
             // 이미 다른 파일을 편집중이면 저장할 지 물어봐야 함.
-            Alert alert =  new Alert(Alert.AlertType.CONFIRMATION);
-            alert.setTitle("Confirmation");
-            alert.setHeaderText("Save this file?");
-            alert.setContentText("If you load other file, you will lose all change about this file.\n Click \'Yes\' to save your changes");
-            alert.showAndWait().filter(response -> response == ButtonType.OK).ifPresent(response -> saveToFile());
+            Alert saveEditedFileAlert = ConfirmationAlertFactory.newSaveEditedFileConfirmationAlert();
+            saveEditedFileAlert.showAndWait().filter(response -> response == ButtonType.OK).ifPresent(response -> saveToFile());
         }
         File selectedFile = showFileChooser();
         if(selectedFile == null) return;
@@ -175,17 +175,16 @@ public class EditorPaneFXController implements Initializable, EditorPaneControll
             setEditable(false);
             setDisableEditModeButtons(false);
             switchEditorTextArea();
-        }catch (MalformedInputException mie){
-            Alert fileEncodingErrorAlert = new Alert(Alert.AlertType.ERROR);
-            fileEncodingErrorAlert.setTitle("Error");
-            fileEncodingErrorAlert.setHeaderText("Can't detect file encoding.");
-            fileEncodingErrorAlert.setContentText("The character set of this file is unknown. Please convert this file to utf-8 encoding.");
+        }catch (UncheckedIOException uioe) {
+            if (uioe.getCause() instanceof MalformedInputException) {
+                Alert fileEncodingErrorAlert = ErrorAlertFactory.newFileEncodingErrorAlert();
+                fileEncodingErrorAlert.show();
+            }
+        }catch  (MalformedInputException mie){
+            Alert fileEncodingErrorAlert = ErrorAlertFactory.newFileEncodingErrorAlert();
             fileEncodingErrorAlert.show();
         }catch (IOException ioe){
-            Alert fileLoadErrorAlert = new Alert(Alert.AlertType.ERROR);
-            fileLoadErrorAlert.setTitle("Error");
-            fileLoadErrorAlert.setHeaderText("File load failed");
-            fileLoadErrorAlert.setContentText("Selected file is not loaded. Check if it exists and try again.");
+            Alert fileLoadErrorAlert = ErrorAlertFactory.newFileLoadErrorAlert();
             fileLoadErrorAlert.show();
         }
     }
@@ -238,11 +237,7 @@ public class EditorPaneFXController implements Initializable, EditorPaneControll
             // 로드가 끝나면 텍스트 에이리어로 교체한다.
             switchEditorTextArea();
         }catch(IOException ioe){
-            Alert viewLoadAlert = new Alert(Alert.AlertType.ERROR);
-            viewLoadAlert.setTitle("Error");
-            viewLoadAlert.setHeaderText("View load failed");
-            viewLoadAlert.setContentText("View is not loaded. Please Restart the program.\n" +
-                    "If this error occurs several time, please report bug to wraithkim@cau.ac.kr");
+            Alert viewLoadAlert = ErrorAlertFactory.newViewLoadErrorAlert();
             viewLoadAlert.show();
         }
     }

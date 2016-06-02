@@ -3,6 +3,7 @@ package model.fileIO;
 import model.fileIO.file.ComparisonTargetInterface;
 import java.io.*;
 import java.nio.charset.Charset;
+import java.nio.charset.MalformedInputException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.util.StringJoiner;
@@ -13,15 +14,16 @@ import org.mozilla.universalchardet.UniversalDetector;
  * Created by Donghwan on 5/12/2016.
  * 프로그램에서 비교할 파일을 읽어오는 객체
  */
-public class ComparisonTargetReader {
-	public void readComparisonFile(File source, ComparisonTargetInterface destination) throws IOException{
-		destination.setSource(source);
+public class ComparisonTargetLoader {
+	public void load(File source, ComparisonTargetInterface destination) throws IOException{
 		Charset charset = detectEncoding(source);
-		destination.setEncoding(charset);
 		destination.setContent(readFile(source, charset));
+		destination.setSource(source);
+		destination.setEncoding(charset);
 	}
 
 	private Charset detectEncoding(File source) throws IOException{
+		// juniversalchardet의 예제 코드
 		byte[] buf = new byte[4096];
 		try(FileInputStream fis = new java.io.FileInputStream(source)){
 			UniversalDetector detector = new UniversalDetector(null);
@@ -35,10 +37,7 @@ public class ComparisonTargetReader {
 				System.out.println("Detected encoding = " + encoding);
 				return Charset.forName(encoding);
 			} else {
-				System.out.println("No encoding detected.");
-				String osName = System.getProperty("os.name");
-				if(osName.startsWith("Windows")) return Charset.forName("x-windows-949");
-				else return StandardCharsets.UTF_8;
+				return StandardCharsets.UTF_8;
 			}
 		}
 	}

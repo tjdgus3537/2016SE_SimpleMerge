@@ -18,6 +18,25 @@ public class Block{
 		this.state = state;
 	}
 
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (o == null || getClass() != o.getClass()) return false;
+
+		Block block = (Block) o;
+
+		if (getState() != block.getState()) return false;
+		return getContent() != null ? getContent().equals(block.getContent()) : block.getContent() == null;
+
+	}
+
+	@Override
+	public int hashCode() {
+		int result = getState() != null ? getState().hashCode() : 0;
+		result = 31 * result + (getContent() != null ? getContent().hashCode() : 0);
+		return result;
+	}
+
 	public CompState getState() {
 		return state;
 	}

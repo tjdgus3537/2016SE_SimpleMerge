@@ -9,7 +9,7 @@ import model.editorModel.contentNodeModel.ObservableCompResultModel;
 import model.editorModel.contentNodeModel.ObservableCompResultInterface;
 import model.editorModel.contentNodeModel.ObservableTextModel;
 import model.editorModel.contentNodeModel.ObservableTextModelInterface;
-import model.fileIO.ComparisonTargetReader;
+import model.fileIO.ComparisonTargetLoader;
 import model.fileIO.ComparisonTargetWriter;
 import model.fileIO.file.ComparisonTargetInterface;
 
@@ -41,21 +41,14 @@ public class EditorModel implements EditorModelInterface {
 
 	@Override
 	public void load(File source) throws IOException{
-		try {
-			ComparisonTargetReader loader = new ComparisonTargetReader();
-			loader.readComparisonFile(source, comparisonTarget);
-		}catch(MalformedInputException mie){
-			comparisonTarget.setEncoding(null);
-			comparisonTarget.setSource(null);
-			comparisonTarget.setContent(null);
-			throw mie;
-		}
+		ComparisonTargetLoader loader = new ComparisonTargetLoader();
+		loader.load(source, comparisonTarget);
 	}
 
 	@Override
 	public void save() throws IOException{
         ComparisonTargetWriter writer = new ComparisonTargetWriter();
-        writer.writeComparisonFile(comparisonTarget);
+        writer.write(comparisonTarget);
 	}
 
 	@Override
