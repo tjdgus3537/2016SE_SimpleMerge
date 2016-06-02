@@ -34,7 +34,6 @@ public class ComparisonTargetLoader {
 			detector.dataEnd();
 			String encoding = detector.getDetectedCharset();
 			if (encoding != null) {
-				System.out.println("Detected encoding = " + encoding);
 				return Charset.forName(encoding);
 			} else {
 				return StandardCharsets.UTF_8;
