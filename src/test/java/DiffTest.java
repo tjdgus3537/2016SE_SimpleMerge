@@ -15,6 +15,7 @@ import org.junit.Test;
 
 public class DiffTest {
 	private DiffInterface diff;
+	PairBlocks blocks;
 	
 	//helper method
 	private String blockToString(Block block) {
@@ -48,7 +49,6 @@ public class DiffTest {
 	//정상적인 형태의 임의의 case
 	@Test
 	public void testCompareNormalCase1() {
-		PairBlocks blocks;
 		blocks = diff.compare("a\nb\nc\n", "\n\na\nb\n");
 		String s = pairBlocksToString(blocks);
 		
@@ -58,7 +58,6 @@ public class DiffTest {
 	//정상적인 형태의 임의의 case
 	@Test
 	public void testCompareNormalCase2() {
-		PairBlocks blocks;
 		blocks = diff.compare("d\naabc\n", "aabc\nx\ny\n");
 		String s = pairBlocksToString(blocks);
 		
@@ -68,7 +67,6 @@ public class DiffTest {
 	//정상적인 형태의 임의의 case
 	@Test
 	public void testCompareNormalCase3() {
-		PairBlocks blocks;
 		blocks = diff.compare("\n#ignore thumbnails created by windows\nThumbs.db\n",
 				"\nsyntax: glob\n\nThumbs.db\n");
 		String s = pairBlocksToString(blocks);
@@ -79,7 +77,6 @@ public class DiffTest {
 	//정상적인 형태의 임의의 case
 	@Test
 	public void testCompareNormalCase4() {
-		PairBlocks blocks;
 		blocks = diff.compare("\n#ignore thumbnails created by windows\nsyntax: glob\n\nThumbs.db\n#Ignore files build by Visual Studio\n*.obj\n*",
 				"syntax: glob\n\nThumbs.db\n*.obj\n*");
 		String s = pairBlocksToString(blocks);
@@ -90,7 +87,6 @@ public class DiffTest {
 	//String 중 왼쪽이 비어있을 때
 	@Test
 	public void testCompareAbnormalCase1() {
-		PairBlocks blocks;
 		blocks = diff.compare("", "\n\na\nb\n");
 		String s = pairBlocksToString(blocks);
 
@@ -100,7 +96,6 @@ public class DiffTest {
 	//String 중 오른쪽이 비어있을 때
 	@Test
 	public void testCompareAbnormalCase2() {
-		PairBlocks blocks;
 		blocks = diff.compare("\n\na\nb\n", "");
 		String s = pairBlocksToString(blocks);
 
@@ -110,7 +105,6 @@ public class DiffTest {
 	//String 두 개가 모두 공스트링인 경우
 	@Test
 	public void testCompareAbnormalCase3() {
-		PairBlocks blocks;
 		blocks = diff.compare("", "");
 		String s = pairBlocksToString(blocks);
 
@@ -120,7 +114,6 @@ public class DiffTest {
 	//String 중 한 개가 null인 경우
 	@Test
 	public void testCompareAbnormalCase4() {
-		PairBlocks blocks;
 		blocks = diff.compare(null, "");
 
 		assertEquals(null, blocks);
@@ -129,7 +122,6 @@ public class DiffTest {
 	//String 두 개 모두 null인 경우
 	@Test
 	public void testCompareAbnormalCase5() {
-		PairBlocks blocks;
 		blocks = diff.compare(null, null);
 
 		assertEquals(null, blocks);
