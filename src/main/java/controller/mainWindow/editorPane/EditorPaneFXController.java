@@ -150,8 +150,8 @@ public class EditorPaneFXController implements Initializable, EditorPaneControll
 
     private void setDisableEditModeButtons(boolean disable){
         // 편집 모드와 관련된 버튼을 비활성화 한다.
-        editButton.setDisable(disable);
-        saveButton.setDisable(disable);
+        editButton.setDisable(false);
+        saveButton.setDisable(false);
     }
 
     private void saveToFile(){

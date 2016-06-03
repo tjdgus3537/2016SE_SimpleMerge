@@ -18,6 +18,7 @@ import java.util.ResourceBundle;
  */
 public class CompResultsViewFXController implements Initializable, CompResultsViewControllerInterface {
 
+    @SuppressWarnings("FieldCanBeLocal")
     private ObservableCompResultInterface model;
     @FXML
     private ListView<Block> compareListVIew;

@@ -9,7 +9,7 @@ import model.fileIO.file.TextPropertyProvider;
  * Observable 인터페이스를 상속받은 텍스트를 제공하는 모델
  */
 public class ObservableTextModel implements ObservableTextModelInterface {
-    TextPropertyProvider textPropertyProvider;
+    private final TextPropertyProvider textPropertyProvider;
 
     public ObservableTextModel(TextPropertyProvider textPropertyProvider) {
         this.textPropertyProvider = textPropertyProvider;

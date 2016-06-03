@@ -16,9 +16,9 @@ import java.util.stream.Collector;
  * 비교하는 파일에 대해서 저장하는 클래스
  */
 public class ComparisonTarget implements ComparisonTargetInterface {
-    private ObjectProperty<File> sourceProperty;
-    private StringProperty contentProperty;
-    private ObservableList<Block> comparisonResult;
+    private final ObjectProperty<File> sourceProperty;
+    private final StringProperty contentProperty;
+    private final ObservableList<Block> comparisonResult;
     private Charset encoding;
 
     public ComparisonTarget() {
@@ -28,19 +28,18 @@ public class ComparisonTarget implements ComparisonTargetInterface {
         comparisonResult = FXCollections.observableArrayList();
 
         // 비교결과가 바뀔때마다 텍스트 모델에 변경 사항 저장
-        comparisonResult.addListener((ListChangeListener<Block>) c -> {
-            contentProperty.setValue(comparisonResult
-                    .stream()
-                    .filter(item -> item.getState() != CompState.SPACE)
-                    .map(item->item.getContent())
-                    .collect(
-                            Collector.of(
-                                    StringBuffer::new,
-                                    StringBuffer::append,
-                                    StringBuffer::append,
-                                    StringBuffer::toString)
-                    ));
-        });
+        comparisonResult.addListener(
+                (ListChangeListener<Block>) c -> contentProperty.setValue(comparisonResult
+                .stream()
+                .filter(item -> item.getState() != CompState.SPACE)
+                .map(Block::getContent)
+                .collect(
+                        Collector.of(
+                                StringBuffer::new,
+                                StringBuffer::append,
+                                StringBuffer::append,
+                                StringBuffer::toString)
+                )));
     }
 
     public ComparisonTarget(File source, String content){

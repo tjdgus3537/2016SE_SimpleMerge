@@ -2,8 +2,6 @@ package model.editorModel;
 
 import java.io.File;
 import java.io.IOException;
-import java.nio.charset.MalformedInputException;
-
 import javafx.beans.property.ReadOnlyObjectProperty;
 import model.editorModel.contentNodeModel.ObservableCompResultModel;
 import model.editorModel.contentNodeModel.ObservableCompResultInterface;
@@ -19,9 +17,9 @@ import model.fileIO.file.ComparisonTargetInterface;
  * 편집 창의 모델
  */
 public class EditorModel implements EditorModelInterface {
-	ComparisonTargetInterface comparisonTarget;
-    ObservableTextModelInterface observableTextModelInterface;
-    ObservableCompResultInterface observableCompResultInterface;
+	private final ComparisonTargetInterface comparisonTarget;
+    private final ObservableTextModelInterface observableTextModelInterface;
+    private final ObservableCompResultInterface observableCompResultInterface;
 	
 	public EditorModel(ComparisonTargetInterface comparisonTarget) {
 		this.comparisonTarget = comparisonTarget;

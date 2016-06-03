@@ -13,7 +13,7 @@ import java.util.ArrayList;
 
 public class Diff implements DiffInterface{
 	private enum Direction {
-		NONE, UP, LEFT, UP_AND_LEFT;
+		NONE, UP, LEFT, UP_AND_LEFT
 	}
 	
 	public Diff() {
@@ -61,7 +61,7 @@ public class Diff implements DiffInterface{
 
 	private ArrayList<String> parseString(String s) {
 		//한 줄씩 찾아서 String 단위로 묶어준다.
-		ArrayList<String> lineStrings = new ArrayList<String>();
+		ArrayList<String> lineStrings = new ArrayList<>();
 		int lineCheckIndex = 0;
 		
 		for (int i = 0; i < s.length(); i++) {
@@ -87,7 +87,7 @@ public class Diff implements DiffInterface{
 	
 	private ArrayList<CompState> getLineState(ArrayList<String> s, ArrayList<String> lcs) {
 		//한 줄이 어디까지 인지를 확인하고, 그 줄이 변했는지를 판단한다.
-		ArrayList<CompState> lineStates = new ArrayList<CompState>();
+		ArrayList<CompState> lineStates = new ArrayList<>();
 		int lcsIndex = 0;
 		
 		for (int i = 0; i < s.size(); i++) {
@@ -158,7 +158,7 @@ public class Diff implements DiffInterface{
 	
 	private ArrayList<Block> getBlockArrayList(
 			ArrayList<CompState> lineStates, ArrayList<String> lineStrings) {
-		ArrayList<Block> blocks = new ArrayList<Block>();
+		ArrayList<Block> blocks = new ArrayList<>();
 		Block block;
 		String s;
 		int lineCheckIndex = 0;
@@ -260,7 +260,7 @@ public class Diff implements DiffInterface{
 	private ArrayList<String> backtrack(Direction[][] restore, ArrayList<String> left, ArrayList<String> right) {
 		//restore과 table를 이용해서 backtracking 하여 LCS를 얻어낸다.
 		int i = left.size(), j = right.size();
-		ArrayList<String> lcs = new ArrayList<String>();
+		ArrayList<String> lcs = new ArrayList<>();
 
 		while (restore[i][j] != Direction.NONE) {
 			//left.get(i) == right.get(j)

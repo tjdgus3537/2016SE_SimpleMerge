@@ -11,6 +11,7 @@ import model.editorModel.contentNodeModel.ObservableTextModelInterface;
  * 편집 창에서 파일의 내용을 편집할 수 있는 텍스트 에이리어의 컨트롤러
  */
 public class EditorTextAreaFXController implements EditorTextAreaControllerInterface {
+    @SuppressWarnings("FieldCanBeLocal")
     private ObservableTextModelInterface model;
     @FXML
     private TextArea editorTextArea;
