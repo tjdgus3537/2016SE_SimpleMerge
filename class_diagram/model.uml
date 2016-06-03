@@ -1,0 +1,270 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement />
+  <nodes>
+    <node x="646.5569819819821" y="0.0">model.fileIO.file.TextPropertyProvider</node>
+    <node x="307.74999999999994" y="257.0">model.diff.Copier</node>
+    <node x="935.3148648648647" y="158.0">model.editorModel.contentNodeModel.ObservableCompResultModel</node>
+    <node x="1489.8148648648648" y="79.0">model.editorModel.ReadOnlyFilePropertyProvider</node>
+    <node x="938.1666666666665" y="257.0">model.editorModel.EditorModel</node>
+    <node x="448.7499999999999" y="356.0">model.MainModel</node>
+    <node x="744.5648648648647" y="158.0">model.editorModel.contentNodeModel.ObservableTextModel</node>
+    <node x="651.3148648648647" y="79.0">model.editorModel.contentNodeModel.ObservableTextModelInterface</node>
+    <node x="175.0" y="509.0">view</node>
+    <node x="216.99999999999994" y="158.0">model.diff.block.PairBlocks</node>
+    <node x="295.30754504504495" y="79.0">model.diff.block.Block</node>
+    <node x="865.3148648648647" y="79.0">model.editorModel.contentNodeModel.ObservableCompResultInterface</node>
+    <node x="0.0" y="509.0">controller</node>
+    <node x="1631.0648648648648" y="257.0">model.MainModelInterface</node>
+    <node x="334.99999999999994" y="158.0">model.diff.CopierInterface</node>
+    <node x="1145.3148648648648" y="158.0">model.fileIO.ComparisonTargetWriter</node>
+    <node x="852.0569819819821" y="0.0">model.fileIO.file.ObservableBlocksProvider</node>
+    <node x="482.74999999999994" y="158.0">model.fileIO.file.ComparisonTargetInterface</node>
+    <node x="1327.3148648648648" y="158.0">model.fileIO.ComparisonTargetLoader</node>
+    <node x="1513.3148648648648" y="158.0">model.editorModel.EditorModelInterface</node>
+    <node x="0.0" y="158.0">model.diff.DiffInterface</node>
+    <node x="430.24999999999994" y="257.0">model.fileIO.file.ComparisonTarget</node>
+    <node x="117.0" y="158.0">model.diff.Diff.Direction</node>
+    <node x="454.7499999999998" y="435.0">AppMain</node>
+    <node x="164.78986486486474" y="257.0">model.diff.Diff</node>
+    <node x="280.30754504504495" y="0.0">model.diff.block.CompState</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="model.editorModel.contentNodeModel.ObservableCompResultModel" target="model.fileIO.file.ObservableBlocksProvider">
+      <point x="47.5" y="-14.5" />
+      <point x="1077.8148648648648" y="59.0" />
+      <point x="992.8903153153153" y="59.0" />
+      <point x="56.33333333333337" y="14.5" />
+    </edge>
+    <edge source="model.editorModel.EditorModel" target="model.editorModel.contentNodeModel.ObservableTextModelInterface">
+      <point x="-30.3125" y="-14.5" />
+      <point x="956.3541666666665" y="227.0" />
+      <point x="699.5648648648647" y="227.0" />
+      <point x="-48.25" y="14.5" />
+    </edge>
+    <edge source="model.fileIO.file.ComparisonTargetInterface" target="model.fileIO.file.ObservableBlocksProvider">
+      <point x="44.0" y="-14.5" />
+      <point x="614.75" y="133.0" />
+      <point x="604.4398648648647" y="133.0" />
+      <point x="604.4398648648647" y="59.0" />
+      <point x="880.2236486486486" y="59.0" />
+      <point x="-56.33333333333337" y="14.5" />
+    </edge>
+    <edge source="model.editorModel.EditorModel" target="model.editorModel.contentNodeModel.ObservableCompResultModel">
+      <point x="6.0625" y="-14.5" />
+      <point x="992.7291666666665" y="207.0" />
+      <point x="1030.3148648648648" y="207.0" />
+      <point x="0.0" y="14.5" />
+    </edge>
+    <edge source="model.editorModel.contentNodeModel.ObservableTextModel" target="model.fileIO.file.TextPropertyProvider">
+      <point x="36.75" y="-14.5" />
+      <point x="854.8148648648647" y="49.0" />
+      <point x="765.7236486486486" y="49.0" />
+      <point x="47.66666666666663" y="14.5" />
+    </edge>
+    <edge source="model.diff.Copier" target="model.diff.block.Block">
+      <point x="-16.75" y="-14.5" />
+      <point x="324.49999999999994" y="133.0" />
+      <point x="333.43254504504495" y="133.0" />
+      <point x="7.625" y="14.5" />
+    </edge>
+    <edge source="model.MainModel" target="model.diff.DiffInterface">
+      <point x="-41.333333333333314" y="-14.5" />
+      <point x="453.9166666666666" y="336.0" />
+      <point x="24.25" y="336.0" />
+      <point x="-24.25" y="14.5" />
+    </edge>
+    <edge source="model.MainModel" target="model.editorModel.EditorModelInterface">
+      <point x="31.000000000000057" y="-14.5" />
+      <point x="526.25" y="326.0" />
+      <point x="1620.5648648648648" y="326.0" />
+      <point x="35.75" y="14.5" />
+    </edge>
+    <edge source="model.diff.Diff" target="model.diff.block.PairBlocks">
+      <point x="10.199999999999989" y="-14.5" />
+      <point x="200.48986486486478" y="227.0" />
+      <point x="259.99999999999994" y="227.0" />
+      <point x="0.0" y="14.5" />
+    </edge>
+    <edge source="model.editorModel.EditorModel" target="model.editorModel.EditorModelInterface">
+      <point x="42.4375" y="-14.5" />
+      <point x="1029.1041666666665" y="237.0" />
+      <point x="1549.0648648648648" y="237.0" />
+      <point x="-35.75" y="14.5" />
+    </edge>
+    <edge source="model.editorModel.EditorModel" target="model.fileIO.ComparisonTargetWriter">
+      <point x="18.1875" y="-14.5" />
+      <point x="1004.8541666666665" y="217.0" />
+      <point x="1226.3148648648648" y="217.0" />
+      <point x="0.0" y="14.5" />
+    </edge>
+    <edge source="model.fileIO.file.ComparisonTarget" target="model.diff.block.Block">
+      <point x="-32.49999999999994" y="-14.5" />
+      <point x="462.75" y="133.0" />
+      <point x="348.68254504504495" y="133.0" />
+      <point x="22.875" y="14.5" />
+    </edge>
+    <edge source="model.MainModel" target="model.editorModel.EditorModel">
+      <point x="20.666666666666686" y="-14.5" />
+      <point x="515.9166666666665" y="316.0" />
+      <point x="986.6666666666665" y="316.0" />
+      <point x="0.0" y="14.5" />
+    </edge>
+    <edge source="model.MainModel" target="model.diff.Copier">
+      <point x="-20.66666666666663" y="-14.5" />
+      <point x="474.58333333333326" y="316.0" />
+      <point x="341.24999999999994" y="316.0" />
+      <point x="0.0" y="14.5" />
+    </edge>
+    <edge source="model.diff.Copier" target="model.diff.CopierInterface">
+      <point x="16.75" y="-14.5" />
+      <point x="357.99999999999994" y="237.0" />
+      <point x="363.24999999999994" y="237.0" />
+      <point x="-28.25" y="14.5" />
+    </edge>
+    <edge source="AppMain" target="model.MainModel">
+      <point x="5.6843418860808015E-14" y="-14.5" />
+      <point x="0.0" y="14.5" />
+    </edge>
+    <edge source="model.diff.Diff.Direction" target="model.diff.Diff">
+      <point x="20.0" y="14.5" />
+      <point x="177.0" y="217.0" />
+      <point x="190.28986486486474" y="217.0" />
+      <point x="0.0" y="-14.5" />
+    </edge>
+    <edge source="model.diff.block.PairBlocks" target="model.diff.block.Block">
+      <point x="0.0" y="-14.5" />
+      <point x="259.99999999999994" y="133.0" />
+      <point x="302.93254504504495" y="133.0" />
+      <point x="-22.875" y="14.5" />
+    </edge>
+    <edge source="model.editorModel.contentNodeModel.ObservableTextModel" target="model.editorModel.contentNodeModel.ObservableTextModelInterface">
+      <point x="-36.75" y="-14.5" />
+      <point x="781.3148648648647" y="133.0" />
+      <point x="796.0648648648647" y="133.0" />
+      <point x="48.25" y="14.5" />
+    </edge>
+    <edge source="model.fileIO.file.ComparisonTargetInterface" target="model.fileIO.file.TextPropertyProvider">
+      <point x="-44.0" y="-14.5" />
+      <point x="526.75" y="133.0" />
+      <point x="563.6819819819821" y="133.0" />
+      <point x="563.6819819819821" y="49.0" />
+      <point x="670.3903153153153" y="49.0" />
+      <point x="-47.66666666666663" y="14.5" />
+    </edge>
+    <edge source="model.MainModel" target="model.diff.Diff">
+      <point x="-30.999999999999943" y="-14.5" />
+      <point x="464.24999999999994" y="326.0" />
+      <point x="190.28986486486474" y="326.0" />
+      <point x="0.0" y="14.5" />
+    </edge>
+    <edge source="model.MainModel" target="model.fileIO.file.ComparisonTarget">
+      <point x="5.6843418860808015E-14" y="-14.5" />
+      <point x="0.0" y="14.5" />
+    </edge>
+    <edge source="model.editorModel.contentNodeModel.ObservableCompResultModel" target="model.editorModel.contentNodeModel.ObservableCompResultInterface">
+      <point x="-47.5" y="-14.5" />
+      <point x="982.8148648648647" y="133.0" />
+      <point x="1016.8148648648647" y="133.0" />
+      <point x="50.5" y="14.5" />
+    </edge>
+    <edge source="model.MainModel" target="model.diff.CopierInterface">
+      <point x="-10.333333333333314" y="-14.5" />
+      <point x="484.9166666666666" y="306.0" />
+      <point x="419.74999999999994" y="306.0" />
+      <point x="28.25" y="14.5" />
+    </edge>
+    <edge source="model.fileIO.file.ComparisonTarget" target="model.fileIO.file.ComparisonTargetInterface">
+      <point x="32.50000000000006" y="-14.5" />
+      <point x="527.75" y="237.0" />
+      <point x="512.0833333333333" y="237.0" />
+      <point x="-58.66666666666663" y="14.5" />
+    </edge>
+    <edge source="model.editorModel.EditorModel" target="model.editorModel.contentNodeModel.ObservableCompResultInterface">
+      <point x="-6.0625" y="-14.5" />
+      <point x="980.6041666666665" y="207.0" />
+      <point x="915.8148648648647" y="207.0" />
+      <point x="-50.5" y="14.5" />
+    </edge>
+    <edge source="model.diff.Diff" target="model.diff.DiffInterface">
+      <point x="-20.400000000000006" y="-14.5" />
+      <point x="169.88986486486476" y="237.0" />
+      <point x="72.75" y="237.0" />
+      <point x="24.25" y="14.5" />
+    </edge>
+    <edge source="model.MainModel" target="model.MainModelInterface">
+      <point x="41.33333333333343" y="-14.5" />
+      <point x="536.5833333333333" y="336.0" />
+      <point x="1700.5648648648648" y="336.0" />
+      <point x="0.0" y="14.5" />
+    </edge>
+    <edge source="model.editorModel.contentNodeModel.ObservableCompResultInterface" target="model.fileIO.file.ObservableBlocksProvider">
+      <point x="0.0" y="-14.5" />
+      <point x="966.3148648648647" y="59.0" />
+      <point x="936.5569819819821" y="59.0" />
+      <point x="0.0" y="14.5" />
+    </edge>
+    <edge source="model.MainModel" target="model.fileIO.file.ComparisonTargetInterface">
+      <point x="10.333333333333371" y="-14.5" />
+      <point x="505.58333333333326" y="306.0" />
+      <point x="570.75" y="306.0" />
+      <point x="0.0" y="14.5" />
+    </edge>
+    <edge source="model.diff.block.Block" target="model.diff.block.CompState">
+      <point x="0.0" y="-14.5" />
+      <point x="0.0" y="14.5" />
+    </edge>
+    <edge source="model.editorModel.EditorModelInterface" target="model.editorModel.ReadOnlyFilePropertyProvider">
+      <point x="0.0" y="-14.5" />
+      <point x="0.0" y="14.5" />
+    </edge>
+    <edge source="model.diff.Diff" target="model.diff.block.Block">
+      <point x="20.399999999999977" y="-14.5" />
+      <point x="210.68986486486472" y="237.0" />
+      <point x="313.49999999999994" y="237.0" />
+      <point x="313.49999999999994" y="133.0" />
+      <point x="318.18254504504495" y="133.0" />
+      <point x="-7.625" y="14.5" />
+    </edge>
+    <edge source="model.editorModel.EditorModel" target="model.fileIO.ComparisonTargetLoader">
+      <point x="30.3125" y="-14.5" />
+      <point x="1016.9791666666665" y="227.0" />
+      <point x="1410.3148648648648" y="227.0" />
+      <point x="0.0" y="14.5" />
+    </edge>
+    <edge source="model.editorModel.EditorModel" target="model.fileIO.file.ComparisonTargetInterface">
+      <point x="-42.4375" y="-14.5" />
+      <point x="944.2291666666665" y="237.0" />
+      <point x="629.4166666666665" y="237.0" />
+      <point x="58.66666666666663" y="14.5" />
+    </edge>
+    <edge source="model.editorModel.contentNodeModel.ObservableTextModelInterface" target="model.fileIO.file.TextPropertyProvider">
+      <point x="0.0" y="-14.5" />
+      <point x="747.8148648648647" y="49.0" />
+      <point x="718.0569819819821" y="49.0" />
+      <point x="0.0" y="14.5" />
+    </edge>
+    <edge source="model.editorModel.EditorModel" target="model.editorModel.contentNodeModel.ObservableTextModel">
+      <point x="-18.1875" y="-14.5" />
+      <point x="968.4791666666665" y="217.0" />
+      <point x="818.0648648648647" y="217.0" />
+      <point x="0.0" y="14.5" />
+    </edge>
+    <edge source="model.diff.Diff" target="model.diff.Diff.Direction">
+      <point x="-10.199999999999989" y="-14.5" />
+      <point x="180.0898648648647" y="227.0" />
+      <point x="137.0" y="227.0" />
+      <point x="-20.0" y="14.5" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="0.5889128094725511" x="955.7874434559873" y="326.6950818685624" />
+  <SelectedNodes />
+  <Categories>
+    <Category>Inner Classes</Category>
+  </Categories>
+  <SCOPE>Production</SCOPE>
+  <VISIBILITY>public</VISIBILITY>
+</Diagram>
+

@@ -1,0 +1,519 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement />
+  <nodes>
+    <node x="1478.3208333333332" y="0.0">model.fileIO.file.TextPropertyProvider</node>
+    <node x="2542.8798400673404" y="416.0">controller.mainWindow.MainWindowFXController</node>
+    <node x="616.5554533429529" y="287.0">model.diff.Copier</node>
+    <node x="1017.0554533429529" y="188.0">model.editorModel.contentNodeModel.ObservableCompResultModel</node>
+    <node x="1884.0224506974507" y="79.0">model.editorModel.ReadOnlyFilePropertyProvider</node>
+    <node x="1387.8798400673406" y="287.0">model.editorModel.EditorModel</node>
+    <node x="2923.9509499759506" y="416.0">controller.mainWindow.editorPane.EditorPaneFXController</node>
+    <node x="791.8798400673409" y="416.0">model.MainModel</node>
+    <node x="1595.055453342953" y="188.0">model.editorModel.contentNodeModel.ObservableTextModel</node>
+    <node x="1671.022450697451" y="79.0">model.editorModel.contentNodeModel.ObservableTextModelInterface</node>
+    <node x="418.8054533429529" y="188.0">model.diff.block.PairBlocks</node>
+    <node x="0.0" y="287.0">view.CompStateHighlightedListCell</node>
+    <node x="402.82083333333344" y="79.0">model.diff.block.Block</node>
+    <node x="212.0" y="569.0">view.ErrorAlertFactory</node>
+    <node x="823.5708333333333" y="79.0">model.editorModel.contentNodeModel.ObservableCompResultInterface</node>
+    <node x="2591.3952200577214" y="287.0">controller.mainWindow.editorPane.EditorPaneControllerInterface</node>
+    <node x="2541.8952200577214" y="188.0">controller.mainWindow.editorPane.SingleSelectionListViewControllerInterface</node>
+    <node x="2097.895220057721" y="188.0">controller.mainWindow.editorPane.textArea.EditStateManageable</node>
+    <node x="3022.3952200577214" y="287.0">controller.mainWindow.editorPane.EditorPaneFXController.CompMode</node>
+    <node x="0.0" y="569.0">view.ConfirmationAlertFactory</node>
+    <node x="3138.3952200577214" y="287.0">controller.mainWindow.editorPane.EditorPaneFXController.EditMode</node>
+    <node x="2327.895220057721" y="188.0">controller.ContentNodeProvider</node>
+    <node x="1892.5708333333332" y="287.0">model.MainModelInterface</node>
+    <node x="2345.395220057721" y="287.0">controller.mainWindow.editorPane.listView.CompResultsViewControllerInterface</node>
+    <node x="643.8054533429529" y="188.0">model.diff.CopierInterface</node>
+    <node x="3118.1452200577214" y="188.0">controller.mainWindow.editorPane.EditorPaneFXController.ViewMode</node>
+    <node x="1413.055453342953" y="188.0">model.fileIO.ComparisonTargetWriter</node>
+    <node x="164.35962000961968" y="416.0">controller.mainWindow.editorPane.listView.CompResultsViewFXController</node>
+    <node x="2029.8798400673406" y="416.0">controller.mainWindow.editorPane.textArea.EditorTextAreaFXController</node>
+    <node x="840.0708333333332" y="0.0">model.fileIO.file.ObservableBlocksProvider</node>
+    <node x="2117.395220057721" y="287.0">controller.mainWindow.editorPane.textArea.EditorTextAreaControllerInterface</node>
+    <node x="791.5554533429529" y="188.0">model.fileIO.file.ComparisonTargetInterface</node>
+    <node x="1227.055453342953" y="188.0">model.fileIO.ComparisonTargetLoader</node>
+    <node x="1827.805453342953" y="188.0">model.editorModel.EditorModelInterface</node>
+    <node x="2867.1452200577214" y="188.0">controller.CompModeDisableReceiver</node>
+    <node x="2799.3952200577214" y="287.0">controller.mainWindow.MainWindowControllerInterface</node>
+    <node x="739.0554533429529" y="287.0">model.fileIO.file.ComparisonTarget</node>
+    <node x="525.8054533429529" y="188.0">model.diff.DiffInterface</node>
+    <node x="318.8054533429529" y="188.0">model.diff.Diff.Direction</node>
+    <node x="797.8798400673409" y="495.0">AppMain</node>
+    <node x="385.00545334295293" y="287.0">model.diff.Diff</node>
+    <node x="387.82083333333344" y="0.0">model.diff.block.CompState</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="model.editorModel.contentNodeModel.ObservableCompResultModel" target="model.fileIO.file.ObservableBlocksProvider">
+      <point x="47.5" y="-14.5" />
+      <point x="1159.555453342953" y="49.0" />
+      <point x="980.9041666666666" y="49.0" />
+      <point x="56.33333333333337" y="14.5" />
+    </edge>
+    <edge source="controller.mainWindow.editorPane.EditorPaneFXController" target="controller.mainWindow.editorPane.EditorPaneFXController.CompMode">
+      <point x="0.0" y="-14.5" />
+      <point x="3001.4509499759506" y="346.0" />
+      <point x="3046.3952200577214" y="346.0" />
+      <point x="-24.0" y="14.5" />
+    </edge>
+    <edge source="controller.mainWindow.editorPane.EditorPaneFXController.CompMode" target="controller.mainWindow.editorPane.EditorPaneFXController">
+      <point x="24.0" y="14.5" />
+      <point x="3094.3952200577214" y="356.0" />
+      <point x="3015.5418590668596" y="356.0" />
+      <point x="14.090909090909008" y="-14.5" />
+    </edge>
+    <edge source="controller.mainWindow.editorPane.EditorPaneControllerInterface" target="controller.ContentNodeProvider">
+      <point x="-47.0" y="-14.5" />
+      <point x="2638.3952200577214" y="257.0" />
+      <point x="2451.2285533910544" y="257.0" />
+      <point x="49.333333333333485" y="14.5" />
+    </edge>
+    <edge source="controller.mainWindow.editorPane.listView.CompResultsViewFXController" target="controller.mainWindow.editorPane.listView.CompResultsViewControllerInterface">
+      <point x="72.375" y="-14.5" />
+      <point x="333.2346200096197" y="396.0" />
+      <point x="2401.895220057721" y="396.0" />
+      <point x="-56.5" y="14.5" />
+    </edge>
+    <edge source="model.editorModel.EditorModel" target="model.editorModel.contentNodeModel.ObservableTextModelInterface">
+      <point x="30.3125" y="-14.5" />
+      <point x="1466.6923400673406" y="257.0" />
+      <point x="1752.555453342953" y="257.0" />
+      <point x="1752.555453342953" y="168.0" />
+      <point x="1767.522450697451" y="168.0" />
+      <point x="0.0" y="14.5" />
+    </edge>
+    <edge source="controller.mainWindow.editorPane.listView.CompResultsViewFXController" target="model.diff.block.Block">
+      <point x="-24.125" y="-14.5" />
+      <point x="236.73462000961968" y="396.0" />
+      <point x="202.5" y="396.0" />
+      <point x="202.5" y="158.0" />
+      <point x="408.92083333333335" y="158.0" />
+      <point x="-24.40000000000009" y="14.5" />
+    </edge>
+    <edge source="model.fileIO.file.ComparisonTargetInterface" target="model.fileIO.file.ObservableBlocksProvider">
+      <point x="-44.0" y="-14.5" />
+      <point x="835.5554533429529" y="158.0" />
+      <point x="792.0708333333333" y="158.0" />
+      <point x="792.0708333333333" y="49.0" />
+      <point x="868.2374999999998" y="49.0" />
+      <point x="-56.33333333333337" y="14.5" />
+    </edge>
+    <edge source="model.editorModel.EditorModel" target="model.editorModel.contentNodeModel.ObservableCompResultModel">
+      <point x="-18.1875" y="-14.5" />
+      <point x="1418.1923400673406" y="247.0" />
+      <point x="1112.055453342953" y="247.0" />
+      <point x="0.0" y="14.5" />
+    </edge>
+    <edge source="controller.mainWindow.editorPane.EditorPaneFXController.ViewMode" target="controller.mainWindow.editorPane.EditorPaneFXController">
+      <point x="33.0" y="14.5" />
+      <point x="3195.1452200577214" y="247.0" />
+      <point x="3242.8952200577214" y="247.0" />
+      <point x="3242.8952200577214" y="396.0" />
+      <point x="3071.9054954304956" y="396.0" />
+      <point x="70.4545454545455" y="-14.5" />
+    </edge>
+    <edge source="controller.mainWindow.editorPane.listView.CompResultsViewFXController" target="model.editorModel.contentNodeModel.ObservableCompResultInterface">
+      <point x="24.125" y="-14.5" />
+      <point x="284.9846200096197" y="396.0" />
+      <point x="295.4846200096197" y="396.0" />
+      <point x="295.4846200096197" y="168.0" />
+      <point x="857.2375" y="168.0" />
+      <point x="-67.33333333333337" y="14.5" />
+    </edge>
+    <edge source="model.editorModel.contentNodeModel.ObservableTextModel" target="model.fileIO.file.TextPropertyProvider">
+      <point x="-36.75" y="-14.5" />
+      <point x="1631.805453342953" y="59.0" />
+      <point x="1549.8208333333332" y="59.0" />
+      <point x="0.0" y="14.5" />
+    </edge>
+    <edge source="model.diff.Copier" target="model.diff.block.Block">
+      <point x="-16.75" y="-14.5" />
+      <point x="633.3054533429529" y="138.0" />
+      <point x="445.5208333333335" y="138.0" />
+      <point x="12.200000000000045" y="14.5" />
+    </edge>
+    <edge source="model.MainModel" target="model.diff.DiffInterface">
+      <point x="-31.0" y="-14.5" />
+      <point x="807.3798400673409" y="376.0" />
+      <point x="598.5554533429529" y="376.0" />
+      <point x="24.25" y="14.5" />
+    </edge>
+    <edge source="model.MainModel" target="model.editorModel.EditorModelInterface">
+      <point x="31.0" y="-14.5" />
+      <point x="869.3798400673409" y="376.0" />
+      <point x="1882.0708333333332" y="376.0" />
+      <point x="1882.0708333333332" y="267.0" />
+      <point x="1899.305453342953" y="267.0" />
+      <point x="0.0" y="14.5" />
+    </edge>
+    <edge source="controller.mainWindow.editorPane.textArea.EditorTextAreaFXController" target="controller.mainWindow.editorPane.textArea.EditorTextAreaControllerInterface">
+      <point x="43.75" y="-14.5" />
+      <point x="2161.1298400673404" y="386.0" />
+      <point x="2169.395220057721" y="386.0" />
+      <point x="-52.0" y="14.5" />
+    </edge>
+    <edge source="model.diff.Diff" target="model.diff.block.PairBlocks">
+      <point x="0.0" y="-14.5" />
+      <point x="410.50545334295293" y="247.0" />
+      <point x="461.8054533429529" y="247.0" />
+      <point x="0.0" y="14.5" />
+    </edge>
+    <edge source="controller.mainWindow.editorPane.listView.CompResultsViewControllerInterface" target="controller.ContentNodeProvider">
+      <point x="-56.5" y="-14.5" />
+      <point x="0.0" y="14.5" />
+    </edge>
+    <edge source="controller.mainWindow.MainWindowControllerInterface" target="controller.CompModeDisableReceiver">
+      <point x="0.0" y="-14.5" />
+      <point x="2900.3952200577214" y="267.0" />
+      <point x="2911.6452200577214" y="267.0" />
+      <point x="-44.5" y="14.5" />
+    </edge>
+    <edge source="model.editorModel.EditorModel" target="model.editorModel.EditorModelInterface">
+      <point x="42.4375" y="-14.5" />
+      <point x="1478.8173400673406" y="267.0" />
+      <point x="1851.6387866762861" y="267.0" />
+      <point x="-47.66666666666674" y="14.5" />
+    </edge>
+    <edge source="controller.mainWindow.editorPane.EditorPaneFXController" target="controller.mainWindow.editorPane.textArea.EditorTextAreaControllerInterface">
+      <point x="-56.36363636363649" y="-14.5" />
+      <point x="2945.0873136123137" y="356.0" />
+      <point x="2273.395220057721" y="356.0" />
+      <point x="52.0" y="14.5" />
+    </edge>
+    <edge source="controller.mainWindow.editorPane.EditorPaneFXController" target="controller.CompModeDisableReceiver">
+      <point x="-14.090909090909008" y="-14.5" />
+      <point x="2987.3600408850416" y="336.0" />
+      <point x="3011.8952200577214" y="336.0" />
+      <point x="3011.8952200577214" y="267.0" />
+      <point x="3000.6452200577214" y="267.0" />
+      <point x="44.5" y="14.5" />
+    </edge>
+    <edge source="model.editorModel.EditorModel" target="model.fileIO.ComparisonTargetWriter">
+      <point x="6.0625" y="-14.5" />
+      <point x="1442.4423400673406" y="237.0" />
+      <point x="1494.055453342953" y="237.0" />
+      <point x="0.0" y="14.5" />
+    </edge>
+    <edge source="controller.mainWindow.editorPane.EditorPaneFXController" target="controller.mainWindow.editorPane.EditorPaneFXController.ViewMode">
+      <point x="56.36363636363649" y="-14.5" />
+      <point x="3057.8145863395866" y="386.0" />
+      <point x="3231.8952200577214" y="386.0" />
+      <point x="3231.8952200577214" y="257.0" />
+      <point x="3173.1452200577214" y="257.0" />
+      <point x="11.0" y="14.5" />
+    </edge>
+    <edge source="model.fileIO.file.ComparisonTarget" target="model.diff.block.Block">
+      <point x="-32.5" y="-14.5" />
+      <point x="771.5554533429529" y="128.0" />
+      <point x="457.7208333333334" y="128.0" />
+      <point x="24.399999999999977" y="14.5" />
+    </edge>
+    <edge source="model.MainModel" target="model.editorModel.EditorModel">
+      <point x="20.66666666666663" y="-14.5" />
+      <point x="859.0465067340075" y="366.0" />
+      <point x="1436.3798400673406" y="366.0" />
+      <point x="0.0" y="14.5" />
+    </edge>
+    <edge source="model.MainModel" target="model.diff.Copier">
+      <point x="-20.666666666666742" y="-14.5" />
+      <point x="817.7131734006741" y="366.0" />
+      <point x="650.0554533429529" y="366.0" />
+      <point x="0.0" y="14.5" />
+    </edge>
+    <edge source="model.diff.Copier" target="model.diff.CopierInterface">
+      <point x="16.75" y="-14.5" />
+      <point x="666.8054533429529" y="267.0" />
+      <point x="672.0554533429529" y="267.0" />
+      <point x="-28.25" y="14.5" />
+    </edge>
+    <edge source="AppMain" target="model.MainModel">
+      <point x="0.0" y="-14.5" />
+      <point x="0.0" y="14.5" />
+    </edge>
+    <edge source="controller.mainWindow.editorPane.textArea.EditorTextAreaControllerInterface" target="controller.mainWindow.editorPane.textArea.EditStateManageable">
+      <point x="-52.0" y="-14.5" />
+      <point x="0.0" y="14.5" />
+    </edge>
+    <edge source="controller.mainWindow.editorPane.EditorPaneFXController" target="controller.mainWindow.editorPane.EditorPaneFXController.EditMode">
+      <point x="28.181818181818016" y="-14.5" />
+      <point x="3029.6327681577686" y="366.0" />
+      <point x="3159.1452200577214" y="366.0" />
+      <point x="-20.75" y="14.5" />
+    </edge>
+    <edge source="controller.mainWindow.editorPane.EditorPaneFXController.EditMode" target="controller.mainWindow.editorPane.EditorPaneFXController">
+      <point x="20.75" y="14.5" />
+      <point x="3200.6452200577214" y="376.0" />
+      <point x="3043.7236772486776" y="376.0" />
+      <point x="42.27272727272748" y="-14.5" />
+    </edge>
+    <edge source="controller.mainWindow.editorPane.textArea.EditorTextAreaFXController" target="model.editorModel.contentNodeModel.ObservableTextModelInterface">
+      <point x="-43.75" y="-14.5" />
+      <point x="2073.6298400673404" y="386.0" />
+      <point x="2087.395220057721" y="386.0" />
+      <point x="2087.395220057721" y="158.0" />
+      <point x="1831.855784030784" y="158.0" />
+      <point x="64.33333333333326" y="14.5" />
+    </edge>
+    <edge source="model.diff.Diff.Direction" target="model.diff.Diff">
+      <point x="20.0" y="14.5" />
+      <point x="378.8054533429529" y="257.0" />
+      <point x="400.3054533429529" y="257.0" />
+      <point x="-10.200000000000045" y="-14.5" />
+    </edge>
+    <edge source="model.diff.block.PairBlocks" target="model.diff.block.Block">
+      <point x="0.0" y="-14.5" />
+      <point x="461.8054533429529" y="158.0" />
+      <point x="421.1208333333334" y="158.0" />
+      <point x="-12.199999999999989" y="14.5" />
+    </edge>
+    <edge source="controller.mainWindow.editorPane.textArea.EditorTextAreaControllerInterface" target="controller.ContentNodeProvider">
+      <point x="52.0" y="-14.5" />
+      <point x="2273.395220057721" y="267.0" />
+      <point x="2352.5618867243875" y="267.0" />
+      <point x="-49.333333333333485" y="14.5" />
+    </edge>
+    <edge source="controller.mainWindow.editorPane.EditorPaneFXController" target="controller.mainWindow.editorPane.EditorPaneControllerInterface">
+      <point x="-28.181818181818016" y="-14.5" />
+      <point x="2973.2691317941326" y="336.0" />
+      <point x="2732.3952200577214" y="336.0" />
+      <point x="47.0" y="14.5" />
+    </edge>
+    <edge source="controller.mainWindow.editorPane.EditorPaneControllerInterface" target="controller.mainWindow.editorPane.SingleSelectionListViewControllerInterface">
+      <point x="47.0" y="-14.5" />
+      <point x="63.5" y="14.5" />
+    </edge>
+    <edge source="model.editorModel.contentNodeModel.ObservableTextModel" target="model.editorModel.contentNodeModel.ObservableTextModelInterface">
+      <point x="36.75" y="-14.5" />
+      <point x="1705.305453342953" y="168.0" />
+      <point x="1703.1891173641175" y="168.0" />
+      <point x="-64.33333333333326" y="14.5" />
+    </edge>
+    <edge source="model.fileIO.file.ComparisonTargetInterface" target="model.fileIO.file.TextPropertyProvider">
+      <point x="44.0" y="-14.5" />
+      <point x="923.5554533429529" y="148.0" />
+      <point x="803.0708333333333" y="148.0" />
+      <point x="803.0708333333333" y="59.0" />
+      <point x="1502.1541666666667" y="59.0" />
+      <point x="-47.66666666666674" y="14.5" />
+    </edge>
+    <edge source="controller.mainWindow.MainWindowFXController" target="controller.mainWindow.editorPane.EditorPaneControllerInterface">
+      <point x="0.0" y="-14.5" />
+      <point x="2627.3798400673404" y="396.0" />
+      <point x="2638.3952200577214" y="396.0" />
+      <point x="-47.0" y="14.5" />
+    </edge>
+    <edge source="model.MainModel" target="model.diff.Diff">
+      <point x="-41.33333333333337" y="-14.5" />
+      <point x="797.0465067340075" y="386.0" />
+      <point x="410.50545334295293" y="386.0" />
+      <point x="0.0" y="14.5" />
+    </edge>
+    <edge source="model.MainModel" target="model.fileIO.file.ComparisonTarget">
+      <point x="0.0" y="-14.5" />
+      <point x="838.3798400673409" y="346.0" />
+      <point x="804.0554533429529" y="346.0" />
+      <point x="0.0" y="14.5" />
+    </edge>
+    <edge source="controller.mainWindow.editorPane.listView.CompResultsViewFXController" target="view.CompStateHighlightedListCell">
+      <point x="-72.375" y="-14.5" />
+      <point x="188.48462000961968" y="396.0" />
+      <point x="96.0" y="396.0" />
+      <point x="0.0" y="14.5" />
+    </edge>
+    <edge source="controller.mainWindow.editorPane.EditorPaneFXController" target="controller.mainWindow.editorPane.listView.CompResultsViewControllerInterface">
+      <point x="-42.27272727272748" y="-14.5" />
+      <point x="2959.1782227032227" y="346.0" />
+      <point x="2514.8952200577214" y="346.0" />
+      <point x="56.5" y="14.5" />
+    </edge>
+    <edge source="model.editorModel.contentNodeModel.ObservableCompResultModel" target="model.editorModel.contentNodeModel.ObservableCompResultInterface">
+      <point x="-47.5" y="-14.5" />
+      <point x="1064.555453342953" y="128.0" />
+      <point x="991.9041666666667" y="128.0" />
+      <point x="67.33333333333337" y="14.5" />
+    </edge>
+    <edge source="model.MainModel" target="model.diff.CopierInterface">
+      <point x="-10.333333333333371" y="-14.5" />
+      <point x="828.0465067340075" y="356.0" />
+      <point x="728.5554533429529" y="356.0" />
+      <point x="28.25" y="14.5" />
+    </edge>
+    <edge source="model.fileIO.file.ComparisonTarget" target="model.fileIO.file.ComparisonTargetInterface">
+      <point x="32.5" y="-14.5" />
+      <point x="836.5554533429529" y="267.0" />
+      <point x="820.8887866762863" y="267.0" />
+      <point x="-58.66666666666663" y="14.5" />
+    </edge>
+    <edge source="model.editorModel.EditorModel" target="model.editorModel.contentNodeModel.ObservableCompResultInterface">
+      <point x="-30.3125" y="-14.5" />
+      <point x="1406.0673400673406" y="257.0" />
+      <point x="1006.5554533429529" y="257.0" />
+      <point x="1006.5554533429529" y="138.0" />
+      <point x="924.5708333333333" y="138.0" />
+      <point x="0.0" y="14.5" />
+    </edge>
+    <edge source="model.diff.Diff" target="model.diff.DiffInterface">
+      <point x="20.399999999999977" y="-14.5" />
+      <point x="430.9054533429528" y="267.0" />
+      <point x="550.0554533429529" y="267.0" />
+      <point x="-24.25" y="14.5" />
+    </edge>
+    <edge source="model.MainModel" target="model.MainModelInterface">
+      <point x="41.33333333333337" y="-14.5" />
+      <point x="879.7131734006742" y="386.0" />
+      <point x="1927.3208333333332" y="386.0" />
+      <point x="-34.75" y="14.5" />
+    </edge>
+    <edge source="controller.mainWindow.editorPane.EditorPaneFXController.CompMode" target="controller.mainWindow.editorPane.EditorPaneFXController.ViewMode">
+      <point x="0.0" y="-14.5" />
+      <point x="3070.3952200577214" y="267.0" />
+      <point x="3129.1452200577214" y="267.0" />
+      <point x="-33.0" y="14.5" />
+    </edge>
+    <edge source="model.editorModel.contentNodeModel.ObservableCompResultInterface" target="model.fileIO.file.ObservableBlocksProvider">
+      <point x="-1.1368683772161603E-13" y="-14.5" />
+      <point x="0.0" y="14.5" />
+    </edge>
+    <edge source="model.MainModel" target="model.fileIO.file.ComparisonTargetInterface">
+      <point x="10.333333333333371" y="-14.5" />
+      <point x="848.7131734006742" y="356.0" />
+      <point x="879.5554533429529" y="356.0" />
+      <point x="0.0" y="14.5" />
+    </edge>
+    <edge source="model.diff.block.Block" target="model.diff.block.CompState">
+      <point x="0.0" y="-14.5" />
+      <point x="0.0" y="14.5" />
+    </edge>
+    <edge source="model.diff.Diff" target="model.diff.block.Block">
+      <point x="10.200000000000045" y="-14.5" />
+      <point x="420.705453342953" y="257.0" />
+      <point x="515.3054533429529" y="257.0" />
+      <point x="515.3054533429529" y="148.0" />
+      <point x="433.32083333333344" y="148.0" />
+      <point x="0.0" y="14.5" />
+    </edge>
+    <edge source="model.editorModel.EditorModelInterface" target="model.editorModel.ReadOnlyFilePropertyProvider">
+      <point x="0.0" y="-14.5" />
+      <point x="1899.305453342953" y="168.0" />
+      <point x="1979.0224506974507" y="168.0" />
+      <point x="0.0" y="14.5" />
+    </edge>
+    <edge source="model.editorModel.EditorModel" target="model.fileIO.ComparisonTargetLoader">
+      <point x="-6.0625" y="-14.5" />
+      <point x="1430.3173400673406" y="237.0" />
+      <point x="1310.055453342953" y="237.0" />
+      <point x="0.0" y="14.5" />
+    </edge>
+    <edge source="model.editorModel.EditorModel" target="model.fileIO.file.ComparisonTargetInterface">
+      <point x="-42.4375" y="-14.5" />
+      <point x="1393.9423400673406" y="267.0" />
+      <point x="938.2221200096195" y="267.0" />
+      <point x="58.66666666666663" y="14.5" />
+    </edge>
+    <edge source="controller.mainWindow.editorPane.listView.CompResultsViewControllerInterface" target="controller.mainWindow.editorPane.SingleSelectionListViewControllerInterface">
+      <point x="56.5" y="-14.5" />
+      <point x="2514.8952200577214" y="267.0" />
+      <point x="2605.3952200577214" y="267.0" />
+      <point x="-63.5" y="14.5" />
+    </edge>
+    <edge source="controller.mainWindow.editorPane.EditorPaneFXController.EditMode" target="controller.mainWindow.editorPane.EditorPaneFXController.ViewMode">
+      <point x="0.0" y="-14.5" />
+      <point x="3179.8952200577214" y="267.0" />
+      <point x="3151.1452200577214" y="267.0" />
+      <point x="-11.0" y="14.5" />
+    </edge>
+    <edge source="controller.mainWindow.MainWindowFXController" target="controller.mainWindow.MainWindowControllerInterface">
+      <point x="56.333333333333485" y="-14.5" />
+      <point x="2683.7131734006743" y="396.0" />
+      <point x="2900.3952200577214" y="396.0" />
+      <point x="0.0" y="14.5" />
+    </edge>
+    <edge source="model.editorModel.contentNodeModel.ObservableTextModelInterface" target="model.fileIO.file.TextPropertyProvider">
+      <point x="0.0" y="-14.5" />
+      <point x="1767.522450697451" y="49.0" />
+      <point x="1597.4875000000002" y="49.0" />
+      <point x="47.66666666666674" y="14.5" />
+    </edge>
+    <edge source="controller.mainWindow.editorPane.EditorPaneFXController" target="model.editorModel.EditorModelInterface">
+      <point x="-70.4545454545455" y="-14.5" />
+      <point x="2930.9964045214047" y="366.0" />
+      <point x="2076.395220057721" y="366.0" />
+      <point x="2076.395220057721" y="267.0" />
+      <point x="1946.9721200096196" y="267.0" />
+      <point x="47.66666666666674" y="14.5" />
+    </edge>
+    <edge source="model.editorModel.EditorModel" target="model.editorModel.contentNodeModel.ObservableTextModel">
+      <point x="18.1875" y="-14.5" />
+      <point x="1454.5673400673406" y="247.0" />
+      <point x="1668.555453342953" y="247.0" />
+      <point x="0.0" y="14.5" />
+    </edge>
+    <edge source="controller.mainWindow.MainWindowFXController" target="model.MainModelInterface">
+      <point x="-56.333333333333485" y="-14.5" />
+      <point x="2571.0465067340074" y="376.0" />
+      <point x="1996.8208333333332" y="376.0" />
+      <point x="34.75" y="14.5" />
+    </edge>
+    <edge source="model.diff.Diff" target="model.diff.Diff.Direction">
+      <point x="-20.399999999999977" y="-14.5" />
+      <point x="390.10545334295307" y="267.0" />
+      <point x="338.8054533429529" y="267.0" />
+      <point x="-20.0" y="14.5" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="0.39227704566349986" x="1621.5" y="299.0" />
+  <SelectedNodes>
+    <node>model.fileIO.file.TextPropertyProvider</node>
+    <node>controller.mainWindow.MainWindowFXController</node>
+    <node>model.diff.Copier</node>
+    <node>model.editorModel.contentNodeModel.ObservableCompResultModel</node>
+    <node>model.editorModel.ReadOnlyFilePropertyProvider</node>
+    <node>model.editorModel.EditorModel</node>
+    <node>controller.mainWindow.editorPane.EditorPaneFXController</node>
+    <node>model.MainModel</node>
+    <node>model.editorModel.contentNodeModel.ObservableTextModel</node>
+    <node>model.editorModel.contentNodeModel.ObservableTextModelInterface</node>
+    <node>model.diff.block.PairBlocks</node>
+    <node>view.CompStateHighlightedListCell</node>
+    <node>model.diff.block.Block</node>
+    <node>view.ErrorAlertFactory</node>
+    <node>model.editorModel.contentNodeModel.ObservableCompResultInterface</node>
+    <node>controller.mainWindow.editorPane.EditorPaneControllerInterface</node>
+    <node>controller.mainWindow.editorPane.SingleSelectionListViewControllerInterface</node>
+    <node>controller.mainWindow.editorPane.textArea.EditStateManageable</node>
+    <node>controller.mainWindow.editorPane.EditorPaneFXController.CompMode</node>
+    <node>view.ConfirmationAlertFactory</node>
+    <node>controller.mainWindow.editorPane.EditorPaneFXController.EditMode</node>
+    <node>controller.ContentNodeProvider</node>
+    <node>model.MainModelInterface</node>
+    <node>controller.mainWindow.editorPane.listView.CompResultsViewControllerInterface</node>
+    <node>model.diff.CopierInterface</node>
+    <node>controller.mainWindow.editorPane.EditorPaneFXController.ViewMode</node>
+    <node>model.fileIO.ComparisonTargetWriter</node>
+    <node>controller.mainWindow.editorPane.listView.CompResultsViewFXController</node>
+    <node>controller.mainWindow.editorPane.textArea.EditorTextAreaFXController</node>
+    <node>model.fileIO.file.ObservableBlocksProvider</node>
+    <node>controller.mainWindow.editorPane.textArea.EditorTextAreaControllerInterface</node>
+    <node>model.fileIO.file.ComparisonTargetInterface</node>
+    <node>model.fileIO.ComparisonTargetLoader</node>
+    <node>model.editorModel.EditorModelInterface</node>
+    <node>controller.CompModeDisableReceiver</node>
+    <node>controller.mainWindow.MainWindowControllerInterface</node>
+    <node>model.fileIO.file.ComparisonTarget</node>
+    <node>model.diff.DiffInterface</node>
+    <node>model.diff.Diff.Direction</node>
+    <node>AppMain</node>
+    <node>model.diff.Diff</node>
+    <node>model.diff.block.CompState</node>
+  </SelectedNodes>
+  <Categories>
+    <Category>Inner Classes</Category>
+  </Categories>
+  <SCOPE>Production</SCOPE>
+  <VISIBILITY>public</VISIBILITY>
+</Diagram>
+

@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement />
+  <nodes>
+    <node x="16.499999999999943" y="548.0">controller.mainWindow.MainWindowFXController</node>
+    <node x="33.0" y="158.0">controller.mainWindow.editorPane.EditorPaneFXController</node>
+    <node x="247.0" y="390.0">view.CompStateHighlightedListCell</node>
+    <node x="378.0" y="622.0">model</node>
+    <node x="212.0" y="622.0">view.ErrorAlertFactory</node>
+    <node x="16.5" y="79.0">controller.mainWindow.editorPane.EditorPaneControllerInterface</node>
+    <node x="0.0" y="0.0">controller.mainWindow.editorPane.SingleSelectionListViewControllerInterface</node>
+    <node x="0.0" y="622.0">view.ConfirmationAlertFactory</node>
+    <node x="560.25" y="0.0">controller.mainWindow.editorPane.textArea.EditStateManageable</node>
+    <node x="23.28333333333333" y="316.0">controller.mainWindow.editorPane.EditorPaneFXController.CompMode</node>
+    <node x="168.375" y="316.0">controller.mainWindow.editorPane.EditorPaneFXController.EditMode</node>
+    <node x="325.25" y="0.0">controller.ContentNodeProvider</node>
+    <node x="229.75" y="79.0">controller.mainWindow.editorPane.listView.CompResultsViewControllerInterface</node>
+    <node x="112.75" y="237.0">controller.mainWindow.editorPane.EditorPaneFXController.ViewMode</node>
+    <node x="246.25" y="158.0">controller.mainWindow.editorPane.listView.CompResultsViewFXController</node>
+    <node x="492.25" y="158.0">controller.mainWindow.editorPane.textArea.EditorTextAreaFXController</node>
+    <node x="475.75" y="79.0">controller.mainWindow.editorPane.textArea.EditorTextAreaControllerInterface</node>
+    <node x="11.999999999999943" y="390.0">controller.CompModeDisableReceiver</node>
+    <node x="0.0" y="469.0">controller.mainWindow.MainWindowControllerInterface</node>
+    <node x="0.0" y="696.0">AppMain</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="controller.mainWindow.editorPane.EditorPaneFXController" target="controller.mainWindow.editorPane.EditorPaneFXController.CompMode">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="controller.mainWindow.editorPane.EditorPaneFXController.CompMode" target="controller.mainWindow.editorPane.EditorPaneFXController">
+      <point x="-24.0" y="-14.5" />
+      <point x="47.28333333333333" y="291.0" />
+      <point x="25.25" y="291.0" />
+      <point x="25.25" y="212.0" />
+      <point x="52.375" y="212.0" />
+      <point x="-58.125" y="14.5" />
+    </edge>
+    <edge source="controller.mainWindow.editorPane.EditorPaneControllerInterface" target="controller.ContentNodeProvider">
+      <point x="47.0" y="-14.5" />
+      <point x="157.5" y="59.0" />
+      <point x="349.91666666666663" y="59.0" />
+      <point x="-49.33333333333337" y="14.5" />
+    </edge>
+    <edge source="controller.mainWindow.editorPane.listView.CompResultsViewFXController" target="controller.mainWindow.editorPane.listView.CompResultsViewControllerInterface">
+      <point x="0.0" y="-14.5" />
+      <point x="0.0" y="14.5" />
+    </edge>
+    <edge source="controller.mainWindow.editorPane.EditorPaneFXController.ViewMode" target="controller.mainWindow.editorPane.EditorPaneFXController">
+      <point x="0.0" y="-14.5" />
+      <point x="156.75" y="212.0" />
+      <point x="129.875" y="212.0" />
+      <point x="19.375" y="14.5" />
+    </edge>
+    <edge source="controller.mainWindow.editorPane.textArea.EditorTextAreaFXController" target="controller.mainWindow.editorPane.textArea.EditorTextAreaControllerInterface">
+      <point x="0.0" y="-14.5" />
+      <point x="0.0" y="14.5" />
+    </edge>
+    <edge source="controller.mainWindow.editorPane.listView.CompResultsViewControllerInterface" target="controller.ContentNodeProvider">
+      <point x="56.5" y="-14.5" />
+      <point x="0.0" y="14.5" />
+    </edge>
+    <edge source="AppMain" target="model">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="controller.mainWindow.MainWindowControllerInterface" target="controller.CompModeDisableReceiver">
+      <point x="-5.6843418860808015E-14" y="-14.5" />
+      <point x="0.0" y="14.5" />
+    </edge>
+    <edge source="controller.mainWindow.editorPane.EditorPaneFXController" target="controller.mainWindow.editorPane.textArea.EditorTextAreaControllerInterface">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="controller.mainWindow.editorPane.EditorPaneFXController" target="controller.CompModeDisableReceiver">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="controller.mainWindow.editorPane.EditorPaneFXController" target="controller.mainWindow.editorPane.EditorPaneFXController.ViewMode">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="controller.mainWindow.editorPane.textArea.EditorTextAreaControllerInterface" target="controller.mainWindow.editorPane.textArea.EditStateManageable">
+      <point x="52.0" y="-14.5" />
+      <point x="0.0" y="14.5" />
+    </edge>
+    <edge source="controller.mainWindow.editorPane.EditorPaneFXController" target="controller.mainWindow.editorPane.EditorPaneFXController.EditMode">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="controller.mainWindow.editorPane.EditorPaneFXController.EditMode" target="controller.mainWindow.editorPane.EditorPaneFXController">
+      <point x="20.75" y="-14.5" />
+      <point x="230.625" y="291.0" />
+      <point x="226.125" y="291.0" />
+      <point x="226.125" y="212.0" />
+      <point x="168.625" y="212.0" />
+      <point x="58.125" y="14.5" />
+    </edge>
+    <edge source="controller.mainWindow.editorPane.textArea.EditorTextAreaControllerInterface" target="controller.ContentNodeProvider">
+      <point x="-52.0" y="-14.5" />
+      <point x="527.75" y="59.0" />
+      <point x="448.58333333333337" y="59.0" />
+      <point x="49.33333333333337" y="14.5" />
+    </edge>
+    <edge source="controller.mainWindow.editorPane.EditorPaneFXController" target="controller.mainWindow.editorPane.EditorPaneControllerInterface">
+      <point x="0.0" y="-14.5" />
+      <point x="0.0" y="14.5" />
+    </edge>
+    <edge source="controller.mainWindow.editorPane.EditorPaneControllerInterface" target="controller.mainWindow.editorPane.SingleSelectionListViewControllerInterface">
+      <point x="-47.0" y="-14.5" />
+      <point x="-63.5" y="14.5" />
+    </edge>
+    <edge source="controller.mainWindow.MainWindowFXController" target="controller.mainWindow.editorPane.EditorPaneControllerInterface">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="controller.mainWindow.editorPane.listView.CompResultsViewFXController" target="view.CompStateHighlightedListCell">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="controller.mainWindow.editorPane.EditorPaneFXController" target="controller.mainWindow.editorPane.listView.CompResultsViewControllerInterface">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="controller.mainWindow.MainWindowFXController" target="model">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="controller.mainWindow.editorPane.EditorPaneFXController.CompMode" target="controller.mainWindow.editorPane.EditorPaneFXController.ViewMode">
+      <point x="24.0" y="-14.5" />
+      <point x="95.28333333333333" y="291.0" />
+      <point x="134.75" y="291.0" />
+      <point x="-22.0" y="14.5" />
+    </edge>
+    <edge source="controller.mainWindow.editorPane.listView.CompResultsViewControllerInterface" target="controller.mainWindow.editorPane.SingleSelectionListViewControllerInterface">
+      <point x="-56.5" y="-14.5" />
+      <point x="286.25" y="49.0" />
+      <point x="190.5" y="49.0" />
+      <point x="63.5" y="14.5" />
+    </edge>
+    <edge source="controller.mainWindow.editorPane.EditorPaneFXController.EditMode" target="controller.mainWindow.editorPane.EditorPaneFXController.ViewMode">
+      <point x="-20.75" y="-14.5" />
+      <point x="189.125" y="291.0" />
+      <point x="178.75" y="291.0" />
+      <point x="22.0" y="14.5" />
+    </edge>
+    <edge source="controller.mainWindow.MainWindowFXController" target="controller.mainWindow.MainWindowControllerInterface">
+      <point x="5.6843418860808015E-14" y="-14.5" />
+      <point x="0.0" y="14.5" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="1.0" x="406.0" y="350.5" />
+  <SelectedNodes />
+  <Categories>
+    <Category>Inner Classes</Category>
+  </Categories>
+  <SCOPE>Production</SCOPE>
+  <VISIBILITY>public</VISIBILITY>
+</Diagram>
+
