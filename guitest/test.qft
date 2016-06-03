@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <!DOCTYPE RootStep>
 <RootStep id="_0" name="root"
-          signature="47052E4623745B0C4228CB966663007945EBF4B8"
+          signature="B85E763CE2923C565FC280C0C819BE3F79CC120C"
           version="4.0.11">
   <include>qfs.qft</include>
   <TestSet id="_1" name="2016SE_SimpleMerge">
@@ -271,18 +271,6 @@ Thumbs.db
         </BasicSequence>
       </TestStep>
     </TestCase>
-    <TestCase id="_4T" name="Encoding error test">
-      <TestStep id="_4s" name="Check if encoding error message pop up">
-        <MouseEventStep clicks="1" client="$(client)" component="load-button"
-                        event="MOUSE_MPRC" id="_4P" modifiers="16"/>
-        <FileSelection client="$(client)"
-                       directory="C:/Users/Donghwan/Documents/GitHub/2016SE_SimpleMerge/src/test/resources"
-                       engine="fx" file="11_unicode_broken.txt" id="_4Q"/>
-        <CheckBooleanStep checktype="visible" client="$(client)"
-                          component="winError" id="_4R" raise="true"
-                          timeout="15000"/>
-      </TestStep>
-    </TestCase>
     <TestCase id="_5V" name="Save test">
       <TestStep id="_6n" name="check if empty test file is loaded">
         <BasicSequence id="_6M" name="check if empty test file is loaded">
@@ -392,6 +380,34 @@ Thumbs.db
 load after save</text>
           </CheckStringStep>
         </BasicSequence>
+      </TestStep>
+    </TestCase>
+    <TestCase id="_6t" name="Load error test">
+      <TestStep id="_7J" name="Check if load error message pop up">
+        <MouseEventStep clicks="1" client="$(client)" component="load-button"
+                        event="MOUSE_MPRC" id="_6r" modifiers="16"/>
+        <BasicSequence id="_6v" name="raise IOException">
+          <FileSelection client="$(client)" file="raiseIOException" id="_6u"/>
+        </BasicSequence>
+        <ComponentWaiter client="$(client)" component="winError" id="_78"/>
+        <CheckStringStep checktype="text" client="$(client)"
+                         component="winError.panel" id="_7B">
+          <text>File load failed</text>
+        </CheckStringStep>
+      </TestStep>
+    </TestCase>
+    <TestCase id="_4T" name="Encoding error test">
+      <TestStep id="_4s" name="Check if encoding error message pop up">
+        <MouseEventStep clicks="1" client="$(client)" component="load-button"
+                        event="MOUSE_MPRC" id="_4P" modifiers="16"/>
+        <FileSelection client="$(client)"
+                       directory="C:/Users/Donghwan/Documents/GitHub/2016SE_SimpleMerge/src/test/resources"
+                       engine="fx" file="11_unicode_broken.txt" id="_4Q"/>
+        <ComponentWaiter client="$(client)" component="winError" id="_7E"/>
+        <CheckStringStep checktype="text" client="$(client)"
+                         component="winError.panel" id="_7I">
+          <text>Can't detect file encoding.</text>
+        </CheckStringStep>
       </TestStep>
     </TestCase>
     <CleanupSequence id="_1O" maxerror="0" name="Stop Java application">
@@ -946,6 +962,73 @@ load after save</text>
           <extrafeature name="wrap_text" negate="false" regexp="false"
                         state="0">false</extrafeature>
         </ComponentStep>
+      </ComponentStep>
+      <ComponentStep class="Panel" classcount="3" classindex="1" height="68"
+                     id="winError.panel" uid="_79" width="360" x="3" y="26">
+        <extrafeature name="alignment" negate="false" regexp="false"
+                      state="0">HORIZONTAL</extrafeature>
+        <extrafeature name="qfs:class" negate="false" regexp="false"
+                      state="0">javafx.scene.layout.GridPane</extrafeature>
+        <extrafeature name="qfs:genericclass" negate="false" regexp="false"
+                      state="0">Panel</extrafeature>
+        <extrafeature name="qfs:systemclass" negate="false" regexp="false"
+                      state="0">javafx.scene.layout.GridPane</extrafeature>
+        <extrafeature name="styleclass" negate="false" regexp="false"
+                      state="0">header-panel</extrafeature>
+      </ComponentStep>
+      <ComponentStep class="Label" classcount="2" classindex="0"
+                     feature="Can't detect file encoding." height="48"
+                     id="labelCan't_detect_file_encoding." uid="_7F"
+                     width="282" x="13" y="36">
+        <extrafeature name="alignment" negate="false" regexp="false"
+                      state="0">CENTER_LEFT</extrafeature>
+        <extrafeature name="gridposition" negate="false" regexp="false"
+                      state="0">0,0</extrafeature>
+        <extrafeature name="mnemonic_parsing" negate="false" regexp="false"
+                      state="0">false</extrafeature>
+        <extrafeature name="qfs:class" negate="false" regexp="false"
+                      state="0">javafx.scene.control.Label</extrafeature>
+        <extrafeature name="qfs:genericclass" negate="false" regexp="false"
+                      state="0">Label</extrafeature>
+        <extrafeature name="qfs:label" negate="false" regexp="false"
+                      state="1">Can't detect file encoding.</extrafeature>
+        <extrafeature name="qfs:systemclass" negate="false" regexp="false"
+                      state="0">javafx.scene.control.Label</extrafeature>
+        <extrafeature name="styleclass" negate="false" regexp="false"
+                      state="0">label</extrafeature>
+        <extrafeature name="wrap_text" negate="false" regexp="false"
+                      state="0">true</extrafeature>
+      </ComponentStep>
+    </WindowStep>
+    <WindowStep class="Window" engine="fx" feature="FileChooser Helper"
+                height="0" id="winFileChooser_Helper" modal="true" uid="_6w"
+                width="0">
+      <extrafeature name="qfs:class" negate="false" regexp="false" state="0">javafx.stage.Stage</extrafeature>
+      <extrafeature name="qfs:genericclass" negate="false" regexp="false"
+                    state="0">Window</extrafeature>
+      <extrafeature name="qfs:systemclass" negate="false" regexp="false"
+                    state="0">javafx.stage.Stage</extrafeature>
+      <ComponentStep class="Button" classcount="1" classindex="0"
+                     feature="Close" height="28" id="bClose" name="bClose"
+                     uid="_6+" width="48" x="107" y="88">
+        <extrafeature name="alignment" negate="false" regexp="false"
+                      state="0">CENTER</extrafeature>
+        <extrafeature name="gridposition" negate="false" regexp="false"
+                      state="0">0,1</extrafeature>
+        <extrafeature name="mnemonic_parsing" negate="false" regexp="false"
+                      state="0">true</extrafeature>
+        <extrafeature name="qfs:class" negate="false" regexp="false"
+                      state="0">javafx.scene.control.Button</extrafeature>
+        <extrafeature name="qfs:genericclass" negate="false" regexp="false"
+                      state="0">Button</extrafeature>
+        <extrafeature name="qfs:label" negate="false" regexp="false"
+                      state="1">Close</extrafeature>
+        <extrafeature name="qfs:systemclass" negate="false" regexp="false"
+                      state="0">javafx.scene.control.Button</extrafeature>
+        <extrafeature name="styleclass" negate="false" regexp="false"
+                      state="0">button</extrafeature>
+        <extrafeature name="wrap_text" negate="false" regexp="false"
+                      state="0">false</extrafeature>
       </ComponentStep>
     </WindowStep>
   </WindowList>

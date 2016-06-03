@@ -108,7 +108,8 @@ public class EditorPaneFXController implements Initializable, EditorPaneControll
     public void setModel(EditorModelInterface model){
         this.model = model;
         model.fileReadOnlyProperty().addListener((observable, oldValue, newValue) -> {
-            filePathLabel.setText(newValue.getPath());
+            if(newValue != null)  filePathLabel.setText(newValue.getPath());
+            else filePathLabel.setText("No file");
         });
         editorTextAreaFXController.setModel(this.model.getObservableTextModel());
         compResultListViewFXController.setModel(this.model.getObservableListModel());
