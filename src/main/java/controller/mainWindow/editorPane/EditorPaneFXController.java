@@ -207,7 +207,7 @@ public class EditorPaneFXController implements Initializable, EditorPaneControll
     private void setContentNode(Node node) {
         // 파일 내용을 보여주는 노드 교체
         // 반드시 내용을 보여주는 AnchorPane은 하나의 자식만 가져야 한다.
-        List children = contentPane.getChildren();
+        List<Node> children = contentPane.getChildren();
         if(children.size() == 0) children.add(0, node);
         else children.set(0, node);
     }

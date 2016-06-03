@@ -10,7 +10,11 @@ sourceCompatibility = 1.8
 targetCompatibility = 1.8
 mainClassName = "AppMain"
 
-[ compileJava, compileTestJava ]*.options*.encoding = 'UTF-8'
+[ compileJava, compileTestJava, javadoc ]*.options*.encoding = 'UTF-8'
+
+javadoc {
+    options.charSet = 'UTF-8'
+}
 
 //create a single Jar with all dependencies
 task fatJar(type: Jar) {

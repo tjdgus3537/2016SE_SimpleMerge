@@ -1,0 +1,952 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE RootStep>
+<RootStep id="_0" name="root"
+          signature="47052E4623745B0C4228CB966663007945EBF4B8"
+          version="4.0.11">
+  <include>qfs.qft</include>
+  <TestSet id="_1" name="2016SE_SimpleMerge">
+    <SetupSequence id="_G" name="Start Java application in a Jar archive">
+      <SetGlobalStep id="_H" varname="client">
+        <default>2016SE_SimpleMerge</default>
+      </SetGlobalStep>
+      <JavaClientStarter client="$(client)"
+                         directory="C:/Users/Donghwan/Documents/GitHub/2016SE_SimpleMerge"
+                         executable="${qftest:java}" id="_I">
+        <parameter>-jar</parameter>
+        <parameter>C:\Users\Donghwan\Documents\GitHub\2016SE_SimpleMerge\build\libs\2016SE_SimpleMerge-all-1.0.jar</parameter>
+      </JavaClientStarter>
+      <ClientWaiter client="$(client)" id="_J"/>
+    </SetupSequence>
+    <TestCase id="_2" name="Edit test">
+      <TestStep id="_2v"
+                name="Check if all button is disabled except load button">
+        <CheckBooleanStep checktype="enabled" client="$(client)"
+                          component="compare-button" id="_2l" state="false"/>
+        <CheckBooleanStep checktype="enabled" client="$(client)"
+                          component="copy-to-right-button" id="_2m"
+                          state="false"/>
+        <CheckBooleanStep checktype="enabled" client="$(client)"
+                          component="copy-to-left-button" id="_2n"
+                          state="false"/>
+        <CheckBooleanStep checktype="enabled" client="$(client)"
+                          component="edit-button2" id="_2o" state="false"/>
+        <CheckBooleanStep checktype="enabled" client="$(client)"
+                          component="save-button2" id="_2p" state="false"/>
+        <CheckBooleanStep checktype="enabled" client="$(client)"
+                          component="load-button" id="_2q"/>
+        <CheckBooleanStep checktype="enabled" client="$(client)"
+                          component="edit-button" id="_2s" state="false"/>
+        <CheckBooleanStep checktype="enabled" client="$(client)"
+                          component="save-button" id="_2t" state="false"/>
+        <CheckBooleanStep checktype="enabled" client="$(client)"
+                          component="load-button2" id="_2u"/>
+      </TestStep>
+      <TestStep id="_1e"
+                name="Check if edit mode is enabled when load some file">
+        <MouseEventStep clicks="1" client="$(client)" component="load-button"
+                        event="MOUSE_MPRC" id="_1V" modifiers="16"/>
+        <FileSelection client="$(client)"
+                       directory="C:/Users/Donghwan/Documents/GitHub/2016SE_SimpleMerge/src/test/resources"
+                       engine="fx" file="1.txt" id="_1W"/>
+        <CheckStringStep client="$(client)" component="file-path-label"
+                         id="_4W">
+          <text>C:\Users\Donghwan\Documents\GitHub\2016SE_SimpleMerge\src\test\resources\1.txt</text>
+        </CheckStringStep>
+        <CheckBooleanStep checktype="visible" client="$(client)"
+                          component="editorTextArea2" id="_4K"/>
+        <CheckBooleanStep checktype="enabled" client="$(client)"
+                          component="compare-button" id="_2x" state="false"/>
+        <CheckBooleanStep checktype="checked" client="$(client)"
+                          component="edit-button2" id="_46" state="false"/>
+        <CheckBooleanStep checktype="enabled" client="$(client)"
+                          component="edit-button2" id="_47"/>
+        <CheckBooleanStep checktype="enabled" client="$(client)"
+                          component="save-button2" id="_48"/>
+      </TestStep>
+      <TestStep id="_1f"
+                name="Check if textarea is editable when read-only mode">
+        <CheckBooleanStep checktype="checked" client="$(client)"
+                          component="edit-button2" id="_49" state="false"/>
+        <CheckBooleanStep checktype="editable" client="$(client)"
+                          component="editorTextArea2" id="_3Y" state="false"/>
+      </TestStep>
+      <TestStep id="_1g" name="Check if textarea is editable when edit mode">
+        <MouseEventStep clicks="1" client="$(client)" component="edit-button2"
+                        event="MOUSE_MPRC" id="_1Z" modifiers="16"/>
+        <CheckBooleanStep checktype="checked" client="$(client)"
+                          component="edit-button2" id="_4A"/>
+        <CheckBooleanStep checktype="editable" client="$(client)"
+                          component="editorTextArea2" id="_3X"/>
+      </TestStep>
+      <TestStep id="_2a"
+                name="Check if editor pane seem good when divider of split pane move">
+        <MouseEventStep clicks="1" client="$(client)" component="edit-button2"
+                        event="MOUSE_MPRC" id="_1d" modifiers="16"/>
+        <MouseEventStep clicks="0" client="$(client)"
+                        component="editorSplitPane" event="MOUSE_MOVED"
+                        id="_4D" modifiers="0" x="381" y="212"/>
+        <MouseEventStep clicks="1" client="$(client)"
+                        component="editorSplitPane" event="MOUSE_PRESSED"
+                        id="_4E" modifiers="16" x="381" y="212"/>
+        <MouseEventStep clicks="1" client="$(client)"
+                        component="editorSplitPane" event="MOUSE_DRAGGED"
+                        id="_4F" modifiers="16" x="367" y="180"/>
+        <MouseEventStep clicks="1" client="$(client)"
+                        component="editorSplitPane" event="MOUSE_RELEASED"
+                        id="_4G" modifiers="16" x="367" y="180"/>
+        <MouseEventStep clicks="1" client="$(client)"
+                        component="editorSplitPane" event="MOUSE_CLICKED"
+                        id="_4H" modifiers="16" x="367" y="180"/>
+      </TestStep>
+    </TestCase>
+    <TestCase id="_2T" name="Compare test">
+      <TestStep id="_3U"
+                name="Check if compare button is enabled when two files are loaded">
+        <MouseEventStep clicks="1" client="$(client)" component="load-button"
+                        event="MOUSE_MPRC" id="_2+" modifiers="16"/>
+        <FileSelection client="$(client)"
+                       directory="C:/Users/Donghwan/Documents/GitHub/2016SE_SimpleMerge/src/test/resources"
+                       engine="fx" file="1.txt" id="_2-"/>
+        <CheckBooleanStep checktype="enabled" client="$(client)"
+                          component="compare-button" id="_3Q" state="false"/>
+        <MouseEventStep clicks="1" client="$(client)" component="load-button2"
+                        event="MOUSE_MPRC" id="_30" modifiers="16"/>
+        <FileSelection client="$(client)"
+                       directory="C:/Users/Donghwan/Documents/GitHub/2016SE_SimpleMerge/src/test/resources"
+                       engine="fx" file="2.txt" id="_31"/>
+        <CheckBooleanStep checktype="enabled" client="$(client)"
+                          component="compare-button" id="_3S"/>
+      </TestStep>
+      <TestStep id="_3Z" name="Check if copy buttons work.">
+        <BasicSequence id="_3z"
+                       name="check compare button disabled and copy buttons enabled">
+          <MouseEventStep clicks="1" client="$(client)"
+                          component="edit-button2" event="MOUSE_MPRC" id="_54"
+                          modifiers="16"/>
+          <MouseEventStep clicks="1" client="$(client)"
+                          component="compare-button" event="MOUSE_MPRC"
+                          id="_32" modifiers="16"/>
+          <CheckBooleanStep checktype="checked" client="$(client)"
+                            component="edit-button2" id="_58" state="false"/>
+          <CheckBooleanStep checktype="visible" client="$(client)"
+                            component="compareListVIew" id="_59"/>
+          <CheckBooleanStep checktype="visible" client="$(client)"
+                            component="compareListVIew2" id="_5A"/>
+          <CheckBooleanStep checktype="enabled" client="$(client)"
+                            component="copy-to-right-button" id="_3w"/>
+          <CheckBooleanStep checktype="enabled" client="$(client)"
+                            component="copy-to-left-button" id="_3x"/>
+          <CheckBooleanStep checktype="enabled" client="$(client)"
+                            component="compare-button" id="_3y"
+                            state="false"/>
+        </BasicSequence>
+        <BasicSequence id="_41" name="check compare scroll bar is enabled">
+          <CheckBooleanStep checktype="enabled" client="$(client)"
+                            component="compare-view-scroll-bar" id="_40"/>
+        </BasicSequence>
+        <BasicSequence id="_42" name="check if copy function works">
+          <MouseEventStep clicks="1" client="$(client)"
+                          component="compareListVIew2@syntax: glob"
+                          event="MOUSE_MPRC" id="_34" modifiers="16"/>
+          <MouseEventStep clicks="1" client="$(client)"
+                          component="copy-to-left-button" event="MOUSE_MPRC"
+                          id="_35" modifiers="16"/>
+          <MouseEventStep clicks="1" client="$(client)"
+                          component="compareListVIew@\#ignore thumbnails created by windows"
+                          event="MOUSE_MPRC" id="_36" modifiers="16"/>
+          <MouseEventStep clicks="1" client="$(client)"
+                          component="compareListVIew2&amp;1"
+                          event="MOUSE_MPRC" id="_37" modifiers="16"/>
+          <MouseEventStep clicks="1" client="$(client)"
+                          component="copy-to-left-button" event="MOUSE_MPRC"
+                          id="_38" modifiers="16"/>
+          <MouseEventStep clicks="1" client="$(client)"
+                          component="compareListVIew@\#Ignore files build by Visual Studio"
+                          event="MOUSE_MPRC" id="_39" modifiers="16"/>
+          <MouseEventStep clicks="1" client="$(client)"
+                          component="copy-to-right-button" event="MOUSE_MPRC"
+                          id="_3A" modifiers="16"/>
+        </BasicSequence>
+      </TestStep>
+      <TestStep id="_3f"
+                name="Check if compare button is enabled when compare mode disabled">
+        <BasicSequence id="_3i" name="change one listview to textarea">
+          <MouseEventStep clicks="1" client="$(client)"
+                          component="edit-button" event="MOUSE_MPRC" id="_3H"
+                          modifiers="16"/>
+          <CheckBooleanStep checktype="enabled" client="$(client)"
+                            component="compare-view-scroll-bar" id="_52"
+                            state="false"/>
+          <CheckStringStep client="$(client)" component="editorTextArea"
+                           id="_4a">
+            <text>syntax: glob
+
+Thumbs.db
+#Ignore files build by Visual Studio
+*.obj
+*.exe
+*.pdb
+*.user
+*.aps
+*.pch
+*.vspscc
+*_i.c
+*_p.c
+*.ncb
+*.suo
+*.tlb
+*.tlh
+*.bak
+*.cache
+*.ilk
+*.log
+*.dll
+*.lib
+*.sbr</text>
+          </CheckStringStep>
+          <CheckBooleanStep checktype="enabled" client="$(client)"
+                            component="copy-to-right-button" id="_3s"
+                            state="false"/>
+          <CheckBooleanStep checktype="enabled" client="$(client)"
+                            component="copy-to-left-button" id="_3t"
+                            state="false"/>
+          <CheckBooleanStep checktype="enabled" client="$(client)"
+                            component="compare-button" id="_3b"/>
+          <CheckBooleanStep checktype="checked" client="$(client)"
+                            component="edit-button2" id="_3h" state="false"/>
+          <CheckBooleanStep checktype="enabled" client="$(client)"
+                            component="edit-button2" id="_4B"/>
+          <CheckBooleanStep checktype="enabled" client="$(client)"
+                            component="edit-button" id="_3c"/>
+          <CheckBooleanStep checktype="visible" client="$(client)"
+                            component="compareListVIew" id="_3d"/>
+          <CheckBooleanStep checktype="visible" client="$(client)"
+                            component="editorTextArea" id="_3e"/>
+        </BasicSequence>
+        <BasicSequence id="_3j" name="change two listview to textarea">
+          <MouseEventStep clicks="1" client="$(client)"
+                          component="edit-button2" event="MOUSE_MPRC" id="_3I"
+                          modifiers="16"/>
+          <CheckBooleanStep checktype="enabled" client="$(client)"
+                            component="compare-button" id="_3k"/>
+          <CheckBooleanStep checktype="enabled" client="$(client)"
+                            component="edit-button2" id="_3l"/>
+          <CheckBooleanStep checktype="enabled" client="$(client)"
+                            component="edit-button" id="_3m"/>
+          <CheckBooleanStep checktype="visible" client="$(client)"
+                            component="editorTextArea2" id="_3q"/>
+          <CheckBooleanStep checktype="visible" client="$(client)"
+                            component="editorTextArea" id="_3o"/>
+        </BasicSequence>
+      </TestStep>
+      <TestStep id="_4b"
+                name="Check if compare mode is disabled when load another file">
+        <BasicSequence id="_4p" name="load new file">
+          <MouseEventStep clicks="1" client="$(client)"
+                          component="compare-button" event="MOUSE_MPRC"
+                          id="_4e" modifiers="16"/>
+          <MouseEventStep clicks="1" client="$(client)"
+                          component="load-button" event="MOUSE_MPRC" id="_4f"
+                          modifiers="16"/>
+          <MouseEventStep clicks="1" client="$(client)"
+                          component="buttonCancel" event="MOUSE_MPRC" id="_4g"
+                          modifiers="16"/>
+          <FileSelection client="$(client)"
+                         directory="C:/Users/Donghwan/Documents/GitHub/2016SE_SimpleMerge/src/test/resources"
+                         engine="fx" file="1.txt" id="_4h"/>
+        </BasicSequence>
+        <BasicSequence id="_4q" name="check if compare mode is disabled">
+          <CheckBooleanStep checktype="enabled" client="$(client)"
+                            component="compare-button" id="_4j"/>
+          <CheckBooleanStep checktype="enabled" client="$(client)"
+                            component="copy-to-right-button" id="_4k"
+                            state="false"/>
+          <CheckBooleanStep checktype="enabled" client="$(client)"
+                            component="copy-to-left-button" id="_4l"
+                            state="false"/>
+          <CheckBooleanStep checktype="checked" client="$(client)"
+                            component="edit-button2" id="_4o" state="false"/>
+          <CheckBooleanStep checktype="visible" client="$(client)"
+                            component="editorTextArea2" id="_4n"/>
+        </BasicSequence>
+      </TestStep>
+    </TestCase>
+    <TestCase id="_4T" name="Encoding error test">
+      <TestStep id="_4s" name="Check if encoding error message pop up">
+        <MouseEventStep clicks="1" client="$(client)" component="load-button"
+                        event="MOUSE_MPRC" id="_4P" modifiers="16"/>
+        <FileSelection client="$(client)"
+                       directory="C:/Users/Donghwan/Documents/GitHub/2016SE_SimpleMerge/src/test/resources"
+                       engine="fx" file="11_unicode_broken.txt" id="_4Q"/>
+        <CheckBooleanStep checktype="visible" client="$(client)"
+                          component="winError" id="_4R" raise="true"
+                          timeout="15000"/>
+      </TestStep>
+    </TestCase>
+    <TestCase id="_5V" name="Save test">
+      <TestStep id="_6n" name="check if empty test file is loaded">
+        <BasicSequence id="_6M" name="check if empty test file is loaded">
+          <BasicSequence id="_6L" name="make test file empty">
+            <MouseEventStep clicks="1" client="$(client)"
+                            component="load-button" event="MOUSE_MPRC"
+                            id="_5c" modifiers="16"/>
+            <FileSelection client="$(client)"
+                           directory="C:/Users/Donghwan/Documents/GitHub/2016SE_SimpleMerge/src/test/resources"
+                           engine="fx" file="not_txt.txt" id="_5d"/>
+            <MouseEventStep clicks="1" client="$(client)"
+                            component="edit-button2" event="MOUSE_MPRC"
+                            id="_5f" modifiers="16"/>
+            <MouseEventStep clicks="1" client="$(client)"
+                            component="editorTextArea2&amp;0"
+                            event="MOUSE_MPRC" id="_5g" modifiers="16" x="45"
+                            y="28"/>
+            <KeyEventStep client="$(client)" component="editorTextArea2"
+                          event="KEY_PRESSED" id="_5j" keychar="0"
+                          keycode="17" modifiers="2"/>
+            <KeyEventStep client="$(client)" component="editorTextArea2"
+                          event="KEY_PTR" id="_5k" keychar="1" keycode="65"
+                          modifiers="2"/>
+            <KeyEventStep client="$(client)" component="editorTextArea2"
+                          event="KEY_RELEASED" id="_5l" keychar="0"
+                          keycode="17" modifiers="0"/>
+            <KeyEventStep client="$(client)" component="editorTextArea2"
+                          event="KEY_PTR" id="_5m" keychar="8" keycode="8"
+                          modifiers="0"/>
+            <MouseEventStep clicks="1" client="$(client)"
+                            component="save-button2" event="MOUSE_MPRC"
+                            id="_5n" modifiers="16"/>
+          </BasicSequence>
+          <MouseEventStep clicks="1" client="$(client)"
+                          component="load-button2" event="MOUSE_MPRC" id="_5o"
+                          modifiers="16"/>
+          <FileSelection client="$(client)"
+                         directory="C:/Users/Donghwan/Documents/GitHub/2016SE_SimpleMerge/src/test/resources"
+                         engine="fx" file="not_txt.txt" id="_5p"/>
+          <CheckStringStep client="$(client)" component="editorTextArea"
+                           id="_6Q"/>
+        </BasicSequence>
+      </TestStep>
+      <TestStep id="_6o" name="check if actual text is same as one expected">
+        <BasicSequence id="_6W"
+                       name="check if actual text is same as one expected">
+          <BasicSequence id="_6R" name="save new text expected to show">
+            <MouseEventStep clicks="1" client="$(client)"
+                            component="editorTextArea2" event="MOUSE_MPRC"
+                            id="_5t" modifiers="16" x="79" y="28"/>
+            <TextInputStep clear="true" client="$(client)"
+                           component="editorTextArea2" id="_60">
+              <text>text expected</text>
+            </TextInputStep>
+            <MouseEventStep clicks="1" client="$(client)"
+                            component="save-button2" event="MOUSE_MPRC"
+                            id="_63" modifiers="16"/>
+          </BasicSequence>
+          <MouseEventStep clicks="1" client="$(client)"
+                          component="load-button2" event="MOUSE_MPRC" id="_6T"
+                          modifiers="16"/>
+          <MouseEventStep clicks="1" client="$(client)"
+                          component="buttonCancel" event="MOUSE_MPRC" id="_6U"
+                          modifiers="16"/>
+          <FileSelection client="$(client)"
+                         directory="C:/Users/Donghwan/Documents/GitHub/2016SE_SimpleMerge/src/test/resources"
+                         engine="fx" file="not_txt.txt" id="_6V"/>
+          <CheckStringStep client="$(client)" component="editorTextArea"
+                           id="_6Y">
+            <text>text expected</text>
+          </CheckStringStep>
+        </BasicSequence>
+      </TestStep>
+      <TestStep id="_6p" name="check if save action before load works">
+        <BasicSequence id="_6j" name="check if save action before load works">
+          <BasicSequence id="_6k" name="save new text expected to show">
+            <MouseEventStep clicks="1" client="$(client)"
+                            component="editorTextArea2&amp;0"
+                            event="MOUSE_MPRC" id="_6a" modifiers="16" x="88"
+                            y="11"/>
+            <KeyEventStep client="$(client)" component="editorTextArea2"
+                          event="KEY_PTR" id="_6b" keychar="13" keycode="10"
+                          modifiers="0"/>
+            <TextInputStep client="$(client)" component="editorTextArea2"
+                           id="_6c">
+              <text>load after save</text>
+            </TextInputStep>
+            <MouseEventStep clicks="1" client="$(client)"
+                            component="load-button" event="MOUSE_MPRC"
+                            id="_6d" modifiers="16"/>
+            <MouseEventStep clicks="1" client="$(client)" component="buttonOK"
+                            event="MOUSE_MPRC" id="_6e" modifiers="16"/>
+            <FileSelection client="$(client)" engine="fx" id="_6f"/>
+          </BasicSequence>
+          <MouseEventStep clicks="1" client="$(client)"
+                          component="load-button2" event="MOUSE_MPRC" id="_6g"
+                          modifiers="16"/>
+          <MouseEventStep clicks="1" client="$(client)"
+                          component="buttonCancel" event="MOUSE_MPRC" id="_6h"
+                          modifiers="16"/>
+          <FileSelection client="$(client)"
+                         directory="C:/Users/Donghwan/Documents/GitHub/2016SE_SimpleMerge/src/test/resources"
+                         engine="fx" file="not_txt.txt" id="_6i"/>
+          <CheckStringStep client="$(client)" component="editorTextArea"
+                           id="_6m">
+            <text>text expected
+load after save</text>
+          </CheckStringStep>
+        </BasicSequence>
+      </TestStep>
+    </TestCase>
+    <CleanupSequence id="_1O" maxerror="0" name="Stop Java application">
+      <ClientStopper client="$(client)" id="_1S"/>
+    </CleanupSequence>
+  </TestSet>
+  <PackageRoot id="_3"/>
+  <ExtraSequence id="_4"/>
+  <WindowList id="_5">
+    <WindowStep class="Window" engine="fx" feature="SimpleMerge - Team 6"
+                height="539" id="root-pane" name="root-pane" uid="_A"
+                width="816">
+      <extrafeature name="qfs:class" negate="false" regexp="false" state="0">javafx.stage.Stage</extrafeature>
+      <extrafeature name="qfs:genericclass" negate="false" regexp="false"
+                    state="0">Window</extrafeature>
+      <extrafeature name="qfs:systemclass" negate="false" regexp="false"
+                    state="0">javafx.stage.Stage</extrafeature>
+      <ComponentStep class="SplitPanel" classcount="1" classindex="0"
+                     height="458" id="editorSplitPane" name="editorSplitPane"
+                     uid="_B" width="768" x="9" y="72">
+        <extrafeature name="qfs:class" negate="false" regexp="false"
+                      state="0">javafx.scene.control.SplitPane</extrafeature>
+        <extrafeature name="qfs:genericclass" negate="false" regexp="false"
+                      state="0">SplitPanel</extrafeature>
+        <extrafeature name="qfs:systemclass" negate="false" regexp="false"
+                      state="0">javafx.scene.control.SplitPane</extrafeature>
+        <extrafeature name="styleclass" negate="false" regexp="false"
+                      state="0">split-pane background</extrafeature>
+        <ComponentStep class="Panel" classcount="4" classindex="0"
+                       feature="Split: First" height="454" id="panelFirst"
+                       uid="_C" width="379" x="2" y="2">
+          <extrafeature name="qfs:class" negate="false" regexp="false"
+                        state="0">javafx.scene.layout.StackPane</extrafeature>
+          <extrafeature name="qfs:genericclass" negate="false" regexp="false"
+                        state="0">Panel</extrafeature>
+          <extrafeature name="qfs:systemclass" negate="false" regexp="false"
+                        state="0">javafx.scene.layout.StackPane</extrafeature>
+          <extrafeature name="qfs:type" negate="false" regexp="false"
+                        state="0">Panel:SplitPanelContent</extrafeature>
+          <ComponentStep class="Panel" classcount="1" classindex="0"
+                         height="454" id="rootPane" name="rootPane" uid="_D"
+                         width="379" x="0" y="0">
+            <extrafeature name="qfs:class" negate="false" regexp="false"
+                          state="0">javafx.scene.layout.AnchorPane</extrafeature>
+            <extrafeature name="qfs:genericclass" negate="false"
+                          regexp="false" state="0">Panel</extrafeature>
+            <extrafeature name="qfs:systemclass" negate="false" regexp="false"
+                          state="0">javafx.scene.layout.AnchorPane</extrafeature>
+            <extrafeature name="styleclass" negate="false" regexp="false"
+                          state="0">background</extrafeature>
+            <ComponentStep class="ToolBar" classcount="1" classindex="0"
+                           height="40" id="file-tool-bar" name="file-tool-bar"
+                           uid="_E" width="334" x="1" y="1">
+              <extrafeature name="orientation" negate="false" regexp="false"
+                            state="0">HORIZONTAL</extrafeature>
+              <extrafeature name="qfs:class" negate="false" regexp="false"
+                            state="0">javafx.scene.control.ToolBar</extrafeature>
+              <extrafeature name="qfs:genericclass" negate="false"
+                            regexp="false" state="0">ToolBar</extrafeature>
+              <extrafeature name="qfs:systemclass" negate="false"
+                            regexp="false" state="0">javafx.scene.control.ToolBar</extrafeature>
+              <extrafeature name="styleclass" negate="false" regexp="false"
+                            state="0">tool-bar background</extrafeature>
+              <ComponentStep class="Button" classcount="3" classindex="0"
+                             feature="Load" height="25" id="load-button"
+                             name="load-button" uid="_F" width="25" x="7"
+                             y="8">
+                <extrafeature name="alignment" negate="false" regexp="false"
+                              state="0">CENTER</extrafeature>
+                <extrafeature name="mnemonic_parsing" negate="false"
+                              regexp="false" state="0">false</extrafeature>
+                <extrafeature name="qfs:class" negate="false" regexp="false"
+                              state="0">javafx.scene.control.Button</extrafeature>
+                <extrafeature name="qfs:genericclass" negate="false"
+                              regexp="false" state="0">Button</extrafeature>
+                <extrafeature name="qfs:label" negate="false" regexp="false"
+                              state="1">Load</extrafeature>
+                <extrafeature name="qfs:systemclass" negate="false"
+                              regexp="false" state="0">javafx.scene.control.Button</extrafeature>
+                <extrafeature name="styleclass" negate="false" regexp="false"
+                              state="0">button</extrafeature>
+                <extrafeature name="wrap_text" negate="false" regexp="false"
+                              state="0">false</extrafeature>
+              </ComponentStep>
+              <ComponentStep class="Button" classcount="3" classindex="1"
+                             feature="Edit" height="26" id="edit-button2"
+                             name="edit-button" uid="_Z" width="25" x="36"
+                             y="8">
+                <extrafeature name="alignment" negate="false" regexp="false"
+                              state="0">CENTER</extrafeature>
+                <extrafeature name="mnemonic_parsing" negate="false"
+                              regexp="false" state="0">false</extrafeature>
+                <extrafeature name="qfs:class" negate="false" regexp="false"
+                              state="0">javafx.scene.control.ToggleButton</extrafeature>
+                <extrafeature name="qfs:genericclass" negate="false"
+                              regexp="false" state="0">Button</extrafeature>
+                <extrafeature name="qfs:label" negate="false" regexp="false"
+                              state="1">Edit</extrafeature>
+                <extrafeature name="qfs:systemclass" negate="false"
+                              regexp="false" state="0">javafx.scene.control.ToggleButton</extrafeature>
+                <extrafeature name="styleclass" negate="false" regexp="false"
+                              state="0">toggle-button</extrafeature>
+                <extrafeature name="wrap_text" negate="false" regexp="false"
+                              state="0">false</extrafeature>
+              </ComponentStep>
+              <ComponentStep class="Button" classcount="3" classindex="2"
+                             feature="Save" height="26" id="save-button2"
+                             name="save-button" uid="_2h" width="25" x="65"
+                             y="8">
+                <extrafeature name="alignment" negate="false" regexp="false"
+                              state="0">CENTER</extrafeature>
+                <extrafeature name="mnemonic_parsing" negate="false"
+                              regexp="false" state="0">false</extrafeature>
+                <extrafeature name="qfs:class" negate="false" regexp="false"
+                              state="0">javafx.scene.control.Button</extrafeature>
+                <extrafeature name="qfs:genericclass" negate="false"
+                              regexp="false" state="0">Button</extrafeature>
+                <extrafeature name="qfs:label" negate="false" regexp="false"
+                              state="1">Save</extrafeature>
+                <extrafeature name="qfs:systemclass" negate="false"
+                              regexp="false" state="0">javafx.scene.control.Button</extrafeature>
+                <extrafeature name="styleclass" negate="false" regexp="false"
+                              state="0">button</extrafeature>
+                <extrafeature name="wrap_text" negate="false" regexp="false"
+                              state="0">false</extrafeature>
+              </ComponentStep>
+            </ComponentStep>
+            <ComponentStep class="Panel" classcount="2" classindex="1"
+                           height="412" id="contentPane" name="contentPane"
+                           uid="_Q" width="377" x="1" y="41">
+              <extrafeature name="qfs:class" negate="false" regexp="false"
+                            state="0">javafx.scene.layout.AnchorPane</extrafeature>
+              <extrafeature name="qfs:genericclass" negate="false"
+                            regexp="false" state="0">Panel</extrafeature>
+              <extrafeature name="qfs:systemclass" negate="false"
+                            regexp="false" state="0">javafx.scene.layout.AnchorPane</extrafeature>
+              <ComponentStep class="List" classcount="1" classindex="0"
+                             height="412" id="compareListVIew"
+                             name="compareListVIew" uid="_R" width="377" x="0"
+                             y="0">
+                <extrafeature name="qfs:class" negate="false" regexp="false"
+                              state="0">javafx.scene.control.ListView</extrafeature>
+                <extrafeature name="qfs:genericclass" negate="false"
+                              regexp="false" state="0">List</extrafeature>
+                <extrafeature name="qfs:label" negate="false" regexp="false"
+                              state="1">C:\Users\Donghwan\Documents\gitignore_global.txt</extrafeature>
+                <extrafeature name="qfs:systemclass" negate="false"
+                              regexp="false" state="0">javafx.scene.control.ListView</extrafeature>
+                <extrafeature name="styleclass" negate="false" regexp="false"
+                              state="0">list-view</extrafeature>
+                <ComponentStep class="ScrollBar" classcount="1" classindex="0"
+                               height="410" id="compareListVIew.scrollbar0.0"
+                               uid="_55" width="17" x="359" y="1">
+                  <extrafeature name="qfs:class" negate="false" regexp="false"
+                                state="0">com.sun.javafx.scene.control.skin.VirtualScrollBar</extrafeature>
+                  <extrafeature name="qfs:genericclass" negate="false"
+                                regexp="false" state="0">ScrollBar</extrafeature>
+                  <extrafeature name="qfs:label" negate="false" regexp="false"
+                                state="1">0.0</extrafeature>
+                  <extrafeature name="qfs:systemclass" negate="false"
+                                regexp="false" state="0">com.sun.javafx.scene.control.skin.VirtualScrollBar</extrafeature>
+                  <extrafeature name="styleclass" negate="false"
+                                regexp="false" state="0">scroll-bar</extrafeature>
+                </ComponentStep>
+              </ComponentStep>
+              <ComponentStep class="TextArea" classcount="1" classindex="0"
+                             height="412" id="editorTextArea2"
+                             name="editorTextArea" uid="_1T" width="377" x="0"
+                             y="0">
+                <extrafeature name="qfs:class" negate="false" regexp="false"
+                              state="0">javafx.scene.control.TextArea</extrafeature>
+                <extrafeature name="qfs:genericclass" negate="false"
+                              regexp="false" state="0">TextArea</extrafeature>
+                <extrafeature name="qfs:label" negate="false" regexp="false"
+                              state="1">C:\Users\Donghwan\Documents\GitHub\2016SE_SimpleMerge\src\test\resources\1.txt</extrafeature>
+                <extrafeature name="qfs:systemclass" negate="false"
+                              regexp="false" state="0">javafx.scene.control.TextArea</extrafeature>
+                <extrafeature name="styleclass" negate="false" regexp="false"
+                              state="0">text-input text-area background</extrafeature>
+              </ComponentStep>
+            </ComponentStep>
+            <ComponentStep class="Label" classcount="1" classindex="0"
+                           feature="C:\Users\Donghwan\Documents\GitHub\2016SE_SimpleMerge\src\test\resources\1.txt"
+                           height="19" id="file-path-label"
+                           name="file-path-label" uid="_3T" width="272"
+                           x="101" y="12">
+              <extrafeature name="alignment" negate="false" regexp="false"
+                            state="0">CENTER_RIGHT</extrafeature>
+              <extrafeature name="mnemonic_parsing" negate="false"
+                            regexp="false" state="0">false</extrafeature>
+              <extrafeature name="qfs:class" negate="false" regexp="false"
+                            state="0">javafx.scene.control.Label</extrafeature>
+              <extrafeature name="qfs:genericclass" negate="false"
+                            regexp="false" state="0">Label</extrafeature>
+              <extrafeature name="qfs:label" negate="false" regexp="false"
+                            state="1">C:\Users\Donghwan\Documents\GitHub\2016SE_SimpleMerge\src\test\resources\1.txt</extrafeature>
+              <extrafeature name="qfs:systemclass" negate="false"
+                            regexp="false" state="0">javafx.scene.control.Label</extrafeature>
+              <extrafeature name="styleclass" negate="false" regexp="false"
+                            state="0">label background</extrafeature>
+              <extrafeature name="wrap_text" negate="false" regexp="false"
+                            state="0">false</extrafeature>
+            </ComponentStep>
+          </ComponentStep>
+        </ComponentStep>
+        <ComponentStep class="Panel" classcount="4" classindex="1"
+                       feature="Split: Second" height="454" id="panelSecond"
+                       uid="_K" width="379" x="387" y="2">
+          <extrafeature name="qfs:class" negate="false" regexp="false"
+                        state="0">javafx.scene.layout.StackPane</extrafeature>
+          <extrafeature name="qfs:genericclass" negate="false" regexp="false"
+                        state="0">Panel</extrafeature>
+          <extrafeature name="qfs:systemclass" negate="false" regexp="false"
+                        state="0">javafx.scene.layout.StackPane</extrafeature>
+          <extrafeature name="qfs:type" negate="false" regexp="false"
+                        state="0">Panel:SplitPanelContent</extrafeature>
+          <ComponentStep class="Panel" classcount="1" classindex="0"
+                         height="454" id="rootPane2" name="rootPane" uid="_L"
+                         width="379" x="0" y="0">
+            <extrafeature name="qfs:class" negate="false" regexp="false"
+                          state="0">javafx.scene.layout.AnchorPane</extrafeature>
+            <extrafeature name="qfs:genericclass" negate="false"
+                          regexp="false" state="0">Panel</extrafeature>
+            <extrafeature name="qfs:matchindex" negate="false" regexp="false"
+                          state="2">1</extrafeature>
+            <extrafeature name="qfs:systemclass" negate="false" regexp="false"
+                          state="0">javafx.scene.layout.AnchorPane</extrafeature>
+            <extrafeature name="styleclass" negate="false" regexp="false"
+                          state="0">background</extrafeature>
+            <ComponentStep class="ToolBar" classcount="1" classindex="0"
+                           height="40" id="file-tool-bar2"
+                           name="file-tool-bar" uid="_M" width="334" x="1"
+                           y="1">
+              <extrafeature name="orientation" negate="false" regexp="false"
+                            state="0">HORIZONTAL</extrafeature>
+              <extrafeature name="qfs:class" negate="false" regexp="false"
+                            state="0">javafx.scene.control.ToolBar</extrafeature>
+              <extrafeature name="qfs:genericclass" negate="false"
+                            regexp="false" state="0">ToolBar</extrafeature>
+              <extrafeature name="qfs:systemclass" negate="false"
+                            regexp="false" state="0">javafx.scene.control.ToolBar</extrafeature>
+              <extrafeature name="styleclass" negate="false" regexp="false"
+                            state="0">tool-bar background</extrafeature>
+              <ComponentStep class="Button" classcount="3" classindex="0"
+                             feature="Load" height="26" id="load-button2"
+                             name="load-button" uid="_N" width="25" x="7"
+                             y="8">
+                <extrafeature name="alignment" negate="false" regexp="false"
+                              state="0">CENTER</extrafeature>
+                <extrafeature name="mnemonic_parsing" negate="false"
+                              regexp="false" state="0">false</extrafeature>
+                <extrafeature name="qfs:class" negate="false" regexp="false"
+                              state="0">javafx.scene.control.Button</extrafeature>
+                <extrafeature name="qfs:genericclass" negate="false"
+                              regexp="false" state="0">Button</extrafeature>
+                <extrafeature name="qfs:label" negate="false" regexp="false"
+                              state="1">Load</extrafeature>
+                <extrafeature name="qfs:systemclass" negate="false"
+                              regexp="false" state="0">javafx.scene.control.Button</extrafeature>
+                <extrafeature name="styleclass" negate="false" regexp="false"
+                              state="0">button</extrafeature>
+                <extrafeature name="wrap_text" negate="false" regexp="false"
+                              state="0">false</extrafeature>
+              </ComponentStep>
+              <ComponentStep class="Button" classcount="3" classindex="1"
+                             feature="Edit" height="26" id="edit-button"
+                             name="edit-button" uid="_V" width="25" x="36"
+                             y="8">
+                <extrafeature name="alignment" negate="false" regexp="false"
+                              state="0">CENTER</extrafeature>
+                <extrafeature name="mnemonic_parsing" negate="false"
+                              regexp="false" state="0">false</extrafeature>
+                <extrafeature name="qfs:class" negate="false" regexp="false"
+                              state="0">javafx.scene.control.ToggleButton</extrafeature>
+                <extrafeature name="qfs:genericclass" negate="false"
+                              regexp="false" state="0">Button</extrafeature>
+                <extrafeature name="qfs:label" negate="false" regexp="false"
+                              state="1">Edit</extrafeature>
+                <extrafeature name="qfs:systemclass" negate="false"
+                              regexp="false" state="0">javafx.scene.control.ToggleButton</extrafeature>
+                <extrafeature name="styleclass" negate="false" regexp="false"
+                              state="0">toggle-button</extrafeature>
+                <extrafeature name="wrap_text" negate="false" regexp="false"
+                              state="0">false</extrafeature>
+              </ComponentStep>
+              <ComponentStep class="Button" classcount="3" classindex="2"
+                             feature="Save" height="26" id="save-button"
+                             name="save-button" uid="_X" width="25" x="65"
+                             y="8">
+                <extrafeature name="alignment" negate="false" regexp="false"
+                              state="0">CENTER</extrafeature>
+                <extrafeature name="mnemonic_parsing" negate="false"
+                              regexp="false" state="0">false</extrafeature>
+                <extrafeature name="qfs:class" negate="false" regexp="false"
+                              state="0">javafx.scene.control.Button</extrafeature>
+                <extrafeature name="qfs:genericclass" negate="false"
+                              regexp="false" state="0">Button</extrafeature>
+                <extrafeature name="qfs:label" negate="false" regexp="false"
+                              state="1">Save</extrafeature>
+                <extrafeature name="qfs:systemclass" negate="false"
+                              regexp="false" state="0">javafx.scene.control.Button</extrafeature>
+                <extrafeature name="styleclass" negate="false" regexp="false"
+                              state="0">button</extrafeature>
+                <extrafeature name="wrap_text" negate="false" regexp="false"
+                              state="0">false</extrafeature>
+              </ComponentStep>
+            </ComponentStep>
+            <ComponentStep class="Panel" classcount="2" classindex="1"
+                           height="412" id="contentPane2" name="contentPane"
+                           uid="_T" width="377" x="1" y="41">
+              <extrafeature name="qfs:class" negate="false" regexp="false"
+                            state="0">javafx.scene.layout.AnchorPane</extrafeature>
+              <extrafeature name="qfs:genericclass" negate="false"
+                            regexp="false" state="0">Panel</extrafeature>
+              <extrafeature name="qfs:systemclass" negate="false"
+                            regexp="false" state="0">javafx.scene.layout.AnchorPane</extrafeature>
+              <ComponentStep class="List" classcount="1" classindex="0"
+                             height="412" id="compareListVIew2"
+                             name="compareListVIew" uid="_U" width="377" x="0"
+                             y="0">
+                <extrafeature name="qfs:class" negate="false" regexp="false"
+                              state="0">javafx.scene.control.ListView</extrafeature>
+                <extrafeature name="qfs:genericclass" negate="false"
+                              regexp="false" state="0">List</extrafeature>
+                <extrafeature name="qfs:label" negate="false" regexp="false"
+                              state="1">C:\Users\Donghwan\Documents\hgignore_global.txt</extrafeature>
+                <extrafeature name="qfs:systemclass" negate="false"
+                              regexp="false" state="0">javafx.scene.control.ListView</extrafeature>
+                <extrafeature name="styleclass" negate="false" regexp="false"
+                              state="0">list-view</extrafeature>
+                <ComponentStep class="ScrollBar" classcount="1" classindex="0"
+                               height="410" id="compareListVIew2.scrollbar0.0"
+                               uid="_56" width="17" x="359" y="1">
+                  <extrafeature name="qfs:class" negate="false" regexp="false"
+                                state="0">com.sun.javafx.scene.control.skin.VirtualScrollBar</extrafeature>
+                  <extrafeature name="qfs:genericclass" negate="false"
+                                regexp="false" state="0">ScrollBar</extrafeature>
+                  <extrafeature name="qfs:label" negate="false" regexp="false"
+                                state="1">0.0</extrafeature>
+                  <extrafeature name="qfs:systemclass" negate="false"
+                                regexp="false" state="0">com.sun.javafx.scene.control.skin.VirtualScrollBar</extrafeature>
+                  <extrafeature name="styleclass" negate="false"
+                                regexp="false" state="0">scroll-bar</extrafeature>
+                </ComponentStep>
+              </ComponentStep>
+              <ComponentStep class="TextArea" classcount="1" classindex="0"
+                             height="412" id="editorTextArea"
+                             name="editorTextArea" uid="_W" width="377" x="0"
+                             y="0">
+                <extrafeature name="qfs:class" negate="false" regexp="false"
+                              state="0">javafx.scene.control.TextArea</extrafeature>
+                <extrafeature name="qfs:genericclass" negate="false"
+                              regexp="false" state="0">TextArea</extrafeature>
+                <extrafeature name="qfs:label" negate="false" regexp="false"
+                              state="1">C:\Users\Donghwan\Documents\hgignore_global.txt</extrafeature>
+                <extrafeature name="qfs:systemclass" negate="false"
+                              regexp="false" state="0">javafx.scene.control.TextArea</extrafeature>
+                <extrafeature name="styleclass" negate="false" regexp="false"
+                              state="0">text-input text-area background</extrafeature>
+              </ComponentStep>
+            </ComponentStep>
+          </ComponentStep>
+        </ComponentStep>
+      </ComponentStep>
+      <ComponentStep class="ToolBar" classcount="1" classindex="0" height="40"
+                     id="root-pane.toolbar" uid="_O" width="798" x="9" y="32">
+        <extrafeature name="orientation" negate="false" regexp="false"
+                      state="0">HORIZONTAL</extrafeature>
+        <extrafeature name="qfs:class" negate="false" regexp="false"
+                      state="0">javafx.scene.control.ToolBar</extrafeature>
+        <extrafeature name="qfs:genericclass" negate="false" regexp="false"
+                      state="0">ToolBar</extrafeature>
+        <extrafeature name="qfs:systemclass" negate="false" regexp="false"
+                      state="0">javafx.scene.control.ToolBar</extrafeature>
+        <extrafeature name="styleclass" negate="false" regexp="false"
+                      state="0">tool-bar background</extrafeature>
+        <ComponentStep class="Button" classcount="3" classindex="0"
+                       feature="Compare" height="26" id="compare-button"
+                       name="compare-button" uid="_P" width="25" x="7" y="8">
+          <extrafeature name="alignment" negate="false" regexp="false"
+                        state="0">CENTER</extrafeature>
+          <extrafeature name="mnemonic_parsing" negate="false" regexp="false"
+                        state="0">false</extrafeature>
+          <extrafeature name="qfs:class" negate="false" regexp="false"
+                        state="0">javafx.scene.control.Button</extrafeature>
+          <extrafeature name="qfs:genericclass" negate="false" regexp="false"
+                        state="0">Button</extrafeature>
+          <extrafeature name="qfs:label" negate="false" regexp="false"
+                        state="1">Compare</extrafeature>
+          <extrafeature name="qfs:systemclass" negate="false" regexp="false"
+                        state="0">javafx.scene.control.Button</extrafeature>
+          <extrafeature name="styleclass" negate="false" regexp="false"
+                        state="0">button</extrafeature>
+          <extrafeature name="wrap_text" negate="false" regexp="false"
+                        state="0">false</extrafeature>
+        </ComponentStep>
+        <ComponentStep class="Button" classcount="3" classindex="1"
+                       feature="Copy To Right" height="26"
+                       id="copy-to-right-button" name="copy-to-right-button"
+                       uid="_S" width="25" x="36" y="8">
+          <extrafeature name="alignment" negate="false" regexp="false"
+                        state="0">CENTER</extrafeature>
+          <extrafeature name="mnemonic_parsing" negate="false" regexp="false"
+                        state="0">false</extrafeature>
+          <extrafeature name="qfs:class" negate="false" regexp="false"
+                        state="0">javafx.scene.control.Button</extrafeature>
+          <extrafeature name="qfs:genericclass" negate="false" regexp="false"
+                        state="0">Button</extrafeature>
+          <extrafeature name="qfs:label" negate="false" regexp="false"
+                        state="1">Copy To Right</extrafeature>
+          <extrafeature name="qfs:systemclass" negate="false" regexp="false"
+                        state="0">javafx.scene.control.Button</extrafeature>
+          <extrafeature name="styleclass" negate="false" regexp="false"
+                        state="0">button</extrafeature>
+          <extrafeature name="wrap_text" negate="false" regexp="false"
+                        state="0">false</extrafeature>
+        </ComponentStep>
+        <ComponentStep class="Button" classcount="3" classindex="2"
+                       feature="Copy To Left" height="26"
+                       id="copy-to-left-button" name="copy-to-left-button"
+                       uid="_Y" width="25" x="65" y="8">
+          <extrafeature name="alignment" negate="false" regexp="false"
+                        state="0">CENTER</extrafeature>
+          <extrafeature name="mnemonic_parsing" negate="false" regexp="false"
+                        state="0">false</extrafeature>
+          <extrafeature name="qfs:class" negate="false" regexp="false"
+                        state="0">javafx.scene.control.Button</extrafeature>
+          <extrafeature name="qfs:genericclass" negate="false" regexp="false"
+                        state="0">Button</extrafeature>
+          <extrafeature name="qfs:label" negate="false" regexp="false"
+                        state="1">Copy To Left</extrafeature>
+          <extrafeature name="qfs:systemclass" negate="false" regexp="false"
+                        state="0">javafx.scene.control.Button</extrafeature>
+          <extrafeature name="styleclass" negate="false" regexp="false"
+                        state="0">button</extrafeature>
+          <extrafeature name="wrap_text" negate="false" regexp="false"
+                        state="0">false</extrafeature>
+        </ComponentStep>
+      </ComponentStep>
+      <ComponentStep class="ScrollBar" classcount="1" classindex="0"
+                     height="458" id="compare-view-scroll-bar"
+                     name="compare-view-scroll-bar" uid="_13" width="30"
+                     x="777" y="72">
+        <extrafeature name="qfs:class" negate="false" regexp="false"
+                      state="0">javafx.scene.control.ScrollBar</extrafeature>
+        <extrafeature name="qfs:genericclass" negate="false" regexp="false"
+                      state="0">ScrollBar</extrafeature>
+        <extrafeature name="qfs:label" negate="false" regexp="false"
+                      state="1">0.0</extrafeature>
+        <extrafeature name="qfs:systemclass" negate="false" regexp="false"
+                      state="0">javafx.scene.control.ScrollBar</extrafeature>
+        <extrafeature name="styleclass" negate="false" regexp="false"
+                      state="0">scroll-bar</extrafeature>
+      </ComponentStep>
+    </WindowStep>
+    <WindowStep class="Window" engine="fx" feature="Confirmation" height="192"
+                id="winConfirmation" modal="true" uid="_a" width="366">
+      <extrafeature name="qfs:class" negate="false" regexp="false" state="0">javafx.stage.Stage</extrafeature>
+      <extrafeature name="qfs:genericclass" negate="false" regexp="false"
+                    state="0">Window</extrafeature>
+      <extrafeature name="qfs:systemclass" negate="false" regexp="false"
+                    state="0">javafx.stage.Stage</extrafeature>
+      <ComponentStep class="javafx.scene.control.ButtonBar" classcount="1"
+                     classindex="0" height="45"
+                     id="winConfirmation.comOK_Cancel" uid="_b" width="360"
+                     x="3" y="144">
+        <extrafeature name="qfs:class" negate="false" regexp="false"
+                      state="0">javafx.scene.control.ButtonBar</extrafeature>
+        <extrafeature name="qfs:label" negate="false" regexp="false"
+                      state="1">OK Cancel</extrafeature>
+        <extrafeature name="qfs:systemclass" negate="false" regexp="false"
+                      state="0">javafx.scene.control.ButtonBar</extrafeature>
+        <extrafeature name="styleclass" negate="false" regexp="false"
+                      state="0">button-bar</extrafeature>
+        <ComponentStep class="Button" classcount="2" classindex="0"
+                       feature="OK" height="28" id="buttonOK" uid="_c"
+                       width="78" x="189" y="9">
+          <extrafeature name="alignment" negate="false" regexp="false"
+                        state="0">CENTER</extrafeature>
+          <extrafeature name="mnemonic_parsing" negate="false" regexp="false"
+                        state="0">true</extrafeature>
+          <extrafeature name="qfs:class" negate="false" regexp="false"
+                        state="0">javafx.scene.control.Button</extrafeature>
+          <extrafeature name="qfs:genericclass" negate="false" regexp="false"
+                        state="0">Button</extrafeature>
+          <extrafeature name="qfs:label" negate="false" regexp="false"
+                        state="1">OK</extrafeature>
+          <extrafeature name="qfs:systemclass" negate="false" regexp="false"
+                        state="0">javafx.scene.control.Button</extrafeature>
+          <extrafeature name="styleclass" negate="false" regexp="false"
+                        state="0">button</extrafeature>
+          <extrafeature name="wrap_text" negate="false" regexp="false"
+                        state="0">false</extrafeature>
+        </ComponentStep>
+        <ComponentStep class="Button" classcount="2" classindex="1"
+                       feature="Cancel" height="26" id="buttonCancel"
+                       uid="_2y" width="75" x="275" y="10">
+          <extrafeature name="alignment" negate="false" regexp="false"
+                        state="0">CENTER</extrafeature>
+          <extrafeature name="mnemonic_parsing" negate="false" regexp="false"
+                        state="0">true</extrafeature>
+          <extrafeature name="qfs:class" negate="false" regexp="false"
+                        state="0">javafx.scene.control.Button</extrafeature>
+          <extrafeature name="qfs:genericclass" negate="false" regexp="false"
+                        state="0">Button</extrafeature>
+          <extrafeature name="qfs:label" negate="false" regexp="false"
+                        state="1">Cancel</extrafeature>
+          <extrafeature name="qfs:systemclass" negate="false" regexp="false"
+                        state="0">javafx.scene.control.Button</extrafeature>
+          <extrafeature name="styleclass" negate="false" regexp="false"
+                        state="0">button</extrafeature>
+          <extrafeature name="wrap_text" negate="false" regexp="false"
+                        state="0">false</extrafeature>
+        </ComponentStep>
+      </ComponentStep>
+    </WindowStep>
+    <WindowStep class="Window" engine="fx" feature="Error" height="0"
+                id="winError" modal="true" uid="_4L" width="0">
+      <extrafeature name="qfs:class" negate="false" regexp="false" state="0">javafx.stage.Stage</extrafeature>
+      <extrafeature name="qfs:genericclass" negate="false" regexp="false"
+                    state="0">Window</extrafeature>
+      <extrafeature name="qfs:systemclass" negate="false" regexp="false"
+                    state="0">javafx.stage.Stage</extrafeature>
+      <ComponentStep class="javafx.scene.control.ButtonBar" classcount="1"
+                     classindex="0" height="45" id="winError.comOK" uid="_4M"
+                     width="360" x="3" y="144">
+        <extrafeature name="qfs:class" negate="false" regexp="false"
+                      state="0">javafx.scene.control.ButtonBar</extrafeature>
+        <extrafeature name="qfs:label" negate="false" regexp="false"
+                      state="1">OK</extrafeature>
+        <extrafeature name="qfs:systemclass" negate="false" regexp="false"
+                      state="0">javafx.scene.control.ButtonBar</extrafeature>
+        <extrafeature name="styleclass" negate="false" regexp="false"
+                      state="0">button-bar</extrafeature>
+        <ComponentStep class="Button" classcount="1" classindex="0"
+                       feature="OK" height="28" id="buttonOK2" uid="_4N"
+                       width="78" x="274" y="9">
+          <extrafeature name="alignment" negate="false" regexp="false"
+                        state="0">CENTER</extrafeature>
+          <extrafeature name="mnemonic_parsing" negate="false" regexp="false"
+                        state="0">true</extrafeature>
+          <extrafeature name="qfs:class" negate="false" regexp="false"
+                        state="0">javafx.scene.control.Button</extrafeature>
+          <extrafeature name="qfs:genericclass" negate="false" regexp="false"
+                        state="0">Button</extrafeature>
+          <extrafeature name="qfs:label" negate="false" regexp="false"
+                        state="1">OK</extrafeature>
+          <extrafeature name="qfs:systemclass" negate="false" regexp="false"
+                        state="0">javafx.scene.control.Button</extrafeature>
+          <extrafeature name="styleclass" negate="false" regexp="false"
+                        state="0">button</extrafeature>
+          <extrafeature name="wrap_text" negate="false" regexp="false"
+                        state="0">false</extrafeature>
+        </ComponentStep>
+      </ComponentStep>
+    </WindowStep>
+  </WindowList>
+</RootStep>

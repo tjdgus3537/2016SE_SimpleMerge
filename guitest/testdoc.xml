@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<testdoc-summary basedir="" sourcedir="">
+  <summary testcases="3" testsets="1"/>
+  <test-suite basedir="" hfile="test_testdoc.html" qftest-version="4.0.11" sourcefile=".../test.qft" type="qftest" xfile="test_testdoc.xml">
+    <summary testcases="3" testsets="1"/>
+    <testset name="2016SE_SimpleMerge" qname="2016SE_SimpleMerge" ref="N1000F">
+      <summary testcases="3" testsets="0"/>
+    </testset>
+  </test-suite>
+</testdoc-summary>
