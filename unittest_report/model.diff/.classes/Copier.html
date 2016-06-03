@@ -1,0 +1,149 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: Copier</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">model.diff</a> ]
+</div>
+
+<h1>Coverage Summary for Class: Copier (model.diff)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">Copier</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/ 1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (4/ 4)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    96.8%
+  </span>
+  <span class="absValue">
+    (30/ 31)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package model.diff;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import java.util.List;
+<i>4</i>&nbsp;
+<i>5</i>&nbsp;import model.diff.block.Block;
+<i>6</i>&nbsp;import model.diff.block.CompState;
+<i>7</i>&nbsp;
+<i>8</i>&nbsp;/**
+<i>9</i>&nbsp; * Created by Seonghyeon on 5/26/2016.
+<i>10</i>&nbsp; *
+<i>11</i>&nbsp; * copyToLeft, copyToRight를 제공해주는 interface를 implement한 Class
+<i>12</i>&nbsp; */
+<i>13</i>&nbsp;
+<b class="fc"><i>14</i>&nbsp;public class Copier implements CopierInterface{</b>
+<i>15</i>&nbsp;	@Override
+<i>16</i>&nbsp;	public void copyToLeft(List&lt;Block&gt; left, List&lt;Block&gt; right, int blockNum) {
+<i>17</i>&nbsp;		//둘 중 하나라도 compare 결과를 갖고 있지 않을 때
+<b class="fc"><i>18</i>&nbsp;		if(left == null || right == null)</b>
+<b class="nc"><i>19</i>&nbsp;			return;</b>
+<i>20</i>&nbsp;		
+<i>21</i>&nbsp;		//잘못된 blockNum이 입력되었을 때
+<b class="fc"><i>22</i>&nbsp;		if(blockNum &lt; 0 || blockNum &gt;= left.size())</b>
+<b class="fc"><i>23</i>&nbsp;			return;</b>
+<i>24</i>&nbsp;		
+<i>25</i>&nbsp;		//unchanged 상황에서는 copyToLeft가 실행이 되든 안 되든 결과는 동일하므로 아무 작업을 하지 않는다.
+<b class="fc"><i>26</i>&nbsp;		if(left.get(blockNum).getState() == CompState.UNCHANGED)</b>
+<b class="fc"><i>27</i>&nbsp;			return;</b>
+<i>28</i>&nbsp;		
+<b class="fc"><i>29</i>&nbsp;		if(right.get(blockNum).getState() != CompState.SPACE) {</b>
+<i>30</i>&nbsp;			//우측의 blockNum번 block을 좌측에 추가하고, 좌측의 blockNum + 1번째 block을 삭제.
+<b class="fc"><i>31</i>&nbsp;			String content = right.get(blockNum).getContent();</b>
+<b class="fc"><i>32</i>&nbsp;			Block leftNewBlock = new Block(CompState.UNCHANGED, content);</b>
+<b class="fc"><i>33</i>&nbsp;			left.add(blockNum, leftNewBlock);</b>
+<b class="fc"><i>34</i>&nbsp;			left.remove(blockNum + 1);</b>
+<i>35</i>&nbsp;			
+<i>36</i>&nbsp;			//우측에서도 SPACE 또는 CHANGED Block의 상태를 UNCHANGED 상태로 바꿔줘야 하므로 갈아끼운다.
+<b class="fc"><i>37</i>&nbsp;			Block rightNewBlock = new Block(CompState.UNCHANGED, content);</b>
+<b class="fc"><i>38</i>&nbsp;			right.add(blockNum, rightNewBlock);</b>
+<b class="fc"><i>39</i>&nbsp;			right.remove(blockNum + 1);</b>
+<b class="fc"><i>40</i>&nbsp;		}</b>
+<i>41</i>&nbsp;		else {
+<b class="fc"><i>42</i>&nbsp;			left.remove(blockNum);</b>
+<b class="fc"><i>43</i>&nbsp;			right.remove(blockNum);</b>
+<i>44</i>&nbsp;		}
+<b class="fc"><i>45</i>&nbsp;		updateBlocks(left);</b>
+<b class="fc"><i>46</i>&nbsp;		updateBlocks(right);</b>
+<b class="fc"><i>47</i>&nbsp;	}</b>
+<i>48</i>&nbsp;
+<i>49</i>&nbsp;	@Override
+<i>50</i>&nbsp;	public void copyToRight(List&lt;Block&gt; left, List&lt;Block&gt; right, int blockNum) {
+<b class="fc"><i>51</i>&nbsp;		copyToLeft(right, left, blockNum);</b>
+<b class="fc"><i>52</i>&nbsp;	}</b>
+<i>53</i>&nbsp;
+<i>54</i>&nbsp;	private void updateBlocks(List&lt;Block&gt; blocks) {
+<i>55</i>&nbsp;		//size() - 1 까지인 이유는 i와 i+1 번째를 비교하기 때문
+<b class="fc"><i>56</i>&nbsp;		for(int i = 0 ; i &lt; blocks.size() - 1; i++) {</b>
+<b class="fc"><i>57</i>&nbsp;			if(blocks.get(i).getState() == CompState.UNCHANGED &amp;&amp; blocks.get(i + 1).getState() == CompState.UNCHANGED) {</b>
+<b class="fc"><i>58</i>&nbsp;				Block block = new Block(CompState.UNCHANGED, blocks.get(i).getContent() + blocks.get(i + 1).getContent());</b>
+<b class="fc"><i>59</i>&nbsp;				blocks.remove(i + 1);</b>
+<b class="fc"><i>60</i>&nbsp;				blocks.remove(i);</b>
+<b class="fc"><i>61</i>&nbsp;				blocks.add(i, block);</b>
+<b class="fc"><i>62</i>&nbsp;				i--;</b>
+<i>63</i>&nbsp;			}
+<i>64</i>&nbsp;		}
+<b class="fc"><i>65</i>&nbsp;	}</b>
+<i>66</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2016-06-03 23:52</div>
+</div>
+</body>
+</html>

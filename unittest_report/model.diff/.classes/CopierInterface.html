@@ -1,0 +1,75 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: CopierInterface</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">model.diff</a> ]
+</div>
+
+<h1>Coverage Summary for Class: CopierInterface (model.diff)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+</tr>
+<tr>
+  <td class="name">CopierInterface</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package model.diff;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import java.util.List;
+<i>4</i>&nbsp;
+<i>5</i>&nbsp;import model.diff.block.Block;
+<i>6</i>&nbsp;
+<i>7</i>&nbsp;/**
+<i>8</i>&nbsp; * Created by Seonghyeon on 5/26/2016.
+<i>9</i>&nbsp; *
+<i>10</i>&nbsp; * copyToLeft, copyToRight를 제공해주는 interface
+<i>11</i>&nbsp; */
+<i>12</i>&nbsp;
+<i>13</i>&nbsp;public interface CopierInterface {
+<i>14</i>&nbsp;    /**
+<i>15</i>&nbsp;     * blockNum에 대응하는 오른쪽 block을 왼쪽으로 copy하고, 필요하면 block을 통합함.
+<i>16</i>&nbsp;     * @param left 비교 결과의 왼쪽 리스트
+<i>17</i>&nbsp;	 * @param right 비교 결과의 오른쪽 리스트
+<i>18</i>&nbsp;	 * @param blockNum 복사할 블럭 번호
+<i>19</i>&nbsp;     */
+<i>20</i>&nbsp;	void copyToLeft(List&lt;Block&gt; left, List&lt;Block&gt; right, int blockNum);
+<i>21</i>&nbsp;	/**
+<i>22</i>&nbsp;     * blockNum에 대응하는 왼쪽 block을 오른쪽으로 copy하고, 필요하면 block을 통합함.
+<i>23</i>&nbsp;	 * @param left 비교 결과의 왼쪽 리스트
+<i>24</i>&nbsp;	 * @param right 비교 결과의 오른쪽 리스트
+<i>25</i>&nbsp;	 * @param blockNum 복사할 블럭 번호
+<i>26</i>&nbsp;     */
+<i>27</i>&nbsp;	void copyToRight(List&lt;Block&gt; left, List&lt;Block&gt; right, int blockNum);
+<i>28</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2016-06-03 23:52</div>
+</div>
+</body>
+</html>

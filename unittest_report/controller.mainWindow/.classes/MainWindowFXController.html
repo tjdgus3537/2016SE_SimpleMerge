@@ -1,0 +1,198 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: MainWindowFXController</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">controller.mainWindow</a> ]
+</div>
+
+<h1>Coverage Summary for Class: MainWindowFXController (controller.mainWindow)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">MainWindowFXController</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 10)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 42)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package controller.mainWindow;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import controller.mainWindow.editorPane.EditorPaneControllerInterface;
+<i>4</i>&nbsp;import javafx.collections.ObservableList;
+<i>5</i>&nbsp;import javafx.event.ActionEvent;
+<i>6</i>&nbsp;import javafx.fxml.FXML;
+<i>7</i>&nbsp;import javafx.fxml.FXMLLoader;
+<i>8</i>&nbsp;import javafx.fxml.Initializable;
+<i>9</i>&nbsp;import javafx.scene.Node;
+<i>10</i>&nbsp;import javafx.scene.control.Alert;
+<i>11</i>&nbsp;import javafx.scene.control.Button;
+<i>12</i>&nbsp;import javafx.scene.control.ScrollBar;
+<i>13</i>&nbsp;import javafx.scene.control.SplitPane;
+<i>14</i>&nbsp;import model.*;
+<i>15</i>&nbsp;import view.ErrorAlertFactory;
+<i>16</i>&nbsp;
+<i>17</i>&nbsp;import java.io.IOException;
+<i>18</i>&nbsp;import java.net.URL;
+<i>19</i>&nbsp;import java.util.ResourceBundle;
+<i>20</i>&nbsp;
+<i>21</i>&nbsp;/**
+<i>22</i>&nbsp; * Created by Donghwan on 5/14/2016.
+<i>23</i>&nbsp; *
+<i>24</i>&nbsp; * 메인 창의 컨트롤러
+<i>25</i>&nbsp; */
+<b class="nc"><i>26</i>&nbsp;public class MainWindowFXController implements Initializable, MainWindowControllerInterface {</b>
+<i>27</i>&nbsp;    private EditorPaneControllerInterface leftPaneController;
+<i>28</i>&nbsp;    private EditorPaneControllerInterface rightPaneController;
+<i>29</i>&nbsp;    private MainModelInterface model;
+<i>30</i>&nbsp;
+<i>31</i>&nbsp;    @FXML
+<i>32</i>&nbsp;    private Button compareButton;
+<i>33</i>&nbsp;    @FXML
+<i>34</i>&nbsp;    private Button copyToRightButton;
+<i>35</i>&nbsp;    @FXML
+<i>36</i>&nbsp;    private Button copyToLeftButton;
+<i>37</i>&nbsp;    @FXML
+<i>38</i>&nbsp;    private SplitPane editorSplitPane;
+<i>39</i>&nbsp;    @FXML
+<i>40</i>&nbsp;    private ScrollBar compareViewScrollBar;
+<i>41</i>&nbsp;
+<i>42</i>&nbsp;    @FXML
+<i>43</i>&nbsp;    private void handleCompareButtonAction(ActionEvent event){
+<i>44</i>&nbsp;        // 양 쪽 pane에 파일이 존재하지 않으면 비교 불가
+<b class="nc"><i>45</i>&nbsp;        model.compare();</b>
+<b class="nc"><i>46</i>&nbsp;        setDisableCompareModeNodes(false);</b>
+<b class="nc"><i>47</i>&nbsp;        leftPaneController.switchCompResultsView();</b>
+<b class="nc"><i>48</i>&nbsp;        rightPaneController.switchCompResultsView();</b>
+<b class="nc"><i>49</i>&nbsp;        compareViewScrollBar.setMax(model.size()); // comp 결과 길이가 들어가야 함</b>
+<i>50</i>&nbsp;    }
+<i>51</i>&nbsp;
+<i>52</i>&nbsp;    @FXML
+<i>53</i>&nbsp;    private void handleCopyToRightButtonAction(ActionEvent event){
+<b class="nc"><i>54</i>&nbsp;        model.copyToRight(leftPaneController.getSelectedIndex());</b>
+<b class="nc"><i>55</i>&nbsp;        leftPaneController.clearSelection();</b>
+<b class="nc"><i>56</i>&nbsp;        rightPaneController.clearSelection();</b>
+<i>57</i>&nbsp;    }
+<i>58</i>&nbsp;
+<i>59</i>&nbsp;    @FXML
+<i>60</i>&nbsp;    private void handleCopyToLeftButtonAction(ActionEvent event){
+<b class="nc"><i>61</i>&nbsp;        model.copyToLeft(rightPaneController.getSelectedIndex());</b>
+<b class="nc"><i>62</i>&nbsp;        leftPaneController.clearSelection();</b>
+<b class="nc"><i>63</i>&nbsp;        rightPaneController.clearSelection();</b>
+<i>64</i>&nbsp;    }
+<i>65</i>&nbsp;
+<i>66</i>&nbsp;    @Override
+<i>67</i>&nbsp;    public void setModel(MainModelInterface model){
+<b class="nc"><i>68</i>&nbsp;        this.model = model;</b>
+<b class="nc"><i>69</i>&nbsp;        leftPaneController.setModel(model.getLeftEditorModel());</b>
+<b class="nc"><i>70</i>&nbsp;        rightPaneController.setModel(model.getRightEditorModel());</b>
+<b class="nc"><i>71</i>&nbsp;        model.getComparableProperty().addListener((observable, oldValue, newValue) -&gt; {</b>
+<b class="nc"><i>72</i>&nbsp;            compareButton.setDisable(!newValue);</b>
+<i>73</i>&nbsp;        });
+<i>74</i>&nbsp;    }
+<i>75</i>&nbsp;
+<i>76</i>&nbsp;    private void setDisableCompareModeNodes(boolean disable){
+<b class="nc"><i>77</i>&nbsp;        copyToRightButton.setDisable(disable);</b>
+<b class="nc"><i>78</i>&nbsp;        copyToLeftButton.setDisable(disable);</b>
+<b class="nc"><i>79</i>&nbsp;        compareViewScrollBar.setDisable(disable);</b>
+<b class="nc"><i>80</i>&nbsp;        compareButton.setDisable(!disable);</b>
+<i>81</i>&nbsp;    }
+<i>82</i>&nbsp;
+<i>83</i>&nbsp;    @Override
+<i>84</i>&nbsp;    public void disableCompareMode() {
+<b class="nc"><i>85</i>&nbsp;        setDisableCompareModeNodes(true);</b>
+<i>86</i>&nbsp;    }
+<i>87</i>&nbsp;
+<i>88</i>&nbsp;    @Override
+<i>89</i>&nbsp;    public void initialize(URL location, ResourceBundle resources){
+<i>90</i>&nbsp;        try{
+<b class="nc"><i>91</i>&nbsp;            FXMLLoader leftPaneFXMLLoader = new FXMLLoader(getClass().getResource(&quot;/fxml/EditorPane.fxml&quot;));</b>
+<b class="nc"><i>92</i>&nbsp;            leftPaneFXMLLoader.load();</b>
+<b class="nc"><i>93</i>&nbsp;            leftPaneController = leftPaneFXMLLoader.getController();</b>
+<b class="nc"><i>94</i>&nbsp;            leftPaneController.setCompModeDisableReceiver(this);</b>
+<b class="nc"><i>95</i>&nbsp;            FXMLLoader rightPaneFXMLLoader = new FXMLLoader(getClass().getResource(&quot;/fxml/EditorPane.fxml&quot;));</b>
+<b class="nc"><i>96</i>&nbsp;            rightPaneFXMLLoader.load();</b>
+<b class="nc"><i>97</i>&nbsp;            rightPaneController = rightPaneFXMLLoader.getController();</b>
+<b class="nc"><i>98</i>&nbsp;            rightPaneController.setCompModeDisableReceiver(this);</b>
+<b class="nc"><i>99</i>&nbsp;            ObservableList&lt;Node&gt; items = editorSplitPane.getItems();</b>
+<b class="nc"><i>100</i>&nbsp;            items.add(leftPaneController.getContentNode());</b>
+<b class="nc"><i>101</i>&nbsp;            items.add(rightPaneController.getContentNode());</b>
+<b class="nc"><i>102</i>&nbsp;            editorSplitPane.setDividerPositions(0.5);</b>
+<b class="nc"><i>103</i>&nbsp;            compareViewScrollBar.valueProperty().addListener((observable, oldValue, newValue) -&gt; {</b>
+<b class="nc"><i>104</i>&nbsp;                if(newValue.intValue() &lt; model.size()) {</b>
+<b class="nc"><i>105</i>&nbsp;                    leftPaneController.scrollTo(newValue.intValue());</b>
+<b class="nc"><i>106</i>&nbsp;                    rightPaneController.scrollTo(newValue.intValue());</b>
+<i>107</i>&nbsp;                }
+<i>108</i>&nbsp;            });
+<b class="nc"><i>109</i>&nbsp;            compareButton.setDisable(true);</b>
+<b class="nc"><i>110</i>&nbsp;        }catch(IOException ioe){</b>
+<b class="nc"><i>111</i>&nbsp;            Alert viewLoadAlert = ErrorAlertFactory.newViewLoadErrorAlert();</b>
+<b class="nc"><i>112</i>&nbsp;            viewLoadAlert.show();</b>
+<i>113</i>&nbsp;        }
+<i>114</i>&nbsp;    }
+<i>115</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2016-06-03 23:52</div>
+</div>
+</body>
+</html>

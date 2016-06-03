@@ -1,0 +1,103 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: ComparisonTargetInterface</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">model.fileIO.file</a> ]
+</div>
+
+<h1>Coverage Summary for Class: ComparisonTargetInterface (model.fileIO.file)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+</tr>
+<tr>
+  <td class="name">ComparisonTargetInterface</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package model.fileIO.file;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import javafx.beans.property.ObjectProperty;
+<i>4</i>&nbsp;
+<i>5</i>&nbsp;import java.io.File;
+<i>6</i>&nbsp;import java.nio.charset.Charset;
+<i>7</i>&nbsp;
+<i>8</i>&nbsp;/**
+<i>9</i>&nbsp; * Created by Donghwan on 5/27/2016.
+<i>10</i>&nbsp; *
+<i>11</i>&nbsp; * 비교하는 파일에 대해서 저장하는 클래스의 인터페이스
+<i>12</i>&nbsp; */
+<i>13</i>&nbsp;public interface ComparisonTargetInterface extends ObservableBlocksProvider, TextPropertyProvider{
+<i>14</i>&nbsp;
+<i>15</i>&nbsp;    /**
+<i>16</i>&nbsp;     * 해당 FIle 객체를 저장한다
+<i>17</i>&nbsp;     * @param source 저장할 File 객체
+<i>18</i>&nbsp;     */
+<i>19</i>&nbsp;    void setSource(File source);
+<i>20</i>&nbsp;
+<i>21</i>&nbsp;    /**
+<i>22</i>&nbsp;     * 해당 문자열로 파일 내용을 저장한다.
+<i>23</i>&nbsp;     * @param content 저장할 파일 내용
+<i>24</i>&nbsp;     */
+<i>25</i>&nbsp;    void setContent(String content);
+<i>26</i>&nbsp;
+<i>27</i>&nbsp;    /**
+<i>28</i>&nbsp;     * 해당 문자 인코딩 형식으로 설정한다.
+<i>29</i>&nbsp;     * @param charset 설정할 문자 인코딩
+<i>30</i>&nbsp;     */
+<i>31</i>&nbsp;    void setEncoding(Charset charset);
+<i>32</i>&nbsp;
+<i>33</i>&nbsp;    /**
+<i>34</i>&nbsp;     * 저장하고 있는 File 객체를 반환한다.
+<i>35</i>&nbsp;     * @return 저장하고 있는 File 객체
+<i>36</i>&nbsp;     */
+<i>37</i>&nbsp;    File getSource();
+<i>38</i>&nbsp;
+<i>39</i>&nbsp;    /**
+<i>40</i>&nbsp;     * 저장하고 있는 파일 내용을 반환한다.
+<i>41</i>&nbsp;     * @return 저장하고 있는 파일 내용
+<i>42</i>&nbsp;     */
+<i>43</i>&nbsp;    String getContent();
+<i>44</i>&nbsp;
+<i>45</i>&nbsp;    /**
+<i>46</i>&nbsp;     * 설정된 문자 인코딩 형식을 반환한다.
+<i>47</i>&nbsp;     * @return 설정된 문자 인코딩
+<i>48</i>&nbsp;     */
+<i>49</i>&nbsp;    Charset getEncoding();
+<i>50</i>&nbsp;
+<i>51</i>&nbsp;    /**
+<i>52</i>&nbsp;     * File 객체를 담고 있는 Property 객체를 반환한다.
+<i>53</i>&nbsp;     * @return File 객체를 담고 있는 Property 객체
+<i>54</i>&nbsp;     */
+<i>55</i>&nbsp;    ObjectProperty&lt;File&gt; fileProperty();
+<i>56</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2016-06-03 23:52</div>
+</div>
+</body>
+</html>

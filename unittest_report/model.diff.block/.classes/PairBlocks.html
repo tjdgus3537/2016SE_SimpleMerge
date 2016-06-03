@@ -1,0 +1,119 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: PairBlocks</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">model.diff.block</a> ]
+</div>
+
+<h1>Coverage Summary for Class: PairBlocks (model.diff.block)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">PairBlocks</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/ 1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (5/ 5)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (10/ 10)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package model.diff.block;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import java.util.ArrayList;
+<i>4</i>&nbsp;
+<i>5</i>&nbsp;/**
+<i>6</i>&nbsp; * Created by Seonghyeon on 5/15/2016.
+<i>7</i>&nbsp; *
+<i>8</i>&nbsp; * 2개의 Block ArrayList 묶어둔 단위
+<i>9</i>&nbsp; * Diff Class에서 leftString과 rightString이 input으로 주어지고 Compare 했을 때 return되는 data의 type
+<i>10</i>&nbsp; */
+<i>11</i>&nbsp;
+<i>12</i>&nbsp;public class PairBlocks {
+<i>13</i>&nbsp;	private ArrayList&lt;Block&gt; left;
+<i>14</i>&nbsp;	private ArrayList&lt;Block&gt; right;
+<i>15</i>&nbsp;
+<b class="fc"><i>16</i>&nbsp;	public PairBlocks(ArrayList&lt;Block&gt; left, ArrayList&lt;Block&gt; right) {</b>
+<b class="fc"><i>17</i>&nbsp;		setLeft(left);</b>
+<b class="fc"><i>18</i>&nbsp;		setRight(right);</b>
+<b class="fc"><i>19</i>&nbsp;	}</b>
+<i>20</i>&nbsp;
+<i>21</i>&nbsp;	public ArrayList&lt;Block&gt; getLeft() {
+<b class="fc"><i>22</i>&nbsp;		return left;</b>
+<i>23</i>&nbsp;	}
+<i>24</i>&nbsp;
+<i>25</i>&nbsp;	public ArrayList&lt;Block&gt; getRight() {
+<b class="fc"><i>26</i>&nbsp;		return right;</b>
+<i>27</i>&nbsp;	}
+<i>28</i>&nbsp;	
+<i>29</i>&nbsp;	private void setLeft(ArrayList&lt;Block&gt; left) {
+<b class="fc"><i>30</i>&nbsp;		this.left = left;</b>
+<b class="fc"><i>31</i>&nbsp;	}</b>
+<i>32</i>&nbsp;
+<i>33</i>&nbsp;	private void setRight(ArrayList&lt;Block&gt; right) {
+<b class="fc"><i>34</i>&nbsp;		this.right = right;</b>
+<b class="fc"><i>35</i>&nbsp;	}</b>
+<i>36</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2016-06-03 23:52</div>
+</div>
+</body>
+</html>

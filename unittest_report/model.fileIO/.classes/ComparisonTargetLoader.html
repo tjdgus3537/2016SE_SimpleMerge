@@ -1,0 +1,135 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: ComparisonTargetLoader</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">model.fileIO</a> ]
+</div>
+
+<h1>Coverage Summary for Class: ComparisonTargetLoader (model.fileIO)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">ComparisonTargetLoader</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/ 1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (5/ 5)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    95.2%
+  </span>
+  <span class="absValue">
+    (20/ 21)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package model.fileIO;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import model.fileIO.file.ComparisonTargetInterface;
+<i>4</i>&nbsp;import java.io.*;
+<i>5</i>&nbsp;import java.nio.charset.Charset;
+<i>6</i>&nbsp;import java.nio.charset.StandardCharsets;
+<i>7</i>&nbsp;import java.nio.file.Files;
+<i>8</i>&nbsp;import java.util.StringJoiner;
+<i>9</i>&nbsp;import java.util.stream.Collector;
+<i>10</i>&nbsp;import org.mozilla.universalchardet.UniversalDetector;
+<i>11</i>&nbsp;
+<i>12</i>&nbsp;/**
+<i>13</i>&nbsp; * Created by Donghwan on 5/12/2016.
+<i>14</i>&nbsp; * 프로그램에서 비교할 파일을 읽어오는 객체
+<i>15</i>&nbsp; */
+<b class="fc"><i>16</i>&nbsp;public class ComparisonTargetLoader {</b>
+<i>17</i>&nbsp;	public void load(File source, ComparisonTargetInterface destination) throws IOException{
+<b class="fc"><i>18</i>&nbsp;		Charset charset = detectEncoding(source);</b>
+<b class="fc"><i>19</i>&nbsp;		destination.setContent(readFile(source, charset));</b>
+<b class="fc"><i>20</i>&nbsp;		destination.setSource(source);</b>
+<b class="fc"><i>21</i>&nbsp;		destination.setEncoding(charset);</b>
+<b class="fc"><i>22</i>&nbsp;	}</b>
+<i>23</i>&nbsp;
+<i>24</i>&nbsp;	private Charset detectEncoding(File source) throws IOException{
+<i>25</i>&nbsp;		// juniversalchardet의 예제 코드
+<b class="fc"><i>26</i>&nbsp;		byte[] buf = new byte[4096];</b>
+<b class="fc"><i>27</i>&nbsp;		try(FileInputStream fis = new java.io.FileInputStream(source)){</b>
+<b class="fc"><i>28</i>&nbsp;			UniversalDetector detector = new UniversalDetector(null);</b>
+<i>29</i>&nbsp;			int nread;
+<b class="fc"><i>30</i>&nbsp;			while ((nread = fis.read(buf)) &gt; 0 &amp;&amp; !detector.isDone()) {</b>
+<b class="fc"><i>31</i>&nbsp;				detector.handleData(buf, 0, nread);</b>
+<i>32</i>&nbsp;			}
+<b class="fc"><i>33</i>&nbsp;			detector.dataEnd();</b>
+<b class="fc"><i>34</i>&nbsp;			String encoding = detector.getDetectedCharset();</b>
+<b class="fc"><i>35</i>&nbsp;			if (encoding != null) {</b>
+<b class="nc"><i>36</i>&nbsp;				return Charset.forName(encoding);</b>
+<i>37</i>&nbsp;			} else {
+<b class="fc"><i>38</i>&nbsp;				return StandardCharsets.UTF_8;</b>
+<i>39</i>&nbsp;			}
+<b class="fc"><i>40</i>&nbsp;		}</b>
+<i>41</i>&nbsp;	}
+<i>42</i>&nbsp;
+<i>43</i>&nbsp;    private String readFile(File source, Charset charset) throws IOException{
+<b class="fc"><i>44</i>&nbsp;    	try (BufferedReader reader = Files.newBufferedReader(source.toPath(), charset)) {</b>
+<b class="fc"><i>45</i>&nbsp;			return reader.lines().collect(Collector.of(</b>
+<b class="fc"><i>46</i>&nbsp;					()-&gt;new StringJoiner(&quot;\n&quot;),</b>
+<i>47</i>&nbsp;					StringJoiner::add,
+<i>48</i>&nbsp;					StringJoiner::merge,
+<i>49</i>&nbsp;					StringJoiner::toString));
+<b class="fc"><i>50</i>&nbsp;		}</b>
+<i>51</i>&nbsp;    }
+<i>52</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2016-06-03 23:52</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,112 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: ConfirmationAlertFactory</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">view</a> ]
+</div>
+
+<h1>Coverage Summary for Class: ConfirmationAlertFactory (view)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">ConfirmationAlertFactory</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 3)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 8)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package view;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import javafx.scene.control.Alert;
+<i>4</i>&nbsp;
+<i>5</i>&nbsp;/**
+<i>6</i>&nbsp; * Created by Donghwan on 6/2/2016.
+<i>7</i>&nbsp; *
+<i>8</i>&nbsp; * 확인 창을 생성하는 팩토리 클래스
+<i>9</i>&nbsp; */
+<i>10</i>&nbsp;public class ConfirmationAlertFactory {
+<b class="nc"><i>11</i>&nbsp;    private ConfirmationAlertFactory(){}</b>
+<i>12</i>&nbsp;
+<i>13</i>&nbsp;    private static Alert newConfirmationAlert(){
+<b class="nc"><i>14</i>&nbsp;        Alert confirmationAlert =  new Alert(Alert.AlertType.CONFIRMATION);</b>
+<b class="nc"><i>15</i>&nbsp;        confirmationAlert.setTitle(&quot;Confirmation&quot;);</b>
+<b class="nc"><i>16</i>&nbsp;        return confirmationAlert;</b>
+<i>17</i>&nbsp;    }
+<i>18</i>&nbsp;
+<i>19</i>&nbsp;    /**
+<i>20</i>&nbsp;     * 편집한 파일을 저장할 것이냐고 묻는 확인 메세지를 생성합니다.
+<i>21</i>&nbsp;     * @return 편집한 파일을 저장할 것인지 묻는 Alert 객체
+<i>22</i>&nbsp;     */
+<i>23</i>&nbsp;    public static Alert newSaveEditedFileConfirmationAlert(){
+<b class="nc"><i>24</i>&nbsp;        Alert saveEditedFileAlert = newConfirmationAlert();</b>
+<b class="nc"><i>25</i>&nbsp;        saveEditedFileAlert.setHeaderText(&quot;Save this file?&quot;);</b>
+<b class="nc"><i>26</i>&nbsp;        saveEditedFileAlert.setContentText(&quot;If you load other file, you will lose all change about this file.\n Click \&#39;Yes\&#39; to save your changes&quot;);</b>
+<b class="nc"><i>27</i>&nbsp;        return saveEditedFileAlert;</b>
+<i>28</i>&nbsp;    }
+<i>29</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2016-06-03 23:52</div>
+</div>
+</body>
+</html>
