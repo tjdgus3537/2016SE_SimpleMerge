@@ -1,4 +1,5 @@
 # SimpleMerge
+![java 1.8](https://img.shields.io/badge/java-1.8-orange.svg) ![MIT license](https://img.shields.io/badge/license-MIT-blue.svg) ![build passing](https://img.shields.io/badge/build-passing-brightgreen.svg)  
 간단한 diff, merge 기능을 제공하는 프로그램
 ## 빠른 시작
 * gradle을 이용하면 프로젝트에 사용한 외부 라이브러리나 프로젝트 설정 등을 빠르게 적용할 수 있습니다.
