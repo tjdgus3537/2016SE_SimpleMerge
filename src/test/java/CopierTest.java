@@ -129,7 +129,7 @@ public class CopierTest {
 		assertEquals(s_before, s_after);
 	}
 	
-	//원래 string 보다 큰 blockNum을 입력으로 받았을 때
+	//사이즈 보다 큰 blockNum을 입력으로 받았을 때
 	@Test
 	public void testCopyToLeftAbnormalCase2() {
 		blocks.getLeft().add(makeChangedBlock("d\n"));
@@ -210,17 +210,17 @@ public class CopierTest {
 	}
 
 	//정상적인 형태의 임의의 case
-		@Test
-		public void testCopyToRightNormalCase3() {
-			blocks.getLeft().add(makeSpaceBlock("\n\n\n"));
-			
-			blocks.getRight().add(makeChangedBlock("aabc\nx\ny\n"));
+	@Test
+	public void testCopyToRightNormalCase3() {
+		blocks.getLeft().add(makeSpaceBlock("\n\n\n"));
+		
+		blocks.getRight().add(makeChangedBlock("aabc\nx\ny\n"));
 
-			copier.copyToRight(blocks.getLeft(), blocks.getRight(), 0);
-			String s = pairBlocksToString(blocks);
-			
-			assertEquals(" ", s);
-		}
+		copier.copyToRight(blocks.getLeft(), blocks.getRight(), 0);
+		String s = pairBlocksToString(blocks);
+		
+		assertEquals(" ", s);
+	}
 	
 	//unchanged Block을 copy 시도
 	@Test
@@ -240,7 +240,7 @@ public class CopierTest {
 		assertEquals(s_before, s_after);
 	}
 	
-	//원래 string 보다 큰 blockNum을 입력으로 받았을 때
+	//사이즈 보다 큰 blockNum을 입력으로 받았을 때
 	@Test
 	public void testCopyToRightAbnormalCase2() {
 		blocks.getLeft().add(makeChangedBlock("d\n"));
