@@ -127,5 +127,5 @@ gradle-app.setting
 ## Custom project setting ##
 lib/
 # test resources is generated every test. So they are ignored.
-src\test\resources\readTestFile.txt
-src\test\resources\writeTestFile.txt
+src/test/resources/readTestFile.txt
+src/test/resources/writeTestFile.txt
