@@ -27,7 +27,7 @@ import static org.junit.Assert.assertEquals;
  *
  * ComparisonWriter 테스트
  */
-public class ComparisonWriterTest extends EasyMockSupport {
+public class ComparisonTargetWriterTest extends EasyMockSupport {
     @Rule
     public EasyMockRule rule = new EasyMockRule(this);
     @Mock

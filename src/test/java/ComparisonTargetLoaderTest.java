@@ -18,7 +18,7 @@ import static org.junit.Assert.assertEquals;
  * Created by Donghwan on 6/2/2016.
  *
  * ComparisonLoader 테스트 */
-public class ComparisonLoaderTest extends EasyMockSupport {
+public class ComparisonTargetLoaderTest extends EasyMockSupport {
     @Rule
     public EasyMockRule rule = new EasyMockRule(this);
     @Mock
