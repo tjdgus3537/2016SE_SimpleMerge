@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<test-suite basedir="" hfile="test_testdoc.html" qftest-version="4.0.11" sourcefile=".../test.qft" type="qftest" xfile="test_testdoc.xml">
+  <testset name="2016SE_SimpleMerge" qname="2016SE_SimpleMerge" ref="N1000F">
+    <testcase name="Edit test" qname="2016SE_SimpleMerge.Edit test" ref="N1004C">
+      <teststep name="Check if all button is disabled except load button" qname="2016SE_SimpleMerge.Check if all button is disabled except load button" ref="N1005A"/>
+      <teststep name="Check if edit mode is enabled when load some file" qname="2016SE_SimpleMerge.Check if edit mode is enabled when load some file" ref="N100F3"/>
+      <teststep name="Check if textarea is editable when read-only mode" qname="2016SE_SimpleMerge.Check if textarea is editable when read-only mode" ref="N10178"/>
+      <teststep name="Check if textarea is editable when edit mode" qname="2016SE_SimpleMerge.Check if textarea is editable when edit mode" ref="N101A1"/>
+      <teststep name="Check if editor pane seem good when divider of split pane move" qname="2016SE_SimpleMerge.Check if editor pane seem good when divider of split pane move" ref="N101D9"/>
+    </testcase>
+    <testcase name="Compare test" qname="2016SE_SimpleMerge.Compare test" ref="N1023C">
+      <teststep name="Check if compare button is enabled when two files are loaded" qname="2016SE_SimpleMerge.Check if compare button is enabled when two files are loaded" ref="N1024A"/>
+      <teststep name="Check if copy buttons work." qname="2016SE_SimpleMerge.Check if copy buttons work." ref="N102A5"/>
+      <teststep name="Check if compare button is enabled when compare mode disabled" qname="2016SE_SimpleMerge.Check if compare button is enabled when compare mode disabled" ref="N103BD"/>
+      <teststep name="Check if compare mode is disabled when load another file" qname="2016SE_SimpleMerge.Check if compare mode is disabled when load another file" ref="N104E7"/>
+    </testcase>
+    <testcase name="Save test" qname="2016SE_SimpleMerge.Save test" ref="N10587">
+      <teststep name="check if empty test file is loaded" qname="2016SE_SimpleMerge.check if empty test file is loaded" ref="N10595"/>
+      <teststep name="check if actual text is same as one expected" qname="2016SE_SimpleMerge.check if actual text is same as one expected" ref="N1064E"/>
+      <teststep name="check if save action before load works" qname="2016SE_SimpleMerge.check if save action before load works" ref="N106CC"/>
+    </testcase>
+    <testcase name="Load error test" qname="2016SE_SimpleMerge.Load error test" ref="N1076F">
+      <teststep name="Check if load error message pop up" qname="2016SE_SimpleMerge.Check if load error message pop up" ref="N1077D"/>
+    </testcase>
+    <testcase name="Encoding error test" qname="2016SE_SimpleMerge.Encoding error test" ref="N107C8">
+      <teststep name="Check if encoding error message pop up" qname="2016SE_SimpleMerge.Check if encoding error message pop up" ref="N107D6"/>
+    </testcase>
+  </testset>
+</test-suite>
