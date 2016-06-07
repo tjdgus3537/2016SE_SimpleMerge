@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <!DOCTYPE RootStep>
 <RootStep id="_0" name="root"
-          signature="B85E763CE2923C565FC280C0C819BE3F79CC120C"
+          signature="575A0F653F57946642868B47172386A4222BE9C2"
           version="4.0.11">
   <include>qfs.qft</include>
   <TestSet id="_1" name="2016SE_SimpleMerge">
@@ -19,7 +19,8 @@
     </SetupSequence>
     <TestCase id="_2" name="Edit test">
       <TestStep id="_2v"
-                name="Check if all button is disabled except load button">
+                name="Check if all button is disabled except load button"
+                postdelay="500">
         <CheckBooleanStep checktype="enabled" client="$(client)"
                           component="compare-button" id="_2l" state="false"/>
         <CheckBooleanStep checktype="enabled" client="$(client)"
@@ -42,12 +43,14 @@
                           component="load-button2" id="_2u"/>
       </TestStep>
       <TestStep id="_1e"
-                name="Check if edit mode is enabled when load some file">
+                name="Check if edit mode is enabled when load some file"
+                postdelay="500">
         <MouseEventStep clicks="1" client="$(client)" component="load-button"
-                        event="MOUSE_MPRC" id="_1V" modifiers="16"/>
+                        event="MOUSE_MPRC" id="_1V" modifiers="16"
+                        postdelay="300"/>
         <FileSelection client="$(client)"
                        directory="C:/Users/Donghwan/Documents/GitHub/2016SE_SimpleMerge/src/test/resources"
-                       engine="fx" file="1.txt" id="_1W"/>
+                       engine="fx" file="1.txt" id="_1W" postdelay="300"/>
         <CheckStringStep client="$(client)" component="file-path-label"
                          id="_4W">
           <text>C:\Users\Donghwan\Documents\GitHub\2016SE_SimpleMerge\src\test\resources\1.txt</text>
@@ -61,27 +64,32 @@
         <CheckBooleanStep checktype="enabled" client="$(client)"
                           component="edit-button2" id="_47"/>
         <CheckBooleanStep checktype="enabled" client="$(client)"
-                          component="save-button2" id="_48"/>
+                          component="save-button2" id="_48" postdelay="300"/>
       </TestStep>
       <TestStep id="_1f"
-                name="Check if textarea is editable when read-only mode">
+                name="Check if textarea is editable when read-only mode"
+                postdelay="500">
         <CheckBooleanStep checktype="checked" client="$(client)"
                           component="edit-button2" id="_49" state="false"/>
         <CheckBooleanStep checktype="editable" client="$(client)"
                           component="editorTextArea2" id="_3Y" state="false"/>
       </TestStep>
-      <TestStep id="_1g" name="Check if textarea is editable when edit mode">
+      <TestStep id="_1g" name="Check if textarea is editable when edit mode"
+                postdelay="500">
         <MouseEventStep clicks="1" client="$(client)" component="edit-button2"
-                        event="MOUSE_MPRC" id="_1Z" modifiers="16"/>
+                        event="MOUSE_MPRC" id="_1Z" modifiers="16"
+                        postdelay="300"/>
         <CheckBooleanStep checktype="checked" client="$(client)"
                           component="edit-button2" id="_4A"/>
         <CheckBooleanStep checktype="editable" client="$(client)"
                           component="editorTextArea2" id="_3X"/>
       </TestStep>
       <TestStep id="_2a"
-                name="Check if editor pane seem good when divider of split pane move">
+                name="Check if editor pane seem good when divider of split pane move"
+                postdelay="500">
         <MouseEventStep clicks="1" client="$(client)" component="edit-button2"
-                        event="MOUSE_MPRC" id="_1d" modifiers="16"/>
+                        event="MOUSE_MPRC" id="_1d" modifiers="16"
+                        postdelay="300"/>
         <MouseEventStep clicks="0" client="$(client)"
                         component="editorSplitPane" event="MOUSE_MOVED"
                         id="_4D" modifiers="0" x="381" y="212"/>
@@ -101,31 +109,34 @@
     </TestCase>
     <TestCase id="_2T" name="Compare test">
       <TestStep id="_3U"
-                name="Check if compare button is enabled when two files are loaded">
+                name="Check if compare button is enabled when two files are loaded"
+                postdelay="500">
         <MouseEventStep clicks="1" client="$(client)" component="load-button"
-                        event="MOUSE_MPRC" id="_2+" modifiers="16"/>
+                        event="MOUSE_MPRC" id="_2+" modifiers="16"
+                        postdelay="300"/>
         <FileSelection client="$(client)"
                        directory="C:/Users/Donghwan/Documents/GitHub/2016SE_SimpleMerge/src/test/resources"
-                       engine="fx" file="1.txt" id="_2-"/>
+                       engine="fx" file="1.txt" id="_2-" postdelay="300"/>
         <CheckBooleanStep checktype="enabled" client="$(client)"
                           component="compare-button" id="_3Q" state="false"/>
         <MouseEventStep clicks="1" client="$(client)" component="load-button2"
-                        event="MOUSE_MPRC" id="_30" modifiers="16"/>
+                        event="MOUSE_MPRC" id="_30" modifiers="16"
+                        postdelay="300"/>
         <FileSelection client="$(client)"
                        directory="C:/Users/Donghwan/Documents/GitHub/2016SE_SimpleMerge/src/test/resources"
-                       engine="fx" file="2.txt" id="_31"/>
+                       engine="fx" file="2.txt" id="_31" postdelay="300"/>
         <CheckBooleanStep checktype="enabled" client="$(client)"
                           component="compare-button" id="_3S"/>
       </TestStep>
-      <TestStep id="_3Z" name="Check if copy buttons work.">
+      <TestStep id="_3Z" name="Check if copy buttons work." postdelay="500">
         <BasicSequence id="_3z"
                        name="check compare button disabled and copy buttons enabled">
           <MouseEventStep clicks="1" client="$(client)"
                           component="edit-button2" event="MOUSE_MPRC" id="_54"
-                          modifiers="16"/>
+                          modifiers="16" postdelay="300"/>
           <MouseEventStep clicks="1" client="$(client)"
                           component="compare-button" event="MOUSE_MPRC"
-                          id="_32" modifiers="16"/>
+                          id="_32" modifiers="16" postdelay="300"/>
           <CheckBooleanStep checktype="checked" client="$(client)"
                             component="edit-button2" id="_58" state="false"/>
           <CheckBooleanStep checktype="visible" client="$(client)"
@@ -145,35 +156,790 @@
                             component="compare-view-scroll-bar" id="_40"/>
         </BasicSequence>
         <BasicSequence id="_42" name="check if copy function works">
+          <CheckImageStep client="$(client)" component="editorSplitPane"
+                          id="_7V">
+            <ImageNode height="458" name="checkimage" width="768">
+              <binary size="11365">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
+TY2bkFJKKaWUUkoppZRaXv2/J46NfQ==</binary>
+            </ImageNode>
+          </CheckImageStep>
           <MouseEventStep clicks="1" client="$(client)"
                           component="compareListVIew2@syntax: glob"
-                          event="MOUSE_MPRC" id="_34" modifiers="16"/>
+                          event="MOUSE_MPRC" id="_34" modifiers="16"
+                          postdelay="300"/>
           <MouseEventStep clicks="1" client="$(client)"
                           component="copy-to-left-button" event="MOUSE_MPRC"
-                          id="_35" modifiers="16"/>
+                          id="_35" modifiers="16" postdelay="300"/>
+          <CheckImageStep client="$(client)" component="editorSplitPane"
+                          id="_7X">
+            <ImageNode height="458" name="checkimage" width="768">
+              <binary size="11370">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
+6h+llJqmhi2IKaWUUkoppZRSSi3v/j0bK+Xc</binary>
+            </ImageNode>
+          </CheckImageStep>
           <MouseEventStep clicks="1" client="$(client)"
                           component="compareListVIew@\#ignore thumbnails created by windows"
-                          event="MOUSE_MPRC" id="_36" modifiers="16"/>
+                          event="MOUSE_MPRC" id="_36" modifiers="16"
+                          postdelay="300"/>
           <MouseEventStep clicks="1" client="$(client)"
                           component="compareListVIew2&amp;1"
-                          event="MOUSE_MPRC" id="_37" modifiers="16"/>
+                          event="MOUSE_MPRC" id="_37" modifiers="16"
+                          postdelay="300"/>
           <MouseEventStep clicks="1" client="$(client)"
                           component="copy-to-left-button" event="MOUSE_MPRC"
-                          id="_38" modifiers="16"/>
+                          id="_38" modifiers="16" postdelay="300"/>
+          <CheckImageStep client="$(client)" component="editorSplitPane"
+                          id="_7R">
+            <ImageNode height="458" name="checkimage" width="768">
+              <binary size="10522">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
+MsYYY5wxxhhjjDHrm/9Plg1HGg==</binary>
+            </ImageNode>
+          </CheckImageStep>
           <MouseEventStep clicks="1" client="$(client)"
                           component="compareListVIew@\#Ignore files build by Visual Studio"
-                          event="MOUSE_MPRC" id="_39" modifiers="16"/>
+                          event="MOUSE_MPRC" id="_39" modifiers="16"
+                          postdelay="300"/>
           <MouseEventStep clicks="1" client="$(client)"
                           component="copy-to-right-button" event="MOUSE_MPRC"
-                          id="_3A" modifiers="16"/>
+                          id="_3A" modifiers="16" postdelay="300"/>
+          <CheckImageStep client="$(client)" component="editorSplitPane"
+                          id="_7T">
+            <ImageNode height="458" name="checkimage" width="768">
+              <binary size="10434">eJzt4UGIPG2eH/DxVVlQEBRvoldfZnch5EEPZpdEkBA48KnQizm+yfHdFQWFbJ0CMMvLHvIuYQ/uwWAOg/Fg
+3P3/IRBRCHgIBMJERN5cAqsrieQSXM4mdceq7q7qp7qe8umZ7X6+NVWfDz/enX0PT1/4TPd4v/V1TdUn
+P/l4PmmMMcYYY5wxxhhj2j6vv/2xY5wpMyLIGBM5wscYEzL7jzEmcISPMSZk0B0jTOAIH3NMyOg/xpjA
+ET8GmJDRf5wxgSN9jDEho/9YYwJH+BhjQkb/McYEjvAxxoSM/mOMCRzhY5wJGf4HGBM5Z5XP8Sd+5pd/
+5ad/62f/8tf+3fOm/tr7FurbSW/35z0++xs/0MN/+dZbDzc4z6v7a+tbqG+nwL12xlx3ntB/RJAx6tJz
+TvjUr9Rnv6DTaV8Ryc4WufHs3Emnvp1C00YYc0k6v/+IIGPMxeec9HnJhsxkoya03edsdvXGm3Dze/vX
+H438v+6/+z//9/e+eX0ifv+b/42/zU008QvH8q1x6rJzfv9RQcaYi9965XOR6NlPerNPTp6vfOMhlXxq
+fm/TKx78M/vP/tVH/y+0/t/8+i68b51xl64z+59IMsZcfM5Pn10//QsPM4/5v/7kRPh98/c+fPvbzQd/
+9RfZ/Jnf3/PD62vj9Ek4wcJ/O9aseJ8af1SQMeaCc485zJNn8w/+/I+uHj68H44UfPytb94z6/S0fWr5
+0F9S/tsxZsXz2P5jgowxF6yXh9+JV/dlwufXfu2U/ggfY28nXKr/iCBjzDPmIuFzzD/5D//9peGTJMwo
+f/pVaOFjzOucC/YfEWSMeepcNXzmL/z1Zp+WPL/5i0P9+cY4rvTm+wXC6zNf/rC8qTfv0pd//s4DB++m
+V4v4g5c4nx002Ydf/szLfqHvvkm/Yz3fff/D6IG0+PaPf7MXz+Sn9fbHPzO+7+0/6qLf8hozewjNJE+G
+/lHUP81P4//s6Jr25x2dWH/h/NZOfK/sJQfDE7//qY8vQP4kPPbM7X8ys2sb/YJO4NUjU7D/PIggEXT+
+iKANR0Cx78wkfA840Rv/0cnhs6d+nObPfl/El5XPPIgmX/K9Z3D8Gxl+2+++P8zepy/YK5TP8Bn53eYZ
+4b2sJ/ftJXP69JmF9+jF3L7EL/1dL/VDPvoQ3hdscsm8H1wfQnJTLw3f3Xcfnnv2lfdPrf7D6spDEtZ4
+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</binary>
+            </ImageNode>
+          </CheckImageStep>
         </BasicSequence>
       </TestStep>
       <TestStep id="_3f"
-                name="Check if compare button is enabled when compare mode disabled">
+                name="Check if compare button is enabled when compare mode disabled"
+                postdelay="500">
         <BasicSequence id="_3i" name="change one listview to textarea">
           <MouseEventStep clicks="1" client="$(client)"
                           component="edit-button" event="MOUSE_MPRC" id="_3H"
-                          modifiers="16"/>
+                          modifiers="16" postdelay="300"/>
           <CheckBooleanStep checktype="enabled" client="$(client)"
                             component="compare-view-scroll-bar" id="_52"
                             state="false"/>
@@ -226,7 +992,7 @@ Thumbs.db
         <BasicSequence id="_3j" name="change two listview to textarea">
           <MouseEventStep clicks="1" client="$(client)"
                           component="edit-button2" event="MOUSE_MPRC" id="_3I"
-                          modifiers="16"/>
+                          modifiers="16" postdelay="300"/>
           <CheckBooleanStep checktype="enabled" client="$(client)"
                             component="compare-button" id="_3k"/>
           <CheckBooleanStep checktype="enabled" client="$(client)"
@@ -240,20 +1006,21 @@ Thumbs.db
         </BasicSequence>
       </TestStep>
       <TestStep id="_4b"
-                name="Check if compare mode is disabled when load another file">
+                name="Check if compare mode is disabled when load another file"
+                postdelay="500">
         <BasicSequence id="_4p" name="load new file">
           <MouseEventStep clicks="1" client="$(client)"
                           component="compare-button" event="MOUSE_MPRC"
-                          id="_4e" modifiers="16"/>
+                          id="_4e" modifiers="16" postdelay="300"/>
           <MouseEventStep clicks="1" client="$(client)"
                           component="load-button" event="MOUSE_MPRC" id="_4f"
-                          modifiers="16"/>
+                          modifiers="16" postdelay="300"/>
           <MouseEventStep clicks="1" client="$(client)"
                           component="buttonCancel" event="MOUSE_MPRC" id="_4g"
-                          modifiers="16"/>
+                          modifiers="16" postdelay="300"/>
           <FileSelection client="$(client)"
                          directory="C:/Users/Donghwan/Documents/GitHub/2016SE_SimpleMerge/src/test/resources"
-                         engine="fx" file="1.txt" id="_4h"/>
+                         engine="fx" file="1.txt" id="_4h" postdelay="300"/>
         </BasicSequence>
         <BasicSequence id="_4q" name="check if compare mode is disabled">
           <CheckBooleanStep checktype="enabled" client="$(client)"
@@ -272,108 +1039,119 @@ Thumbs.db
       </TestStep>
     </TestCase>
     <TestCase id="_5V" name="Save test">
-      <TestStep id="_6n" name="check if empty test file is loaded">
+      <TestStep id="_6n" name="check if empty test file is loaded"
+                postdelay="500">
         <BasicSequence id="_6M" name="check if empty test file is loaded">
           <BasicSequence id="_6L" name="make test file empty">
             <MouseEventStep clicks="1" client="$(client)"
                             component="load-button" event="MOUSE_MPRC"
-                            id="_5c" modifiers="16"/>
+                            id="_5c" modifiers="16" postdelay="300"/>
             <FileSelection client="$(client)"
                            directory="C:/Users/Donghwan/Documents/GitHub/2016SE_SimpleMerge/src/test/resources"
-                           engine="fx" file="not_txt.txt" id="_5d"/>
+                           engine="fx" file="not_txt.txt" id="_5d"
+                           postdelay="300"/>
             <MouseEventStep clicks="1" client="$(client)"
                             component="edit-button2" event="MOUSE_MPRC"
-                            id="_5f" modifiers="16"/>
+                            id="_5f" modifiers="16" postdelay="300"/>
             <MouseEventStep clicks="1" client="$(client)"
                             component="editorTextArea2&amp;0"
-                            event="MOUSE_MPRC" id="_5g" modifiers="16" x="45"
-                            y="28"/>
+                            event="MOUSE_MPRC" id="_5g" modifiers="16"
+                            postdelay="300" x="45" y="28"/>
             <KeyEventStep client="$(client)" component="editorTextArea2"
                           event="KEY_PRESSED" id="_5j" keychar="0"
-                          keycode="17" modifiers="2"/>
+                          keycode="17" modifiers="2" postdelay="300"/>
             <KeyEventStep client="$(client)" component="editorTextArea2"
                           event="KEY_PTR" id="_5k" keychar="1" keycode="65"
-                          modifiers="2"/>
+                          modifiers="2" postdelay="300"/>
             <KeyEventStep client="$(client)" component="editorTextArea2"
                           event="KEY_RELEASED" id="_5l" keychar="0"
-                          keycode="17" modifiers="0"/>
+                          keycode="17" modifiers="0" postdelay="300"/>
             <KeyEventStep client="$(client)" component="editorTextArea2"
                           event="KEY_PTR" id="_5m" keychar="8" keycode="8"
-                          modifiers="0"/>
+                          modifiers="0" postdelay="300"/>
             <MouseEventStep clicks="1" client="$(client)"
                             component="save-button2" event="MOUSE_MPRC"
-                            id="_5n" modifiers="16"/>
+                            id="_5n" modifiers="16" postdelay="300"/>
           </BasicSequence>
           <MouseEventStep clicks="1" client="$(client)"
                           component="load-button2" event="MOUSE_MPRC" id="_5o"
-                          modifiers="16"/>
+                          modifiers="16" postdelay="300"/>
           <FileSelection client="$(client)"
                          directory="C:/Users/Donghwan/Documents/GitHub/2016SE_SimpleMerge/src/test/resources"
-                         engine="fx" file="not_txt.txt" id="_5p"/>
+                         engine="fx" file="not_txt.txt" id="_5p"
+                         postdelay="300"/>
           <CheckStringStep client="$(client)" component="editorTextArea"
                            id="_6Q"/>
         </BasicSequence>
       </TestStep>
-      <TestStep id="_6o" name="check if actual text is same as one expected">
+      <TestStep id="_6o" name="check if actual text is same as one expected"
+                postdelay="500">
         <BasicSequence id="_6W"
                        name="check if actual text is same as one expected">
           <BasicSequence id="_6R" name="save new text expected to show">
             <MouseEventStep clicks="1" client="$(client)"
                             component="editorTextArea2" event="MOUSE_MPRC"
-                            id="_5t" modifiers="16" x="79" y="28"/>
+                            id="_5t" modifiers="16" postdelay="300" x="79"
+                            y="28"/>
             <TextInputStep clear="true" client="$(client)"
-                           component="editorTextArea2" id="_60">
+                           component="editorTextArea2" id="_60"
+                           postdelay="300">
               <text>text expected</text>
             </TextInputStep>
             <MouseEventStep clicks="1" client="$(client)"
                             component="save-button2" event="MOUSE_MPRC"
-                            id="_63" modifiers="16"/>
+                            id="_63" modifiers="16" postdelay="300"/>
           </BasicSequence>
           <MouseEventStep clicks="1" client="$(client)"
                           component="load-button2" event="MOUSE_MPRC" id="_6T"
-                          modifiers="16"/>
+                          modifiers="16" postdelay="300"/>
           <MouseEventStep clicks="1" client="$(client)"
                           component="buttonCancel" event="MOUSE_MPRC" id="_6U"
-                          modifiers="16"/>
+                          modifiers="16" postdelay="300"/>
           <FileSelection client="$(client)"
                          directory="C:/Users/Donghwan/Documents/GitHub/2016SE_SimpleMerge/src/test/resources"
-                         engine="fx" file="not_txt.txt" id="_6V"/>
+                         engine="fx" file="not_txt.txt" id="_6V"
+                         postdelay="300"/>
           <CheckStringStep client="$(client)" component="editorTextArea"
                            id="_6Y">
             <text>text expected</text>
           </CheckStringStep>
         </BasicSequence>
       </TestStep>
-      <TestStep id="_6p" name="check if save action before load works">
+      <TestStep id="_6p" name="check if save action before load works"
+                postdelay="500">
         <BasicSequence id="_6j" name="check if save action before load works">
           <BasicSequence id="_6k" name="save new text expected to show">
             <MouseEventStep clicks="1" client="$(client)"
                             component="editorTextArea2&amp;0"
-                            event="MOUSE_MPRC" id="_6a" modifiers="16" x="88"
-                            y="11"/>
+                            event="MOUSE_MPRC" id="_6a" modifiers="16"
+                            postdelay="300" x="88" y="11"/>
             <KeyEventStep client="$(client)" component="editorTextArea2"
                           event="KEY_PTR" id="_6b" keychar="13" keycode="10"
-                          modifiers="0"/>
+                          modifiers="0" postdelay="300"/>
             <TextInputStep client="$(client)" component="editorTextArea2"
-                           id="_6c">
+                           id="_6c" postdelay="300">
               <text>load after save</text>
             </TextInputStep>
             <MouseEventStep clicks="1" client="$(client)"
                             component="load-button" event="MOUSE_MPRC"
-                            id="_6d" modifiers="16"/>
+                            id="_6d" modifiers="16" postdelay="300"/>
             <MouseEventStep clicks="1" client="$(client)" component="buttonOK"
-                            event="MOUSE_MPRC" id="_6e" modifiers="16"/>
-            <FileSelection client="$(client)" engine="fx" id="_6f"/>
+                            event="MOUSE_MPRC" id="_6e" modifiers="16"
+                            postdelay="300"/>
+            <FileSelection client="$(client)" engine="fx" id="_6f"
+                           postdelay="300"/>
           </BasicSequence>
           <MouseEventStep clicks="1" client="$(client)"
                           component="load-button2" event="MOUSE_MPRC" id="_6g"
-                          modifiers="16"/>
+                          modifiers="16" postdelay="300"/>
           <MouseEventStep clicks="1" client="$(client)"
                           component="buttonCancel" event="MOUSE_MPRC" id="_6h"
-                          modifiers="16"/>
+                          modifiers="16" postdelay="300"/>
           <FileSelection client="$(client)"
                          directory="C:/Users/Donghwan/Documents/GitHub/2016SE_SimpleMerge/src/test/resources"
-                         engine="fx" file="not_txt.txt" id="_6i"/>
+                         engine="fx" file="not_txt.txt" id="_6i"
+                         postdelay="300"/>
           <CheckStringStep client="$(client)" component="editorTextArea"
                            id="_6m">
             <text>text expected
@@ -381,13 +1159,56 @@ load after save</text>
           </CheckStringStep>
         </BasicSequence>
       </TestStep>
+      <TestStep id="_7n"
+                name="check if cancel save action before load doesn't work">
+        <BasicSequence id="_7Y"
+                       name="check if cancel save action before load doesn't work">
+          <MouseEventStep clicks="1" client="$(client)"
+                          component="editorTextArea2&amp;1" event="MOUSE_MPRC"
+                          id="_7Z" modifiers="16" postdelay="300" x="101"
+                          y="20"/>
+          <KeyEventStep client="$(client)" component="editorTextArea2"
+                        event="KEY_PTR" id="_7a" keychar="13" keycode="10"
+                        modifiers="0" postdelay="300"/>
+          <TextInputStep client="$(client)" component="editorTextArea2"
+                         id="_7b" postdelay="300">
+            <text>donotsavethis</text>
+          </TextInputStep>
+          <MouseEventStep clicks="1" client="$(client)"
+                          component="load-button" event="MOUSE_MPRC" id="_7e"
+                          modifiers="16" postdelay="300"/>
+          <MouseEventStep clicks="1" client="$(client)"
+                          component="buttonCancel" event="MOUSE_MPRC" id="_7f"
+                          modifiers="16" postdelay="300"/>
+          <FileSelection client="$(client)" engine="fx" id="_7g"
+                         postdelay="300"/>
+          <MouseEventStep clicks="1" client="$(client)"
+                          component="load-button2" event="MOUSE_MPRC" id="_7h"
+                          modifiers="16" postdelay="300"/>
+          <MouseEventStep clicks="1" client="$(client)"
+                          component="buttonCancel" event="MOUSE_MPRC" id="_7i"
+                          modifiers="16" postdelay="300"/>
+          <FileSelection client="$(client)"
+                         directory="C:/Users/Donghwan/Documents/GitHub/2016SE_SimpleMerge/src/test/resources"
+                         engine="fx" file="not_txt.txt" id="_7j"
+                         postdelay="300"/>
+          <CheckStringStep client="$(client)" component="editorTextArea"
+                           id="_7m">
+            <text>text expected
+load after save</text>
+          </CheckStringStep>
+        </BasicSequence>
+      </TestStep>
     </TestCase>
     <TestCase id="_6t" name="Load error test">
-      <TestStep id="_7J" name="Check if load error message pop up">
+      <TestStep id="_7J" name="Check if load error message pop up"
+                postdelay="500">
         <MouseEventStep clicks="1" client="$(client)" component="load-button"
-                        event="MOUSE_MPRC" id="_6r" modifiers="16"/>
+                        event="MOUSE_MPRC" id="_6r" modifiers="16"
+                        postdelay="300"/>
         <BasicSequence id="_6v" name="raise IOException">
-          <FileSelection client="$(client)" file="raiseIOException" id="_6u"/>
+          <FileSelection client="$(client)" file="raiseIOException" id="_6u"
+                         postdelay="300"/>
         </BasicSequence>
         <ComponentWaiter client="$(client)" component="winError" id="_78"/>
         <CheckStringStep checktype="text" client="$(client)"
@@ -397,12 +1218,15 @@ load after save</text>
       </TestStep>
     </TestCase>
     <TestCase id="_4T" name="Encoding error test">
-      <TestStep id="_4s" name="Check if encoding error message pop up">
+      <TestStep id="_4s" name="Check if encoding error message pop up"
+                postdelay="500">
         <MouseEventStep clicks="1" client="$(client)" component="load-button"
-                        event="MOUSE_MPRC" id="_4P" modifiers="16"/>
+                        event="MOUSE_MPRC" id="_4P" modifiers="16"
+                        postdelay="300"/>
         <FileSelection client="$(client)"
                        directory="C:/Users/Donghwan/Documents/GitHub/2016SE_SimpleMerge/src/test/resources"
-                       engine="fx" file="11_unicode_broken.txt" id="_4Q"/>
+                       engine="fx" file="11_unicode_broken.txt" id="_4Q"
+                       postdelay="300"/>
         <ComponentWaiter client="$(client)" component="winError" id="_7E"/>
         <CheckStringStep checktype="text" client="$(client)"
                          component="winError.panel" id="_7I">
@@ -415,7 +1239,14 @@ load after save</text>
     </CleanupSequence>
   </TestSet>
   <PackageRoot id="_3"/>
-  <ExtraSequence id="_4"/>
+  <ExtraSequence id="_4">
+    <BasicSequence id="_7k" name="Recorded 6/7/16 5:44 PM">
+      <CheckStringStep checktype="item" client="$(client)"
+                       component="editorTextArea&amp;1" id="_7l">
+        <text>load after save</text>
+      </CheckStringStep>
+    </BasicSequence>
+  </ExtraSequence>
   <WindowList id="_5">
     <WindowStep class="Window" engine="fx" feature="SimpleMerge - Team 6"
                 height="539" id="root-pane" name="root-pane" uid="_A"
