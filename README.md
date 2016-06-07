@@ -5,9 +5,9 @@
 # 팀 구성
 구성|이름|맡은 부분
 ---|---|---------
-팀장|홍성현|diff 알고리즘, 모델 개발 및 모델 단위 테스트
-팀원|김동환|view, controller 개발 및 GUI 테스트
-팀원|이희상|파일 입출력 개발 및 프로젝트 문서화
+팀장|홍성현|Model, model unit test, 문서
+팀원|김동환|View, Controller, UI test, system test, 프로젝트 setting, 문서
+팀원|이희상|fileIO(model part), 테스팅 프레임워크 조사, diagram tool 조사 및 문서에 적용, 문서
 
 # 빠른 시작
 gradle을 이용하면 프로젝트에 사용한 외부 라이브러리나 프로젝트 설정 등을 빠르게 적용할 수 있습니다.
