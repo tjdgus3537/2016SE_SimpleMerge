@@ -20,5 +20,5 @@ public interface SingleSelectionListViewControllerInterface {
     /**
      * 항목을 선택한 상태를 없앰
      */
-    void clearSelection();
+    void clearListSelection();
 }

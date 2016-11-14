@@ -30,7 +30,7 @@ public class CompResultsViewFXController implements Initializable, CompResultsVi
     }
 
     @Override
-    public void clearSelection(){
+    public void clearListSelection(){
         compareListVIew.getSelectionModel().clearSelection();
     }
 

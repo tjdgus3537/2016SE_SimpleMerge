@@ -3,6 +3,9 @@ package controller.mainWindow.editorPane;
 import controller.mainWindow.editorPane.listView.CompResultsViewControllerInterface;
 import controller.CompModeDisableReceiver;
 import controller.mainWindow.editorPane.textArea.EditorTextAreaControllerInterface;
+import controller.mainWindow.editorPane.viewMode.CompMode;
+import controller.mainWindow.editorPane.viewMode.EditMode;
+import controller.mainWindow.editorPane.viewMode.EditorPaneViewMode;
 import model.editorModel.EditorModelInterface;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -30,48 +33,15 @@ import java.util.ResourceBundle;
  * 편집 창의 액션을 관리하는 컨트롤러
  */
 public class EditorPaneFXController implements Initializable, EditorPaneControllerInterface {
-    // 뷰 상테에 따라서 EditorPaneFXController가 해야하는 행동이 다르다.
-    private interface ViewMode {
-        void handleLoadAction();
-        void handleEditAction();
-    }
-    private class CompMode implements ViewMode{
-        @Override
-        public void handleLoadAction() {
-            if(compModeDisableReceiver != null) compModeDisableReceiver.disableCompareMode(); // 비교 모드에서 해제되는 것이므로 이를 알려야 함.
-            clearSelection();
-            loadFromFile();
-        }
-
-        @Override
-        public void handleEditAction() {
-            // 비교 모드를 끝내고 편집 모드로 바꿈
-            clearSelection();
-            switchEditorTextArea();
-            setEditable(true);
-            if(compModeDisableReceiver != null) compModeDisableReceiver.disableCompareMode(); // 비교 모드에서 해제되는 것이므로 이를 알려야 함.
-        }
-    }
-    private class EditMode implements ViewMode{
-        @Override
-        public void handleLoadAction() {
-            loadFromFile();
-        }
-
-        @Override
-        public void handleEditAction() {
-            // 편집 모드에서 읽기 전용과 쓰기 가능 모드 사이에서 전환한다.
-            boolean editable = editorTextAreaFXController.isEditable();
-            editorTextAreaFXController.setEditable(!editable);
-            editButton.setSelected(!editable);
-        }
-    }
 
     private EditorModelInterface model;
-    private ViewMode viewMode;
+    private EditorPaneViewMode editorPaneViewMode;
     private EditorTextAreaControllerInterface editorTextAreaFXController;
     private CompResultsViewControllerInterface compResultListViewFXController;
     private CompModeDisableReceiver compModeDisableReceiver;
+
+    private EditorPaneViewMode editMode;
+    private EditorPaneViewMode compMode;
 
     @FXML
     private Pane rootPane;
@@ -86,12 +56,12 @@ public class EditorPaneFXController implements Initializable, EditorPaneControll
 
     @FXML
     private void handleLoadAction(ActionEvent event){
-        viewMode.handleLoadAction();
+        editorPaneViewMode.handleLoadAction();
     }
 
     @FXML
     private void handleEditAction(ActionEvent event){
-        viewMode.handleEditAction();
+        editorPaneViewMode.handleEditAction();
     }
 
     @FXML
@@ -100,8 +70,8 @@ public class EditorPaneFXController implements Initializable, EditorPaneControll
     }
 
     @Override
-    public void clearSelection() {
-        compResultListViewFXController.clearSelection();
+    public void clearListSelection() {
+        compResultListViewFXController.clearListSelection();
     }
 
     @Override
@@ -128,8 +98,8 @@ public class EditorPaneFXController implements Initializable, EditorPaneControll
     @Override
     public void switchCompResultsView(){
         // 비교 결과를 보여주는 뷰로 변경
-        viewMode = new CompMode();
-        setEditable(false);
+        editorPaneViewMode = compMode;
+        setTextEditable(false);
         setContentNode(compResultListViewFXController.getContentNode());
     }
 
@@ -138,20 +108,27 @@ public class EditorPaneFXController implements Initializable, EditorPaneControll
     }
 
     @Override
+    public void disableCompMode(){
+        clearListSelection();
+        if(compModeDisableReceiver != null) compModeDisableReceiver.disableCompareMode(); // 비교 모드에서 해제되는 것이므로 이를 알려야 함.
+    }
+
+    @Override
     public Node getContentNode() {
         return rootPane;
     }
 
-    private void switchEditorTextArea(){
+    @Override
+    public void switchEditorTextArea(){
         // 텍스트 에이리어로 교체한다.
-        viewMode = new EditMode();
+        editorPaneViewMode = editMode;
         setContentNode(editorTextAreaFXController.getContentNode());
     }
 
     private void setDisableEditModeButtons(boolean disable){
         // 편집 모드와 관련된 버튼을 비활성화 한다.
-        editButton.setDisable(false);
-        saveButton.setDisable(false);
+        editButton.setDisable(disable);
+        saveButton.setDisable(disable);
     }
 
     private void saveToFile(){
@@ -163,7 +140,8 @@ public class EditorPaneFXController implements Initializable, EditorPaneControll
         }
     }
 
-    private void loadFromFile(){
+    @Override
+    public void loadFromFile(){
         if(model.isFileLoaded()){
             // 이미 다른 파일을 편집중이면 저장할 지 물어봐야 함.
             Alert saveEditedFileAlert = ConfirmationAlertFactory.newSaveEditedFileConfirmationAlert();
@@ -173,7 +151,7 @@ public class EditorPaneFXController implements Initializable, EditorPaneControll
         if(selectedFile == null) return;
         try {
             model.load(selectedFile);
-            setEditable(false);
+            setTextEditable(false);
             setDisableEditModeButtons(false);
             switchEditorTextArea();
         }catch (UncheckedIOException uioe) {
@@ -190,7 +168,13 @@ public class EditorPaneFXController implements Initializable, EditorPaneControll
         }
     }
 
-    private void setEditable(boolean editable){
+    @Override
+    public boolean isTextEditable() {
+        return editorTextAreaFXController.isEditable();
+    }
+
+    @Override
+    public void setTextEditable(boolean editable){
         // 편집 버튼과 텍스트 에이리어의 편집 상태를 바꾼다.
         editButton.setSelected(editable);
         editorTextAreaFXController.setEditable(editable);
@@ -235,6 +219,9 @@ public class EditorPaneFXController implements Initializable, EditorPaneControll
             // 내용을 출력하는 노드를 편집 창의 앵커페인 속성을 붙여서 특정 위치에만 표시되도록 고정한다.
             addContentNodeProperty(editorTextAreaFXController.getContentNode());
             addContentNodeProperty(compResultListViewFXController.getContentNode());
+            // 편집모드와 비교모드를 생성한다.
+            editMode = new EditMode(this);
+            compMode = new CompMode(this);
             // 로드가 끝나면 텍스트 에이리어로 교체한다.
             switchEditorTextArea();
         }catch(IOException ioe){

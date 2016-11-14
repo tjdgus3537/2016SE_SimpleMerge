@@ -52,15 +52,15 @@ public class MainWindowFXController implements Initializable, MainWindowControll
     @FXML
     private void handleCopyToRightButtonAction(ActionEvent event){
         model.copyToRight(leftPaneController.getSelectedIndex());
-        leftPaneController.clearSelection();
-        rightPaneController.clearSelection();
+        leftPaneController.clearListSelection();
+        rightPaneController.clearListSelection();
     }
 
     @FXML
     private void handleCopyToLeftButtonAction(ActionEvent event){
         model.copyToLeft(rightPaneController.getSelectedIndex());
-        leftPaneController.clearSelection();
-        rightPaneController.clearSelection();
+        leftPaneController.clearListSelection();
+        rightPaneController.clearListSelection();
     }
 
     @Override
