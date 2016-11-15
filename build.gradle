@@ -1,4 +1,4 @@
-group 'kr.ac.cau.cse.se.teamsix'
+group 'kr.ac.cau.cse.dp.teamsix'
 version '1.0'
 
 apply plugin: 'java'
@@ -19,7 +19,7 @@ javadoc {
 //create a single Jar with all dependencies
 task fatJar(type: Jar) {
     manifest {
-        attributes ("Implementation-Title": "2016SE_SimpleMerge",
+        attributes ("Implementation-Title": "2016DP_SimpleMerge",
                 "Implementation-Version": version,
                 "Main-Class": "AppMain")
     }
