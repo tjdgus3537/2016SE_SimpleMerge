@@ -17,7 +17,9 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.FileChooser;
 import view.ConfirmationAlertFactory;
+import view.ConfirmationAlertFactoryInterface;
 import view.ErrorAlertFactory;
+import view.ErrorAlertFactoryInterface;
 
 import java.io.File;
 import java.io.IOException;
@@ -39,6 +41,9 @@ public class EditorPaneFXController implements Initializable, EditorPaneControll
     private EditorTextAreaControllerInterface editorTextAreaFXController;
     private CompResultsViewControllerInterface compResultListViewFXController;
     private CompModeDisableReceiver compModeDisableReceiver;
+
+    private ErrorAlertFactoryInterface errorAlertFactory;
+    private ConfirmationAlertFactoryInterface confirmationAlertFactory;
 
     private EditorPaneViewMode editMode;
     private EditorPaneViewMode compMode;
@@ -135,7 +140,7 @@ public class EditorPaneFXController implements Initializable, EditorPaneControll
         try {
             model.save();
         }catch(IOException ioe){
-            Alert fileSaveErrorAlert = ErrorAlertFactory.newFileSaveErrorAlert();
+            Alert fileSaveErrorAlert = errorAlertFactory.newFileSaveErrorAlert();
             fileSaveErrorAlert.show();
         }
     }
@@ -144,7 +149,7 @@ public class EditorPaneFXController implements Initializable, EditorPaneControll
     public void loadFromFile(){
         if(model.isFileLoaded()){
             // 이미 다른 파일을 편집중이면 저장할 지 물어봐야 함.
-            Alert saveEditedFileAlert = ConfirmationAlertFactory.newSaveEditedFileConfirmationAlert();
+            Alert saveEditedFileAlert = confirmationAlertFactory.newSaveEditedFileConfirmationAlert();
             saveEditedFileAlert.showAndWait().filter(response -> response == ButtonType.OK).ifPresent(response -> saveToFile());
         }
         File selectedFile = showFileChooser();
@@ -156,14 +161,14 @@ public class EditorPaneFXController implements Initializable, EditorPaneControll
             switchEditorTextArea();
         }catch (UncheckedIOException uioe) {
             if (uioe.getCause() instanceof MalformedInputException) {
-                Alert fileEncodingErrorAlert = ErrorAlertFactory.newFileEncodingErrorAlert();
+                Alert fileEncodingErrorAlert = errorAlertFactory.newFileEncodingErrorAlert();
                 fileEncodingErrorAlert.show();
             }
         }catch  (MalformedInputException mie){
-            Alert fileEncodingErrorAlert = ErrorAlertFactory.newFileEncodingErrorAlert();
+            Alert fileEncodingErrorAlert = errorAlertFactory.newFileEncodingErrorAlert();
             fileEncodingErrorAlert.show();
         }catch (IOException ioe){
-            Alert fileLoadErrorAlert = ErrorAlertFactory.newFileLoadErrorAlert();
+            Alert fileLoadErrorAlert = errorAlertFactory.newFileLoadErrorAlert();
             fileLoadErrorAlert.show();
         }
     }
@@ -207,6 +212,9 @@ public class EditorPaneFXController implements Initializable, EditorPaneControll
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        // 알림 창을 생성하는 추상 팩토리 객체를 참조한다.
+        errorAlertFactory = ErrorAlertFactory.getInstance();
+        confirmationAlertFactory = ConfirmationAlertFactory.getInstance();
         try {
             // 텍스트 에이리어 로드
             FXMLLoader editorTextAreaFXMLLoader = new FXMLLoader(getClass().getResource("/fxml/EditorTextArea.fxml"));
@@ -225,7 +233,7 @@ public class EditorPaneFXController implements Initializable, EditorPaneControll
             // 로드가 끝나면 텍스트 에이리어로 교체한다.
             switchEditorTextArea();
         }catch(IOException ioe){
-            Alert viewLoadAlert = ErrorAlertFactory.newViewLoadErrorAlert();
+            Alert viewLoadAlert = errorAlertFactory.newViewLoadErrorAlert();
             viewLoadAlert.show();
         }
     }

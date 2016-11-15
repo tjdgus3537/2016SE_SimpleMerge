@@ -13,6 +13,7 @@ import javafx.scene.control.ScrollBar;
 import javafx.scene.control.SplitPane;
 import model.*;
 import view.ErrorAlertFactory;
+import view.ErrorAlertFactoryInterface;
 
 import java.io.IOException;
 import java.net.URL;
@@ -27,6 +28,7 @@ public class MainWindowFXController implements Initializable, MainWindowControll
     private EditorPaneControllerInterface leftPaneController;
     private EditorPaneControllerInterface rightPaneController;
     private MainModelInterface model;
+    private ErrorAlertFactoryInterface errorAlertFactory;
 
     @FXML
     private Button compareButton;
@@ -87,6 +89,7 @@ public class MainWindowFXController implements Initializable, MainWindowControll
 
     @Override
     public void initialize(URL location, ResourceBundle resources){
+        errorAlertFactory = ErrorAlertFactory.getInstance();
         try{
             FXMLLoader leftPaneFXMLLoader = new FXMLLoader(getClass().getResource("/fxml/EditorPane.fxml"));
             leftPaneFXMLLoader.load();
@@ -108,7 +111,7 @@ public class MainWindowFXController implements Initializable, MainWindowControll
             });
             compareButton.setDisable(true);
         }catch(IOException ioe){
-            Alert viewLoadAlert = ErrorAlertFactory.newViewLoadErrorAlert();
+            Alert viewLoadAlert = errorAlertFactory.newViewLoadErrorAlert();
             viewLoadAlert.show();
         }
     }
