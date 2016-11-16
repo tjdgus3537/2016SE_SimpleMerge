@@ -90,10 +90,10 @@ public class Diff implements DiffInterface{
 		ArrayList<CompState> lineStates = new ArrayList<>();
 		int lcsIndex = 0;
 		
-		for (int i = 0; i < s.size(); i++) {
+		for(String str : s) {
 			//한 줄이 어디까지인지 확인한다.
 			if(lcsIndex < lcs.size()) {
-				if(s.get(i).equals(lcs.get(lcsIndex))) {
+				if(str.equals(lcs.get(lcsIndex))) {
 					lineStates.add(CompState.UNCHANGED);
 					lcsIndex++;
 					continue;
@@ -101,7 +101,7 @@ public class Diff implements DiffInterface{
 			}
 			lineStates.add(CompState.CHANGED);
 		}
-		
+
 		return lineStates;
 	}
 		
