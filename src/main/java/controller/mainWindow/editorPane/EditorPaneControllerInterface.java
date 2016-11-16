@@ -50,7 +50,7 @@ public interface EditorPaneControllerInterface extends ContentNodeProvider, Sing
     void switchEditorTextArea();
 
     /**
-     * 뷰가 비교 모드를 보여주는 것을 비활성화한다.
+     * 비교 모드를 비활성화 하겠다는 것을 알린다.
      */
-    void disableCompMode();
+    void notifyDisableCompMode();
 }

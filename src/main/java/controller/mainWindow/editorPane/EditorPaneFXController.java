@@ -113,9 +113,8 @@ public class EditorPaneFXController implements Initializable, EditorPaneControll
     }
 
     @Override
-    public void disableCompMode(){
-        clearListSelection();
-        if(compModeDisableReceiver != null) compModeDisableReceiver.disableCompareMode(); // 비교 모드에서 해제되는 것이므로 이를 알려야 함.
+    public void notifyDisableCompMode(){
+        if(compModeDisableReceiver != null) compModeDisableReceiver.disableCompareMode();
     }
 
     @Override
