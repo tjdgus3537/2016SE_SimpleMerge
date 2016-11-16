@@ -12,6 +12,20 @@ import model.diff.block.CompState;
  */
 
 public class Copier implements CopierInterface{
+	private volatile static Copier uniqueInstance = null;
+	
+	private Copier() {};
+	
+	public static Copier getInstance() {
+        if (uniqueInstance == null) {
+            synchronized(Copier.class) {
+                if (uniqueInstance == null) 
+                    uniqueInstance = new Copier();
+            }
+        }
+        return uniqueInstance;
+    }
+	
 	@Override
 	public void copyToLeft(List<Block> left, List<Block> right, int blockNum) {
 		//둘 중 하나라도 compare 결과를 갖고 있지 않을 때
