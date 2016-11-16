@@ -84,7 +84,14 @@ public class MainWindowFXController implements Initializable, MainWindowControll
 
     @Override
     public void disableCompareMode() {
+        // 모든 편집 창을 편집 상태로 이전함
         setDisableCompareModeNodes(true);
+        leftPaneController.clearListSelection();
+        leftPaneController.switchEditorTextArea();
+        leftPaneController.setTextEditable(true);
+        rightPaneController.clearListSelection();
+        rightPaneController.switchEditorTextArea();
+        rightPaneController.setTextEditable(true);
     }
 
     @Override

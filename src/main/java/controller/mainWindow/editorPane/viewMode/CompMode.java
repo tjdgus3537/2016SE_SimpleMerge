@@ -16,13 +16,13 @@ public class CompMode implements EditorPaneViewMode {
 
     @Override
     public void handleLoadAction() {
-        editorPaneControllerInterface.disableCompMode();
+        editorPaneControllerInterface.notifyDisableCompMode();
         editorPaneControllerInterface.loadFromFile();
     }
 
     @Override
     public void handleEditAction() {
-        editorPaneControllerInterface.disableCompMode();
+        editorPaneControllerInterface.notifyDisableCompMode();
         editorPaneControllerInterface.switchEditorTextArea();
         editorPaneControllerInterface.setTextEditable(true);
     }
