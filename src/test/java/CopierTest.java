@@ -59,7 +59,7 @@ public class CopierTest {
 	
 	@Before
 	public void setUp() throws Exception {
-		copier = new Copier();
+		copier = Copier.getInstance();
 		blocks = new PairBlocks(new ArrayList<Block>(), new ArrayList<Block>());
 	}
 
