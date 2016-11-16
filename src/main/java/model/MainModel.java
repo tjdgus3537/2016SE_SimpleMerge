@@ -32,7 +32,7 @@ public class MainModel implements MainModelInterface {
 		leftEditorModel = new EditorModel(leftComparisonTarget);
 		rightEditorModel = new EditorModel(rightComparisonTarget);
 		diff = new Diff();
-		copier = new Copier();
+		copier = Copier.getInstance();
 		comparableProperty = new SimpleBooleanProperty(false);
 		leftComparisonTarget.fileProperty().addListener((observable, oldValue, newValue) -> {
 			comparableProperty.setValue(isComparable());
