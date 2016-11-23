@@ -4,6 +4,8 @@ import javafx.scene.control.Alert;
 
 /**
  * Created by Donghwan on 2016-11-23.
+ *
+ * 영문으로 된 오류창과 확인창을 생성하는 객체
  */
 public class EnglishAlertFactory implements AlertFactory{
     private volatile static EnglishAlertFactory instance;

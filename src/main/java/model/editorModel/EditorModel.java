@@ -7,6 +7,7 @@ import model.editorModel.contentNodeModel.ObservableCompResultModel;
 import model.editorModel.contentNodeModel.ObservableCompResultInterface;
 import model.editorModel.contentNodeModel.ObservableTextModel;
 import model.editorModel.contentNodeModel.ObservableTextModelInterface;
+import model.fileIO.AbstractComparisionTargetLoader;
 import model.fileIO.ComparisonTargetLoader;
 import model.fileIO.ComparisonTargetWriter;
 import model.fileIO.file.ComparisonTargetInterface;
@@ -39,7 +40,7 @@ public class EditorModel implements EditorModelInterface {
 
 	@Override
 	public void load(File source) throws IOException{
-		ComparisonTargetLoader loader = new ComparisonTargetLoader();
+		AbstractComparisionTargetLoader loader = new ComparisonTargetLoader();
 		loader.load(source, comparisonTarget);
 	}
 
