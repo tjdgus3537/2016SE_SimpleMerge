@@ -19,8 +19,8 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="2016DP_SimpleMerge_main" target="1.8" />
-      <module name="2016DP_SimpleMerge_test" target="1.8" />
+      <module name="DesignPattern_main" target="1.8" />
+      <module name="DesignPattern_test" target="1.8" />
     </bytecodeTargetLevel>
   </component>
 </project>

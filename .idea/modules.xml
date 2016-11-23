@@ -2,9 +2,9 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/2016DP_SimpleMerge.iml" filepath="$PROJECT_DIR$/.idea/modules/2016DP_SimpleMerge.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/2016DP_SimpleMerge_main.iml" filepath="$PROJECT_DIR$/.idea/modules/2016DP_SimpleMerge_main.iml" group="2016DP_SimpleMerge" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/2016DP_SimpleMerge_test.iml" filepath="$PROJECT_DIR$/.idea/modules/2016DP_SimpleMerge_test.iml" group="2016DP_SimpleMerge" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/DesignPattern.iml" filepath="$PROJECT_DIR$/.idea/modules/DesignPattern.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/DesignPattern_main.iml" filepath="$PROJECT_DIR$/.idea/modules/DesignPattern_main.iml" group="DesignPattern" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/DesignPattern_test.iml" filepath="$PROJECT_DIR$/.idea/modules/DesignPattern_test.iml" group="DesignPattern" />
     </modules>
   </component>
 </project>
