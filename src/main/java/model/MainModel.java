@@ -69,6 +69,21 @@ public class MainModel implements MainModelInterface {
 	}
 
 	@Override
+	public void undo() {
+		//TODO 되돌리기 구현
+	}
+
+	@Override
+	public void createLog() {
+		//TODO 로그 남기기 구현
+	}
+
+	@Override
+	public void disableCompMode() {
+		//TODO 비교 모드 비활성화 구현
+	}
+
+	@Override
 	public int size() {
 		return Integer.min(leftComparisonTarget.getObservableBlocks().size(), rightComparisonTarget.getObservableBlocks().size());
 	}

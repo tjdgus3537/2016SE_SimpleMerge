@@ -25,6 +25,11 @@
                     <Tooltip text="Copy To Left" />
                 </tooltip>
             </Button>
+             <Button id="undo-button" fx:id="undoButton" disable="true" mnemonicParsing="false" onAction="#handleUndoButtonAction">
+                 <tooltip>
+                     <Tooltip text="Undo"/>
+                 </tooltip>
+             </Button>
          </items>
       </ToolBar>
       <SplitPane fx:id="editorSplitPane" nodeOrientation="LEFT_TO_RIGHT" styleClass="background" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="40.0" />

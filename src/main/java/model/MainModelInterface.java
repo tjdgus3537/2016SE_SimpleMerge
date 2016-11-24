@@ -51,4 +51,21 @@ public interface MainModelInterface {
      * @return 오른쪽 편집창의 모델
      */
     EditorModelInterface getRightEditorModel();
+
+    /**
+     * 이전에 했던 작업을 취소한다.
+     */
+    void undo();
+
+    /**
+     * 현재까지의 작업을 기록해서 파일로 저장한다.
+     */
+    void createLog();
+
+    /**
+     * 비교 모드를 비활성화한다.
+     *
+     * 비교 모드가 비활성화 될 때 해야하는 작업들을 실행한다.
+     */
+    void disableCompMode();
 }

@@ -37,6 +37,8 @@ public class MainWindowFXController implements Initializable, MainWindowControll
     @FXML
     private Button copyToLeftButton;
     @FXML
+    private Button undoButton;
+    @FXML
     private SplitPane editorSplitPane;
     @FXML
     private ScrollBar compareViewScrollBar;
@@ -65,6 +67,11 @@ public class MainWindowFXController implements Initializable, MainWindowControll
         rightPaneController.clearListSelection();
     }
 
+    @FXML
+    private void handleUndoButtonAction(ActionEvent event){
+        model.undo();
+    }
+
     @Override
     public void setModel(MainModelInterface model){
         this.model = model;
@@ -79,6 +86,7 @@ public class MainWindowFXController implements Initializable, MainWindowControll
         copyToRightButton.setDisable(disable);
         copyToLeftButton.setDisable(disable);
         compareViewScrollBar.setDisable(disable);
+        undoButton.setDisable(disable);
         compareButton.setDisable(!disable);
     }
 
@@ -92,6 +100,7 @@ public class MainWindowFXController implements Initializable, MainWindowControll
         rightPaneController.clearListSelection();
         rightPaneController.switchEditorTextArea();
         rightPaneController.setTextEditable(true);
+        model.disableCompMode();
     }
 
     @Override

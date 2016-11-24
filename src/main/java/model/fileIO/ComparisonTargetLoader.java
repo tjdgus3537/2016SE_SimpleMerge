@@ -8,6 +8,7 @@ package model.fileIO;
 public class ComparisonTargetLoader extends AbstractComparisionTargetLoader{
 	@Override
 	protected DocumentExtensionBasedContentParser getDocumentExtensionBasedContentParser(String fileName) {
+		// TODO 지원되는 확장자에 따라 구분하는 코드 추가
 		return null;
 	}
 }

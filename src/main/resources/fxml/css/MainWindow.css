@@ -84,6 +84,10 @@
     -fx-background-image: url("icon/copytoleft.png");
 }
 
+#undo-button{
+    -fx-background-image: url("icon/undo.png");
+}
+
 /* scroll-bar */
 .scroll-bar,
 .scroll-bar .track,
