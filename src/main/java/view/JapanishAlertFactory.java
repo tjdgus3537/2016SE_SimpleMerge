@@ -3,35 +3,35 @@ package view;
 import javafx.scene.control.Alert;
 
 /**
- * Created by Donghwan on 2016-11-23.
+ * Created by Donghwan on 2016-11-24.
  *
- * 영어으로 된 오류창과 확인창을 생성하는 객체
+ * 일본어으로 된 오류창과 확인창을 생성하는 객체
  */
-public class EnglishAlertFactory implements AlertFactory{
-    private volatile static EnglishAlertFactory instance;
+public class JapanishAlertFactory implements AlertFactory{
+    private volatile static JapanishAlertFactory instance;
 
-    public static EnglishAlertFactory getInstance(){
+    public static JapanishAlertFactory getInstance(){
         if(instance == null){
             synchronized (EnglishAlertFactory.class){
                 if(instance == null){
-                    instance = new EnglishAlertFactory();
+                    instance = new JapanishAlertFactory();
                 }
             }
         }
         return instance;
     }
 
-    private EnglishAlertFactory(){}
+    private JapanishAlertFactory(){}
 
     private Alert newErrorAlert(){
         Alert errorAlert = new Alert(Alert.AlertType.ERROR);
-        errorAlert.setTitle("Error");
+        errorAlert.setTitle("오류");
         return errorAlert;
     }
 
     private Alert newConfirmationAlert(){
         Alert confirmationAlert =  new Alert(Alert.AlertType.CONFIRMATION);
-        confirmationAlert.setTitle("Confirmation");
+        confirmationAlert.setTitle("확인");
         return confirmationAlert;
     }
 
@@ -60,39 +60,40 @@ public class EnglishAlertFactory implements AlertFactory{
         }
     }
 
+    // TODO 일본어로 번역
     private Alert newViewLoadErrorAlert(){
         Alert viewLoadAlert = newErrorAlert();
-        viewLoadAlert.setHeaderText("View load failed");
-        viewLoadAlert.setContentText("View is not loaded. Please Restart the program.\n" +
-                "If this error occurs several time, please report bug to wraithkim@cau.ac.kr");
+        viewLoadAlert.setHeaderText("뷰 불러오기 실패");
+        viewLoadAlert.setContentText("뷰를 불러오는데 실패했습니다. 프로그램을 재시작해주세요.\n" +
+                "만약 이 오류가 여러번 발생한다면, wraithkim@cau.ac.kr로 버그 신고를 해주세요.");
         return viewLoadAlert;
     }
 
     private Alert newFileSaveErrorAlert(){
         Alert fileLoadErrorAlert = newErrorAlert();
-        fileLoadErrorAlert.setHeaderText("File save failed");
-        fileLoadErrorAlert.setContentText("Selected file is not saved. Check if it saved normally or try again.");
+        fileLoadErrorAlert.setHeaderText("파일 저장하기 실패");
+        fileLoadErrorAlert.setContentText("선택한 파일이 저장되지 않았습니다. 정상적으로 저장되었는지 확인해보시고 다시 시도해주세요.");
         return fileLoadErrorAlert;
     }
 
     private Alert newFileEncodingErrorAlert(){
         Alert fileEncodingErrorAlert = newErrorAlert();
-        fileEncodingErrorAlert.setHeaderText("Can't detect file encoding.");
-        fileEncodingErrorAlert.setContentText("The character set of this file is unknown. Please convert this file to utf-8 encoding.");
+        fileEncodingErrorAlert.setHeaderText("파일 인코딩을 찾을 수 없습니다.");
+        fileEncodingErrorAlert.setContentText("이 파일의 문자 인코딩을 찾을 수 없습니다. 이 파일을 utf-8 인코딩으로 바꿔주세요.");
         return fileEncodingErrorAlert;
     }
 
     private Alert newFileLoadErrorAlert(){
         Alert fileLoadErrorAlert = newErrorAlert();
-        fileLoadErrorAlert.setHeaderText("File load failed");
-        fileLoadErrorAlert.setContentText("Selected file is not loaded. Check if it exists and try again.");
+        fileLoadErrorAlert.setHeaderText("파일 불러오기 실패");
+        fileLoadErrorAlert.setContentText("선택된 파일을 불러오는데 실패했습니다. 해당 파일이 존재하는지 확인하고 다시 시도해주세요.");
         return fileLoadErrorAlert;
     }
 
     private Alert newSaveEditedFileConfirmationAlert(){
         Alert saveEditedFileAlert = newConfirmationAlert();
-        saveEditedFileAlert.setHeaderText("Save this file?");
-        saveEditedFileAlert.setContentText("If you load other file, you will lose all change about this file.\n Click \'Yes\' to save your changes");
+        saveEditedFileAlert.setHeaderText("이 파일을 저장하시겠습니까?");
+        saveEditedFileAlert.setContentText("만약 다른 파일을 불러온다면, 이 파일의 모든 변경점이 지워집니다.\n 만약 변경점을 저장하고 싶으면 \'예\'를 클릭하세요.");
         return saveEditedFileAlert;
     }
 }
