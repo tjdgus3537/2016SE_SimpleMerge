@@ -44,10 +44,4 @@ dependencies {
 
     // https://mvnrepository.com/artifact/org.apache.tika/tika-core
     compile group: 'org.apache.tika', name: 'tika-core', version: '1.14'
-    // https://mvnrepository.com/artifact/org.apache.tika/tika
-    compile group: 'org.apache.tika', name: 'tika', version: '1.14'
-// https://mvnrepository.com/artifact/org.apache.tika/tika-parsers
-    compile group: 'org.apache.tika', name: 'tika-parsers', version: '1.4'
-
-
 }
