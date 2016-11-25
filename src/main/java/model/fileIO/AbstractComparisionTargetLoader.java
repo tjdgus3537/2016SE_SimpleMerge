@@ -21,9 +21,10 @@ import java.util.stream.Collector;
 public abstract class AbstractComparisionTargetLoader {
     public void load(File source, ComparisonTargetInterface destination) throws IOException {
         Charset charset = detectEncoding(source);
-        String content = readFile(source, charset);
-        DocumentExtensionBasedContentParser documentExtensionBasedContentParser = getDocumentExtensionBasedContentParser(source.getName());
-        if(documentExtensionBasedContentParser != null) content = documentExtensionBasedContentParser.parseContent(content);
+        String content = null;
+        DocumentExtensionBasedContentParser documentExtensionBasedContentParser = getDocumentExtensionBasedContentParser(source);
+        if(documentExtensionBasedContentParser != null) content = documentExtensionBasedContentParser.parseContent(source);
+        else content = readFile(source, charset);
         destination.setContent(content);
         destination.setSource(source);
         destination.setEncoding(charset);
@@ -58,5 +59,5 @@ public abstract class AbstractComparisionTargetLoader {
         }
     }
 
-    protected abstract DocumentExtensionBasedContentParser getDocumentExtensionBasedContentParser(String fileName);
+    protected abstract DocumentExtensionBasedContentParser getDocumentExtensionBasedContentParser(File file);
 }

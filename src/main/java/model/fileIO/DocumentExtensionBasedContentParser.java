@@ -1,5 +1,8 @@
 package model.fileIO;
 
+import java.io.File;
+import java.io.IOException;
+
 /**
  * Created by Donghwan on 2016-11-24.
  *
@@ -8,8 +11,9 @@ package model.fileIO;
 public interface DocumentExtensionBasedContentParser {
     /**
      * 문서의 파일 확장자에 기반해서 파일에서 본문 부분을 파싱한다.
-     * @param rawContent 파싱할 원본 파일의 내용
+     * @param source 원본 파일
      * @return 원본 파일에서 파싱한 본문 내용
+     * @throws IOException
      */
-    String parseContent(String rawContent);
+    String parseContent(File source) throws IOException;
 }
