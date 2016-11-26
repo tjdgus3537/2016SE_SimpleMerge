@@ -42,5 +42,8 @@ dependencies {
 
     // https://mvnrepository.com/artifact/org.apache.tika/tika-parsers
     compile group: 'org.apache.tika', name: 'tika-parsers', version: '1.14'
+    // https://mvnrepository.com/artifact/org.slf4j/slf4j-simple
+    compile group: 'org.slf4j', name: 'slf4j-simple', version: '1.6.1'
+
 
 }
