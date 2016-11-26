@@ -1,4 +1,4 @@
-package model.fileIO;
+package model.fileIO.parser;
 
 import java.io.File;
 import java.io.IOException;

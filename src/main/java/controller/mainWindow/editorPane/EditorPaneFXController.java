@@ -186,7 +186,10 @@ public class EditorPaneFXController implements Initializable, EditorPaneControll
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Open Text File");
         fileChooser.getExtensionFilters().addAll(
-                new FileChooser.ExtensionFilter("Text file", "*.txt"));
+                new FileChooser.ExtensionFilter("Text file", "*.txt"),
+                new FileChooser.ExtensionFilter("Old MS word file", "*.doc"),
+                new FileChooser.ExtensionFilter("MS word file", "*.docx"),
+                new FileChooser.ExtensionFilter("Open document word file", "*.odt"));
         return fileChooser.showOpenDialog(rootPane.getScene().getWindow());
     }
 

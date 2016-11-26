@@ -1,9 +1,9 @@
 package model.fileIO;
 
-import org.apache.tika.detect.DefaultDetector;
-import org.apache.tika.detect.Detector;
-import org.apache.tika.detect.NameDetector;
-import org.apache.tika.mime.MimeTypes;
+import model.fileIO.parser.DOCParser;
+import model.fileIO.parser.DOCXParser;
+import model.fileIO.parser.DocumentExtensionBasedContentParser;
+import model.fileIO.parser.ODTParser;
 
 import java.io.File;
 
@@ -17,6 +17,8 @@ public class ComparisonTargetLoader extends AbstractComparisionTargetLoader{
 	protected DocumentExtensionBasedContentParser getDocumentExtensionBasedContentParser(File file) {
 		// TODO 지원되는 확장자에 따라 구분하는 코드 추가
 		if(file.getName().endsWith(".doc")) { return new DOCParser(); }
+		if(file.getName().endsWith(".docx")){ return new DOCXParser(); }
+		if(file.getName().endsWith(".odt")){ return new ODTParser(); }
 		return null;
 	}
 }

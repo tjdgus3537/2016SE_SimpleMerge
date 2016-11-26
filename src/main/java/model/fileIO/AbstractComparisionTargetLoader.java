@@ -1,6 +1,7 @@
 package model.fileIO;
 
 import model.fileIO.file.ComparisonTargetInterface;
+import model.fileIO.parser.DocumentExtensionBasedContentParser;
 import org.mozilla.universalchardet.UniversalDetector;
 
 import java.io.BufferedReader;
