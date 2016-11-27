@@ -40,5 +40,10 @@ dependencies {
     testCompile "org.testfx:testfx-core:4.0.+"
     testCompile "org.testfx:testfx-junit:4.0.+"
 
-    compile 'com.googlecode.juniversalchardet:juniversalchardet:1.0.3'
+    // https://mvnrepository.com/artifact/org.apache.tika/tika-parsers
+    compile group: 'org.apache.tika', name: 'tika-parsers', version: '1.14'
+    // https://mvnrepository.com/artifact/org.slf4j/slf4j-simple
+    compile group: 'org.slf4j', name: 'slf4j-simple', version: '1.6.1'
+
+
 }
