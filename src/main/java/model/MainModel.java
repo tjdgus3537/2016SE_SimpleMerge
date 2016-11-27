@@ -2,8 +2,7 @@ package model;
 
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
-import model.diff.Copier;
-import model.diff.CopierInterface;
+import model.diff.CommandClient;
 import model.diff.Diff;
 import model.diff.DiffInterface;
 import model.diff.block.PairBlocks;
@@ -23,8 +22,8 @@ public class MainModel implements MainModelInterface {
 	private EditorModelInterface leftEditorModel;
 	private EditorModelInterface rightEditorModel;
 	private DiffInterface diff;
-	private CopierInterface copier;
 	private BooleanProperty comparableProperty;
+	private CommandClient commandClient;
 	
 	public MainModel() {
 		leftComparisonTarget = new ComparisonTarget();
@@ -32,7 +31,6 @@ public class MainModel implements MainModelInterface {
 		leftEditorModel = new EditorModel(leftComparisonTarget);
 		rightEditorModel = new EditorModel(rightComparisonTarget);
 		diff = new Diff();
-		copier = Copier.getInstance();
 		comparableProperty = new SimpleBooleanProperty(false);
 		leftComparisonTarget.fileProperty().addListener((observable, oldValue, newValue) -> {
 			comparableProperty.setValue(isComparable());
@@ -40,6 +38,7 @@ public class MainModel implements MainModelInterface {
 		rightComparisonTarget.fileProperty().addListener((observable, oldValue, newValue) -> {
 			comparableProperty.setValue(isComparable());
 		});
+		commandClient = new CommandClient();
 	}
 
 	private boolean isComparable(){
@@ -60,27 +59,27 @@ public class MainModel implements MainModelInterface {
 
 	@Override
 	public void copyToLeft(int blockNum) {
-		copier.copyToLeft(leftComparisonTarget.getObservableBlocks(), rightComparisonTarget.getObservableBlocks(), blockNum);
+		commandClient.copyToLeft(leftComparisonTarget.getObservableBlocks(), rightComparisonTarget.getObservableBlocks(), blockNum);
 	}
 
 	@Override
 	public void copyToRight(int blockNum) {
-		copier.copyToRight(leftComparisonTarget.getObservableBlocks(), rightComparisonTarget.getObservableBlocks(), blockNum);
+		commandClient.copyToRight(leftComparisonTarget.getObservableBlocks(), rightComparisonTarget.getObservableBlocks(), blockNum);
 	}
 
 	@Override
 	public void undo() {
-		//TODO 되돌리기 구현
+		commandClient.undo();
 	}
 
 	@Override
 	public void createLog() {
-		//TODO 로그 남기기 구현
+		commandClient.createLog();
 	}
 
 	@Override
 	public void disableCompMode() {
-		//TODO 비교 모드 비활성화 구현
+		commandClient.reset();
 	}
 
 	@Override
