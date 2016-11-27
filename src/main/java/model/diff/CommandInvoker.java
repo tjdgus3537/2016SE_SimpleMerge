@@ -33,7 +33,7 @@ public class CommandInvoker {
 	
 	public void createLog() {
 		try {
-			BufferedWriter out = new BufferedWriter(new FileWriter("log.txt"));
+			BufferedWriter out = new BufferedWriter(new FileWriter("log.txt", true));
 			
 			//이터레이터를 사용함(copyToLeftCommand인지 copyToRightCommand인지 구분할 필요 X)
 			for(Command command : commands) {

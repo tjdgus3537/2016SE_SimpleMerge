@@ -79,6 +79,7 @@ public class MainModel implements MainModelInterface {
 
 	@Override
 	public void disableCompMode() {
+		commandClient.createLog();
 		commandClient.reset();
 	}
 

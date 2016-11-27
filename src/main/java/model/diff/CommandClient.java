@@ -29,9 +29,8 @@ public class CommandClient {
 		commandInvoker.undo();
 	}
 	
-	public String createLog() {
+	public void createLog() {
 		commandInvoker.createLog();
-		return null;
 	}
 	
 	public void reset() {
