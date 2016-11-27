@@ -3,8 +3,6 @@ package model.diff;
 import java.util.ArrayList;
 import java.util.List;
 
-import jdk.nashorn.internal.ir.BlockLexicalContext;
-import jdk.nashorn.internal.ir.BlockStatement;
 import model.diff.block.Block;
 import model.diff.block.CompState;
 
