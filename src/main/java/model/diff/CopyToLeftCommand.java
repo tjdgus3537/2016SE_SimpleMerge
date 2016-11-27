@@ -17,6 +17,7 @@ public class CopyToLeftCommand implements Command{
 	private ArrayList<Block> beforeCopyLeftBlocks;
 	private ArrayList<Block> beforeCopyRightBlocks;
 	private boolean willRemoveToUndo;
+	private int blockNumforLog;
 	
 	//합칠 block 번호 전달.
 	public CopyToLeftCommand(List<Block> left, List<Block> right, int blockNum) {
@@ -26,6 +27,7 @@ public class CopyToLeftCommand implements Command{
 		beforeCopyLeftBlocks = new ArrayList<Block>();
 		beforeCopyRightBlocks = new ArrayList<Block>();
 		willRemoveToUndo = true;
+		blockNumforLog = blockNum;
 	}
 
 	@Override
@@ -105,9 +107,7 @@ public class CopyToLeftCommand implements Command{
 
 	@Override
 	public String getLog() {
-		//TODO:구현해야함
-		//return "copy result : " + left.get(blockNum - 1).getContent();
-		return null;
+		return "copy to Left : " + String.valueOf(blockNumforLog) + "th block\n";
 	}
 	
 	private void updateBlocksChangedCase(List<Block> blocks, List<Block> beforeBlocks) {
@@ -136,7 +136,7 @@ public class CopyToLeftCommand implements Command{
 			willRemoveToUndo = true;
 			
 			Block block = new Block(CompState.UNCHANGED, blocks.get(blockNum - 1).getContent() + blocks.get(blockNum).getContent());
-			beforeBlocks.add(blocks.get(blockNum - 1));
+			beforeBlocks.add(0, blocks.get(blockNum - 1));
 			beforeBlocks.add(blocks.get(blockNum));
 			blocks.remove(blockNum);
 			blocks.remove(blockNum - 1);

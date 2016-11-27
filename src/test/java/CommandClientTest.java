@@ -484,7 +484,7 @@ public class CommandClientTest {
 		blocks.getRight().add(makeSpaceBlock("\n"));
 		blocks.getRight().add(makeChangedBlock("x\ny\n"));
 		
-		commandClient.copyToLeft(blocks.getLeft(), blocks.getRight(), 0);
+		commandClient.copyToLeft(blocks.getLeft(), blocks.getRight(), 1);
 		commandClient.undo();
 		String s = pairBlocksToString(blocks);
 		assertEquals("aabc\nd\n\n\n aabc\n\nx\ny\n", s);
@@ -502,7 +502,7 @@ public class CommandClientTest {
 		blocks.getRight().add(makeSpaceBlock("\n"));
 		blocks.getRight().add(makeUnchangedBlock("aabc\n"));
 		
-		commandClient.copyToLeft(blocks.getLeft(), blocks.getRight(), 0);
+		commandClient.copyToLeft(blocks.getLeft(), blocks.getRight(), 1);
 		commandClient.undo();
 		String s = pairBlocksToString(blocks);
 		assertEquals("\n\nd\naabc\n x\ny\n\naabc\n", s);
@@ -520,7 +520,7 @@ public class CommandClientTest {
 		blocks.getRight().add(makeSpaceBlock("\n"));
 		blocks.getRight().add(makeUnchangedBlock("aabc\n"));
 		
-		commandClient.copyToLeft(blocks.getLeft(), blocks.getRight(), 0);
+		commandClient.copyToLeft(blocks.getLeft(), blocks.getRight(), 1);
 		commandClient.undo();
 		String s = pairBlocksToString(blocks);
 		assertEquals("aabc\nd\naabc\n aabc\n\naabc\n", s);
@@ -538,7 +538,7 @@ public class CommandClientTest {
 		blocks.getRight().add(makeSpaceBlock("\n"));
 		blocks.getRight().add(makeChangedBlock("x\ny\n"));
 		
-		commandClient.copyToLeft(blocks.getLeft(), blocks.getRight(), 0);
+		commandClient.copyToLeft(blocks.getLeft(), blocks.getRight(), 1);
 		commandClient.undo();
 		String s = pairBlocksToString(blocks);
 		assertEquals("\n\nd\n\n\n x\ny\n\nx\ny\n", s);
@@ -558,7 +558,7 @@ public class CommandClientTest {
 		blocks.getRight().add(makeChangedBlock("x\ny\n"));
 		blocks.getRight().add(makeUnchangedBlock("aabc\n"));
 		
-		commandClient.copyToLeft(blocks.getLeft(), blocks.getRight(), 0);
+		commandClient.copyToLeft(blocks.getLeft(), blocks.getRight(), 1);
 		commandClient.undo();
 		String s = pairBlocksToString(blocks);
 		assertEquals("aabc\n\n\naabc\n aabc\nx\ny\naabc\n", s);
@@ -576,7 +576,7 @@ public class CommandClientTest {
 		blocks.getRight().add(makeChangedBlock("x\ny\n"));
 		blocks.getRight().add(makeSpaceBlock("\n"));
 		
-		commandClient.copyToLeft(blocks.getLeft(), blocks.getRight(), 0);
+		commandClient.copyToLeft(blocks.getLeft(), blocks.getRight(), 1);
 		commandClient.undo();
 		String s = pairBlocksToString(blocks);
 		assertEquals("aabc\n\n\nd\n aabc\nx\ny\n\n", s);
@@ -594,7 +594,7 @@ public class CommandClientTest {
 		blocks.getRight().add(makeChangedBlock("x\ny\n"));
 		blocks.getRight().add(makeUnchangedBlock("aabc\n"));
 		
-		commandClient.copyToLeft(blocks.getLeft(), blocks.getRight(), 0);
+		commandClient.copyToLeft(blocks.getLeft(), blocks.getRight(), 1);
 		commandClient.undo();
 		String s = pairBlocksToString(blocks);
 		assertEquals("d\n\n\naabc\n \nx\ny\naabc\n", s);
@@ -612,9 +612,157 @@ public class CommandClientTest {
 		blocks.getRight().add(makeChangedBlock("x\ny\n"));
 		blocks.getRight().add(makeSpaceBlock("\n"));
 		
-		commandClient.copyToLeft(blocks.getLeft(), blocks.getRight(), 0);
+		commandClient.copyToLeft(blocks.getLeft(), blocks.getRight(), 1);
 		commandClient.undo();
 		String s = pairBlocksToString(blocks);
 		assertEquals("d\n\n\nd\n \nx\ny\n\n", s);
+	}
+	
+	//USC, CSU, USU, CSC
+	
+	//정상적인 형태의 임의의 case
+	//USC
+	@Test
+	public void testUndoCase19() {
+		blocks.getLeft().add(makeUnchangedBlock("aabc\n"));
+		blocks.getLeft().add(makeSpaceBlock("\n"));
+		blocks.getLeft().add(makeChangedBlock("x\ny\n"));
+		
+		blocks.getRight().add(makeUnchangedBlock("aabc\n"));
+		blocks.getRight().add(makeChangedBlock("d\n"));
+		blocks.getRight().add(makeSpaceBlock("\n\n"));
+		
+		commandClient.copyToRight(blocks.getLeft(), blocks.getRight(), 1);
+		commandClient.undo();
+		String s = pairBlocksToString(blocks);
+		assertEquals("aabc\n\nx\ny\n aabc\nd\n\n\n", s);
+	}
+	
+	//정상적인 형태의 임의의 case
+	//CSU
+	@Test
+	public void testUndoCase20() {
+		blocks.getLeft().add(makeChangedBlock("x\ny\n"));
+		blocks.getLeft().add(makeSpaceBlock("\n"));
+		blocks.getLeft().add(makeUnchangedBlock("aabc\n"));
+		
+		blocks.getRight().add(makeSpaceBlock("\n\n"));
+		blocks.getRight().add(makeChangedBlock("d\n"));
+		blocks.getRight().add(makeUnchangedBlock("aabc\n"));
+		
+		commandClient.copyToRight(blocks.getLeft(), blocks.getRight(), 1);
+		commandClient.undo();
+		String s = pairBlocksToString(blocks);
+		assertEquals("x\ny\n\naabc\n \n\nd\naabc\n", s);
+	}
+	
+	//정상적인 형태의 임의의 case
+	//USU
+	@Test
+	public void testUndoCase21() {
+		blocks.getLeft().add(makeUnchangedBlock("aabc\n"));
+		blocks.getLeft().add(makeSpaceBlock("\n"));
+		blocks.getLeft().add(makeUnchangedBlock("aabc\n"));
+		
+		blocks.getRight().add(makeUnchangedBlock("aabc\n"));
+		blocks.getRight().add(makeChangedBlock("d\n"));
+		blocks.getRight().add(makeUnchangedBlock("aabc\n"));
+		
+		commandClient.copyToRight(blocks.getLeft(), blocks.getRight(), 1);
+		commandClient.undo();
+		String s = pairBlocksToString(blocks);
+		assertEquals("aabc\n\naabc\n aabc\nd\naabc\n", s);
+	}
+	
+	//정상적인 형태의 임의의 case
+	//CSC
+	@Test
+	public void testUndoCase22() {
+		blocks.getLeft().add(makeChangedBlock("x\ny\n"));
+		blocks.getLeft().add(makeSpaceBlock("\n"));
+		blocks.getLeft().add(makeChangedBlock("x\ny\n"));
+		
+		blocks.getRight().add(makeSpaceBlock("\n\n"));
+		blocks.getRight().add(makeChangedBlock("d\n"));
+		blocks.getRight().add(makeSpaceBlock("\n\n"));
+		
+		commandClient.copyToRight(blocks.getLeft(), blocks.getRight(), 1);
+		commandClient.undo();
+		String s = pairBlocksToString(blocks);
+		assertEquals("x\ny\n\nx\ny\n \n\nd\n\n\n", s);
+	}
+	
+	// UCU, UCS, SCU, SCS
+	
+	//정상적인 형태의 임의의 case
+	//UCU
+	@Test
+	public void testUndoCase23() {
+		blocks.getLeft().add(makeUnchangedBlock("aabc\n"));
+		blocks.getLeft().add(makeChangedBlock("x\ny\n"));
+		blocks.getLeft().add(makeUnchangedBlock("aabc\n"));
+		
+		blocks.getRight().add(makeUnchangedBlock("aabc\n"));
+		blocks.getRight().add(makeSpaceBlock("\n\n"));
+		blocks.getRight().add(makeUnchangedBlock("aabc\n"));
+		
+		commandClient.copyToRight(blocks.getLeft(), blocks.getRight(), 1);
+		commandClient.undo();
+		String s = pairBlocksToString(blocks);
+		assertEquals("aabc\nx\ny\naabc\n aabc\n\n\naabc\n", s);
+	}
+	
+	//정상적인 형태의 임의의 case
+	//UCS
+	@Test
+	public void testUndoCase24() {
+		blocks.getLeft().add(makeUnchangedBlock("aabc\n"));
+		blocks.getLeft().add(makeChangedBlock("x\ny\n"));
+		blocks.getLeft().add(makeSpaceBlock("\n"));
+		
+		blocks.getRight().add(makeUnchangedBlock("aabc\n"));
+		blocks.getRight().add(makeSpaceBlock("\n\n"));
+		blocks.getRight().add(makeChangedBlock("d\n"));
+		
+		commandClient.copyToRight(blocks.getLeft(), blocks.getRight(), 1);
+		commandClient.undo();
+		String s = pairBlocksToString(blocks);
+		assertEquals("aabc\nx\ny\n\n aabc\n\n\nd\n", s);
+	}
+	
+	//정상적인 형태의 임의의 case
+	//SCU
+	@Test
+	public void testUndoCase25() {
+		blocks.getLeft().add(makeSpaceBlock("\n"));
+		blocks.getLeft().add(makeChangedBlock("x\ny\n"));
+		blocks.getLeft().add(makeUnchangedBlock("aabc\n"));
+		
+		blocks.getRight().add(makeChangedBlock("d\n"));
+		blocks.getRight().add(makeSpaceBlock("\n\n"));
+		blocks.getRight().add(makeUnchangedBlock("aabc\n"));
+		
+		commandClient.copyToRight(blocks.getLeft(), blocks.getRight(), 1);
+		commandClient.undo();
+		String s = pairBlocksToString(blocks);
+		assertEquals("\nx\ny\naabc\n d\n\n\naabc\n", s);
+	}
+	
+	//정상적인 형태의 임의의 case
+	//SCS
+	@Test
+	public void testUndoCase26() {		
+		blocks.getLeft().add(makeSpaceBlock("\n"));
+		blocks.getLeft().add(makeChangedBlock("x\ny\n"));
+		blocks.getLeft().add(makeSpaceBlock("\n"));
+		
+		blocks.getRight().add(makeChangedBlock("d\n"));
+		blocks.getRight().add(makeSpaceBlock("\n\n"));
+		blocks.getRight().add(makeChangedBlock("d\n"));
+		
+		commandClient.copyToRight(blocks.getLeft(), blocks.getRight(), 1);
+		commandClient.undo();
+		String s = pairBlocksToString(blocks);
+		assertEquals("\nx\ny\n\n d\n\n\nd\n", s);
 	}
 }

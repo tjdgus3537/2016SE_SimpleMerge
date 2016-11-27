@@ -17,6 +17,7 @@ public class CopyToRightCommand implements Command{
 	private ArrayList<Block> beforeCopyLeftBlocks;
 	private ArrayList<Block> beforeCopyRightBlocks;
 	private boolean willRemoveToUndo;
+	private int blockNumforLog;
 	
 	//합칠 block 번호 전달.
 	public CopyToRightCommand(List<Block> left, List<Block> right, int blockNum) {
@@ -26,8 +27,8 @@ public class CopyToRightCommand implements Command{
 		beforeCopyLeftBlocks = new ArrayList<Block>();
 		beforeCopyRightBlocks = new ArrayList<Block>();
 		willRemoveToUndo = true;
+		blockNumforLog = blockNum;
 	}
-
 
 	@Override
 	public void execute() {
@@ -39,7 +40,7 @@ public class CopyToRightCommand implements Command{
 		if(blockNum < 0 || blockNum >= right.size())
 			return;
 		
-		//unchanged 상황에서는 copyToLeft가 실행이 되든 안 되든 결과는 동일하므로 아무 작업을 하지 않는다.
+		//unchanged 상황에서는 copyToRight가 실행이 되든 안 되든 결과는 동일하므로 아무 작업을 하지 않는다.
 		if(right.get(blockNum).getState() == CompState.UNCHANGED)
 			return;
 		
@@ -64,7 +65,9 @@ public class CopyToRightCommand implements Command{
 			
 			left.remove(blockNum + 1);
 			
+			int tmp = blockNum;
 			updateBlocksChangedCase(left, beforeCopyLeftBlocks);
+			blockNum = tmp;
 			updateBlocksChangedCase(right, beforeCopyRightBlocks);
 		}
 		else {
@@ -78,7 +81,9 @@ public class CopyToRightCommand implements Command{
 			//remove만 하고 update가 안 되는 경우 undo할 때 block을 지우면 안 됨
 			willRemoveToUndo = false;
 			
+			int tmp = blockNum;
 			updateBlocksSpaceCase(left, beforeCopyLeftBlocks);
+			blockNum = tmp;
 			updateBlocksSpaceCase(right, beforeCopyRightBlocks);
 		}
 	}
@@ -102,9 +107,7 @@ public class CopyToRightCommand implements Command{
 
 	@Override
 	public String getLog() {
-		//TODO:구현해야함
-		//return "copy result : " + left.get(blockNum - 1).getContent();
-		return null;
+		return "copy to Right : " + String.valueOf(blockNumforLog) + "th block\n";
 	}
 	
 	private void updateBlocksChangedCase(List<Block> blocks, List<Block> beforeBlocks) {
@@ -133,7 +136,7 @@ public class CopyToRightCommand implements Command{
 			willRemoveToUndo = true;
 			
 			Block block = new Block(CompState.UNCHANGED, blocks.get(blockNum - 1).getContent() + blocks.get(blockNum).getContent());
-			beforeBlocks.add(blocks.get(blockNum - 1));
+			beforeBlocks.add(0, blocks.get(blockNum - 1));
 			beforeBlocks.add(blocks.get(blockNum));
 			blocks.remove(blockNum);
 			blocks.remove(blockNum - 1);

@@ -1,5 +1,8 @@
 package model.diff;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 
 /**
@@ -29,7 +32,18 @@ public class CommandInvoker {
 	}
 	
 	public void createLog() {
-		//TODO:파일에 써줍시다.
+		try {
+			BufferedWriter out = new BufferedWriter(new FileWriter("log.txt"));
+			
+			//이터레이터를 사용함(copyToLeftCommand인지 copyToRightCommand인지 구분할 필요 X)
+			for(Command command : commands) {
+				out.write(command.getLog());
+			}
+			
+			out.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	public void clearList() {
