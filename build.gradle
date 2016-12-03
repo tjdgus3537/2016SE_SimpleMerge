@@ -21,10 +21,14 @@ task fatJar(type: Jar) {
     manifest {
         attributes ("Implementation-Title": "2016DP_SimpleMerge",
                 "Implementation-Version": version,
-                "Main-Class": "AppMain")
+                "Main-Class": mainClassName)
     }
     baseName = project.name + '-all'
-    from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
+    from ( {configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }} ){
+        exclude "META-INF/*.SF"
+        exclude "META-INF/*.DSA"
+        exclude "META-INF/*.RSA"
+    }
     with jar
 }
 
