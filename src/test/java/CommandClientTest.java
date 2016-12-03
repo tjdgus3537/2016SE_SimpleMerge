@@ -1,5 +1,9 @@
 import static org.junit.Assert.*;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.util.ArrayList;
 
 import org.junit.Before;
@@ -764,5 +768,82 @@ public class CommandClientTest {
 		commandClient.undo();
 		String s = pairBlocksToString(blocks);
 		assertEquals("\nx\ny\n\n d\n\n\nd\n", s);
+	}
+	
+	//정상적인 형태의 log case 1
+	@Test
+	public void testLogCase1() {
+		//기존 파일 삭제
+		File file = new File("log.txt");
+		file.delete();
+		
+		blocks.getLeft().add(makeSpaceBlock("\n"));
+		blocks.getLeft().add(makeChangedBlock("x\ny\n"));
+		blocks.getLeft().add(makeSpaceBlock("\n"));
+		
+		blocks.getRight().add(makeChangedBlock("d\n"));
+		blocks.getRight().add(makeSpaceBlock("\n\n"));
+		blocks.getRight().add(makeChangedBlock("d\n"));
+		
+		commandClient.copyToRight(blocks.getLeft(), blocks.getRight(), 1);
+		commandClient.createLog();
+
+		String s;
+		String str = "";
+		
+		try {
+			BufferedReader in = new BufferedReader(new FileReader("log.txt"));
+			
+	        while ((s = in.readLine()) != null) {
+	          str += s;
+	        }
+	        in.close();
+	        
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		//readLine 때문에 \n은 먹힘
+		assertEquals("copy to Right : 1th block", str);
+	}
+	
+	//정상적인 형태의 log case 2
+	@Test
+	public void testLogCase2() {
+		//기존 파일 삭제
+		File file = new File("log.txt");
+		file.delete();
+		
+		blocks.getLeft().add(makeSpaceBlock("\n"));
+		blocks.getLeft().add(makeChangedBlock("x\ny\n"));
+		blocks.getLeft().add(makeSpaceBlock("\n"));
+		
+		blocks.getRight().add(makeChangedBlock("d\n"));
+		blocks.getRight().add(makeSpaceBlock("\n\n"));
+		blocks.getRight().add(makeChangedBlock("d\n"));
+		
+		commandClient.copyToRight(blocks.getLeft(), blocks.getRight(), 1);
+		commandClient.copyToLeft(blocks.getLeft(), blocks.getRight(), 0);
+		commandClient.createLog();
+
+		String s;
+		String str = "";
+		
+		try {
+			BufferedReader in = new BufferedReader(new FileReader("log.txt"));
+			
+	        while ((s = in.readLine()) != null) {
+	          str += s;
+	        }
+	        in.close();
+	        
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		//readLine 때문에 \n은 먹힘
+		assertEquals("copy to Right : 1th blockcopy to Left : 0th block", str);
 	}
 }
