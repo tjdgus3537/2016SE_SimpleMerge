@@ -12,7 +12,7 @@ public class KoreanAlertFactory implements AlertFactory{
 
     public static KoreanAlertFactory getInstance(){
         if(instance == null){
-            synchronized (EnglishAlertFactory.class){
+            synchronized (KoreanAlertFactory.class){
                 if(instance == null){
                     instance = new KoreanAlertFactory();
                 }

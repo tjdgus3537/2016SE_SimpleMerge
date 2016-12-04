@@ -19,7 +19,7 @@ import java.util.stream.Collector;
  *
  * 프로그램에서 비교할 파일을 읽어오는 객체의 추상클래스
  */
-public abstract class AbstractComparisionTargetLoader {
+public abstract class AbstractComparisonTargetLoader {
     public void load(File source, ComparisonTargetInterface destination) throws IOException {
         Charset charset = detectEncoding(source);
         String content = null;

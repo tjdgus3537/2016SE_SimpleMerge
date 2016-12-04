@@ -12,7 +12,8 @@ import java.io.File;
  *
  * 프로그램에서 비교할 파일을 읽어오는 객체
  */
-public class ComparisonTargetLoader extends AbstractComparisionTargetLoader{
+public class ComparisonTargetLoader extends AbstractComparisonTargetLoader {
+
 	@Override
 	protected DocumentExtensionBasedContentParser getDocumentExtensionBasedContentParser(File file) {
 		// TODO 지원되는 확장자에 따라 구분하는 코드 추가
@@ -21,4 +22,5 @@ public class ComparisonTargetLoader extends AbstractComparisionTargetLoader{
 		if(file.getName().endsWith(".odt")){ return new ODTParser(); }
 		return null;
 	}
+
 }
