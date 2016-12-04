@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.net.*?>
-<?import javafx.scene.control.*?>
-<?import java.lang.*?>
-<?import javafx.scene.layout.*?>
 <?import java.net.URL?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ScrollBar?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.ToolBar?>
+<?import javafx.scene.control.Tooltip?>
+<?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane id="root-pane" styleClass="background" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.mainWindow.MainWindowFXController">
+<AnchorPane id="root-pane" styleClass="background" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.mainWindow.MainWindowFXController">
    <children>
       <ToolBar nodeOrientation="LEFT_TO_RIGHT" styleClass="background" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <items>
@@ -27,12 +29,12 @@
             </Button>
              <Button id="undo-button" fx:id="undoButton" disable="true" mnemonicParsing="false" onAction="#handleUndoButtonAction">
                  <tooltip>
-                     <Tooltip text="Undo"/>
+                     <Tooltip text="Undo" />
                  </tooltip>
              </Button>
          </items>
       </ToolBar>
-      <SplitPane fx:id="editorSplitPane" nodeOrientation="LEFT_TO_RIGHT" styleClass="background" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="40.0" />
+      <SplitPane id="splitPane" fx:id="editorSplitPane" nodeOrientation="LEFT_TO_RIGHT" styleClass="background" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="40.0" />
       <ScrollBar id="compare-view-scroll-bar" fx:id="compareViewScrollBar" disable="true" min="0" orientation="VERTICAL" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="40.0" />
    </children>
     <stylesheets>

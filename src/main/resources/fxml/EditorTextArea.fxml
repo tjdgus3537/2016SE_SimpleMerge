@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.net.*?>
-<?import javafx.scene.control.*?>
-<?import java.lang.*?>
 <?import java.net.URL?>
-<TextArea fx:id="editorTextArea" editable="false" styleClass="background" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.mainWindow.editorPane.textArea.EditorTextAreaFXController">
+<?import javafx.scene.control.TextArea?>
+
+<TextArea id="textarea" fx:id="editorTextArea" editable="false" styleClass="background" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.mainWindow.editorPane.textArea.EditorTextAreaFXController">
     <stylesheets>
-        <URL value="@css/EditorTextArea.css"/>
+        <URL value="@css/EditorTextArea.css" />
     </stylesheets>
 </TextArea>
